@@ -1,0 +1,25 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Secrets (API keys)
+.env
+
+# Source PDFs: we link to official sources, not re-host them (manifest.jsonl stays tracked)
+docs/**/*.pdf
+.DS_Store
+
+# Extracted text of the source documents (made by taxowl.extract; same reason as the PDFs)
+data/
+sep_docs/
+# Page images for checking by eye (made by evals/draw_heldout.py, ingestion/review_flagged.py).
+# Re-creatable, large, and some are pages of the ICAI Rules book, which we don't re-host.
+evals/heldout_pages*/
+ingestion/flagged_review/*.png

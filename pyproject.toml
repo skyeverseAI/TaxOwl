@@ -1,0 +1,22 @@
+[project]
+name = "taxowl"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Akash Aggarwal", email = "akashnikku1234@gmail.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "ocrmac>=1.0.1",
+    "onnxruntime>=1.31.0",
+    "pymupdf>=2.0",
+    "rapidocr>=3.10.0",
+]
+
+[project.scripts]
+taxowl = "taxowl:main"
+
+[build-system]
+requires = ["uv_build>=0.12.7,<0.13.0"]
+build-backend = "uv_build"
