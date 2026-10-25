@@ -1,0 +1,204 @@
+Instruction No. 03/2022-GST
+F. No. CBEC-20/16/35/2019-GST
+Government of India
+Ministry of Finance
+Department of Revenue
+Central Board of Indirect Taxes & Customs
+GST Policy Wing
+*****
+New Delhi dated the 14 June, 2022
+To,
+The Principal Chief Commissioners / Chief Commissioners / Principal Commissioners /
+Commissioners of Central Tax (All)
+The Principal Directors General / Directors General (All)
+Madam/Sir,
+Subject: Procedure relating to sanction, post-audit and review of refund claims- reg.
+Attention is invited to sub-section (2) of section 107 of the Central Goods and Services
+Tax Act, 2017 (hereinafter referred to as "CGST Act') which provides that the Commissioner
+may review any decision or order, including an order of refund, with respect to its legality or
+propriety and he may direct any officer subordinate to him to file an appeal against the said
+decision or order within 6 months of the date of communication of the said decision or order.
+Reference is further drawn to entry against the subject pre-audit in table under para 3.3 of the
+Circular 17/17/2017-GST dated 15.11.2017 wherein it has been stated that pre-audit of refund
+orders is not required to be carried out but the post-audit of the refund orders may, however,
+continue on the basis of extant guidelines.
+2. Subsequently, Board has been receiving reports of different practices being followed
+by the field formations regarding sanction, review and post-audit of refund claims. In certain
+Commissionerates, speaking order is being issued in respect of all refund claims, whereas in
+others, speaking orders are not being issued if the refund is sanctioned in full. Similarly, in case
+of review and post-audit, different practices are being followed by the field formations. The
+matter has been examined with the twin purpose of ensuring uniformity in procedure and
+enabling effective monitoring of sanction of refund claims in order to safeguard interest of
+revenue. Accordingly, the Board hereby issues the following instructions/guidelines for
+sanction, post-audit and review of refunds:
+Page 1 of 6
+
+Instruction No. 03/2022-GS1
+2.1 Sanction of Refund
+2.1.1 Detailed guidelines for processing of refund claims in GST have been issued by the
+Board vide Circular No. 17/17/2017 -GST dated 15.11.2017 (for manual processing of
+refunds) and Circular No. 125/44/2019-GST dated 18.11.2019 (for electronic filing and online
+processing of refunds) to ensure uniformity in processing of refund claims. In both of these
+Circulars, it has been mentioned that the proper officer shall follow the principle of natural
+justice before taking the final decision with regard to refund claim. Principle of natural justice
+inter-alia provides that a detailed speaking order needs to be issued providing a basis for
+sanction/rejection of refund. Therefore, while passing the refund sanction order in FORM GST
+RFD-06, the proper officer should also upload a detailed speaking order along with refund
+sanction order in FORM GST RFD-06. In order to ensure uniformity in issuance of such
+speaking order, it is clarified that such speaking order should inter alia contain the following
+details:
+A. Details for all category of refund claims:
+a) The period for which refund claim has been filed, date of filing & the category in which
+refund has been claimed.
+b) Whether it has been checked that refund claim for the same period has not been filed in
+the same category including any claim filed under 'Any Other Category.
+c) Details of Deficiency Memo, if any, in FORM GST RFD-03 issued in respect of the
+said refund claim previously.
+d) Whether the refund claim has been filed within limitation of time, as provided under
+CGST Act and Rules thereof, including in the cases, where Deficiency Memo in FORM
+GST RFD-03 had been issued previously.
+e) Details of the documents/ statements uploaded along with the refund claim. Whether
+all the necessary documents have been uploaded with the refund claim in terms of rule
+89(2) of the CGST Rules. Details of document furnished by the applicant via e-mail/ in
+soft copy/ in hard copy, if any, may also be provided.
+f) Whether all the due returns have been filed by the applicant or not, whether any dues
+are pending recovery from the applicant, and whether refund is required to be withheld/
+any amount is required to be deducted as per provisions of section 54(10) of CGST Act
+on account of non-filing of returns or dues being pending for recovery from the
+applicant.
+g) Whether any SCN was issued to the applicant. Details of reply of the applicant and PH
+details.
+h) Discussion and findings in respect of applicant submission. Details of case laws relied
+upon in deciding the matter, if any.
+i) Whether provisions of unjust enrichment are applicable or not in terms of the provisions
+of section 54(8) of the CGST Act. If unjust enrichment is applicable in the refund,
+whether the applicant has furnished due documents/ certificates, in terms of clause (b)
+of section 54(4) of CGST Act, certifying/ establishing not passing burden of tax, in
+respect of which refund is being claimed, on any other person.
+Page 2 of 6
+
+Instruction No. 03/2022-GST
+B. Additional details in case of the refund of accumulated ITC (on account of zero-
+rated supplies/ inverted rated structure) and refund of IGST paid on account of
+zero-rated supplies:
+a) Whether the refund amount claimed has been debited from the electronic credit ledger,
+in terms of sub-rule (3) of rule 89 of CGST Rules.
+b) In case of refund of IGST paid on account of zero-rated supplies, whether the amount
+of IGST has been paid through GSTR-3B return.
+c) Whether the calculation given by the applicant of export/ zero-rated turnover, adjusted
+aggregate turnover, turnover of inverted duty supplies, as applicable, is correct as per
+the relevant provisions.
+d) Whether calculation of Net ITC, where ever applicable, is correct as per the relevant
+provisions. Also, whether the verification of admissibility of ITC as per the provisions
+of GST Law has been done or not and the findings thereof.
+e) Whether it has been verified that ITC on capital goods has not been included in
+calculation of Net ITC for refund of ITC in zero rated supplies.
+f) Whether it has been verified that ITC in respect of input services as well as capital
+goods is not included in calculation of Net ITC in case of inverted tax structure refund.
+g) Whether refund has been restricted to the ITC as per those invoices, details of which
+are uploaded by the supplier in FORM GSTR-1 and are reflected in FORM GSTR-2A
+of the applicant in terms of Circular No. 135/05/2020-GST dated 31.03.2020.
+h) Whether the refund is barred under the provisions of 2nd and 3rd proviso to section 54(3)
+of the CGST Act, 2017.
+i) Details of computation of refund claim amount as per the relevant provisions/
+prescribed formula in the Act/ Rules and verification whether the refund amount
+claimed is correct or not.
+j) In case of refund on account of inversion, whether the supply qualifies for refund of
+unutilised ITC under clause (ii) of 1s proviso to section 54(3) of the CGST Act, 2017.
+k) In case of refund on account of export of goods, whether the details of shipping bill/
+bill of exports, where ever applicable, have been verified from the ICEGATE portal.
+1) In case of refund on account of export of services, whether the claimant has furnished
+the BRC/FIRC/ other relevant documents evidencing receipt of export remittances in
+respect of zero-rated services for which refund is being claimed.
+m) In case of refund on account of zero-rated supply by DTA to SEZ, whether the said
+supply is meant for authorized operations on the basis of Letter of Authorisation (LoA).
+Further, whether the details of supply by the applicant to the SEZ have been cross
+checked from the SEZ Online portal.
+n) Whether the documents pertaining to zero-rated supply to SEZ have been endorsed by
+the specified/authorized officer of the zone.
+o) Whether the DTA supplier has received the payment from the SEZ recipient in case of
+supply of services to SEL.
+Page 3 ot 6
+
+Instruction No. 03/2022-GST
+C. Additional details in case of refund of tax paid on supplies regarded as deemed
+export:
+a) Whether necessary procedure was followed while making procurement/supplying of
+goods regarded as deemed exports.
+b) Whether the ITC claimed against the tax paid on such deemed export supplies has been
+debited from the electronic credit ledger by the recipient for filing application of refund.
+c) Whether it has been verified that no ITC has been claimed by the recipient when refund
+is claimed by supplier.
+D. Additional details in case of refund of excess balance in cash ledger:
+a) Whether the amount claimed has been debited from the electronic cash ledger.
+b) Whether the amount to be refunded has been calculated in accordance with the
+provisions of section 49(6) of CGST Act.
+E. Additional details in case of refund filed under the other categories of refund
+except those mentioned above:
+a) Whether the documents furnished/uploaded along with the refund claim have been
+verified for their correctness from the source like FORM GSTR-1, FORM GSTR-3B,
+ICEGATE portal etc., where ever required.
+b) Details of the verification conducted and reasoning for grant/ rejection of refund.
+c) In case of refund ITC filed under "Any Other" category, whether the amount claimed
+has been debited from the electronic credit ledger, wherever required.
+2.1.2 It is mentioned that ACES-GST portal provides the facility for uploading a document
+in pdf format along with the FORM GST RFD-06 order. The same may be utilized by proper
+officer for uploading the speaking order along with refund sanction order in FORM GST RFD-
+06 so that the same is made available to the refund applicant as well as Post-audit/Reviewing
+Authority online.
+2.2 Post-Audit and Review:
+2.2.1 Sub-section (2) of section 107 of the CGST Act provides that the Commissioner may
+examine any decision or order, including an order of refund, with respect to its legality or
+propriety and he may direct any officer subordinate to him to file an appeal against the said
+decision or order within 6 months of the date of communication of the said decision or order.
+The said sub-section is reproduced below:
+(2) The Commissioner may, on his own motion, or upon request from the Commissioner
+of State tax or the Commissioner of Union territory tax, call for and examine the record
+of any proceedings in which an adjudicating authority has passed any decision or order
+Page 4 of 6
+
+Instruction No. 03/2022-GST
+under this Act or the State Goods and Services Tax Act or the Union Territory Goods
+and Services Tax Act, for the purpose of satisfying himself as to the legality or propriety
+of the said decision or order and may, by order, direct any officer subordinate to him
+to apply to the Appellate Authority within six months from the date of communication
+of the said decision or order for the determination of such points arising out of the said
+decision or order as may be specified by the Commissioner in his order.
+2.2.2 Accordingly, as per extant practice, all refund orders are required to be reviewed
+for examination of legality and propriety of the refund order and for taking a view
+whether an appeal to the appellate authority under provisions of sub-section (2) of section
+107 of the CGST Act is required to be filed against the said refund order.
+2.2.3 As already mentioned in Circular No. 17/17/2017-GST dated 15.11.2017, refund claims
+shall not be subjected to pre-audit. However, the post-audit of refund claims may continue.
+Considering the large number of refund claims filed in GST, it has been decided that post-
+audit may henceforth be conducted only for refund claims amounting to Rs. 1 Lakh or
+more till further instructions.
+2.2.4 The post-audit and review of the refund claims shall be conducted as per the following
+guidelines:
+(a) All the refund orders passed should be immediately transmitted online to the review
+module after issuance of refund order in FORM GST RFD-06. The review and post-
+audit officers shall have access to all documents/ statements on ACES-GST portal
+pertaining to the said refund claims.
+(b) For the purpose of post-audit of refund order, a Post-Audit Cell under a
+Deputy/Assistant Commissioner along with one/ two Superintendents and Inspectors
+as required, may be created in Commissionerate Headquarters.
+(c) The post-audit should be concluded within 3 months from the date of issue of FORM
+GST RFD-06 order. The findings of the post-audit shall be communicated to the review
+branch within the said time period of 3 months.
+(d) The review of refund order shall be completed at least 30 days before the expiry of
+the time period allowed for filing appeal under Section 107(2) of the CGST Act.
+2.2.5 Till the time the functionality for conducting post-audit online is developed on ACES-
+GST portal, post-audit of refund orders may be conducted in offline mode. For the said purpose,
+the refund orders covered under para 2.2.3 above and the relevant documents may be provided
+to the post-audit cell by the concerned Division through e-Office within 7 days of issuance of
+refund sanction order in FORM GST RFD-06. The report of the post audit may be furnished
+by the Post-Audit Cell to the Review Cell through e-Office as per the time-limit specified in
+para 2.2.4(c) above.
+Page 5 of 6
+
+Instruction No. 03/2022-GST
+3. Difficulty, if any, in the implementation of these instructions/guidelines may be brought
+to the notice of the Board. 14/6/1022
+(Sanjay Mangal)
+Principal Commissioner (GST)
+Page 6 of 6
