@@ -1,0 +1,366 @@
+{
+  "_about": [
+    "Gold set for the ingestion harness (plans/plan_ingestion.md, C3): what a CORRECT extraction of these pages must contain.",
+    "Written from page images, not from any extractor's output, so it can't inherit an extractor's mistakes.",
+    "Each check is a small fact that is easy to verify against the PDF, instead of a full transcription.",
+    "How to match: ignore all whitespace (PDFs break words: 'Haryan a', 'apportionmen t'); everything else exact, including case.",
+    "  text_has     phrases that must appear in the page text (outside tables), in this order",
+    "  text_not     things that must NOT appear: page headers/footers repeated on every page",
+    "  numbers      must appear exactly somewhere in the output (text or tables)",
+    "  tables       expected tables. 'headings': per column, phrases its heading must contain (two-row headings combined).",
+    "               A heading phrase must match exactly one column. 'cells': [row (1-based), heading phrase, text the cell must contain].",
+    "               'rows' is exact; 'rows_min' when the table continues past the pages checked here.",
+    "               'inside': the table sits in a cell of another table (nested)",
+    "Status: drafted by Claude from page images, 2026-10-27; all 11 entries checked against the PDFs by the user the same day ('verified': true)."
+  ],
+  "pages": [
+    {
+      "id": "254-table-I-merged",
+      "file": "circulars/2025/254-11-2025-GST.pdf",
+      "pages": [2],
+      "why": "Merged cells: one 'Functions' cell covers officers a, b and c; S. No. '1.' also covers all three. Column-number row (1)(2)(3) is not data.",
+      "verified": true,
+      "text_has": [
+        "3. In exercise of the powers conferred by clause (91) of section 2 of the CGST Act",
+        "Table-I",
+        "4. Whereas, for optimal distribution of work",
+        "5.1 Therefore, in pursuance of clause (91) of section 2"
+      ],
+      "text_not": ["Page 2 of 6"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 3,
+          "headings": [["S. No."], ["Designation of the officer"], ["Functions under Section of the Central Goods and Services Tax Act, 2017 or the rules made thereunder"]],
+          "cells": [
+            [1, "S.", "1."],
+            [1, "Designation of the officer", "a. Additional or Joint Commissioner of Central Tax"],
+            [2, "Designation of the officer", "b. Deputy or Assistant Commissioner of Central Tax"],
+            [3, "Designation of the officer", "c. Superintendent of Central Tax"],
+            [3, "S.", "1."],
+            [1, "Functions under Section", "Sub-sections (1), (2), (3), (6), (7), (8), (9) and (10) of Section 74 A"],
+            [2, "Functions under Section", "Section 122."],
+            [3, "Functions under Section", "Rule 142(1A) of the CGST Rules, 2017"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "254-table-III-split",
+      "file": "circulars/2025/254-11-2025-GST.pdf",
+      "pages": [5, 6],
+      "why": "Table split across pages, and even its HEADINGS continue onto page 6 ('vide section 20 of the IGST Act').",
+      "verified": true,
+      "text_has": [
+        "6. Section 75(2) of CGST Act provides",
+        "7.1. Further, in pursuance of clause (91) of section 2",
+        "Table-III",
+        "Monetary limit for issuance of show cause notices and passing of orders under section 122 of CGST Act",
+        "7.2 It is also clarified that where a show cause notice is issued under section 122",
+        "8. It is requested that suitable trade notices",
+        "9. Difficulty, if any, in implementation"
+      ],
+      "text_not": ["Page 5 of 6", "Page 6 of 6"],
+      "tables": [
+        {
+          "pages": [5, 6],
+          "columns": 5,
+          "rows": 3,
+          "headings": [
+            ["Sl. No."],
+            ["Officer of Central Tax"],
+            ["Monetary limit of the amount of penalty in relation to the Central Tax for issuance of show cause notices involving only penalty and passing of orders under section 122 of CGST Act"],
+            ["Monetary limit of the amount of penalty in relation to the Integrated Tax for issuance of show cause notices involving only penalty and passing of orders under section 122 of CGST Act made applicable to matters in relation to Integrated Tax vide section 20 of the IGST Act"],
+            ["Monetary limit of the amount of penalty in relation to the Central Tax and Integrated Tax for issuance of show cause notices involving only penalty and passing of orders under section 122 of CGST Act made applicable to matters in relation to Integrated Tax vide section 20 of the IGST Act"]
+          ],
+          "cells": [
+            [1, "Officer of Central Tax", "Superintendent of Central Tax"],
+            [1, "penalty in relation to the Central Tax for issuance", "Not exceeding Rupees 10 lakh"],
+            [1, "penalty in relation to the Integrated Tax for issuance", "Not exceeding Rupees 20 lakh"],
+            [2, "Officer of Central Tax", "Deputy or Assistant Commissioner of Central Tax"],
+            [2, "penalty in relation to the Central Tax for issuance", "Above Rupees 10 lakh and not exceeding Rupees 1 crore"],
+            [2, "Central Tax and Integrated Tax", "Above Rupees 20 lakh and not exceeding Rupees 2 crore"],
+            [3, "Officer of Central Tax", "Additional or Joint Commissioner of Central Tax"],
+            [3, "Central Tax and Integrated Tax", "Above Rupees 2 crore without any limit"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "238-qa-table-start",
+      "file": "circulars/2024/238-32-2024-GST.pdf",
+      "pages": [8, 9],
+      "why": "Start of the 7-page Q&A table (pages 8-14). Row 2 is cut by the page break: its Issue and Clarification continue on page 9 and must stay ONE row.",
+      "verified": true,
+      "text_has": [
+        "3.4.4 Where appeal had been withdrawn before filing an application in FORM GST SPL-02",
+        "(c) in case, where the taxpayer does not prefer an appeal within the time period",
+        "4. Further, the following issues with respect to availing the benefit of waiver of interest or penalty or both provided under Section 128A"
+      ],
+      "text_not": ["Page 8 of 15", "Page 9 of 15"],
+      "tables": [
+        {
+          "pages": [8, 9],
+          "_note": "The table continues to page 14; only pages 8-9 are checked here, hence rows_min and not rows.",
+          "columns": 3,
+          "rows_min": 6,
+          "headings": [["S."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "S.", "1"],
+            [1, "Issue", "Whether the benefit provided under Section 128A will be applicable to taxpayers who have paid the tax component in full"],
+            [1, "Clarification", "shall be considered as paid towards the amount payable in sub-section (1) of Section 128A"],
+            [2, "Clarification", "Yes."],
+            [2, "Issue", "considered as tax paid towards the same for the purpose of Section 128A?"],
+            [2, "Clarification", "on or before the date notified under sub-section (1) of section 128A."],
+            [3, "S.", "3"],
+            [3, "Issue", "2017-18, 2018-19 and 2019-20"],
+            [3, "Clarification", "No. It is mentioned that as per the third proviso"],
+            [5, "Clarification", "No."],
+            [6, "S.", "6"],
+            [6, "Clarification", "as per sub-rule (4) of Rule 164"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "133-nested-numbers",
+      "file": "circulars/2020/133-03-2020-GST.pdf",
+      "pages": [5],
+      "why": "Nested table: a worked example (State / Tax Heads / amounts) inside the Clarification cell of the outer S.No/Issue/Clarification table. Numbers like 10,00,000 were damaged by plain extraction.",
+      "verified": true,
+      "text_not": ["Page 5 of 6", "Circular No.133 03/2020-GST"],
+      "numbers": ["10,00,000", "30,00,000", "15,00,000", "50,00,000", "35,00,000", "25,00,000", "3,00,000", "22,00,000", "5,00,000", "20,00,000", "70,00,000", "28,00,000", "42,00,000", "70%", "40%"],
+      "tables": [
+        {
+          "pages": [5],
+          "columns": 3,
+          "rows_min": 1,
+          "nested": true,
+          "headings": [],
+          "cells": [
+            [-1, "", "d."],
+            [-1, "", "(i) In order to calculate the amount of transferable ITC, the apportionment formula under proviso to rule 41(1)"],
+            [-1, "", "According to sub-section (3) of section 18 of the CGST Act"]
+          ],
+          "_note": "Outer table continues from page 4 (headings there). Row -1 = its last row on this page; heading phrase '' = any column."
+        },
+        {
+          "pages": [5],
+          "inside": "Clarification cell of the outer table's row (c), which starts on page 4",
+          "columns": 6,
+          "rows": 8,
+          "headings": [["State"], ["Asset Ratio of Transferee"], ["Tax Heads"], ["(pre-apportionment)"], ["Total amount of ITC transferred"], ["(post-apportionment)"]],
+          "cells": [
+            [1, "State", "Delhi"],
+            [4, "State", "Delhi"],
+            [5, "State", "Haryana"],
+            [8, "State", "Haryana"],
+            [1, "Asset Ratio of Transferee", "70%"],
+            [4, "Asset Ratio of Transferee", "70%"],
+            [5, "Asset Ratio of Transferee", "40%"],
+            [8, "Asset Ratio of Transferee", "40%"],
+            [1, "Tax Heads", "CGST"], [2, "Tax Heads", "SGST"], [3, "Tax Heads", "IGST"], [4, "Tax Heads", "Total"],
+            [5, "Tax Heads", "CGST"], [6, "Tax Heads", "SGST"], [7, "Tax Heads", "IGST"], [8, "Tax Heads", "Total"],
+            [1, "(pre-apportionment)", "10,00,000"], [1, "Total amount of ITC transferred", "10,00,000"], [1, "(post-apportionment)", "0"],
+            [2, "(pre-apportionment)", "10,00,000"], [2, "Total amount of ITC transferred", "10,00,000"], [2, "(post-apportionment)", "0"],
+            [3, "(pre-apportionment)", "30,00,000"], [3, "Total amount of ITC transferred", "15,00,000"], [3, "(post-apportionment)", "15,00,000"],
+            [4, "(pre-apportionment)", "50,00,000"], [4, "Total amount of ITC transferred", "35,00,000"], [4, "(post-apportionment)", "15,00,000"],
+            [5, "(pre-apportionment)", "25,00,000"], [5, "Total amount of ITC transferred", "3,00,000"], [5, "(post-apportionment)", "22,00,000"],
+            [6, "(pre-apportionment)", "25,00,000"], [6, "Total amount of ITC transferred", "5,00,000"], [6, "(post-apportionment)", "20,00,000"],
+            [7, "(pre-apportionment)", "20,00,000"], [7, "Total amount of ITC transferred", "20,00,000"], [7, "(post-apportionment)", "0"],
+            [8, "(pre-apportionment)", "70,00,000"], [8, "Total amount of ITC transferred", "28,00,000"], [8, "(post-apportionment)", "42,00,000"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "182-two-row-headings",
+      "file": "circulars/2022/182-14-2022-GST.pdf",
+      "pages": [13],
+      "why": "Two-row headings: 'Amount Claimed' / 'Amount Admissible' / 'Amount inadmissible' each over CGST | SGST/UTGST. Blank form cells.",
+      "verified": true,
+      "text_has": [
+        "(c) Details relating to Appellate Order:",
+        "Notes:",
+        "1) Add additional rows if required",
+        "4) Attach copies of the order of the appellate authority",
+        "4. Amount of credit claimed afresh/revised (as per TRAN-1/ TRAN-2 filed/ revised during the present window of two months)"
+      ],
+      "text_not": ["Page 13 of 14", "Circular No. 182/14/2022-GST"],
+      "tables": [
+        {
+          "pages": [13],
+          "columns": 4,
+          "rows": 3,
+          "headings": [[], ["TRAN-1/TRAN-2"], ["Findings of Appellate Authority"], ["Whether recovered"]],
+          "cells": [[1, "", "(a)"], [3, "", "(c)"]]
+        },
+        {
+          "pages": [13],
+          "columns": 9,
+          "rows": 5,
+          "headings": [
+            [],
+            ["Table"],
+            ["Amount Claimed", "CGST"],
+            ["Amount Claimed", "SGST/UTGST"],
+            ["Amount Admissible", "CGST"],
+            ["Amount Admissible", "SGST/UTGST"],
+            ["Amount inadmissible", "CGST"],
+            ["Amount inadmissible", "SGST/UTGST"],
+            ["Grounds of inadmissibility, along with the relevant provisions of law/ rules"]
+          ],
+          "cells": [
+            [1, "Table", "5(a) of TRAN -1"],
+            [2, "Table", "5(c) of TRAN-1"],
+            [3, "Table", "6(a) of TRAN-1"],
+            [4, "Table", "6(b) of TRAN-1"],
+            [5, "Table", "7(a)(7A) of TRAN-1"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "99-wide-headings",
+      "file": "circulars/2019/99-18-2019-GST.pdf",
+      "pages": [3],
+      "why": "8 columns with very long headings; PyMuPDF + our rules gave 49 junk rows here in the comparison.",
+      "verified": true,
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 8,
+          "rows": 3,
+          "headings": [
+            ["Return not furnished from"],
+            ["Date of order of cancellation of registration"],
+            ["Cancellation of registration effective from"],
+            ["Date of filing of application for revocation"],
+            ["Returns to be furnished before filing the application"],
+            ["Date of order of revocation of cancellation"],
+            ["Date of furnishing returns for period"],
+            ["Returns to be furnished within thirty days"]
+          ],
+          "_note": "Columns in order: 1 Return not furnished from, 2 Date of order of cancellation, 3 Cancellation effective from, 4 Date of filing of application for revocation, 5 Returns before filing the application, 6 Date of order of revocation, 7 Date of furnishing returns for period, 8 Returns within thirty days.",
+          "cells": [
+            [1, "Return not furnished from", "July, 18"],
+            [1, "Date of order of cancellation of registration", "01st March, 19"],
+            [1, "Cancellation of registration effective from", "01st March, 19"],
+            [1, "Date of filing of application for revocation", "30th May, 19"],
+            [1, "Returns to be furnished before filing the application", "Returns due till 01st March, 19 (i.e. July, 18 to January, 19)"],
+            [1, "Date of order of revocation of cancellation", "01st June, 19"],
+            [1, "Date of furnishing returns for period", "01st July, 19"],
+            [1, "Returns to be furnished within thirty days", "Returns due till 01st June, 19 (i.e. February, 19 to April, 19)"],
+            [2, "Return not furnished from", "July, 18"],
+            [2, "Date of order of cancellation of registration", "22nd March, 19"],
+            [2, "Cancellation of registration effective from", "22nd March, 19"],
+            [2, "Date of filing of application for revocation", "20th June, 19"],
+            [2, "Returns to be furnished before filing the application", "Returns due till 22nd March, 19 (i.e. July, 18 to February, 19)"],
+            [2, "Date of order of revocation of cancellation", "22nd June, 19"],
+            [2, "Date of furnishing returns for period", "22nd July, 19"],
+            [2, "Returns to be furnished within thirty days", "Returns due till 21st June, 19 (i.e. March, 19 to May, 19)"],
+            [3, "Return not furnished from", "July, 18"],
+            [3, "Date of order of cancellation of registration", "01st March, 19"],
+            [3, "Cancellation of registration effective from", "01st July, 18"],
+            [3, "Date of filing of application for revocation", "30th May, 19"],
+            [3, "Returns to be furnished before filing the application", "NA"],
+            [3, "Date of order of revocation of cancellation", "01st June, 19"],
+            [3, "Date of furnishing returns for period", "01st July, 19"],
+            [3, "Returns to be furnished within thirty days", "Returns due till 01st June, 19 (i.e. July, 18 to April, 19)"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "229-ocr-first-page",
+      "file": "circulars/2024/229-23-2024-GST.pdf",
+      "pages": [1],
+      "why": "Scanned page (OCR). Paragraph numbers 2. / 2.1 / 2.2 were the ones Apple OCR used to drop.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 229/23 /2024-GST",
+        "F. No. 190354/94/2024-TO(TRU-II)-CBEC",
+        "July, 2024",
+        "Subject: Clarification regarding GST rates & classification (goods) based on the recommendations of the GST Council",
+        "2. Clarification regarding GST rate on Solar Cookers:",
+        "2.1 Representations have been received seeking clarification",
+        "2.2 On the recommendations of GST Council, it is hereby clarified that solar cookers"
+      ],
+      "numbers": ["8516", "12%", "201A", "1/2017-Central Tax (Rate)", "168(1)"],
+      "tables": []
+    },
+    {
+      "id": "instruction-01-2024-ocr-tilted",
+      "file": "instructions/2024/Instruction-No.-01-2024-GST.pdf",
+      "pages": [2],
+      "why": "Tilted scan with a small-font line inside para 3.2; lines on tilted pages were once merged in the wrong order.",
+      "verified": true,
+      "text_has": [
+        "1.3 Only in exceptional cases, where it is necessary in the interest of revenue",
+        "2. It has been brought to the notice of the Board",
+        "3.1 As per Circular No. 3/3/2017- GST",
+        "3.2 Therefore, while recovery proceedings under sub-section (1) of section 79",
+        "shall examine the reasons/ justification given by the jurisdictional Deputy or Assistant Commissioner at the earliest",
+        "3.3 It is further mentioned that jurisdictional Principal Commissioner/ Commissioner"
+      ],
+      "text_not": ["Page 2 of 3", "Instruction No. 01/2024-GST"],
+      "tables": []
+    },
+    {
+      "id": "164-plain-text",
+      "file": "circulars/2021/164-20-2021-GST.pdf",
+      "pages": [1],
+      "why": "Ordinary born-digital page with a numbered list and NO table: nothing may be reported as a table. '45rd' is a typo in the PDF itself; we keep the source text as it is.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 164 /20 /2021-GST",
+        "October, 2021",
+        "Sub: Clarifications regarding applicable GST rates & exemptions on certain services",
+        "1. Services by cloud kitchens/central kitchens,",
+        "9. Services supplied by contract manufacture to brand owners",
+        "2. The issues have been examined by GST Council in the 45rd meeting",
+        "3. Services by cloud kitchens/central kitchens:",
+        "3.2 The word ‘restaurant service’ is defined in Notification No. 11/2017"
+      ],
+      "tables": []
+    },
+    {
+      "id": "act-section-16",
+      "file": "GST_act.pdf",
+      "pages": [30],
+      "why": "The Act: section heading, sub-sections, inserted clauses (aa)/(ba) with footnote markers, provisos, and footnotes that carry the amendment history.",
+      "verified": true,
+      "text_has": [
+        "CHAPTER V",
+        "16. Eligibility and conditions for taking input tax credit.",
+        "(2) Notwithstanding anything contained in this section",
+        "(aa) the details of the invoice or debit note referred to in clause (a)",
+        "(ba) the details of input tax credit in respect of the said supply communicated",
+        "(d) he has furnished the return under section 39:",
+        "Provided further that where a recipient fails to pay to the supplier",
+        "one hundred and eighty days",
+        "1. Ins. by Act 13 of 2021, s. 109 (w.e.f. 1-1-2022).",
+        "6. Subs. by Act 8 of 2023, s. 138"
+      ],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-36",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [219],
+      "why": "The Rules: rule heading, sub-rules, a substituted sub-rule (4) whose OLD text sits in the footnotes ('Prior to its substitution, it was read as').",
+      "verified": true,
+      "text_has": [
+        "CHAPTER V - INPUT TAX CREDIT",
+        "Rule 36. Documentary requirements and conditions for claiming input tax credit.",
+        "(1) The input tax credit shall be availed by a registered person, including the Input Service Distributor",
+        "(3) No input tax credit shall be availed by a registered person in respect of any tax that has been paid in pursuance of any order",
+        "(4) No input tax credit shall be availed by a registered person in respect of invoices or debit notes the details of which are required to be furnished under sub-section (1) of section 37 unless",
+        "Substituted vide Notification No. 40/2021 - CT dated 29.12.2021, w.e.f. 01.01.2022. Prior to its substitution, it was read as:"
+      ],
+      "numbers": ["5 per cent", "10 per cent", "20 per cent"],
+      "tables": []
+    }
+  ]
+}
