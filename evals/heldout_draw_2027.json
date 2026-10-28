@@ -1,0 +1,65 @@
+{
+  "seed": 2027,
+  "pages": [
+    {
+      "kind": "table",
+      "file": "circulars/2021/166-22-2021.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2027/01-table-166-22-2021-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2023/195-07-2023-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2027/02-table-195-07-2023-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2018/48-22-2018-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2027/03-table-48-22-2018-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2023/203-15-2023-GST.pdf",
+      "page": 3,
+      "image": "evals/heldout_pages_2027/04-table-203-15-2023-GST-p3.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2024/220-14-2024-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2027/05-table-220-14-2024-GST-p2.png"
+    },
+    {
+      "kind": "scan",
+      "file": "instructions/2026/Instruction-No.-01-2026-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2027/06-scan-Instruction-No.-01-2026-GST-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2023/191-03-2023.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2027/07-plain-191-03-2023-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "instructions/2024/Instruction-No.-03-2024-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2027/08-plain-Instruction-No.-03-2024-GST-p1.png"
+    },
+    {
+      "kind": "act",
+      "file": "GST_act.pdf",
+      "page": 38,
+      "image": "evals/heldout_pages_2027/09-act-GST_act-p38.png"
+    },
+    {
+      "kind": "rules",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "page": 279,
+      "image": "evals/heldout_pages_2027/10-rules-GST Act(s) and Rule(s)-Bare Law-p279.png"
+    }
+  ]
+}

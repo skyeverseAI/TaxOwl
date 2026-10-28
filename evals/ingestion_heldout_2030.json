@@ -1,0 +1,304 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2030: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2030` (list in evals/heldout_draw_2030.json); written from the page images in evals/heldout_pages_2030/ before any extractor output for these pages was looked at.",
+    "Dashes: phrases avoid the em dash after headings, since the PDFs store it inconsistently and the checker doesn't yet ignore dash style.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "147-refund-illustration-numeric-table",
+      "file": "circulars/2021/147-03-2021-GST.pdf",
+      "pages": [5],
+      "why": "Held-out table page: a worked refund illustration with a 5-column numeric table (bold headings, a bold Total row with empty cells, a formula in a cell), then a formula written as a fraction, two paras and a signature.",
+      "verified": true,
+      "text_has": [
+        "per unit of goods exported is more than 1.5 times the value of same/ similar goods in domestic market, as declared by the supplier:",
+        "Illustration: Suppose a supplier is manufacturing only one type of goods and is supplying the same goods in both domestic market and overseas.",
+        "Net admissible ITC = Rs. 270",
+        "All values in Rs.",
+        "The formula for calculation of refund as per Rule 89(4) is :",
+        "Refund Amount = (Turnover of zero-rated supply of goods + Turnover of zero-rated supply of services) x Net ITC",
+        "Turnover of Zero-rated supply of goods (as per amended definition) = Rs. 1500",
+        "Adjusted Total Turnover= Rs. 1000 + Rs. 1500 = Rs. 2500 [and not Rs. 1000 + Rs. 1750]",
+        "Thus, the admissible refund amount in the instant case is Rs. 162.",
+        "5. It is requested that suitable trade notices may be issued to publicize the contents of this Circular.",
+        "(Sanjay Mangal)",
+        "Commissioner (GST)"
+      ],
+      "numbers": ["1.5", "270", "1750", "2750", "162", "89(4)"],
+      "tables": [
+        {
+          "pages": [5],
+          "columns": 5,
+          "rows": 3,
+          "headings": [["Outward", "Supply"], ["Value per", "unit"], ["No of units", "supplied"], ["Turnover"], ["Turnover as per", "amended definition"]],
+          "cells": [
+            [1, "Outward", "Local (Quantity 5)"],
+            [1, "Value per", "200"],
+            [1, "No of units", "5"],
+            [1, "Turnover as per", "1000"],
+            [2, "Outward", "Export (Quantity 5)"],
+            [2, "Value per", "350"],
+            [2, "", "1750"],
+            [2, "Turnover as per", "1500 (1.5*5*200)"],
+            [3, "Outward", "Total"],
+            [3, "", "2750"],
+            [3, "Turnover as per", "2500"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "167-repeated-heading-then-four-rows",
+      "file": "circulars/2021/167-23-2021.pdf",
+      "pages": [3],
+      "why": "Held-out table page: the shaded heading row is repeated at the top, then the one-line tail of row 4 (must join the row above, not be a row), then rows 5-8 (row 8 runs onto p.4); a bold sentence inside a cell.",
+      "verified": true,
+      "numbers": ["9(5)"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 4,
+          "headings": [["Sl", "No"], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "Sl", "5."],
+            [1, "Issue", "Can the supplies of restaurant service made through ECOs be recorded as inward supply of ECOs (liable to reverse charge) in GSTR 3B?"],
+            [1, "Clarification", "No. ECOs are not the recipient of restaurant service supplied through them."],
+            [2, "Sl", "6."],
+            [2, "Issue", "Would ECOs be liable to reverse proportional input tax credit on his input goods and services for the reason that input tax credit is not admissible on 'restaurant service'?"],
+            [2, "Clarification", "GST in terms of section 9(5) of the Act."],
+            [2, "Clarification", "It may also be noted that on restaurant service, ECO shall pay the entire GST liability in cash (No ITC could be utilised for payment of GST on restaurant service supplied through ECO)"],
+            [3, "Sl", "7."],
+            [3, "Issue", "Can ECO utilize its Input Tax Credit to pay tax w.r.t 'restaurant service' supplied through the ECO?"],
+            [3, "Clarification", "No. As stated above, the liability of payment of tax by ECO as per section 9(5) shall be discharged in cash."],
+            [4, "Sl", "8."],
+            [4, "Clarification", "ECO is required to pay GST on services notified under section 9(5), besides the"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "72-lettered-paras-then-case-table",
+      "file": "circulars/2018/72-46-2018-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page: lettered paras b)-d), then a 4-column table with tall bold headings (an empty first heading) and its first row 'Case 1' with superscript dates; runs onto p.4.",
+      "verified": true,
+      "text_has": [
+        "as the case may be. In such a scenario, the retailer or wholesaler may return the time expired goods by issuing a delivery challan.",
+        "b) It may further be noted that if the credit note is issued within the time limit specified in sub-section (2) of section 34 of the CGST Act",
+        "c) However, if the time limit specified in sub-section (2) of section 34 of the CGST Act has lapsed",
+        "d) Further, where the time expired goods, which have been returned by the retailer/wholesaler, are destroyed by the manufacturer",
+        "in terms of the provisions of clause (h) of sub-section (5) of section 17 of the CGST Act. This has been illustrated in table below:"
+      ],
+      "text_not": ["Page 3 of 4", "Circular No. 72/46/2018-GST"],
+      "numbers": ["1st July, 2017", "20th September, 2018"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 4,
+          "rows": 1,
+          "headings": [[], ["Date of Supply", "wholesaler/ retailer"], ["Date of return", "to wholesaler / manufacturer"], ["Treatment in terms of tax liability & credit", "note"]],
+          "cells": [
+            [1, "", "Case 1"],
+            [1, "Date of Supply", "1st July, 2017"],
+            [1, "Date of return", "20th September, 2018"],
+            [1, "Treatment", "Credit note will be issued by the supplier (manufacturer / wholesaler) and the same to be uploaded by him on the common portal."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "26-coloured-grid-stage-table",
+      "file": "circulars/2017/26-26-2017-GST.pdf",
+      "pages": [10],
+      "why": "Held-out table page (landscape, coloured): a row-label column with merged cells (Common Error - VI; Input Tax Credit of the wrong tax was taken), a 3-level heading (Stage of Return Filing -> Stage 1-4 -> stage names), a merged Stage 3-4 cell, bullets, and italic illustrations with Rs. 20,00,000/-.",
+      "verified": true,
+      "_note": "Row 1 is the stage-description row next to 'Common Error - VI' (treated as data, since it carries content per stage). Stage 3 and 4 share one merged cell in rows 2-3.",
+      "text_not": ["Page 10 of 11"],
+      "numbers": ["20,00,000", "PMT-06"],
+      "tables": [
+        {
+          "pages": [10],
+          "columns": 5,
+          "rows": 3,
+          "headings": [[], ["Stage 1", "Confirmed Submission"], ["Stage 2", "Cash Ledger Updated"], ["Stage 3", "Offset Liability"], ["Stage 4", "Return Filed"]],
+          "cells": [
+            [1, "", "Common Error - VI"],
+            [1, "Confirmed Submission", "Return liabilities / Input tax credit availed were confirmed and submitted"],
+            [1, "Cash Ledger", "Cash was added to the electronic cash ledger as per the return liability."],
+            [1, "Offset Liability", "All liabilities were offset by debiting the cash and credit ledger."],
+            [1, "Return Filed", "Return was filed."],
+            [2, "", "Input Tax Credit of the wrong tax was taken"],
+            [2, "Confirmed Submission", "\"Edit\" facility to be used to rectify such liability."],
+            [2, "Cash Ledger", "Additional cash, if required, may be deposited in the cash ledger by creating challan in FORM GST PMT-06"],
+            [2, "Offset Liability", "Pay(through cash) / Reverse any wrongly reported input tax credit in return of subsequent month(s)."],
+            [3, "Confirmed Submission", "Use edit facility to claim correct central tax credit under the right head."],
+            [3, "Cash Ledger", "They can use \"edit\" facility to correct central tax credit under the right head."],
+            [3, "Offset Liability", "they paid Rs. 20,00,000/- Central Tax in cash and did not utilize their Integrated tax credit."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "109-continued-row-then-signature",
+      "file": "circulars/2019/109-28-2019--GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2: the tail of row 4 at the top must join the row above; then row 5 with many rupee amounts; then para 2, a signature with date, and a second signature stamp at the bottom.",
+      "verified": true,
+      "text_has": [
+        "2. Difficulty, if any, in implementation of the Circular may be brought to the notice of the Board.",
+        "22-07-2019",
+        "Susanta Kumar Mishra",
+        "Technical Officer (TRU-II)"
+      ],
+      "text_not": ["Circular No.109/28/2019- GST"],
+      "numbers": ["15000/-", "7500/-", "9000/-", "1500/-", "18%"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "5."],
+            [1, "", "How should the RWA calculate GST payable where the maintenance charges exceed Rs. 7500/- per month per member?"],
+            [1, "", "The exemption from GST on maintenance charges charged by a RWA from residents is available only if such charges do not exceed Rs. 7500/- per month per member."],
+            [1, "", "GST @18% shall be payable on the entire amount of Rs. 9000/- and not on [Rs. 9000 - Rs. 7500] = Rs. 1500/-"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-04-2022-ocr-last-page",
+      "file": "instructions/2022/Instruction-No.-04-2022-GST.pdf",
+      "pages": [4],
+      "why": "Held-out scan (OCR), last page: numbered paras 10-15, dates, a bold form name, a handwritten signature, a 'Copy to' list. No table.",
+      "verified": true,
+      "text_has": [
+        "10. In cases where the detailed investigation of the exporter or his suppliers is required to be conducted",
+        "for resorting to provisions of sub-section (11) of section 54 of the CGST Act, 2017 for withholding of the refund.",
+        "11. Further, the proper officer would also be required to provide feedback on the common portal while issuing refund sanction order in FORM GST RFD-06",
+        "12. GSTN shall transmit the data regarding the outcome of processing of refund by the proper officer",
+        "to DGARM for necessary action for removal or continuation of alert.",
+        "13. The Zonal Principal Chief Commissioners/ Chief Commissioners are requested to closely monitor the progress",
+        "14. In view of the above, the SOPs dated 23.01.2020 and 20.05.2020 prescribing the procedure to be followed for verification of the risky exporters and their suppliers, are hereby superseded.",
+        "15. Difficulty, if any, in implementation of these instructions may please be brought to the notice of the Board.",
+        "(Sanjay Mangal)",
+        "Principal Commissioner",
+        "Copy to:",
+        "The Joint Secretary, GST Council Secretariat, New Delhi for circulation of the same to all states for information please."
+      ],
+      "text_not": ["Page 4 of 4"],
+      "numbers": ["23.01.2020", "20.05.2020", "RFD-06"],
+      "tables": []
+    },
+    {
+      "id": "25-plain-signatory-list",
+      "file": "circulars/2017/25-25-2017-GST.pdf",
+      "pages": [2],
+      "why": "Held-out plain page: a fee para with an amount, an (a)-(h) indented list, a bold sub-heading and a para with a bold form name. No table.",
+      "verified": true,
+      "text_has": [
+        "4. In orderto make the payment of fee for filing an application for Advance Ruling on the common portal",
+        "\"Generate User ID for Advance Ruling\" under \"User Services\"",
+        "the applicant can make the payment of the fee of Rs. 5,000/- each under the CGST and the respective SGST Act.",
+        "5. The application, the verification contained therein and all the relevant documents accompanying such application shall be signed-",
+        "(a) in the case of an individual, by the individual himself or where he is absent from India",
+        "(b) in the case of a Hindu Undivided Family, by a Karta and where the Karta is absent from India",
+        "(c) in the case of a company, by the Chief Executive Officer or the authorised signatory thereof;",
+        "(g) in the case of a trust, by the trustee or any trustee or the authorised signatory thereof; or",
+        "(h) in the case of any other person, by some person competent to act on his behalf, or by a person authorised in accordance with the provisions of section 48 of the CGST Act.",
+        "Form and Manner of Appeal to the Appellate Authority for Advance Ruling",
+        "6. An appeal against the advance ruling issued under sub-section (6) of section 98 of the CGST Act",
+        "in FORM GST ARA-02 and shall be accompanied by a fee of ten thousand rupees",
+        "The payment of fee shall be made as detailed in para 4 above."
+      ],
+      "numbers": ["5,000/-", "ARA-02"],
+      "tables": []
+    },
+    {
+      "id": "instruction-3-2-2020-plain",
+      "file": "instructions/2020/3-2-2020-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: bold letterhead and address block, superscript dates, rates in brackets, italic 'vide', notification numbers with odd spacing, a signature block. No table.",
+      "verified": true,
+      "text_has": [
+        "Instruction No. 3/2/2020- GST",
+        "F. No. 354/32/2019-TRU",
+        "(Tax research Unit)",
+        "Room No. 146G, North Block,",
+        "New Delhi, 24th June, 2020",
+        "Subject: Payment of GST by real estate promoter/developer supplying construction of residential apartment etc, on the shortfall value of inward supplies from registered supplier at the end of the financial year– reg.",
+        "A revised GST rate has been prescribed, w.e.f. the 1st April, 2019 on the supply of service by way of construction of residential apartment.",
+        "attract GST at the rate of 1% [without ITC] and other residential apartments attract GST at the rate of 5% [without ITC].",
+        "Notification no. 11/2017- Central Tax (Rate) dated 28.06.2017 as amended by Notification no. 3/2019- Central Tax (Rate) dated 29.03.2019).",
+        "In case of shortfall from the said threshold of 80 per cent., the promoter/developer shall pay the tax",
+        "Accordingly for FY 2019-20, tax on such shortfall is to be paid by the 30th June, 2020.",
+        "4. The issue referred by the trade has been examined. It has been decided that FORM GST DRC-03, as already prescribed, shall be used",
+        "services (below 80%) from registered person shall use the form DRC-03 to pay the tax",
+        "5. It is requested that suitable instructions may be issued by the States/ field formations of CBIC to advise the trade accordingly.",
+        "Yours Faithfully,",
+        "Susanta Kr. Mishra",
+        "Technical Officer (TRU)"
+      ],
+      "numbers": ["354/32/2019-TRU", "146G", "1%", "5%", "28.06.2017", "29.03.2019", "2019-20", "80%"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-144-148",
+      "file": "GST_act.pdf",
+      "pages": [115],
+      "why": "Held-out Act page: the end of section 144 with a nested (a)(i)(ii)/(b) list, section 145 with a two-line bold heading, (1)/(2) sub-sections with italic clause letters, and sections 146-148.",
+      "verified": true,
+      "text_has": [
+        "and such document is tendered by the prosecution in evidence against him or any other person who is tried jointly with him, the court shall",
+        "(a) unless the contrary is proved by such person, presume",
+        "(i) the truth of the contents of such document;",
+        "(ii) that the signature and every other part of such document which purports to be in the handwriting of any particular person",
+        "(b) admit the document in evidence notwithstanding that it is not duly stamped, if such document is otherwise admissible in evidence.",
+        "145. Admissibility of micro films, facsimile copies of documents and computer printouts as documents and as evidence.",
+        "(1) Notwithstanding anything contained in any other law for the time being in force,",
+        "(a) a micro film of a document or the reproduction of the image or images embodied in such micro film (whether enlarged or not); or",
+        "(d) any information stored electronically in any device or media, including any hard copies made of such information,",
+        "shall be deemed to be a document for the purposes of this Act and the rules made thereunder",
+        "(2) In any proceedings under this Act or the rules made thereunder, where it is desired to give a statement in evidence by virtue of this section, a certificate,",
+        "146. Common Portal.",
+        "The Government may, on the recommendations of the Council, notify the Common Goods and Services Tax Electronic Portal",
+        "147. Deemed exports.",
+        "148. Special procedure for certain processes.",
+        "to registration, furnishing of return, payment of tax and administration of such persons."
+      ],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-46-46A-47",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [242],
+      "why": "Held-out Rules page: the end of rule 46 (an all-caps quoted phrase, (i)-(iii) and (a)-(b) lists, provisos with footnote markers), inserted rule 46A, rule 47, five footnotes, and the running header and footer.",
+      "verified": true,
+      "text_has": [
+        "FOR EXPORT/SUPPLY TO SEZ UNIT OR SEZ DEVELOPER FOR AUTHORISED OPERATIONS UNDER BOND OR LETTER OF UNDERTAKING WITHOUT PAYMENT OF INTEGRATED TAX\"",
+        "(i) name and address of the recipient;",
+        "(iii) name of the country of destination:]",
+        "[other than the supplier engaged in making supply of services by way of admission to exhibition of cinematograph films in multiplex screens,]",
+        "(a) the recipient is not a registered person; and",
+        "shall issue a consolidated tax invoice for such supplies at the close of each day in respect of all such supplies.",
+        "with the provisions of the Information Technology Act,2000 (21 of 2000):]",
+        "specify that the tax invoice shall have Quick Response (QR) code.]",
+        "[Rule 46A. Invoice-cum-bill of supply. -",
+        "a single \"invoice-cum-bill of supply\" may be issued for all such supplies.]",
+        "Rule 47. Time limit for issuing tax invoice.-",
+        "shall be issued within a period of thirty days from the date of the supply of service:",
+        "the period within which the invoice or any document in lieu thereof is to be issued shall be forty-five days from the date of the supply of service:",
+        "Inserted vide Notification No. 33/2019 - CT dated 18.07.2019, w.e.f. 01.09.2019.",
+        "Inserted vide Notification No. 31/2019 - CT dated 28.06.2019, w.e.f. 01.04.2020 vide Notification No. 71/2019 dated 13.12.2019.",
+        "Inserted vide Notification No. 26/2022 - CT dated 26.12.2022."
+      ],
+      "text_not": ["Ch-VI : Tax Invoice, Credit and Debit Notes", "Rules 46-55A", "GST & Indirect Taxes Committee"],
+      "numbers": ["21 of 2000", "33/2019", "18.07.2019", "74/2018", "31.12.2018", "71/2019", "45/2017", "26.12.2022"],
+      "tables": []
+    }
+  ]
+}

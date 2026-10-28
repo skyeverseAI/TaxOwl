@@ -1,0 +1,304 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2031: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2031` (list in evals/heldout_draw_2031.json); written from the page images in evals/heldout_pages_2031/ before any extractor output for these pages was looked at.",
+    "Dashes: phrases avoid the em dash after headings, since the PDFs store it inconsistently and the checker doesn't yet ignore dash style.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "71-first-page-qa-table",
+      "file": "circulars/2018/71-45-2018-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: bold letterhead, a superscript date, an underlined subject, then an S. No | Issue | Clarification table with one row (numbered points, a bold form name and a bold-italic quote in the answer).",
+      "verified": true,
+      "text_has": [
+        "Circular No. 71/45/2018-GST",
+        "F. No. 349/94/2018-GST",
+        "New Delhi, Dated the 26th October, 2018",
+        "Subject: Clarifications of issues under GST related to casual taxable person and recovery of excess Input Tax Credit distributed by an Input Service distributor – Reg.",
+        "Representations have been received seeking clarification on certain issues under the GST laws."
+      ],
+      "text_not": ["Page 1 of 3"],
+      "numbers": ["349/94/2018-GST", "100%", "REG-1"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 1,
+          "headings": [["S. No"], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "S. No", "1"],
+            [1, "Issue", "Whether the amount required to be deposited as advance tax while taking registration as a casual taxable person (CTP) should be 100% of the estimated gross tax liability"],
+            [1, "Clarification", "1. It has been noted that while applying for registration as a casual taxable person, the FORM GST REG-1 (S. No. 11) seeks information regarding the \"estimated net tax liability\" only and not the gross tax liability."],
+            [1, "Clarification", "2. It is accordingly clarified that the amount of advance tax which a casual taxable person is required to deposit"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-02-2022-timeline-table",
+      "file": "instructions/2022/Instruction-No.-02-2022-GST.pdf",
+      "pages": [5],
+      "why": "Held-out table page: a numbered heading and para, then a 3-column timeline table with roman-numeral serials, vertically centred serials, bold form names inside cells (one split by a line break: 'ASMT-' / '12'); row (ix) runs onto p.6.",
+      "verified": true,
+      "text_has": [
+        "7. Timelines for scrutiny of returns",
+        "7.1 Scrutiny of returns is to be conducted in a time bound manner, so that necessary action to safeguard revenue may be taken up expeditiously."
+      ],
+      "text_not": ["Page 5 of 13"],
+      "numbers": ["ASMT-10", "ASMT-11", "ASMT-12"],
+      "tables": [
+        {
+          "pages": [5],
+          "columns": 3,
+          "rows": 9,
+          "headings": [["S. no."], ["Process/Event"], ["Timeline/ Frequency"]],
+          "cells": [
+            [1, "S. no.", "(i)"],
+            [1, "Process", "Communication of list of GSTINs selected for scrutiny (by DGARM to the nodal officer of the Commissionerate concerned)"],
+            [1, "Timeline", "From time to time."],
+            [2, "Timeline", "Within three working days of receipt of the list from DGARM."],
+            [4, "S. no.", "(iv)"],
+            [4, "Process", "Sharing the scrutiny schedule by the zone with DGGST"],
+            [6, "Process", "Reply by the registered person in FORM GST ASMT-11"],
+            [6, "Timeline", "Within a period of thirty days of being informed by the proper officer in FORM GST ASMT-10 or such further period as may be permitted by the proper officer"],
+            [7, "Process", "Issuance of order in FORM GST ASMT-12 for acceptance of reply furnished by the registered person, where applicable"],
+            [8, "S. no.", "(viii)"],
+            [8, "Timeline", "Within a period of fifteen days after completion of the period of thirty days of issuance of notice in FORM GST ASMT-10"],
+            [9, "S. no.", "(ix)"],
+            [9, "Timeline", "Within thirty days from receipt of reply from the registered person in FORM GST ASMT-11"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "170-continued-numeric-itc-table",
+      "file": "circulars/2022/170-02-2022-GST.pdf",
+      "pages": [7],
+      "why": "Held-out table page (landscape), continued from p.6 with no heading on this page: a 5-column ITC table with Indian-style amounts (2,64,500 / 125,500 / 122500), dashes in empty amount cells, a row with only a label ((D) Ineligible ITC), and bold/italic notes in the last column.",
+      "verified": true,
+      "numbers": ["125,500", "52,000", "75,500/-", "50,000/-", "2,64,500", "122500", "10,000/-", "17(5)", "4(B)(1)"],
+      "tables": [
+        {
+          "pages": [7],
+          "columns": 5,
+          "rows": 6,
+          "headings": [],
+          "cells": [
+            [1, "", "Reversal of ITC as per rule 42 and 43 of CGST Rules"],
+            [1, "", "125,500"],
+            [1, "", "Reversal of Rs. 75,500/- integrated tax, Rs. 52,000/- central tax and Rs. 52,000/- state tax under rule 42 and 43"],
+            [1, "", "Ineligible ITC of Integrated tax of Rs. 50,000/- under section 17(5)"],
+            [2, "", "Others"],
+            [2, "", "10,000"],
+            [2, "", "on account of Rule 37"],
+            [3, "", "(C) Net ITC Available (A)-(B)"],
+            [3, "", "2,64,500"],
+            [3, "", "C=A1+A2+A3+A4+A5-B1-B2"],
+            [4, "", "(D) Ineligible ITC"],
+            [5, "", "As per section 17(5)"],
+            [5, "", "Reversals under section 17(5) are not required to be shown in this row."],
+            [6, "", "Refer para 4.3(F) of circular"],
+            [6, "", "Ineligible ITC on account of limitation of time period as delineated in sub-section (4) of section 16 of the CGST Act"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "98-two-coloured-tables",
+      "file": "circulars/2019/98-17-2019-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page with two coloured tables: a utilisation-order matrix (row labels, roman numerals, a cell merged across two columns, a full-width italic row) and a small Head | Output Liability | Input tax Credit illustration with a Total row.",
+      "verified": true,
+      "text_has": [
+        "4. The newly inserted rule 88A in the CGST Rules allows utilization of input tax credit of Integrated tax towards the payment of Central tax and State tax",
+        "the order of utilization of input tax credit will be as per the order (of numerals) given below:",
+        "5. The following illustration would further amplify the impact of newly inserted rule 88A of the CGST Rules:",
+        "Illustration:",
+        "Amount of Input tax Credit available and output liability under different tax heads"
+      ],
+      "text_not": ["Page 2 of 4"],
+      "numbers": ["88A", "1000", "1300", "1600", "1700"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 4,
+          "rows": 4,
+          "headings": [["Input tax", "Credit on", "account of"], ["Output liability", "on account of", "Integrated tax"], ["Output liability", "on account of", "Central tax"], ["Output liability on account", "of State tax / Union", "Territory tax"]],
+          "cells": [
+            [1, "Input tax", "Integrated tax"],
+            [1, "Integrated tax", "(I)"],
+            [1, "Central tax", "(II) – In any order and in any proportion"],
+            [2, "", "(III) Input tax Credit on account of Integrated tax to be completely exhausted mandatorily"],
+            [3, "Input tax", "Central tax"],
+            [3, "Integrated tax", "(V)"],
+            [3, "Central tax", "(IV)"],
+            [3, "State tax", "Not permitted"],
+            [4, "Input tax", "State tax / Union Territory tax"],
+            [4, "Integrated tax", "(VII)"],
+            [4, "Central tax", "Not permitted"],
+            [4, "State tax", "(VI)"]
+          ]
+        },
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 4,
+          "headings": [["Head"], ["Output Liability"], ["Input tax Credit"]],
+          "cells": [
+            [1, "Head", "Integrated tax"],
+            [1, "Output Liability", "1000"],
+            [1, "Input tax Credit", "1300"],
+            [2, "Head", "Central tax"],
+            [2, "Output Liability", "300"],
+            [2, "Input tax Credit", "200"],
+            [3, "Head", "State tax / Union Territory tax"],
+            [4, "Head", "Total"],
+            [4, "Output Liability", "1600"],
+            [4, "Input tax Credit", "1700"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "51-continued-two-column-entries",
+      "file": "circulars/2018/51-25-2018-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page (a scanned-looking page with a text layer), continued from p.1: a 2-column comparison where the left cell (Sl. No. 25(a)) sits next to two stacked right cells (Sl. No. 3 and 3A); then paras 3-4 with article numbers.",
+      "verified": true,
+      "_note": "The right column has two cells next to one left cell, so 1 row (both right cells joined) or 2 rows (left cell repeated) are both fine; cells are checked in the first and last row. The page has an embedded OCR text layer with its own errors ('SL No. 25(a)', '30\" May' for 30th May), so phrases avoid those spots.",
+      "text_has": [
+        "3. Functions of 'Health and sanitation' is entrusted to Panchayats under Article 243G of the Constitution of India read with Eleventh Schedule.",
+        "Thus ambulance services are an activity in relation to the functions entrusted to Panchayats and Municipalities under Articles 243G and 243 W of the Constitution.",
+        "4. In view of the above, it is clarified that the clarification contained in the Circular No. 210/2/2018- Service Tax dated 30",
+        "May, 2018 with regard to the services provided by Government and PSPs",
+        "12/2017- Central Tax (Rate) dated 28.06.2017 vide Sl. No. 74."
+      ],
+      "numbers": ["243G", "210/2/2018", "28.06.2017", "25(a)", "3A"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 2,
+          "rows_min": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "No. 25(a):"],
+            [1, "", "Services provided to Government, a local authority or a governmental authority by way of water supply, public health, sanitation conservancy, solid waste management or slum improvement and upgradation"],
+            [1, "", "Sl. No. 3:"],
+            [1, "", "Pure services (excluding works contract service or other composite supplies involving supply of any goods)"],
+            [-1, "", "Sl. No. 3A:"],
+            [-1, "", "Composite supply of goods and services in which the value of supply of goods constitutes not more than 25 per cent."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-01-2020-21-ocr-signature",
+      "file": "instructions/2020/01-2020-21-GST-Investigation.pdf",
+      "pages": [6],
+      "why": "Held-out scan (OCR), slightly tilted: paras 6-8 with bold numbers, dates, a superscript ordinal, a signature over a typed name, a bold note and an addressee list. No table.",
+      "verified": true,
+      "text_has": [
+        "should be entered in the Module by ascertaining the relevant details, in a timely manner.",
+        "6. In order to ensure that the data/ details in the Module are updated in a timely manner",
+        "inform about the major detection(s) made during the month including arrest(s)",
+        "7. With effect from 01.07.2020, the offence details are required to be fed in the DIGIT Module within 24 hrs of the date of detection/ initiation.",
+        "All GST cases detected between 01.07.2017 to 30.06.2020 would also have to be entered in DIGIT platform in the prescribed template.",
+        "8. This issues with the approval of Member (Investigation), CBIC.",
+        "Tel. No.: 011-21400623",
+        "[Note: Format of the template vide which the offence data/details is to be populated on the DIGIT platform is attached with the Instruction.]",
+        "Principal Director General DGGI, New Delhi.",
+        "Principal Chief Commissioner(s)/ Chief Commissioner(s), [All CGST ZONES]."
+      ],
+      "numbers": ["01.07.2020", "01.07.2017", "30.06.2020", "011-21400623"],
+      "tables": []
+    },
+    {
+      "id": "45-plain-first-page-refund",
+      "file": "circulars/2018/45-19-2018-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: bold letterhead, many superscript dates in one sentence, circular numbers with spaced dashes, an italic 'vide', a bold numbered heading and a bold form name. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 45/19/2018-GST",
+        "F. No. CBEC/20/16/4/2018-GST",
+        "New Delhi, Dated the 30th May, 2018",
+        "Subject: Clarifications on refund related issues – reg.",
+        "The Board vide Circular No. 17/17/2017 – GST dated 15th November 2017, No. 24/24/2017 – GST dated 21st December 2017 and No. 37/11/2018 – GST dated 15th March, 2018 has laid down the procedure",
+        "2. Representations have been received seeking clarification on certain refund related issues.",
+        "section 168(1) of the Central Goods and Services Tax Act, 2017 (CGST Act for short) hereby clarifies the issues raised as below:",
+        "3. Claim for refund filed by an Input Service Distributor, a person paying tax under section 10 or a non-resident taxable person:",
+        "3.1 Doubts have been raised in case of claims for refund filed by an Input Service Distributor (ISD for short)",
+        "Circular No. 24/24/2017-GST dated 21.12.2017 which mandates that the refund claim for a tax period may be filed only after filing the details in FORM GSTR-1"
+      ],
+      "numbers": ["CBEC/20/16/4/2018-GST", "17/17/2017", "37/11/2018", "21.12.2017", "168(1)", "2.0"],
+      "tables": []
+    },
+    {
+      "id": "148-plain-last-page",
+      "file": "circulars/2021/148-04-2021-GST.pdf",
+      "pages": [3],
+      "why": "Held-out plain page: paras 4.3-7, an italic Latin phrase cut by a line-end hyphen ('mutatis-' / 'mutandis'), a bold form name, an email in brackets and a signature. No table.",
+      "verified": true,
+      "text_has": [
+        "4.3 On receipt of the decision of the Joint/Additional Commissioner on request for extension of time limit for applying for revocation of cancellation of registration",
+        "5. Procedure similar to that explained in paragraph 4.1 to 4.3 above, shall be followed",
+        "beyond a period of 60 days from the date of service of the order of cancellation of registration but within 90 days of such date.",
+        "6. The circular shall cease to have effect once the independent functionality for extension of time limit for applying in FORM GST REG-21 is developed on the GSTN portal.",
+        "7. Difficulties, if any, in implementation of these instructions may be informed to the Board (gst-cbec@gov.in). Hindi version follows.",
+        "(Sanjay Mangal)",
+        "Commissioner (GST)"
+      ],
+      "text_not": ["Circular No. 148/04/2021-GST"],
+      "numbers": ["60 days", "90 days", "REG-21"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-88-92",
+      "file": "GST_act.pdf",
+      "pages": [77],
+      "why": "Held-out Act page: the end of section 88, sections 89-92 with bold headings and provisos, italic sub-section numbers, an Act citation with year in brackets; section 92 runs onto p.78.",
+      "verified": true,
+      "text_has": [
+        "assets of a company (hereafter in this section referred to as the \"liquidator\"), shall, within thirty days after his appointment, give intimation of his appointment to the Commissioner.",
+        "(2) The Commissioner shall, after making such inquiry or calling for such information as he may deem fit, notify the liquidator within three months",
+        "(3) When any private company is wound up and any tax, interest or penalty determined under this Act on the company for any period",
+        "89. Liability of directors of private company.",
+        "(1) Notwithstanding anything contained in the Companies Act, 2013 (18 of 2013), where any tax, interest or penalty due from a private company",
+        "Provided that nothing contained in this sub-section shall apply to any personal penalty imposed on such director.",
+        "90. Liability of partners of firm to pay tax.",
+        "Provided further that if no such intimation is given within one month from the date of retirement",
+        "91. Liability of guardians, trustees, etc.",
+        "92. Liability of Court of Wards, etc.",
+        "the tax, interest or penalty shall be levied upon and be recoverable from such Court of Wards, Administrator General, Official Trustee, receiver or manager in like manner and to the same extent as it would"
+      ],
+      "numbers": ["18 of 2013"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-39-isd-clauses",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [224],
+      "why": "Held-out Rules page: the middle of rule 39 with hanging-indent clauses (h)-(n) and nested (i)/(ii), a stray backslash in the PDF ('shall–\\'), an inserted sub-rule (1A) with two footnote markers, two footnotes, and the running header and footer.",
+      "verified": true,
+      "text_has": [
+        "(e), separately distribute the amount of ineligible input tax credit (ineligible under the provisions of sub-section (5) of section 17 or otherwise) and the amount of eligible input tax credit;",
+        "(h) the input tax credit on account of central tax, State tax, Union territory tax and integrated tax shall be distributed separately",
+        "(i) the input tax credit on account of integrated tax shall be distributed as input tax credit of integrated tax to every recipient;",
+        "(j) the input tax credit on account of central tax and State tax or Union territory tax shall",
+        "(k) the Input Service Distributor shall issue an Input Service Distributor invoice, as provided in sub-rule (1) of rule 54",
+        "(m) any additional amount of input tax credit on account of issuance of a debit note to an Input Service Distributor",
+        "(n) any input tax credit required to be reduced on account of issuance of a credit note to the Input Service Distributor",
+        "(ii) added to the output tax liability of the recipient where the amount so apportioned is in the negative",
+        "[(1A) For the distribution of credit in respect of input services, attributable to one or more distinct persons",
+        "[of the Central Goods and Services Tax Act, 2017 or under sub-section (3) or sub-section (4) of section 5 of the Integrated Goods and Service Tax Act, 2017 (13 of 2025)]",
+        "Inserted vide Notification No. 12/2024 - CT dated 10.07.2024, w.e.f. 01.04.2025.",
+        "Inserted vide Notification No. 13/2025 - CT dated 17.09.2025, w.e.f. 01.04.2025."
+      ],
+      "text_not": ["Ch-V : Input Tax Credit", "Rules 36-45", "GST & Indirect Taxes Committee"],
+      "numbers": ["12/2024", "10.07.2024", "13/2025", "17.09.2025", "01.04.2025", "13 of 2025"],
+      "tables": []
+    }
+  ]
+}

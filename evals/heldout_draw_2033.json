@@ -1,0 +1,65 @@
+{
+  "seed": 2033,
+  "pages": [
+    {
+      "kind": "table",
+      "file": "instructions/2021/02-2021-22-GST-INV-ISP.pdf",
+      "page": 4,
+      "image": "evals/heldout_pages_2033/01-table-02-2021-22-GST-INV-ISP-p4.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2025/251-08-2025-GST.pdf",
+      "page": 4,
+      "image": "evals/heldout_pages_2033/02-table-251-08-2025-GST-p4.png"
+    },
+    {
+      "kind": "table",
+      "file": "instructions/2023/Instruction-No.-02-2023-GST.pdf",
+      "page": 5,
+      "image": "evals/heldout_pages_2033/03-table-Instruction-No.-02-2023-GST-p5.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2019/106-25-2019-GST.pdf",
+      "page": 7,
+      "image": "evals/heldout_pages_2033/04-table-106-25-2019-GST-p7.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2019/Corrigendum_1003075.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2033/05-table-Corrigendum_1003075-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2025/248-05-2025-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2033/06-plain-248-05-2025-GST-p2.png"
+    },
+    {
+      "kind": "plain",
+      "file": "instructions/2024/Instruction-No.-04-2024-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2033/07-plain-Instruction-No.-04-2024-GST-p2.png"
+    },
+    {
+      "kind": "act",
+      "file": "GST_act.pdf",
+      "page": 39,
+      "image": "evals/heldout_pages_2033/08-act-GST_act-p39.png"
+    },
+    {
+      "kind": "rules",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "page": 253,
+      "image": "evals/heldout_pages_2033/09-rules-GST Act(s) and Rule(s)-Bare Law-p253.png"
+    },
+    {
+      "kind": "scan",
+      "file": "instructions/2020/01-2020-21-GST-Investigation.pdf",
+      "page": 3,
+      "image": "evals/heldout_pages_2033/11-scan-01-2020-21-GST-Investigation-p3.png"
+    }
+  ]
+}

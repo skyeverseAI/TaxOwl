@@ -1,0 +1,272 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2029: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between, to measure accuracy on unseen pages.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2029` (list in evals/heldout_draw_2029.json); written from the page images in evals/heldout_pages_2029/ before any extractor output for these pages was looked at.",
+    "185 p.5 holds only the tail of a table row that started pages earlier. Its 'tables' is [] on purpose: if the tail is joined to the row above, no table row starts on p.5; if it isn't, a stray row starts there and the check fails. text_not checks the cell text didn't fall into the page text instead.",
+    "Dashes: phrases avoid the em dash after headings ('Definitions.—In'), since the PDFs store it inconsistently (one em dash, or two en dashes) and the checker doesn't yet ignore dash style.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase and number re-read against the page image."
+  ],
+  "pages": [
+    {
+      "id": "31-first-page-proper-officer-table",
+      "file": "circulars/2018/31-05-2018---GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: bold letterhead, superscript dates, then a 3-column table with a (1)(2)(3) column-number row under the headings and one data row.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 31/05/2018 - GST",
+        "F. No. 349/75/2017-GST",
+        "Central Board of Excise and Customs",
+        "New Delhi, 9th February 2018",
+        "Subject: Proper officer under sections 73 and 74 of the Central Goods and Services Tax Act, 2017 and under the Integrated Goods and Services Tax Act, 2017–reg.",
+        "The Board, vide Circular No. 1/1/2017-GST dated 26th June, 2017, assigned proper officers",
+        "Further, vide Circular No. 3/3/2017 - GST dated 5th July, 2017",
+        "sub-sections (1), (2), (3), (5), (6), (7), (9) and (10) of section 73 of the CGST Act.",
+        "2. It has now been decided by the Board that Superintendents of Central Tax shall also be empowered to issue show cause notices and orders under section 74 of the CGST Act.",
+        "Accordingly, the following entry is hereby being added to the item at Sl. No. 4 of the Table on page number 3 of Circular No. 3/3/2017-GST dated 5th July, 2017, namely:-"
+      ],
+      "text_not": ["Page 1 of 4"],
+      "numbers": ["349/75/2017-GST", "1/1/2017-GST", "3/3/2017-GST", "viii(a)"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 1,
+          "headings": [["Sl.", "No."], ["Designation of the", "officer"], ["Functions under Section of the Central Goods and", "Services Tax Act, 2017 or the rules made thereunder"]],
+          "cells": [
+            [1, "Sl.", "4."],
+            [1, "Designation", "Superintendent of Central Tax"],
+            [1, "Functions", "viii(a). Sub-sections (1), (2), (3), (5), (6), (7), (9) and (10) of Section 74"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "126-table-with-only-column-numbers",
+      "file": "circulars/2019/126-45-2019-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: a notification excerpt whose only heading row is the column numbers (3) (4) (5); two rows with short numeric cells (6, 9) and a dash.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 126/45/2019-GST",
+        "F. No. 354/150/2019-TRU",
+        "Dated the 22nd November, 2019",
+        "Subject– Clarification on scope of the notification entry at item (id), related to job work, under heading 9988 of Notification No. 11/2017-Central Tax (Rate) dated 28-06-2017-reg.",
+        "inserted with effect from 01-10-2019 to implement the recommendation of the GST Council to reduce rate of GST on all job work services, which earlier attracted 18 % rate, to 12%.",
+        "prescribes 12% GST rate for all services by way of job work.",
+        "2. The matter has been examined. The entries at items (id) and (iv) under heading 9988 read as under:"
+      ],
+      "numbers": ["9988", "354/150/2019-TRU", "01-10-2019", "28-06-2017", "12%", "18%"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 2,
+          "headings": [["(3)"], ["(4)"], ["(5)"]],
+          "cells": [
+            [1, "(3)", "(id) Services by way of job work other than (i), (ia), (ib) and (ic) above;"],
+            [1, "(4)", "6"],
+            [1, "(5)", "-"],
+            [2, "(3)", "(iv) Manufacturing services on physical inputs (goods) owned by others, other than (i), (ia), (ib), (ic), (id), (ii), (iia) and (iii) above."],
+            [2, "(4)", "9"],
+            [2, "(5)", "-"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "73-continued-then-numbered-list-row",
+      "file": "circulars/2018/73-47-2018-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2: the tail of row 2's answer at the top must join the row above; then row 3 starts, with a 1-4 numbered list in its answer; runs onto p.4.",
+      "verified": true,
+      "text_not": ["Page 3 of 4", "Circular No. 73/47/2018-GST"],
+      "numbers": ["12/2017-Central Tax (Rate)", "S. No. 27"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "3."],
+            [1, "", "Where DCA is an agent under Para 3 of Schedule I of the CGST Act and makes payment to the principal on behalf of the buyer"],
+            [1, "", "whether the interest will form a part of the value of supply of goods also or not?"],
+            [1, "", "In such a scenario following activities are taking place:"],
+            [1, "", "Supply of goods by the supplier (principal) to the DCA;"],
+            [1, "", "Extension of credit by the DCA to the recipient."],
+            [1, "", "It is clarified that in cases where the DCA is an agent under Para 3 of Schedule I of the CGST Act, the temporary short-term transaction based credit being provided by DCA to the"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "185-last-page-row-tail-then-signature",
+      "file": "circulars/2022/185-17-2022-GST.pdf",
+      "pages": [5],
+      "why": "Held-out table page: only the tail of a long row (bullets in the last column) that started pages earlier, then paras 4-5 and a signature. The tail must join the row above (so no table row starts here) and stay out of the page text.",
+      "verified": true,
+      "text_has": [
+        "4. It is requested that suitable trade notices may be issued to publicize the contents of this Circular.",
+        "5. Difficulty, if any, in implementation of this Circular may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Sanjay Mangal)",
+        "Principal Commissioner (GST)"
+      ],
+      "text_not": [
+        "Page 5 of 5",
+        "Where the show cause notice under sub-section (1) of section 74 was issued for multiple financial years",
+        "was issued before the expiry of the time period as specified in sub-section (2) of section 73."
+      ],
+      "tables": []
+    },
+    {
+      "id": "36-blank-form-two-level-headings",
+      "file": "circulars/2018/36-10-2018-GST.pdf",
+      "pages": [7],
+      "why": "Held-out table page (landscape): Annexure B, a blank report form with two heading levels (Details of the Entity -> Name | UIN; Time Period -> From | To) and empty data rows. Only the headings carry content.",
+      "verified": true,
+      "_note": "No row count or cells: the data rows are empty, and a table with no rows can't be placed on a page by the checker (the 63/2018 limitation).",
+      "text_has": ["Annexure B", "Office of the Commissioner -----", "Report for the month of ------"],
+      "text_not": ["Page | 7"],
+      "tables": [
+        {
+          "pages": [7],
+          "columns": 10,
+          "headings": [
+            ["Name of the", "State"],
+            ["Details of the Entity", "Name"],
+            ["UIN"],
+            ["Time Period", "From"],
+            ["To"],
+            ["Name of the", "State for which refund has been sanctioned"],
+            ["Central Tax"],
+            ["State Tax /", "UT Tax"],
+            ["Integrated tax"],
+            ["Cess"]
+          ],
+          "cells": []
+        }
+      ]
+    },
+    {
+      "id": "instruction-03-2022-ocr-last-page",
+      "file": "instructions/2022/Instruction-No.-03-2022-GST.pdf",
+      "pages": [6],
+      "why": "Held-out scan (OCR), last page: one para, a handwritten signature and date, a typed signature block; the rest blank. No table.",
+      "verified": true,
+      "text_has": [
+        "3. Difficulty, if any, in the implementation of these instructions/guidelines may be brought to the notice of the Board.",
+        "(Sanjay Mangal)",
+        "Principal Commissioner (GST)"
+      ],
+      "text_not": ["Page 6 of 6"],
+      "tables": []
+    },
+    {
+      "id": "instruction-01-2019-20-arrest-caveat",
+      "file": "instructions/2019/01-2019-20-GST-INV-Arrest-caveat.pdf",
+      "pages": [1],
+      "why": "Held-out plain page (a scan-looking page with a text layer): bold letterhead in a different font, a superscript date, case numbers and dates in para 2, a signature over the typed name, an address block with phone number.",
+      "verified": true,
+      "text_has": [
+        "F.No. GST/INV/Arrest-caveat/18-19",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Investigation Wing",
+        "Dated: 29th May, 2019",
+        "INSTRUCTION: 01/2019-20",
+        "Subject: Arrest under GST - Filing of Caveat in Hon'ble Supreme Court-reg.",
+        "It has been observed that in many cases of issuance of fake invoices and availment of ITC",
+        "arrest in terms of Section 69 of the CGST Act, 2017.",
+        "In this regard,vide the most recent judgment passed on 27.05.2019, the Hon'ble Supreme Court has dismissed an SLP filed against the judgment dated 18.04.2019 in WP No. 4764/2019",
+        "[SLP (Crl.) 4430/2019 etc.]",
+        "73(1) of the said Act",
+        "3. In view of the aforementioned judgment, it is directed that caveat(s) shall be immediately filed",
+        "4. A report with regard to the action taken in the matter may be sent to Board immediately.",
+        "5. This issues with the approval of Member(Investigation).",
+        "Commissioner (GST-Inv.), CBIC",
+        "10th Floor, Tower-2, 124, Connaught Circus,",
+        "Tel. No.: 011-21400623.",
+        "To: Pr. DG, DGGI / Pr. Chief Commissioner/Chief Commissioner of CGST, (All Zones)"
+      ],
+      "numbers": ["27.05.2019", "18.04.2019", "4764/2019", "4430/2019", "110001", "011-21400623", "73(1)"],
+      "tables": []
+    },
+    {
+      "id": "30-plain-railways-circular",
+      "file": "circulars/2018/30-4-2018-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: letterhead, superscript dates, notification numbers with odd dashes ('1/2017 –Central'), two bullets and a signature block. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 30/4/2018-GST",
+        "F.No.354/1/2018-TRU",
+        "(Tax Research Unit)",
+        "Dated, 25 January, 2018",
+        "Subject: Clarification on supplies made to the Indian Railways classifiable under any chapter, other than Chapter 86 – regarding.",
+        "charging the GST rate of 5%.",
+        "2. The matter has been examined. Vide notification No. 1/2017 –Central Tax (Rate) dated 28th June, 2017, read with notification No. 5/2017-Central Tax (Rate) dated 28th June, 2017",
+        "notification No.2/2017-Central Tax (Rate) dated 28th June, 2017.",
+        "3. The GST Council during its 25th meeting held on 18th January, 2018, discussed this issue",
+        "4. Accordingly, it is hereby clarified that",
+        "only the goods classified under Chapter 86, supplied to the railways attract 5% GST rate with no refund of unutilised input tax credit and",
+        "other goods [falling in any other chapter], would attract the general applicable GST rates to such goods",
+        "Yours faithfully,",
+        "(Mahipal Singh)",
+        "Technical Officer (TRU)"
+      ],
+      "numbers": ["354/1/2018-TRU", "5%", "5/2017-Central", "25th"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-94-97",
+      "file": "GST_act.pdf",
+      "pages": [79],
+      "why": "Held-out Act page: the end of section 94, a chapter heading in small caps, section 95's definitions with italic clause letters and inserted bracketed text with footnote markers, sections 96-97, and one footnote.",
+      "verified": true,
+      "text_has": [
+        "(3) The provisions of sub-section (1) shall, so far as may be, apply where the taxable person, being a firm or association of persons is dissolved",
+        "For the purposes of this Chapter,",
+        "(i) a \"Limited Liability Partnership\" formed and registered under the provisions of the Limited Liability Partnership Act, 2008 (6 of 2009) shall also be considered as a firm;",
+        "(ii) \"court\" means the District Court, High Court or Supreme Court.",
+        "CHAPTER XVII",
+        "95. Definitions.",
+        "In this Chapter, unless the context otherwise requires,",
+        "(a) \"advance ruling\" means a decision provided by the Authority or the Appellate Authority",
+        "[or the National Appellate Authority] to an applicant on matters or on questions specified in sub-section (2) of section 97",
+        "[or of section 101C], in relation to the supply of goods or services or both being undertaken or proposed to be undertaken by the applicant;",
+        "(e) \"Authority\" means the Authority for Advance Ruling referred to in section 96;",
+        "[(f) \"National Appellate Authority\" means the National Appellate Authority for Advance Ruling referred to in section 101A.]",
+        "96. Authority for advance ruling.",
+        "97. Application for advance ruling.",
+        "(2) The question on which the advance ruling is sought under this Act, shall be in respect of,",
+        "(g) whether any particular thing done by the applicant with respect to any goods or services or both amounts to or results in a supply of goods or services or both, within the meaning of that term.",
+        "1. Ins. by Act 23 of 2019, s. 104 (w.e.f. 1-1-2020)."
+      ],
+      "numbers": ["6 of 2009", "101C", "101A", "1-1-2020"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-96A-footnote-heavy",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [301],
+      "why": "Held-out Rules page: rule 96A's heading with two footnote markers, one sub-rule, then a page mostly of italic footnotes (old versions of rule 96(10)) with #/##/###/^ markers, an a)/b) list and many notification numbers and dates; the running header and footer.",
+      "verified": true,
+      "text_has": [
+        "[Rule 96A.",
+        "[Export] of goods or services under bond or Letter of Undertaking.-",
+        "(1) Any registered person availing the option to supply goods or services for export without payment of integrated tax shall furnish, prior to export, a bond or a Letter of Undertaking in FORM GST RFD-11 to the jurisdictional Commissioner",
+        "within a period of -",
+        "Tax and Compensation Cess on inputs and has availed exemption of only Basic Customs Duty (BCD) under the said notifications.]]",
+        "Substituted vide Notification No. 54/2018 - CT dated 09.10.2018. Prior to its substitution, it was read as:",
+        "Inserted vide Notification No. 16/2020 - CT dated 23.03.2020, w.e.f. 23.10.2017.",
+        "Substituted vide Notification No. 53/2018–CT dated 09.10.2018, w.e.f. 23.10.2017.",
+        "Substituted vide Notification No. 39/2018 – CT dated 04.09.2018, w.e.f. 23.10.2017.",
+        "Inserted vide Notification No.15/2017 - CT dated 01.07.2017.",
+        "Substituted vide Notification No. 03/2019 - CT dated 29.01.2019, w.e.f. 01.02.2019. Prior to its substitution, it was read as: \"Refund of integrated tax paid on export\"."
+      ],
+      "text_not": ["Ch-X : Refund", "Rules 89-97A", "GST & Indirect Taxes Committee"],
+      "numbers": ["54/2018", "09.10.2018", "16/2020", "23.03.2020", "G.S.R 1305 (E)", "G.S.R 1272(E)", "01.02.2019"],
+      "tables": []
+    }
+  ]
+}

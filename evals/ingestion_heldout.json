@@ -1,0 +1,289 @@
+{
+  "_about": [
+    "Held-out gold set: same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Purpose: extract.py's rules were tuned on ingestion_gold.json, so its 256/256 may be overfitting. These pages were never used to build the rules.",
+    "Pages drawn at random by evals/draw_heldout.py (seed 2026, list in evals/heldout_draw.json): 5 table pages, 1 scan, 2 plain pages, 1 Act page, 1 Rules page; no file from the first gold set.",
+    "Written from the page images in evals/heldout_pages/, before any extractor output for these pages was looked at.",
+    "Rule: do not change extract.py while this set is being written or verified. A fix made after scoring turns these pages into 'seen' pages.",
+    "Status: drafted by Claude from page images, 2026-10-28. Verified the same day: GPT (Codex) checked all 10 cases against the PDFs (9 OK; 1 objection on rule 107A, which the user settled in favour of the draft by reading the PDF); the user checked the hard spots by eye (63 rows 0 and running header, 183 one row, 247 handwriting over the name, 56 table is a picture)."
+  ],
+  "pages": [
+    {
+      "id": "219-table-starts-p1",
+      "file": "circulars/2024/219-13-2024-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table. Issue/Clarification table starts at the foot of page 1 and continues onto page 2; row 1 is cut by the page break.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 219/13/2024-GST",
+        "F. No. CBIC-20001/4/2024-GST",
+        "Dated the 26th June, 2024",
+        "Subject: Clarification on availability of input tax credit on ducts and manholes used in network of optical fiber cables (OFCs) in terms of section 17(5) of the CGST Act, 2017 - reg.",
+        "Representations have been received from Cellular Operators Association of India (COAI)",
+        "so as to prevent unwarranted litigation in the telecommunication sector across the country.",
+        "2. In order to ensure uniformity in the implementation of the provisions of law",
+        "hereby clarifies the issue as below."
+      ],
+      "text_not": ["Page 1 of 3"],
+      "numbers": ["219/13/2024-GST", "CBIC-20001/4/2024-GST", "17(5)", "168 (1)"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 2,
+          "rows_min": 1,
+          "headings": [["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "Issue", "Whether the input tax credit on the ducts and manholes used in network of optical fiber"],
+            [1, "Clarification", "1. Sub-section (5) to Section 17 of the CGST Act provides that input tax credit shall not be available, inter alia, in respect of the following:"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "63-empty-form-two-row-headings",
+      "file": "circulars/2018/63-37-2018---GST.pdf",
+      "pages": [10],
+      "why": "Held-out table. Landscape page, an empty report format: 11 columns, two-row headings ('Details of the UIN entity' over Name | UIN, 'Time Period' over From | To). The column-number row (1)...(11) is not data, so the table has NO data rows.",
+      "verified": true,
+      "text_has": [
+        "Annexure E: Format for monthly report",
+        "Office of the Commissioner",
+        "Report for the month of"
+      ],
+      "text_not": ["Page 10 of 10", "Circular No. 63/37/2018 - GST"],
+      "_note": "text_not assumes 'Circular No. 63/37/2018 - GST' repeats at the top of every page (a running header). Verify on another page of the PDF.",
+      "tables": [
+        {
+          "pages": [10],
+          "columns": 11,
+          "rows": 0,
+          "headings": [
+            ["Name of the State"],
+            ["Details of the UIN entity", "Name"],
+            ["Details of the UIN entity", "UIN"],
+            ["Time Period", "From"],
+            ["Time Period", "To"],
+            ["Status of Refund application (Sanctioned / Deficiency Memo issued / under process / Rejected)"],
+            ["Name of the State for which refund has been sanctioned"],
+            ["Central Tax"],
+            ["State Tax / Union Territory Tax"],
+            ["Integrated Tax"],
+            ["Cess"]
+          ],
+          "cells": []
+        }
+      ]
+    },
+    {
+      "id": "183-table-continues-from-p2",
+      "file": "circulars/2022/183-15-2022-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table. The table started on page 2: page 3 opens with the repeated heading row, then the tail of row c's Scenario ('supply, instead of B2B supply...'), then row d. Neither the repeated headings nor row c's tail may count as a new row, so exactly ONE row starts on page 3.",
+      "verified": true,
+      "text_has": [
+        "4. The proper officer shall first seek the details from the registered person regarding all the invoices",
+        "following conditions of Section 16 of CGST Act",
+        "i) that he is in possession of a tax invoice or debit note issued by the supplier or such other tax paying documents;",
+        "ii) that he has received the goods or services or both;",
+        "iii) that he has made payment for the amount towards the value of supply, along with tax payable thereon, to the supplier."
+      ],
+      "text_not": ["Page 3 of 5"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 1,
+          "headings": [["S. No."], ["Scenario"], ["Clarification"]],
+          "cells": [
+            [1, "S. No.", "d."],
+            [1, "Scenario", "Where the supplier has filed FORM GSTR-1 as well as return in FORM GSTR-3B for a tax period, but he has declared the supply with wrong GSTIN of the recipient in FORM GSTR-1."],
+            [1, "Clarification", "In such cases, the difference in ITC claimed by the registered person in his return in FORM GSTR-3B and that available in FORM GSTR-2A may be handled by following the procedure provided in para 4 below."],
+            [1, "Clarification", "In addition, the proper officer of the actual recipient shall intimate the concerned jurisdictional tax authority"],
+            [1, "Clarification", "and such action will be pursued as an independent action."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "56-scanned-look-table-p1",
+      "file": "circulars/2018/56-30-2018-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table. Looks like a scan (grey, stray marks) but has a text layer (scan_report says ok), so it is NOT OCR'd by us: tests the scanner's own text layer. User checked 2026-10-28: the body text is selectable but the table looks like it is NOT (picture only). If so, a pass needs OCR for just the table region; a fail here means 'partly scanned' files are a gap the scan check missed. Tariff table starts at the foot of the page and continues onto page 2; column-number row (1)(2)(3) is not data.",
+      "verified": true,
+      "text_has": [
+        "Circular No.56/30/2018-GST",
+        "F. No. 354/290/2018-TRU",
+        "Tax Research Unit",
+        "24th August, 2018",
+        "Subject: Clarification regarding removal of restriction of refund of accumulated ITC on fabrics - reg.",
+        "Certain doubts have been raised regarding the applicability and intent of notification No. 20/2018-Central Tax (Rate) dated 26th July, 2018",
+        "31st July, 2018.",
+        "2. The said notification No. 5/2017-Central Tax (Rate) was issued in exercise of powers vested under section 54",
+        "A total 10 categories of fabrics covered in the notification are as follows:"
+      ],
+      "numbers": ["354/290/2018-TRU", "20/2018-Central Tax (Rate)", "5/2017-Central Tax (Rate)", "28.06.2017", "5007"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows_min": 1,
+          "headings": [["S. No."], ["Tariff item, heading, sub-heading or Chapter"], ["Description of Goods"]],
+          "cells": [
+            [1, "S. No.", "1."],
+            [1, "Tariff item", "5007"],
+            [1, "Description of Goods", "Woven fabrics of silk or of silk waste"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "184-whole-page-one-cell",
+      "file": "circulars/2022/184-16-2022-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table. The whole page is one table row: a long Clarification cell with a quoted, italic sub-section (8), a bold proviso and an Illustration, continuing onto page 3.",
+      "verified": true,
+      "text_not": ["Page 2 of 4"],
+      "numbers": ["01.02.2019"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows_min": 1,
+          "headings": [["Sl. No."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "Sl. No.", "1."],
+            [1, "Issue", "In case of supply of services by way of transportation of goods, including by mail or courier, where the transportation of goods is to a place outside India"],
+            [1, "Issue", "what would be the place of supply of the said services?"],
+            [1, "Clarification", "is determined in terms of sub-section (8) of section 12 of the IGST Act which reads as follows:"],
+            [1, "Clarification", "(b) a person other than a registered person, shall be the location at which such goods are handed over for their transportation:"],
+            [1, "Clarification", "Provided that where the transportation of goods is to a place outside India, the place of supply shall be the place of destination of such goods"],
+            [1, "Clarification", "Integrated Goods and Services Tax (Amendment) Act, 2018 w.e.f. 01.02.2019."],
+            [1, "Clarification", "X is a person registered under GST in the state of West Bengal who intends to export goods to a person Y located in Singapore."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "247-ocr-signature-page",
+      "file": "circulars/2025/247-04-2025-GST.pdf",
+      "pages": [4],
+      "why": "Held-out scan (OCR). Last page: paras 5.3 and 6, then a signature block where a handwritten date (14/2/2025) is written over the officer's printed name.",
+      "verified": true,
+      "text_has": [
+        "above. Further, a new explanation was added that ground clearance means ground clearance in unladen condition.",
+        "5.3 As per the recommendation of the GST Council, it is hereby clarified that the amendment carried out vide notification No. 03/2023- Compensation Cess (Rate) dated 26.07.2023 will apply on or after 26.7.2023.",
+        "6. Difficulty, if any, in the implementation of this circular may be brought to the notice of the Board.",
+        "Yours faithfully,",
+        "Limatula",
+        "Joint Secretary (TRU-I)",
+        "Tel: 011 -2309 2687"
+      ],
+      "text_not": ["Page 4 of 4"],
+      "numbers": ["03/2023- Compensation Cess (Rate)", "26.07.2023", "26.7.2023"],
+      "tables": []
+    },
+    {
+      "id": "212-plain-urls-amounts",
+      "file": "circulars/2024/212-06-2024-GST.pdf",
+      "pages": [3],
+      "why": "Held-out plain page: numbered paras 2.5-2.8, two URLs, an Indian-format amount (5,00,000) and a nested section reference 15(3)(b)(ii). No table.",
+      "verified": true,
+      "text_has": [
+        "reversal of input tax credit at his end in respect of such credit note issued by the supplier.",
+        "2.5 The said CA/CMA certificate may include details such as the details of the credit notes",
+        "FORM GST DRC-03/ return / any other relevant document",
+        "2.6 Such certificate issued by CA or CMA shall contain UDIN (Unique Document Identification Number).",
+        "https://udin.icai.org/search-udin",
+        "https://eicmai.in/udin/VerifyUDIN.aspx.",
+        "2.7 In cases, where the amount of tax (CGST+SGST+IGST and including compensation cess, if any)",
+        "is not exceeding Rs 5,00,000 (rupees five lakhs only)",
+        "2.8 Such certificates issued by the CA/CMA or the undertakings/ certificates issued by the recipient of supply",
+        "section 15(3)(b)(ii) of the CGST Act, 2017.",
+        "as evidence of requisite reversal of input tax credit by his recipients."
+      ],
+      "text_not": ["Page 3 of 4"],
+      "numbers": ["5,00,000", "15(3)(b)(ii)"],
+      "tables": []
+    },
+    {
+      "id": "194-plain-first-page-2-page-doc",
+      "file": "circulars/2023/194-06-2023-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain first page of a 2-page circular: letterhead, subject, paras 2.1-3, and a bold 'Issue 1' heading cut by the page break. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 194/06/2023-GST",
+        "File No. CBIC-20001/5/2023-GST",
+        "New Delhi, Dated the 17th July, 2023",
+        "Subject: Clarification on TCS liability under Sec 52 of the CGST Act, 2017 in case of multiple E-commerce Operators in one transaction.",
+        "Reference has been received seeking clarification regarding TCS liability under section 52",
+        "in the context of Open Network for Digital Commerce (ONDC).",
+        "2.1 In the current platform-centric model of e-commerce",
+        "2.2 In the case of the ONDC Network or similar other arrangements",
+        "qualify as ECOs as per Section 2(45) of the CGST Act.",
+        "3. In order to clarify the issue and to ensure uniformity",
+        "Issue 1: In a situation where multiple ECOs are involved in a single transaction of supply of goods or services or both through ECO platform and where the supplier-side ECO"
+      ],
+      "text_not": ["Page 1 of 2"],
+      "numbers": ["CBIC-20001/5/2023-GST", "2(45)", "168 (1)"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-31-34",
+      "file": "GST_act.pdf",
+      "pages": [44],
+      "why": "Held-out Act page: tail of section 31 ((5)-(7), Explanation), inserted section 31A in brackets, sections 32-34 starting, substituted words in brackets with footnote markers, and four footnotes with amendment history.",
+      "verified": true,
+      "text_has": [
+        "(5) Subject to the provisions of clause (d) of sub-section (3), in case of continuous supply of services,",
+        "(a) where the due date of payment is ascertainable from the contract, the invoice shall be issued on or before the due date of payment;",
+        "(c) where the payment is linked to the completion of an event",
+        "(6) In a case where the supply of services ceases under a contract before the completion of the supply",
+        "(7) Notwithstanding anything contained in sub-section (1), where the goods being sent or taken on approval for sale or return",
+        "Explanation.",
+        "For the purposes of this section, the expression “tax invoice” shall include any revised invoice",
+        "31A. Facility of digital payment to recipient.",
+        "32. Prohibition of unauthorised collection of tax.",
+        "(2) No registered person shall collect tax except in accordance with the provisions of this Act or the rules made thereunder.",
+        "33. Amount of tax to be indicated in tax invoice and other documents.",
+        "34. Credit and debit notes.",
+        "[Where one or more tax invoices have] been issued for supply",
+        "[one or more credit notes for supplies made in a financial year]",
+        "[the thirtieth day of November] following the end of the financial year",
+        "1. Ins. by Act 23 of 2019, s. 96 (w.e.f. 1-1-2020).",
+        "2. Subs. by Act 31 of 2018, s. 15, for “Where a tax invoice has” (w.e.f. 1-2-2019).",
+        "3. Subs. by s. 15, ibid., for “a credit note” (w.e.f. 1-2-2019).",
+        "4. Subs. by Act 6 of 2022, s. 102, for “September” (w.e.f. 1-10-2022)."
+      ],
+      "tables": []
+    },
+    {
+      "id": "rules-rules-103-107A",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [311],
+      "why": "Held-out Rules page: chapter heading, five short rules (103-107A), bold form names inside sentences, hanging (a)/(b) lists, a substituted rule whose old text is in footnote 1, and an inserted rule.",
+      "verified": true,
+      "text_has": [
+        "CHAPTER XII - ADVANCE RULING",
+        "Rule 103. Qualification and appointment of members of the Authority for Advance Ruling.",
+        "[The Government shall appoint officers not below the rank of Joint Commissioner as member of the Authority for Advance Ruling.]",
+        "Rule 104. Form and manner of application to the Authority for Advance Ruling.",
+        "(1) An application for obtaining an advance ruling under sub-section (1) of section 97 shall be made on the common portal in FORM GST ARA-01 and shall be accompanied by a fee of five thousand rupees",
+        "Rule 105. Certification of copies of advance rulings pronounced by the Authority.",
+        "Rule 106. Form and manner of appeal to the Appellate Authority for Advance Ruling.",
+        "FORM GST ARA-02 and shall be accompanied by a fee of ten thousand rupees",
+        "FORM GST ARA-03 and no fee shall be payable by the said officer for filing the appeal.",
+        "(b) in the case of an applicant, in the manner specified in rule 26.",
+        "Rule 107. Certification of copies of the advance rulings pronounced by the Appellate Authority.",
+        "(d) the Authority, in accordance with the provisions of sub-section (4) of section 101 of the Act.",
+        "[Rule 107A. Manual filing and processing.",
+        "include manual filing of the said application, intimation, reply, declaration, statement or issuance of the said notice, order or certificate in such Forms as appended to these rules.]",
+        "Substituted vide Notification No. 22/2017 - CT dated 17.08.2017, w.e.f. 01.07.2017. Prior to its substitution, it was read as:",
+        "\"The Central Government and the State Government shall appoint officer of the rank of Joint Commissioner as member of the Authority for Advance Ruling.\"",
+        "Inserted vide Notification No. 55/2017 - CT dated 15.11.2017."
+      ],
+      "numbers": ["22/2017", "55/2017", "17.08.2017", "01.07.2017", "15.11.2017"],
+      "tables": []
+    }
+  ]
+}

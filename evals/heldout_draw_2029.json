@@ -1,0 +1,65 @@
+{
+  "seed": 2029,
+  "pages": [
+    {
+      "kind": "table",
+      "file": "circulars/2018/31-05-2018---GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2029/01-table-31-05-2018---GST-p1.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2019/126-45-2019-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2029/02-table-126-45-2019-GST-p1.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2018/73-47-2018-GST.pdf",
+      "page": 3,
+      "image": "evals/heldout_pages_2029/03-table-73-47-2018-GST-p3.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2022/185-17-2022-GST.pdf",
+      "page": 5,
+      "image": "evals/heldout_pages_2029/04-table-185-17-2022-GST-p5.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2018/36-10-2018-GST.pdf",
+      "page": 7,
+      "image": "evals/heldout_pages_2029/05-table-36-10-2018-GST-p7.png"
+    },
+    {
+      "kind": "scan",
+      "file": "instructions/2022/Instruction-No.-03-2022-GST.pdf",
+      "page": 6,
+      "image": "evals/heldout_pages_2029/06-scan-Instruction-No.-03-2022-GST-p6.png"
+    },
+    {
+      "kind": "plain",
+      "file": "instructions/2019/01-2019-20-GST-INV-Arrest-caveat.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2029/07-plain-01-2019-20-GST-INV-Arrest-caveat-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2018/30-4-2018-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2029/08-plain-30-4-2018-GST-p1.png"
+    },
+    {
+      "kind": "act",
+      "file": "GST_act.pdf",
+      "page": 79,
+      "image": "evals/heldout_pages_2029/09-act-GST_act-p79.png"
+    },
+    {
+      "kind": "rules",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "page": 301,
+      "image": "evals/heldout_pages_2029/10-rules-GST Act(s) and Rule(s)-Bare Law-p301.png"
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "_about": [
+    "Second held-out gold set (fresh draw, seed 2027): same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Purpose: the first held-out set (ingestion_heldout.json) was used to find and fix bugs on 2026-10-29 (heading rows, footers), so it now counts as seen. These pages were never looked at while building or fixing the extractor.",
+    "Pages drawn at random by `evals/draw_heldout.py --seed 2027` (list in evals/heldout_draw_2027.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
+    "Written from the page images in evals/heldout_pages_2027/, before any extractor output for these pages was looked at.",
+    "Four table pages continue a table from the page before, whose headings were not looked at. There, 'headings' is [] and cells use '' (any column): they test that each row's text is in the right ROW, and 'rows' tests that the text cut by the page break is joined to the row above instead of becoming a row of its own.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified the same day by GPT (Codex) against the PDFs: all 10 OK, including the three points flagged for a second look (203's full-width section line is its own row; the Rules page's 'Ch-IX : Payment of Tax' and 'GST & Indirect Taxes Committee' are a running header/footer; row counts 166 = 2, 195 = 3, 48 = 1)."
+  ],
+  "pages": [
+    {
+      "id": "166-continued-qa-two-rows",
+      "file": "circulars/2021/166-22-2021.pdf",
+      "pages": [2],
+      "why": "Held-out table, continued from p.1: the tail of row 2 ('electronic cash ledger?' / 'unjust enrichment clause...') sits at the top and must join the row above; rows 3 and 4 start here.",
+      "verified": true,
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "3."],
+            [1, "", "Whether refund of TDS/TCS deposited in electronic cash ledger under the provisions of section 51 /52 of the CGST Act can be refunded as excess balancein cash ledger?"],
+            [1, "", "The amount deducted/collected as TDS/TCS by TDS/ TCS deductors under the provisions of section 51 /52 of the CGST Act"],
+            [1, "", "can be refunded to the registered person as excess balance in electronic cash ledger in accordance with the proviso to sub-section (1) of section 54, read with sub-section (6) of section 49 of CGST Act."],
+            [2, "", "4."],
+            [2, "", "Whether relevant date for the refund of tax paid on supplies regarded as deemed export by recipient is to be determined as per clause (b) of Explanation (2) under section 54 of CGST Act"],
+            [2, "", "in the case of supply of goods regarded as deemed exports where a refund of tax paid is available in respect of the goods, the date on which the return relating to such deemed exports is furnished;"],
+            [2, "", "On perusal of the above, it is clear that clause (b) of Explanation (2) under section 54 of the CGST Act is applicable"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "195-continued-qa-three-rows",
+      "file": "circulars/2023/195-07-2023-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table, continued from p.1: the tail of row 1 at the top (Issue AND Clarification both continue) must join the row above; rows 2, 3 and 4 start here, row 4 continues onto p.3.",
+      "verified": true,
+      "text_not": ["Page 2 of 4"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 3,
+          "headings": [],
+          "cells": [
+            [1, "", "2."],
+            [1, "", "Whether in such cases, the manufacturer is required to reverse the input tax credit in respect of such replacement of parts or supply of repair services as part of warranty"],
+            [1, "", "is not required to reverse the input tax credit in respect of the said replacement parts or on the repair services provided."],
+            [2, "", "3."],
+            [2, "", "Whether GST would be payable on replacement of parts and/ or repair services provided by a distributor without any consideration from the customer"],
+            [2, "", "There may be instances where a distributor of a company provides replacement of parts and/ or repair services to the customer as part of warranty on behalf of the manufacturer"],
+            [3, "", "4."],
+            [3, "", "In the above scenario where the distributor provides"],
+            [3, "", "(a) There may be cases where the distributor replaces the part(s) to the customer under warranty"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "48-continued-numbered-paras-in-cell",
+      "file": "circulars/2018/48-22-2018-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table, continued from p.1: paras 1.2-1.4 at the top finish row 1's Clarification and must join the row above; row 2 starts here with numbered paras 2.1/2.2 and an indented (a)/(b) list inside one cell.",
+      "verified": true,
+      "numbers": ["7(5)(b)", "16(1)", "16(3)", "89(1)"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "2."],
+            [1, "", "Whether the benefit of zero rated supply can be allowed to all procurements by a SEZ developer or a SEZ unit such as event management services, hotel and accommodation services, consumables etc?"],
+            [1, "", "2.1 As per section 16(1) of the IGST Act, \"zero rated supplies\" means supplies of goods or services or both to a SEZ developer or a SEZ unit."],
+            [1, "", "(a) supplier of goods after such goods have been admitted in full in the SEZ for authorised operations, as endorsed by the specified officer of the Zone;"],
+            [1, "", "2.2 A conjoint reading of the above legal provisions reveals that the supplies to a SEZ developer or a SEZ unit shall be zero rated"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "203-continued-with-section-row",
+      "file": "circulars/2023/203-15-2023-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table, continued from p.2: the tail of row 1's Clarification at the top must join the row above; then a full-width section row 'B. Place of supply ... advertising sector' (its own row, not glued to the row above), then row 2.",
+      "verified": true,
+      "_note": "Treats the full-width section heading as a row of its own (row 1 on this page). Verify that this is the right expectation.",
+      "numbers": ["13(2)", "12(3)(a)"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "B. Place of supply in case of supply of services in respect of advertising sector"],
+            [2, "", "2."],
+            [2, "", "Advertising companies are often involved in procuring space on hoardings/ bill boards erected and mounted on buildings/land"],
+            [2, "", "(ii) There may be another case where the advertising company wants to display its advertisement on hoardings/ bill boards at a specific location"],
+            [2, "", "2.1 It is clarified that the place of supply in the case supply of services in respect of advertising sector"],
+            [2, "", "2.2 Place of supply in Case (i): The hoarding/structure erected on the land should be considered as immovable structure or fixture"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "220-qa-bullets-lettered-list",
+      "file": "circulars/2024/220-14-2024-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table with its own heading row (Issue | Clarification): one long row with two questions in the Issue cell, and bullets plus an (a)-(g) list in the Clarification cell; continues onto p.3.",
+      "verified": true,
+      "numbers": ["13(8)(a)", "20(1)"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 2,
+          "rows_min": 1,
+          "headings": [["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "Issue", "Whether the activity of providing Custodial Services by banks or financial institutions to FPIs will be treated as services provided to 'account holder' under Section 13(8)(a) of the IGST Act, 2017?"],
+            [1, "Issue", "Further, how the place of supply of the said services shall be determined?"],
+            [1, "Clarification", "According to the Securities and Exchange Board of India (Custodian of Securities) Regulations 1996, 'Custodial Services' in relation to securities means safekeeping of securities of a client"],
+            [1, "Clarification", "maintaining accounts of securities of a client;"],
+            [1, "Clarification", "As per Regulation 20(1) of the Securities and Exchange Board of India (Foreign Portfolio Investors) Regulations, 2019, an FPI is allowed to invest only in the following securities, namely-"],
+            [1, "Clarification", "(d) derivatives traded on a recognized stock exchange;"],
+            [1, "Clarification", "(f) Indian Depository Receipts;"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-01-2026-ocr-hindi-letterhead",
+      "file": "instructions/2026/Instruction-No.-01-2026-GST.pdf",
+      "pages": [1],
+      "why": "Held-out scan (OCR), first page: an e-office stamp line at the very top, a Hindi letterhead and address (English OCR; only English text is checked), numbered paras 1.2-3 and an (i)/(ii) list.",
+      "verified": true,
+      "text_has": [
+        "F. No.GST/INV/Audit Report No.7 of 2024/33/2024-25",
+        "GST-Investigation Wing",
+        "03-08-2026",
+        "Instruction No. 01/2026-GST",
+        "Subject: Instruction regarding Coordination with State Mining Authorities for sharing information relating to illegal mining and transportation of minerals",
+        "The undersigned is directed to refer to the Draft Performance Audit Report of the Comptroller and Auditor General of India (C&AG)",
+        "\"Assessment, Levy and Collection of GST on Minerals\"",
+        "1.2 Such information has potential implications under the Central Goods and Services Tax Act, 2017",
+        "2. The matter has been examined by the Board.",
+        "3. Accordingly, it is hereby directed that all Principal Chief Commissioners/Chief Commissioners of CGST Zones shall ensure that:",
+        "(i) a Nodal Officer is designated in each CGST Zone for coordination with the respective State Mining Department;",
+        "(ii) a mechanism is established with the State Mining Authorities for"
+      ],
+      "numbers": ["03-08-2026", "01/2026-GST"],
+      "tables": []
+    },
+    {
+      "id": "191-plain-one-page-circular",
+      "file": "circulars/2023/191-03-2023.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a one-page circular with superscript ordinals (27th, 49th, 18th, 1st), a rate (5%) and a signature block. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 191/03/2023-GST",
+        "F. No. CBIC-190354/21/2023-TO(TRU-II)-CBEC",
+        "(Tax Research Unit)",
+        "Date: 27th March, 2023",
+        "The Principal Commissioners/ Commissioners of Central Excise & Central Tax",
+        "Subject: Clarification regarding GST rate and classification of 'Rab' based on the recommendation of the GST Council in its 49th meeting held on 18th February, 2023",
+        "with effect from the 1st March, 2023, 5% GST rate has been notified on Rab, when sold in pre- packaged and labelled, and Nil GST",
+        "2. Further, as per the recommendation of the GST Council in the above-said meeting",
+        "the issue for past period is hereby regularized on \"as is\" basis.",
+        "3. Difficulty if any, in the implementation of this circular may be brought to the notice of the Board.",
+        "Yours faithfully,",
+        "(Amreeta Titus)",
+        "Deputy Secretary, TRU-I"
+      ],
+      "numbers": ["5%", "CBIC-190354/21/2023-TO(TRU-II)-CBEC"],
+      "tables": []
+    },
+    {
+      "id": "instruction-03-2024-plain-italic-quote",
+      "file": "instructions/2024/Instruction-No.-03-2024-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page that looks scanned (grey) but has a text layer: letterhead, a long italic quoted paragraph from another Instruction, para 2 and a signature. No table.",
+      "verified": true,
+      "text_has": [
+        "Instruction No. 03/2024-GST",
+        "F. No. GST/INV/Instructions/2023-24",
+        "(Central Board of Indirect Taxes and Customs)",
+        "New Delhi, Dated 14th August, 2024.",
+        "Subject: Applying para 2(g) of Instruction No. 01/2023-24-GST (Inv.) dt. 30-3-2024 in Audit matters- reg.",
+        "The undersigned is directed to say that the Board's Instruction No. 01/2023-24-GST (Inv.) dated 30-03-2024",
+        "\"The scenario may arise in a CGST Zone where an issue investigated by one of the (Pr.) Commissioners",
+        "In such cases, it is desirable that the zonal (Pr.) Chief Commissioner make a self-contained reference to the relevant policy wing of the Board",
+        "2. The Board desires that during the process of audit",
+        "This applies also to on-going audit proceedings.",
+        "Hindi version to follow.",
+        "(Vijay Mohan Jain)",
+        "Commissioner, GST-Investigation, CBIC"
+      ],
+      "numbers": ["01/2023-24-GST", "30-03-2024", "2(g)"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-24-25",
+      "file": "GST_act.pdf",
+      "pages": [38],
+      "why": "Held-out Act page: the end of section 24's clause list ((v)-(xii), with an inserted (xia) and an omitted 'and' marked ***), section 25 with provisos (one inserted in brackets, one substituted), an Explanation, and six footnotes including one marked '*'.",
+      "verified": true,
+      "text_has": [
+        "(v) non-resident taxable persons making taxable supply;",
+        "(vi) persons who are required to deduct tax under section 51, whether or not separately registered under this Act;",
+        "(viii) Input Service Distributor, whether or not separately registered under this Act;",
+        "(ix) persons who supply goods or services or both, other than supplies specified under sub-section (5) of section 9",
+        "[who is required to collect tax at source under section 52];",
+        "(xi) every person supplying online information and database access or retrieval services from a place outside India to a person in India, other than a registered person;",
+        "[(xia) every person supplying online money gaming from a place outside India to a person in India; and]",
+        "(xii) such other person or class of persons as may be notified by the Government on the recommendations of the Council.",
+        "25. Procedure for registration.",
+        "(1) Every person who is liable to be registered under section 22 or section 24 shall apply for registration",
+        "Provided that a casual taxable person or a non-resident taxable person shall apply for registration at least five days prior to the commencement of business.",
+        "[Provided further that a person having a unit, as defined in the Special Economic Zones Act, 2005 (28 of 2005)",
+        "Explanation.",
+        "Every person who makes a supply from the territorial waters of India shall obtain registration in the coastal State or Union territory",
+        "(2) A person seeking registration under this Act shall be granted a single registration in a State or Union territory:",
+        "[Provided that a person having multiple places of business in a State or Union territory may be granted a separate registration",
+        "(3) A person, though not liable to be registered under section 22 or section 24 may get himself registered voluntarily",
+        "(4) A person who has obtained or is required to obtain more than one registration",
+        "1. Ins. by Act 31 of 2018, s. 12 (w.e.f. 1-2-2019).",
+        "2. The word “and” omitted by Act 30 of 2023, s. 3 (w.e.f. 1-10-2023).",
+        "3. Ins. by s. 3, ibid. (w.e.f. 1-10-2023).",
+        "Vide notifn. no. S.O. 3912(E), dated 30th October, 2019, this Act is made applicable to the Union territory of Jammu and Kashmir and the Union territory of Ladakh.",
+        "4. Ins. by Act 31 of 2018, s. 13 (w.e.f. 1-2-2019).",
+        "5. Subs. by s. 13, ibid., for the proviso (w.e.f. 1-2-2019)."
+      ],
+      "numbers": ["28 of 2005", "3912(E)"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-86A-86B",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [279],
+      "why": "Held-out Rules page: the end of rule 86A, inserted rule 86B with a proviso, an (a)-(f) list with a nested (i)-(iv) list, an inserted clause (f), two footnotes, and the book's running header and footer.",
+      "verified": true,
+      "_note": "text_not assumes the book's running header ('Ch-IX : Payment of Tax') and footer ('GST & Indirect Taxes Committee') should be removed, as a correct extraction would do. The chapter header repeats only within its chapter, so it may survive the 'half the pages' rule.",
+      "text_has": [
+        "(c) the registered person availing the credit of input tax has been found non-existent or not to be conducting any business from any place for which registration has been obtained;",
+        "(d) the registered person availing any credit of input tax is not in possession of a tax invoice or debit note or any other document prescribed under rule 36,",
+        "may, for reasons to be recorded in writing, not allow debit of an amount equivalent to such credit in electronic credit ledger",
+        "(2) The Commissioner, or the officer authorised by him under sub-rule (1) may, upon being satisfied",
+        "(3) Such restriction shall cease to have effect after the expiry of a period of one year from the date of imposing such restriction.\"]",
+        "[Rule 86B. Restrictions on use of amount available in electronic credit ledger.",
+        "in excess of ninety-nine per cent. of such tax liability",
+        "in a month exceeds fifty lakh rupees:",
+        "Provided that the said restriction shall not apply where",
+        "(a) the said person or the proprietor or karta or the managing director",
+        "under the Income-tax Act, 1961(43 of 1961)",
+        "(d) the registered person has discharged his liability towards output tax through the electronic cash ledger for an amount which is in excess of 1% of the total output tax liability",
+        "(e) the registered person is",
+        "(i) Government Department; or",
+        "(iv) a statutory body:",
+        "[(f) the registered person other than a manufacturer shall be exempted from the provisions of this rule only in respect of goods specified under rule 31D",
+        "Inserted vide Notification No. 94/2020 - CT dated 22.12.2020, w.e.f. 01.01.2021.",
+        "Inserted vide Notification No. 20/2025 - CT dated 31.12.2025, w.e.f. 01.02.2026."
+      ],
+      "text_not": ["Ch-IX : Payment of Tax", "GST & Indirect Taxes Committee"],
+      "numbers": ["1%", "94/2020", "20/2025", "22.12.2020", "31.12.2025"],
+      "tables": []
+    }
+  ]
+}

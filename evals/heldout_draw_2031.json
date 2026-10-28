@@ -1,0 +1,65 @@
+{
+  "seed": 2031,
+  "pages": [
+    {
+      "kind": "table",
+      "file": "circulars/2018/71-45-2018-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2031/01-table-71-45-2018-GST-p1.png"
+    },
+    {
+      "kind": "table",
+      "file": "instructions/2022/Instruction-No.-02-2022-GST.pdf",
+      "page": 5,
+      "image": "evals/heldout_pages_2031/02-table-Instruction-No.-02-2022-GST-p5.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2022/170-02-2022-GST.pdf",
+      "page": 7,
+      "image": "evals/heldout_pages_2031/03-table-170-02-2022-GST-p7.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2019/98-17-2019-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2031/04-table-98-17-2019-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2018/51-25-2018-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2031/05-table-51-25-2018-GST-p2.png"
+    },
+    {
+      "kind": "scan",
+      "file": "instructions/2020/01-2020-21-GST-Investigation.pdf",
+      "page": 6,
+      "image": "evals/heldout_pages_2031/06-scan-01-2020-21-GST-Investigation-p6.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2018/45-19-2018-GST.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2031/07-plain-45-19-2018-GST-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2021/148-04-2021-GST.pdf",
+      "page": 3,
+      "image": "evals/heldout_pages_2031/08-plain-148-04-2021-GST-p3.png"
+    },
+    {
+      "kind": "act",
+      "file": "GST_act.pdf",
+      "page": 77,
+      "image": "evals/heldout_pages_2031/09-act-GST_act-p77.png"
+    },
+    {
+      "kind": "rules",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "page": 224,
+      "image": "evals/heldout_pages_2031/10-rules-GST Act(s) and Rule(s)-Bare Law-p224.png"
+    }
+  ]
+}

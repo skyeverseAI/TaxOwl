@@ -1,0 +1,596 @@
+{
+  "_about": [
+    "Third held-out gold set (fresh draw, seed 2028): same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Purpose: the second held-out set (ingestion_heldout_2027.json) was used to find and fix bugs on 2026-10-29 (section rows, the repeated-cells check), so it now counts as seen. These pages were never looked at while building or fixing the extractor.",
+    "Pages drawn at random by `evals/draw_heldout.py --seed 2028` (list in evals/heldout_draw_2028.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
+    "Written from the page images in evals/heldout_pages_2028/, before any extractor output for these pages was looked at.",
+    "217 p.3 is entirely the continuation of one table row, so its case covers pages 2-3 (p.2 rendered only to see where the row starts): it tests that text cut by the page break lands in the same row and the same column.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified the same day by GPT (Codex) against the PDFs: all 10 OK, including the three points flagged for a second look (217's p.2-3 continuation is one row; 223's (1)(2)(3) line is part of the headings, 2 data rows; the Rules page's 'Ch-XVIII : Demands and Recovery', 'Rules 142-161' and 'GST & Indirect Taxes Committee' are a running header/footer)."
+  ],
+  "pages": [
+    {
+      "id": "16-first-page-letterhead-and-qa-table",
+      "file": "circulars/2017/16-16-2017-GST.pdf",
+      "pages": [
+        1
+      ],
+      "why": "Held-out table page: letterhead, a superscript date, then an S. No. | Issue | Comment table whose single row starts here (numbered paras 1-4 in the Comment cell) and runs onto p.2.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 16/16/2017-GST",
+        "F. No. 354/173/2017-TRU",
+        "Tax research Unit",
+        "North Block, New Delhi",
+        "15th November 2017",
+        "Subject: Clarifications regarding applicability of GST and availability of ITC in respect of certain services",
+        "I am directed to issue clarification with regard to certain issues brought to the notice of Board as under:"
+      ],
+      "numbers": [
+        "354/173/2017-TRU",
+        "11/2017-Central",
+        "S.No. 24",
+        "S.No. 54"
+      ],
+      "tables": [
+        {
+          "pages": [
+            1
+          ],
+          "columns": 3,
+          "rows": 1,
+          "headings": [
+            [
+              "S. No."
+            ],
+            [
+              "Issue"
+            ],
+            [
+              "Comment"
+            ]
+          ],
+          "cells": [
+            [
+              1,
+              "S. No.",
+              "1."
+            ],
+            [
+              1,
+              "Issue",
+              "Is GST applicable on warehousing of agricultural produce such as tea (i.e. black tea, white tea etc.), processed coffee beans or powder, pulses (de-husked or split), jaggery, processed spices, processed dry fruits, processed cashew nuts etc.?"
+            ],
+            [
+              1,
+              "Comment",
+              "As per GST notification No. 11/2017-Central Tax (Rate), S.No. 24 and notification No. 12/2017-Central Tax (Rate), S.No. 54, dated 28thJune 2017"
+            ],
+            [
+              1,
+              "Comment",
+              "Agricultural produce in the notification has been defined to mean \"any produce out of cultivation of plants"
+            ],
+            [
+              1,
+              "Comment",
+              "Tea used for making the beverage, such as black tea, green tea, white tea is a processed product"
+            ],
+            [
+              1,
+              "Comment",
+              "Thus, green tea leaves and not tea is the \"agricultural produce\" eligible for exemption"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "179-rate-table-entry-description-rate",
+      "file": "circulars/2022/179-11-2022-GST.pdf",
+      "pages": [
+        4
+      ],
+      "why": "Held-out table page: numbered paras 8-8.5 around a 3-column rate table (Entry and notification No. | Description | GST Rate) with a shaded heading row, superscript dates inside cells and short rate cells (Nil, 5%).",
+      "verified": true,
+      "text_has": [
+        "8. Applicability of GST on by-products of milling of Dal/ Pulses such as Chilka, Khanda and Churi:",
+        "8.1. Representations have been received seeking clarification regarding the applicable GST rate on by-products of milling of Dal/ Pulses",
+        "8.2. The by-products of milling of pulses/ dal such as Chilka, Khanda and Churi are appropriately classifiable under heading 2302",
+        "8.3. The applicable GST rate on goods falling under heading 2302 is detailed in the Table below:",
+        "8.4. The dispute in applicable GST rate revolves around the central argument",
+        "attracting a GST rate of 5%.",
+        "8.5. While milling of pulses/ dal, a wide range of by-products such as chilka, khanda, churi"
+      ],
+      "text_not": [
+        "Page 4 of 5"
+      ],
+      "numbers": [
+        "2302",
+        "102",
+        "103A",
+        "103B",
+        "5%"
+      ],
+      "tables": [
+        {
+          "pages": [
+            4
+          ],
+          "columns": 3,
+          "rows": 3,
+          "headings": [
+            [
+              "Entry and notification",
+              "No."
+            ],
+            [
+              "Description"
+            ],
+            [
+              "GST Rate"
+            ]
+          ],
+          "cells": [
+            [
+              1,
+              "Entry",
+              "S. No. 102 of notification No. 2/2017-Central Tax (Rate), dated the 28th June, 2017"
+            ],
+            [
+              1,
+              "Description",
+              "Aquatic feed including shrimp feed and prawn feed, poultry feed & cattle feed, including grass, hay & straw, supplement & husk of pulses, concentrates & additives, wheat bran & de-oiled cake[other than rice bran]"
+            ],
+            [
+              1,
+              "GST Rate",
+              "Nil"
+            ],
+            [
+              2,
+              "Entry",
+              "S. No. 103A of Schedule-I of notification No. 1/2017-Central Tax (Rate), dated 28th June, 2017"
+            ],
+            [
+              2,
+              "Description",
+              "Bran, sharps and other residues, whether or not in the form of pellets, derived from the sifting, milling or other working of cereals or of leguminous plants [other than aquatic feed"
+            ],
+            [
+              2,
+              "GST Rate",
+              "5%"
+            ],
+            [
+              3,
+              "Entry",
+              "S. No. 103B of Schedule-I of notification No. 1/2017-Central Tax (Rate), dated 28th June, 2017"
+            ],
+            [
+              3,
+              "Description",
+              "Rice bran (other than de-oiled rice bran)"
+            ],
+            [
+              3,
+              "GST Rate",
+              "5%"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "215-qa-table-misaligned-columns",
+      "file": "circulars/2024/215-09-2024-GST.pdf",
+      "pages": [
+        2
+      ],
+      "why": "Held-out table page: S.No. | Issue | Clarification heading row, then one long row whose Clarification lines sit lower than the Issue lines (the two columns are not on the same baselines); an italic quote inside; runs onto p.3.",
+      "verified": true,
+      "text_not": [
+        "Page 2 of 4"
+      ],
+      "numbers": [
+        "2.1",
+        "2.2"
+      ],
+      "tables": [
+        {
+          "pages": [
+            2
+          ],
+          "columns": 3,
+          "rows": 1,
+          "headings": [
+            [
+              "S.No."
+            ],
+            [
+              "Issue"
+            ],
+            [
+              "Clarification"
+            ]
+          ],
+          "cells": [
+            [
+              1,
+              "S.No.",
+              "1."
+            ],
+            [
+              1,
+              "Issue",
+              "Whether the insurance company is liable to pay GST on the salvage/ wreckage value earmarked in the claim assessment of the damage caused to the motor vehicle?"
+            ],
+            [
+              1,
+              "Clarification",
+              "Under GST law, supply is the relevant taxable event for levying tax. For an activity/transaction to be liable to GST, existence of 'supply' as defined under section 7 of CGST Act should be there."
+            ],
+            [
+              1,
+              "Clarification",
+              "Section 7 of CGST Act defines supply to mean 'all forms of supply of goods or services or both made or agreed to be made for a consideration by a person in the course or furtherance of business.'"
+            ],
+            [
+              1,
+              "Clarification",
+              "2.2 Any Deduction made by the insurance company from the final claim amount paid to the insured is in the form of deductibles"
+            ],
+            [
+              1,
+              "Clarification",
+              "limited to Insured's Declared Value (IDV) of the vehicle less the value of salvage/ wreck in cases of total loss"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "217-row-cut-by-page-break",
+      "file": "circulars/2024/217-11-2024-GST.pdf",
+      "pages": [
+        2,
+        3
+      ],
+      "why": "Held-out table page p.3 is all continuation: the table starts at the bottom of p.2 with one row, and p.3 carries the rest of that row's Issue and Clarification cells (both cut mid-sentence by the page break). Tests that p.3 joins the row above in the right columns, instead of becoming a row of its own.",
+      "verified": true,
+      "text_has": [
+        "1.4 Request has been received seeking clarity on availability of ITC in respect of repair expenses incurred in case of reimbursement mode of claim settlement.",
+        "section 168(1) of the Central Goods and Services Tax Act, 2017"
+      ],
+      "text_not": [
+        "Page 2 of 5",
+        "Page 3 of 5"
+      ],
+      "numbers": [
+        "168(1)",
+        "17(5)",
+        "2(93)",
+        "2(31)"
+      ],
+      "tables": [
+        {
+          "pages": [
+            2,
+            3
+          ],
+          "columns": 3,
+          "rows": 1,
+          "headings": [
+            [
+              "S. No."
+            ],
+            [
+              "Issue"
+            ],
+            [
+              "Clarification"
+            ]
+          ],
+          "cells": [
+            [
+              1,
+              "S. No.",
+              "1"
+            ],
+            [
+              1,
+              "Issue",
+              "The insurance companies, which are engaged in providing general insurance services in respect of insurance of motor vehicles"
+            ],
+            [
+              1,
+              "Issue",
+              "Whether ITC is available to insurance companies in respect of repair expenses reimbursed by the insurance company in case of reimbursement mode of claim settlement."
+            ],
+            [
+              1,
+              "Clarification",
+              "Under reimbursement mode of claim settlement, the insured avails repair services from non-network garages"
+            ],
+            [
+              1,
+              "Clarification",
+              "Section 17(5) of the CGST Act provides that ITC in respect of services of repair of motor vehicles shall be available where received by a taxable person engaged in the supply of general insurance services"
+            ],
+            [
+              1,
+              "Clarification",
+              "Section 16 of CGST Act provides that every registered person shall"
+            ],
+            [
+              1,
+              "Clarification",
+              "Further, section 2(93) of CGST Act defines \"recipient\" of supply of goods or services or both"
+            ],
+            [
+              1,
+              "Clarification",
+              "In reimbursement mode of claim settlement, the payment is made by the insurance company for the approved cost of repair services through reimbursement to the insured."
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "223-officer-table-column-numbers-roman-list",
+      "file": "circulars/2024/223-17-2024-GST.pdf",
+      "pages": [
+        2
+      ],
+      "why": "Held-out table page: a 3-line heading, a (1)(2)(3) column-number row (must not be a data row), row 1, and row 2 whose Functions cell is a 14-line roman-numeral list next to a vertically centred '2.' and designation (must stay one row); runs onto p.3.",
+      "verified": true,
+      "text_has": [
+        "\"CGST Rules\") may be assigned to Superintendent of Central Tax instead of Assistant or Deputy Commissioners of Central Tax or Assistant or Deputy Directors of Central Tax.",
+        "1.3 Accordingly, the table in Circular no. 1/1/2017-CT dated 26.06.2017 may be substituted by the following table: -",
+        "Table"
+      ],
+      "text_not": [
+        "Page 2 of 3"
+      ],
+      "numbers": [
+        "1/1/2017-CT",
+        "26.06.2017"
+      ],
+      "tables": [
+        {
+          "pages": [
+            2
+          ],
+          "columns": 3,
+          "rows": 2,
+          "headings": [
+            [
+              "Serial",
+              "Number"
+            ],
+            [
+              "Designation of the Officer"
+            ],
+            [
+              "Functions under section of the",
+              "Central Goods and Services Tax Act, 2017 or the rules made",
+              "thereunder"
+            ]
+          ],
+          "cells": [
+            [
+              1,
+              "Serial",
+              "1."
+            ],
+            [
+              1,
+              "Designation",
+              "Assistant or Deputy Commissioners of Central Tax and Assistant or Deputy Directors of Central Tax"
+            ],
+            [
+              1,
+              "Functions",
+              "Sub-section (5) of section 10"
+            ],
+            [
+              2,
+              "Serial",
+              "2."
+            ],
+            [
+              2,
+              "Designation",
+              "Superintendent of Central Tax"
+            ],
+            [
+              2,
+              "Functions",
+              "Sub-section (8) of section 25"
+            ],
+            [
+              2,
+              "Functions",
+              "Proviso to sub-section (1) of section 27"
+            ],
+            [
+              2,
+              "Functions",
+              "Section 30"
+            ],
+            [
+              2,
+              "Functions",
+              "Rule 23"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "228-ocr-numbered-paras-dates",
+      "file": "circulars/2024/228-22-2024-GST.pdf",
+      "pages": [
+        4
+      ],
+      "why": "Held-out scan (OCR): numbered paras 4.5-5.5 with a bold heading, many dates (some with superscript ordinals), circular and notification numbers, and a year range split by a line break ('2021-' / '22'). No table.",
+      "verified": true,
+      "text_has": [
+        "4.5 Thus, as recommended by the 53",
+        "GST Council, it is hereby clarified that statutory collections made by RERA are covered under the Sl. No. 4 of notification No. 12/2017-CT(R) dated 28.06.2017.",
+        "5. Applicability of GST on the incentive amount shared by acquiring banks with other stakeholders in the digital payment ecosystem under the notified Incentive Scheme for promotion of RuPay Debit Cards and low value BHIM-UPI transactions.",
+        "5.1 Representation has been received requesting for clarification on whether GST is applicable on the incentive amount shared by acquiring banks",
+        "the Ministry of Electronics and Information Technology (MeitY) pays the acquiring banks an incentive as a percentage of the value of the transactions up to two thousand rupees.",
+        "transactions was examined in the 48th GST Council meeting held on 17th December, 2022",
+        "under the said scheme are in the nature of subsidy and thus, not taxable.",
+        "5.3 The Gazette Notifications dated 17th December, 2021 and 14th January, 2023 issued by MeitY",
+        "National Payments Corporation of India (NPCI) in consultation with the participating banks.",
+        "(PSP), which are typically banks, and the UPI app.",
+        "Payer PSPs may choose to further share this incentive with Third Party App Providers (TPAP).",
+        "5.5 GST Council in its 53rd meeting held on 22nd June, 2024 has recommended to clarify that further sharing of the incentive amount by the acquiring bank with other stakeholders, up to the"
+      ],
+      "numbers": [
+        "12/2017-CT(R)",
+        "28.06.2017",
+        "190/02/2023",
+        "17th December, 2022",
+        "14th January, 2023",
+        "22nd June, 2024",
+        "2022-23"
+      ],
+      "tables": []
+    },
+    {
+      "id": "174-plain-first-page-italic-rule-quote",
+      "file": "circulars/2022/174-06-2022-GST.pdf",
+      "pages": [
+        1
+      ],
+      "why": "Held-out plain page: bold letterhead, a superscript date, a bold 'FORM GST PMT-03A' cut by a line break, numbered paras, and an italic quoted sub-rule with an a./b. list. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 174/06/2022-GST",
+        "F. No. CBIC-20001/2/2022-GST",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Policy Wing",
+        "New Delhi, Dated the 6th July, 2022",
+        "The Principal Chief Commissioners / Chief Commissioners / Principal Commissioners / Commissioners of Central Tax (All)",
+        "Subject: Prescribing manner of re-credit in electronic credit ledger using FORM GST PMT-03A",
+        "GSTN has recently developed a new functionality of FORM GST PMT-03A which allows proper officer to re-credit the amount in the electronic credit ledger of the taxpayer.",
+        "sub-rule (4B) in rule 86 of the Central Goods and Services Tax Rules, 2017",
+        "has been inserted vide Notification No. 14/2022-CT dated 05.07.2022",
+        "2. In order to ensure uniformity in the implementation of the above provisions of the law",
+        "section 168(1) of the Central Goods and Services Tax Act, 2017",
+        "3. Categories of refunds where re-credit can be done using FORM GST PMT-03 A:",
+        "3.1 Reference is invited to sub-rule (4B) of rule 86 of the CGST Rules, which is reproduced as under:",
+        "(4B) Where a registered person deposits the amount of erroneous refund sanctioned to him",
+        "under sub-section (3) of section 54 of the Act, or",
+        "under sub-rule (3) of rule 96, in contravention of sub-rule (10) of rule 96,"
+      ],
+      "text_not": [
+        "Page 1 of 5"
+      ],
+      "numbers": [
+        "CBIC-20001/2/2022-GST",
+        "14/2022-CT",
+        "05.07.2022",
+        "168(1)"
+      ],
+      "tables": []
+    },
+    {
+      "id": "40-plain-last-page-signature",
+      "file": "circulars/2018/40-14-2018-GST.pdf",
+      "pages": [
+        2
+      ],
+      "why": "Held-out plain page: the tail of an italic quote, paras 3 and 4, and a right-aligned signature block; the rest of the page is blank. No table.",
+      "verified": true,
+      "text_has": [
+        "rejection. In case of rejection, the LUT shall be deemed to have been rejected ab initio.\"",
+        "3. It is requested that suitable trade notices may be issued to publicize the contents of this Circular.",
+        "4. Difficulty, if any, in the implementation of the above instructions may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Upender Gupta)",
+        "Commissioner (GST)"
+      ],
+      "text_not": [
+        "Page 2 of 2"
+      ],
+      "tables": []
+    },
+    {
+      "id": "act-sections-51-52",
+      "file": "GST_act.pdf",
+      "pages": [
+        55
+      ],
+      "why": "Held-out Act page: the end of section 51 ((6)-(8) and a proviso), section 52 with a bold heading and em dash, an Explanation, an inserted proviso pair and an inserted Explanation in brackets with footnote markers, and three footnotes.",
+      "verified": true,
+      "text_has": [
+        "(6) If any deductor fails to pay to the Government the amount deducted as tax under sub-section (1), he shall pay interest in accordance with the provisions of sub-section (1) of section 50, in addition to the amount of tax deducted.",
+        "(7) The determination of the amount in default under this section shall be made in the manner specified in section 73 or section 74",
+        "[or section 74A].",
+        "(8) The refund to the deductor or the deductee arising on account of excess or erroneous deduction shall be dealt with in accordance with the provisions of section 54:",
+        "Provided that no refund to the deductor shall be granted, if the amount deducted has been credited to the electronic cash ledger of the deductee.",
+        "52. Collection of tax at source.—(1) Notwithstanding anything to the contrary contained in this Act, every electronic commerce operator",
+        "shall collect an amount calculated at such rate not exceeding one per cent., as may be notified",
+        "Explanation.—For the purposes of this sub-section, the expression \"net value of taxable supplies\"",
+        "(2) The power to collect the amount specified in sub-section (1) shall be without prejudice to any other mode of recovery from the operator.",
+        "(3) The amount collected under sub-section (1) shall be paid to the Government by the operator within ten days after the end of the month in which such collection is made",
+        "[Provided that the Commissioner may, for reasons to be recorded in writing, by notification, extend the time limit for furnishing the statement",
+        "the due date for furnishing the said statement for the months of October, November and December, 2018 shall be the 31st January, 2019]",
+        "(5) Every operator who collects the amount specified in sub-section (1) shall furnish an annual statement",
+        "before the thirty first day of December following the end of such financial year.",
+        "1. Ins. by Act 15 of 2024, s. 127 (w.e.f. 1-11-2024).",
+        "2. Ins. by Act 23 of 2019, s. 101 (w.e.f. 1-1-2020).",
+        "3. Ins. by the Central Goods and Services Tax (Fourth Removal of Difficulties) Order, 2018, S.O. 6430 (w.e.f.31-12-2018)"
+      ],
+      "numbers": [
+        "74A",
+        "1-11-2024",
+        "1-1-2020",
+        "6430",
+        "31st January, 2019"
+      ],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-142A-143-144",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [
+        350
+      ],
+      "why": "Held-out Rules page: the end of rule 142A, rules 143 and 144 with bold headings, an Explanation, a proviso, bold form names, and the book's running header ('Ch-XVIII : Demands and Recovery' | 'Rules 142-161') and footer.",
+      "verified": true,
+      "_note": "text_not assumes the running header and footer should be removed. The chapter header repeats only within its chapter, so it may survive the 'half the pages' rule (a known issue from the 2027 set).",
+      "text_has": [
+        "officer shall intimate, electronically on the common portal, the details of the said amount in FORM GST DRC-01D",
+        "shall be posted in Part-II of Electronic Liability Register in FORM GST PMT-01.",
+        "(2) The intimation referred to in sub-rule (1) shall be treated as the notice for recovery.",
+        "or rule 144 or rule 145 or rule 146 or rule 147 or rule 155 or rule 156 or rule 157 or rule 160.]",
+        "Rule 143. Recovery by deduction from any money owed.",
+        "in FORM GST-DRC-09, a specified officer to deduct the amount from any money owing to such defaulter",
+        "Explanation.- For the purposes of this rule, \"specified officer\" shall mean any officer of the Central Government",
+        "Rule 144. Recovery by sale of goods under the control of proper officer",
+        "(3) The last day for submission of bid or the date of auction shall not be earlier than fifteen days from the date of issue of the Notice referred to in sub-rule (2):",
+        "Provided that where the goods are of perishable or hazardous nature",
+        "(5) The proper officer shall issue a Notice to the successful bidder in FORM GST DRC-11",
+        "issue a certificate in FORM GST DRC-12.",
+        "(7) The proper officer shall cancel the process and proceed for re-auction where no bid is received"
+      ],
+      "text_not": [
+        "Ch-XVIII : Demands and Recovery",
+        "Rules 142-161",
+        "GST & Indirect Taxes Committee"
+      ],
+      "numbers": [
+        "DRC-01D",
+        "PMT-01",
+        "DRC-09",
+        "DRC-10",
+        "DRC-11",
+        "DRC-12"
+      ],
+      "tables": []
+    }
+  ]
+}

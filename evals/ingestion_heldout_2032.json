@@ -1,0 +1,281 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2032: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2032` (list in evals/heldout_draw_2032.json). All 8 scan files were already in gold sets, so the scan page was drawn (same seed) from a scan file's page that no gold set uses (scratchpad wrapper; the repo script was not changed).",
+    "Written from the page images in evals/heldout_pages_2032/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "24-two-blank-statement-forms",
+      "file": "circulars/2017/24-24-2017-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page: a para with bold form names, then two blank statement forms: a 5-column one with a formula in a heading and a 1-5 column-number row, and a 13-column one with two heading levels, words broken inside narrow cells ('Taxa ble', 'Integra ted'), a 1-13 number row and an empty data row.",
+      "verified": true,
+      "_note": "No row counts or cells: the data rows are empty.",
+      "text_has": [
+        "after filing the details in FORM GSTR-1 for the said tax period.",
+        "This undertaking should be submitted manually along with the refund claim till the same is available in FORM RFD-01Aon the common portal.",
+        "3.0 In case of refund claim arising due to inverted duty structure, the following statements - Statement 1 and Statement 1Aof FORM GST RFD-01A have to be filled:-",
+        "Statement -1 [rule 89(5)]",
+        "Refund Type: ITC accumulated due to inverted tax structure [clause (ii) of first proviso to section 54(3)]",
+        "(Amount in Rs.)",
+        "Statement 1A [rule 89(2)(h)]"
+      ],
+      "numbers": ["89(5)", "89(2)(h)", "54(3)"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 5,
+          "headings": [["Turnover of inverted rated supply of goods"], ["Tax payable on such inverted rated supply of goods"], ["Adjusted total turnover"], ["Net input tax credit"], ["Maximum refund amount to be claimed"]],
+          "cells": []
+        },
+        {
+          "pages": [2],
+          "columns": 13,
+          "headings": [
+            ["Sl."],
+            ["Details of", "inward supplies"],
+            ["Date"],
+            ["Taxable Value"],
+            ["Tax paid on inward", "Integrated Tax"],
+            ["Central Tax"],
+            ["State/Union territory Tax"],
+            ["Details of", "outward supplies"],
+            ["Date"],
+            ["Taxable Value"],
+            ["Tax paid on outward", "Integrated Tax"],
+            ["Central Tax"],
+            ["State/Union territory Tax"]
+          ],
+          "cells": []
+        }
+      ]
+    },
+    {
+      "id": "199-first-page-qa-table-starts",
+      "file": "circulars/2023/199-11-2023-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: letterhead, a superscript date, an underlined subject, numbered paras, then an S. No | Issues | Clarification table whose first row starts at the bottom and runs onto p.2.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 199/11/2023-GST",
+        "F. No. CBIC-20001/5/2023-GST",
+        "New Delhi, Dated the 17th July, 2023",
+        "Subject: Clarification regarding taxability of services provided by an office of an organisation in one State to the office of that organisation in another State, both being distinct persons.",
+        "which are regarded as distinct persons under section 25 of Central Goods and Services Tax Act, 2017",
+        "2. Let us consider a business entity which has Head Office (HO) located in State-1 and a branch offices (BOs) located in other States.",
+        "3. The issues that may arise with regard to taxability of supply of services between distinct persons in terms of sub-section (4) of section 25 of the CGST Act are being clarified in the Table below: -"
+      ],
+      "text_not": ["Page 1 of 4"],
+      "numbers": ["CBIC-20001/5/2023-GST", "168(1)"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 1,
+          "headings": [["S. No"], ["Issues"], ["Clarification"]],
+          "cells": [
+            [1, "S. No", "1."],
+            [1, "Issues", "Whether HO can avail the input tax credit (hereinafter referred to as 'ITC') in respect of common input"],
+            [1, "Clarification", "It is clarified that in respect of common input services procured by the HO from a third party but attributable to both HO and BOs or"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "108-continued-then-rows-4-5",
+      "file": "circulars/2019/108-27-2019-GST.pdf",
+      "pages": [4],
+      "why": "Held-out table page, continued from p.3: the tail of row 3's lettered answer (b, c) at the top must join the row above; then rows 4 and 5 with a)/b) answers; row 5 runs onto p.5.",
+      "verified": true,
+      "text_not": ["Page 4 of 7", "Circular No. 108/27/2019-GST"],
+      "tables": [
+        {
+          "pages": [4],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "4."],
+            [1, "", "Whether invoice is required to be issued when the specified goods sent / taken out of India are not brought back, either fully or partially, within the stipulated period?"],
+            [1, "", "When the specified goods sent / taken out of India have been sold fully or partially, within the stipulated period of six months"],
+            [1, "", "When the specified goods sent / taken out of India have neither been sold nor brought back"],
+            [2, "", "5."],
+            [2, "", "Whether the refund claims can be preferred in respect of specified goods sent / taken out of"],
+            [2, "", "As clarified in para 5 above, the activity of sending / taking specified goods out of India is not a zero-rated supply."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "94-continued-then-row-3",
+      "file": "circulars/2019/94-13-2019-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2: the tail of row 2 (both Issue and Clarification cells) must join the row above; then row 3 with a long a)/b) answer full of bold form names (one split 'GSTR-' / '3B').",
+      "verified": true,
+      "text_not": ["Page 3 of 5", "Circular No. 94/13/2019-GST"],
+      "numbers": ["01.08.2018"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "3."],
+            [1, "", "What shall be the consequence if any registered person reverses the amount of credit to be lapsed"],
+            [1, "", "As the registered person has reversed the amount of credit to be lapsed in the return in FORM GSTR-3B"],
+            [1, "", "structure w.e.f. 01.08.2018."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "181-first-page-qa-table-starts",
+      "file": "circulars/2022/181-13-2022-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: letterhead, a superscript date, a long para with many notification numbers and dates, then an S. No. | Issue | Clarification table whose first row runs onto p.2.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 181/13/2022-GST",
+        "F. No. CBIC-20021/4/2022",
+        "New Delhi, Dated the 10th November, 2022",
+        "Subject: Clarification on refund related issues-reg.",
+        "Vide Notification No. 14/2022-Central Tax dated 05.07.2022, amendment has been made in the formula prescribed under sub-rule (5) of rule 89 of the CGST Rules, 2017.",
+        "09/2022-Central Tax (Rate) dated 13.07.2022, which has been made effective from 18.07.2022",
+        "2. Representations have been received from the trade and the field formations"
+      ],
+      "text_not": ["Page 1 of 2"],
+      "numbers": ["CBIC-20021/4/2022", "14/2022-Central", "05.07.2022", "13.07.2022", "18.07.2022"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 1,
+          "headings": [["S. No."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "S. No.", "1."],
+            [1, "Issue", "Whether the formula prescribed under sub-rule (5) of rule 89 of the CGST Rules, 2017 for calculation of refund of unutilised input tax credit on account of inverted duty structure"],
+            [1, "Clarification", "Vide Notification No. 14/2022-Central Tax dated 05.07.2022, amendment has been made in sub-rule (5) of rule 89 of CGST Rules, 2017, modifying the formula prescribed therein."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "corrigendum-28-plain",
+      "file": "circulars/2018/Corrigendum_1003079.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a corrigendum with italic 'for' / 'read' markers, quoted replacement paras 2.1 and 2.2, superscript dates and notification numbers. No table.",
+      "verified": true,
+      "text_has": [
+        "Circular No. 28/02/2018-GST",
+        "F. No. 354/03/2018",
+        "Room No. 156, North Block,",
+        "New Delhi, 18th January 2018",
+        "Subject: Corrigendum to Circular No. 28/02/2018-GST dated 08th January 2018 issued vide F.No. 354/03/2018 - reg.",
+        "In Para 2 of the said circular,",
+        "\"It is immaterial whether the service is provided by the educational institution itself or the institution outsources the activity to an outside contractor.\"",
+        "2.1 If the catering services is one of the services provided by an educational institution to its students, faculty and staff",
+        "[Sl. No. 66(a) of notification No. 12/2017-Central Tax (Rate) refers]",
+        "2.2 If the catering services, i.e., supply of food or drink in a mess or canteen, is provided by anyone other than the educational institution",
+        "notification No. 11/2017-CT (Rate) [as amended vide notification No. 46/2017-CT (Rate) dated 14.11.2017]",
+        "effective from 15.11.2017.\"",
+        "Yours Faithfully,",
+        "Technical Officer (TRU)"
+      ],
+      "numbers": ["354/03/2018", "2(y)", "66(a)", "7(i)", "14.11.2017", "15.11.2017", "5%"],
+      "tables": []
+    },
+    {
+      "id": "236-plain-illustrations",
+      "file": "circulars/2024/236-30-2024-GST.pdf",
+      "pages": [2],
+      "why": "Held-out plain page: paras 4-5 with italic quoted phrases and odd spacing in quotes, then two bold-italic illustration headings over italic paragraphs with rates and dates. No table.",
+      "verified": true,
+      "text_has": [
+        "where some suppliers have paid a lower rate of GST (including nil rate on account of an exemption entry)",
+        "entitled to any refund.",
+        "generally used in the context of transfer of property and means that the property is being transferred in its current condition",
+        "The intention of the Council is to regularize payment at a lower rate including nil rate due to the tax position taken by taxable person, as full discharge of tax liability.",
+        "payment at lower rate shall be treated as tax fully paid for the period that is regularized.",
+        "Illustration 1:",
+        "In a situation where certain tax payers have paid 5% GST on supply of",
+        "1.12.2023, this means that for the period prior to 1.12.2023, the 5% GST paid by tax payer will be treated as tax fully paid",
+        "differential of 7% between 5% and 12%. For those tax payers who have paid 12% GST, no refund would be allowed.",
+        "Illustration 2:"
+      ],
+      "numbers": ["1.12.2023", "7%", "12%"],
+      "tables": []
+    },
+    {
+      "id": "act-section-75-76",
+      "file": "GST_act.pdf",
+      "pages": [72],
+      "why": "Held-out Act page: the end of section 75 ((6)-(13), italic sub-section numbers), substituted/inserted text in brackets with footnote markers, an inserted Explanation, section 76's bold heading, and three footnotes with 'ibid'.",
+      "verified": true,
+      "text_has": [
+        "Provided that no such adjournment shall be granted for more than three times to a person during the proceedings.",
+        "(6) The proper officer, in his order, shall set out the relevant facts and the basis of his decision.",
+        "(9) The interest on the tax short paid or not paid shall be payable whether or not specified in the order determining the tax liability.",
+        "[(10) The adjudication proceedings shall be deemed to be concluded, if the order is not issued within the period specified in sub-section (10) of section 73 or in sub-section (10) of section 74 or in sub-section (7) of section 74A.]",
+        "(11) An issue on which the Appellate Authority or the Appellate Tribunal or the High Court has given its decision",
+        "[or sub-section (7) of section 74A] where proceedings are initiated by way of issue of a show cause notice under the said sections.",
+        "(12) Notwithstanding anything contained in section 73 or section 74",
+        "the same shall be recovered under the provisions of section 79.",
+        "For the purposes of this sub-section, the expression \"self-assessed tax\" shall include the tax payable in respect of details of outward supplies furnished under section 37",
+        "(13) Where any penalty is imposed under section 73 or section 74",
+        "76. Tax collected but not paid to Government.",
+        "1. Subs. by Act 15 of 2024, s. 139, for sub-section (10) (w.e.f. 1-11-2024).",
+        "3. Ins. by Act 13 of 2021, s. 114 (w.e.f. 1-1-2022)."
+      ],
+      "numbers": ["74A", "1-11-2024", "1-1-2022", "13 of 2021"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-31B-31C-31D",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [214],
+      "why": "Held-out Rules page: the end of rule 31A, inserted rules 31B, 31C and 31D with bold headings and footnote markers (one bold-italic), an (i)/(ii) list, an Explanation, italic footnotes continuing from the page before, and the running header and footer. Rule 31D's table starts on the next page.",
+      "verified": true,
+      "text_has": [
+        "For the purposes of this sub-rule, the expression \"Organising State\" has the same meaning as assigned to it in clause (f) of sub-rule (1) of rule 2 of the Lotteries (Regulation) Rules, 2010.]",
+        "(3) The value of supply of actionable claim in the form of chance to win in betting, gambling or horse racing in a race club shall be 100% of the face value of the bet",
+        "[Rule 31B. Value of supply in case of online gaming including online money gaming.",
+        "shall not be deductible from the value of supply of online money gaming.]",
+        "[Rule 31C. Value of supply of actionable claims in case of casino.",
+        "(i) purchase of the tokens, chips, coins or tickets, by whatever name called, for use in casino; or",
+        "Explanation.- For the purpose of rule 31B and rule 31C, any amount received by the player by winning any event",
+        "[Rule 31D. Value of supply of goods on basis of retail sale price.-",
+        "be the retail sale price declared on such goods, less the amount of tax as applicable, namely: -",
+        "(b) \"lottery authorised by State Governments\" means a lottery which is authorised to be sold in State(s) other than the organising State also; and",
+        "Substituted vide Notification No. 13/2025 – CT dated 17.09.2025, w.e.f. 22.09.2025.",
+        "Inserted vide Notification No. 20/2025 – CT dated 31.12.2025, w.e.f. 01.02.2026."
+      ],
+      "text_not": ["Ch-IV : Determination of Value of Supply", "Rules 27-35", "GST & Indirect Taxes Committee"],
+      "numbers": ["100%", "51/2023", "29.09.2023", "01.10.2023", "20/2025", "01.02.2026"],
+      "tables": []
+    },
+    {
+      "id": "instruction-01-2024-ocr-first-page",
+      "file": "instructions/2024/Instruction-No.-01-2024-GST.pdf",
+      "pages": [1],
+      "why": "Held-out scan (OCR), first page: a handwritten number and date next to the file number, letterhead, superscript date, quoted sections 78 and 79 in italics with a bold 'Provided', and para 1.2. No table.",
+      "verified": true,
+      "text_has": [
+        "Instruction No. 01/2024-GST",
+        "F. No. CBIC- 20016/9/2024-GST",
+        "Central Board of Indirect Taxes and Customs",
+        "Subject: Guidelines for initiation of recovery proceedings before three months from the date of service of demand order- regarding",
+        "Attention is invited to sub-section (1) of section 79 of the Central Goods and Services Tax Act, 2017",
+        "Section 78 of the CGST Act, which provides for the time for initiation of such recovery proceeding.",
+        "Section 78: Initiation of recovery proceedings.-",
+        "Any amount payable by a taxable person in pursuance of an order passed under this Act shall be paid by such person within a period of three months from the date of service of such order failing which recovery proceedings shall be initiated:",
+        "Section 79: Recovery of tax.-",
+        "1.2 On reading the above sections, it becomes clear that the general rule for initiating recovery proceedings is that"
+      ],
+      "numbers": ["20016/9/2024-GST"],
+      "tables": []
+    }
+  ]
+}

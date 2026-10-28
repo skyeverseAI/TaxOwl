@@ -1,0 +1,34 @@
+n,file,page,table_id,verdict,cause,note
+1,GST Act(s) and Rule(s)-Bare Law.pdf,261,"CGST Rules, 2017:table-9",broken,join,continues the table from p.260 but was not joined; first row also looks mixed ('2.' with the previous row's tail)
+2,circulars/2017/26-26-2017-GST.pdf,9,26/26/2017-GST:table-8,unsure,layout,coloured Error/Stage grid read as an outer table + nested table; content may be there; needs a closer look
+3,circulars/2018/27-01-2018-GST.pdf,,,not-table,,words_invented 's'; not a table problem
+4,circulars/2018/37-11-2018-GST.pdf,7,37/11/2018-GST:table-1,broken,rows+headings,"title banner 'Table' read into the headings; 13 rows for 2 real rows (one row per text line)"
+5,circulars/2018/41-15-2018-GST.pdf,19,41/15/2018-GST:table-9,fine,,form table that really has no heading row; 12 rows = 12 on the page
+6,circulars/2018/41-15-2018-GST.pdf,28,41/15/2018-GST:table-19,fine,,same form as p.19 (not opened; assumed from identical sheet line)
+7,circulars/2018/41-15-2018-GST.pdf,6,41/15/2018-GST:table-1,form,,empty fill-in form with an irregular grid; little legal content
+8,circulars/2018/51-25-2018-GST.pdf,2,51/25/2018-GST:table-2,broken,join+rows,continues the table from p.1 but was not joined; first cells became headings; 16 rows (one per text line)
+9,circulars/2018/56-30-2018-GST.pdf,1,56/30/2018-GST:table-1,broken,headings,NOT a picture: text is there; the shaded heading row became data row 1 (held-out failure explained)
+10,circulars/2018/75-49-2018-GST.pdf,8,75/49/2018-GST:table-5,broken,rows,19 rows for 12 on the page: wrapped lines inside a cell became separate rows
+11,circulars/2018/75-49-2018-GST.pdf,9,75/49/2018-GST:table-6,broken,rows,same form layout as p.8 (not opened; assumed)
+12,circulars/2018/75-49-2018-GST.pdf,10,75/49/2018-GST:table-7,broken,rows,same form layout as p.8 (not opened; assumed)
+13,circulars/2019/123-42-2019--GST.pdf,4,123/42/2019- GST:table-3,broken,join,nested table continuing from p.3; not joined
+14,circulars/2019/123-42-2019--GST.pdf,3,123/42/2019- GST:table-2,broken,rows,inner Case 1-3 table: 38 rows (one per text line); amounts like Rs. 6,00,000 split across rows
+15,circulars/2019/125-44-2019---GST.pdf,27,125/44/2019 - GST:table-2,fine,,repeated headings correct; many rows because of merged S.No./Type cells; sparse flag is a false alarm
+16,circulars/2019/98-17-2019-GST.pdf,3,98/17/2019-GST:table-3,broken,rows+headings,coloured headings over 4 lines split into several columns/rows; 21 rows for 2 tables of 5 rows; numbers at risk
+17,circulars/2019/Corrigendum_1003075.pdf,2,Corrigendum:table-2,fine,,one-row 'Read' table that really has no headings
+18,circulars/2020/133-03-2020-GST.pdf,5,133 03/2020-GST:table-1,fine,,gold page; passes all checks; sparse flag is a false alarm
+19,circulars/2020/133-03-2020-GST.pdf,5,133 03/2020-GST:table-1.1,fine,,gold page (nested inner table); passes
+20,circulars/2020/136-06-2020-GST.pdf,4,136/06/2020-GST:table-4,broken,join,outer Q&A table continuing from p.3; not joined
+21,circulars/2020/136-06-2020-GST.pdf,4,136/06/2020-GST:table-4.1,broken,join,inner table continuing from p.3; not joined
+22,circulars/2020/141-11-2020-GST.pdf,1,141/11/2020-GST:table-1,broken,headings,"heading row ('S. No.' broken over 3 lines) became data row 1"
+23,circulars/2021/156-12-2021-GST.pdf,2,156/12/2021-GST:table-1,fine,,table really starts here without a heading row ('in the table below:')
+24,circulars/2021/165-21-2021.pdf,2,165/21/2021:table-1,fine,,one-row substitution table that really has no headings
+25,circulars/2022/182-14-2022-GST.pdf,7,182/14/2022-GST:table-2,broken,join,continues the table from p.6 but was not joined (row 4 has a cell merged over two columns)
+26,circulars/2022/182-14-2022-GST.pdf,8,182/14/2022-GST:table-3,broken,join,likely continuation of the same table (not opened; assumed)
+27,circulars/2022/182-14-2022-GST.pdf,12,182/14/2022-GST:table-4,fine,,(a)/(b)/(d) form table that really has no headings
+28,circulars/2022/185-17-2022-GST.pdf,4,185/17/2022-GST:table-2,broken,join+rows,continues the table from p.3 but was not joined; text lines became headings and rows
+29,circulars/2022/185-17-2022-GST.pdf,5,,broken,missing,the table continues onto p.5 but NO table came out for this page (like 63/2018): silent disappearance; text may be in page text or lost (check)
+30,instructions/2021/02-2021-22-GST-INV-ISP.pdf,5,02/2021-22 [GST-INV-ISP]:table-2,broken,join,continues the table from p.4 (rows 12-15) but was not joined
+31,instructions/2022/Instruction-No.-02-2022-GST.pdf,13,Instruction No. 02/2022-GST:table-8,form,,empty report format with 3-level headings; little legal content
+32,instructions/unknown-year/Guidelines-for-CWF-provided-to-Board-under-rule-97-7A-of-CG.pdf,6,Guidelines-for-CWF-provided-to-Board-under-rule-97-7A-of-CG:table-2,fine,,(a)-(e) committee list that really has no headings
+33,instructions/unknown-year/Guidelines-for-CWF-provided-to-Board-under-rule-97-7A-of-CG.pdf,7,Guidelines-for-CWF-provided-to-Board-under-rule-97-7A-of-CG:table-3,fine,,same kind of committee list (not opened; assumed)
