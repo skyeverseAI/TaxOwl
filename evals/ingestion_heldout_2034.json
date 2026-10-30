@@ -1,0 +1,292 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2034: same format and matching rules as evals/ingestion_gold.json (see its _about). One of three fresh corpus draws (seeds 2034-2036) made after the gate -> Gemini pipeline (src/taxowl/ingestion_pipeline.py) was built.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2034` (list in evals/heldout_draw_2034.json). All 8 scan files were already in gold sets, so the scan page comes from a scan file's page no gold set uses (draw_heldout's scan fallback).",
+    "Written from the page images in evals/heldout_pages_2034/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "instruction-01-2023-annexure-c-blank-form",
+      "file": "instructions/2023/Instruction-No.-01-2023-GST.pdf",
+      "pages": [7],
+      "why": "Held-out table page: Annexure-C, a blank 10-column feedback form with long headings broken mid-word in narrow columns ('Dete cted tax amo unt', 'Rema rks'), a column-number row and one empty row; then a note and an a-d list.",
+      "verified": true,
+      "_note": "No row count or cells: the only data rows are the column numbers 1-10 and an empty row. Column 2 ('GSTIN') has no heading check because 'GSTIN' is also in column 7's heading.",
+      "text_has": [
+        "Annexure – C",
+        "GSTIN-wise feedback regarding the outcome of the action against the suspicious GSTINs",
+        "Name of the State/ CGST Zone:",
+        "Date of submission:",
+        "Note- Details are to be provided for each GSTIN covered in the drive, whether in the initial list or added subsequently",
+        "# For Column 6 - Reason for lead not correct - Please choose one of the following-",
+        "Data incorrect",
+        "Data correct but taxpayer had reasonable explanation",
+        "Data correct but taxpayer had complied before enforcement action",
+        "Case already investigated before enforcement action"
+      ],
+      "text_not": ["Page 7 of 7"],
+      "tables": [
+        {
+          "pages": [7],
+          "columns": 10,
+          "headings": [["S. No."], [], ["Legal Name/ Trade Name"], ["Tax involved as estimated by GSTN/ DGARM/ tax administration (Rs. In Lakhs)"], ["Was the lead correct? (Y/N)"], ["If lead not correct, reason. (Choose one from - a/ b/ c/d) #"], ["Action on GSTIN Registration (Suspended/ Cancelled/ No Action)"], ["Detected tax amount (Rs. In Lakhs)"], ["Recoveries made till date (Rs.)"], ["Remarks"]],
+          "cells": []
+        }
+      ]
+    },
+    {
+      "id": "225-corporate-guarantee-long-answers",
+      "file": "circulars/2024/225-19-2024-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page: S. No./Issue/Clarification with long two-paragraph answers, superscript ordinals ('26th'), quoted '1%'; row 3 starts at the foot and runs onto p.3.",
+      "verified": true,
+      "text_not": ["Page 2 of 5"],
+      "numbers": ["28(2)", "1%"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows_min": 3,
+          "headings": [["S. No."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "S. No.", "1"],
+            [1, "Issue", "Whether sub-rule (2) of rule 28 of CGST Rules will apply to the corporate guarantees issued prior to insertion of the said sub-rule on 26th October 2023?"],
+            [1, "Issue", "pay GST on \"1% of the amount of such guarantee offered\" on such guarantees?"],
+            [1, "Clarification", "It is to be clarified that the supply of service of providing corporate guarantee to any banking company or financial institution by a supplier to a related recipient"],
+            [1, "Clarification", "Therefore, in respect of supply of services of providing corporate guarantee between related persons"],
+            [1, "Clarification", "then the valuation of the said supply will be required to be done as per Rule 28(2) of CGST Rules."],
+            [2, "S. No.", "2"],
+            [2, "Issue", "In cases where the corporate guarantee is provided for a particular amount, whereas the loan is only partly availed or not availed at all by the recipient"],
+            [2, "Clarification", "The activity of supply of the service of providing a corporate guarantee is not linked with the actual disbursal of the loan."],
+            [2, "Clarification", "Further, it is also clarified that the recipient of the service of providing corporate guarantee shall be eligible to avail the ITC"],
+            [3, "S. No.", "3"],
+            [3, "Issue", "In the case of takeover of existing loans, since there is merely an assignment of an"],
+            [3, "Clarification", "In the service of providing corporate guarantee to any banking company or financial institution by a supplier to a related recipient, on behalf of the said recipient, the"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "137-continued-bold-questions",
+      "file": "circulars/2020/137-07-2020-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page, continued from p.1 with no heading row: the tail of row 1's bold question and answer at the top must join the row above; rows 2-4 with bold questions and two-paragraph answers; row 4 runs onto p.3. A running header 'Circular No. ...'.",
+      "verified": true,
+      "text_not": ["Circular No. 137/07/2020-GST", "Page 2 of 3"],
+      "numbers": ["37/2017-Central Tax", "04.10.2017", "03.04.2020", "20.03.2020", "29.06.2020", "30.06.2020", "2020-21", "2019-20"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 3,
+          "headings": [],
+          "cells": [
+            [1, "", "2."],
+            [1, "", "An advance is received by a supplier for a Service contract which got cancelled subsequently."],
+            [1, "", "In case GST is paid by the supplier on advances received for an event which got cancelled subsequently"],
+            [1, "", "The taxpayer can apply for refund of GST paid on such advances by filing FORM GST RFD-01 under the category \"Refund of excess payment of tax\"."],
+            [2, "", "3."],
+            [2, "", "Goods supplied by a supplier under cover of a tax invoice are returned by the recipient."],
+            [2, "", "There is no need to file a separate refund claim in such a case."],
+            [2, "", "However, in cases where there is no output liability against which a credit note can be adjusted"],
+            [3, "", "4."],
+            [3, "", "Letter of Undertaking (LUT) furnished for the purposes of zero-rated supplies"],
+            [3, "", "Notification No. 37/2017-Central Tax, dated 04.10.2017, requires LUT to be furnished for a financial year."],
+            [3, "", "Taxpayers may quote the reference no of the LUT for the year 2019-20 in the relevant documents."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "134-cirp-table-start",
+      "file": "circulars/2020/134-04-2020-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page: an intro line, then the start of a widely spaced S.No./Issue/Clarification table with bold questions; row 2 runs onto p.3. A running header 'Circular No.134/04/2020-GST'.",
+      "verified": true,
+      "text_has": ["Board, in exercise of its powers conferred under section 168(1) of the CGST Act hereby clarifies various issues in the table below:-"],
+      "text_not": ["Circular No.134/04/2020-GST", "Page 2 of 5"],
+      "numbers": ["168(1)"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 3,
+          "rows": 2,
+          "headings": [["S.No."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "S.No.", "1."],
+            [1, "Issue", "How are dues under GST for pre-CIRP period be dealt?"],
+            [1, "Clarification", "In accordance with the provisions of the IBC and various legal pronouncements on the issue"],
+            [1, "Clarification", "Moreover, section 14 of the IBC mandates the imposition of a moratorium period"],
+            [2, "S.No.", "2."],
+            [2, "Issue", "Should the GST registration of corporate debtor be cancelled?"],
+            [2, "Clarification", "It is clarified that the GST registration of an entity for which CIRP has been initiated should not be cancelled under the provisions of section 29 of the CGST Act, 2017."]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "192-continued-last-row-then-signature",
+      "file": "circulars/2023/192-04-2023-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2: a one-word tail ('Rules.') of row 1's answer must join the row above; then row 2 with a two-paragraph answer; then paras 3-4 and a signature.",
+      "verified": true,
+      "text_has": [
+        "3. It is requested that suitable trade notices may be issued to publicize the contents of this Circular.",
+        "4. Difficulty, if any, in implementation of this Circular may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Sanjay Mangal)",
+        "Principal Commissioner (GST)"
+      ],
+      "text_not": ["Page 3 of 3"],
+      "numbers": ["88B"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 1,
+          "headings": [],
+          "cells": [
+            [1, "", "2."],
+            [1, "", "Whether the credit of compensation cess available in electronic credit ledger shall be taken into account"],
+            [1, "", "(3) of rule 88B of CGST Rules in respect of wrongly availed and utilized IGST, CGST or SGST credit."],
+            [1, "", "As per proviso to section 11 of Goods and Services Tax (Compensation to States) Act, 2017"],
+            [1, "", "Accordingly, credit of compensation cess available in electronic credit ledger cannot be taken into account"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "228-ocr-railways-paras",
+      "file": "circulars/2024/228-22-2024-GST.pdf",
+      "pages": [2],
+      "why": "Held-out scan (OCR): a roman-numbered list item, two bold numbered headings over two lines, paras 2.1-3.1 with many dd.mm.yyyy dates, notification numbers with '(R)', superscript ordinals, quoted 'as is where is'. No table.",
+      "verified": true,
+      "_note": "Phrases stop before superscript ordinals ('53rd', '48th'), which OCR reads unpredictably.",
+      "text_has": [
+        "GST liability on certain accommodation services.",
+        "2. GST exemption on the outward supplies made by Ministry of Railways (Indian Railways).",
+        "2.1 Based on the request of Ministry of Railways (Indian Railways) and recommendations of the 52nd GST Council meeting held on 07.10.2023",
+        "withdrawn vide notification No.13/2023-CT(R) dated 19.10.2023 w.e.f. 20.10.2023.",
+        "2.2 However, Ministry of Railways had brought out certain difficulties in implementation of the abovesaid notification",
+        "2.3 GST Council has recommended to exempt the services provided by Ministry of Railways (Indian Railways) to general public viz., sale of platform tickets",
+        "Notification No. 04/2024-CT(R) dated 12.07.2024 has been issued in this regard and effective date of implementation of the said notification is 15.07.2024.",
+        "2.4 The GST Council in its",
+        "meeting has also recommended to regularize GST liability for the intervening period i.e. from 20.10.2023 to 14.07.2024",
+        "2.5 Therefore, as recommended by the 53rd GST Council",
+        "regularized on 'as is where is' basis from 20.10.2023 to 14.07.2024.",
+        "3. GST exemption on the transactions between Special Purpose Vehicles (SPVs) and Ministry of Railways (Indian Railways).",
+        "3.1 Based on the recommendations of the",
+        "GST Council meeting held on 17.12.2022, it was clarified to Ministry of Railways (Indian Railways)",
+        "services supplied by Ministry of Railways (Indian Railways) to SPVs are taxable."
+      ],
+      "text_not": ["Circular No. 228/22/2024-GST"],
+      "numbers": ["13/2023-CT(R)", "04/2024-CT(R)", "07.10.2023", "19.10.2023", "20.10.2023", "12.07.2024", "15.07.2024", "14.07.2024", "17.12.2022"],
+      "tables": []
+    },
+    {
+      "id": "notification-02-2026-gstat-bench",
+      "file": "notifications/2026/02-2026-Central-Tax.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a gazette notification with a bold centred letterhead, a bracketed number with a footnote marker ('[02/2026]1'), 'S.O. 2286(E).—', sections with letters (101A, 101B), a bracketed F. No., a bold signature and one footnote. No table.",
+      "verified": true,
+      "text_has": [
+        "[TO BE PUBLISHED IN THE GAZETTE OF INDIA, EXTRAORDINARY, PART II, SECTION 3, SUB SECTION (ii)]",
+        "GOVERNMENT OF INDIA",
+        "MINISTRY OF FINANCE",
+        "DEPARTMENT OF REVENUE",
+        "NOTIFICATION",
+        "No. [02/2026]",
+        "New Delhi, dated the 7th May, 2026",
+        "In exercise of the powers conferred by sub-section (1A) of section 101A of the Central Goods and Services Tax Act, 2017 (12 of 2017)",
+        "hereby empowers the Principal Bench of the Appellate Tribunal, New Delhi constituted under sub-section (3) of section 109 of the said Act, to hear appeals made under section 101B of the said Act.",
+        "2. This notification shall be deemed to have come into force on the 1st day of April, 2026.",
+        "[F. No. A-50/2/2026-GSTAT-DOR]",
+        "BALASUBRAMANIAN KRISHNAMURTHY,",
+        "Joint Secretary",
+        "The numbers and figures \"18/2024\" shall be read as \"02/2026\" vide Corrigendum S.O. 2349(E) dated 08.05.2026"
+      ],
+      "numbers": ["2286(E)", "101A", "101B", "2349(E)", "08.05.2026", "A-50/2/2026-GSTAT-DOR"],
+      "tables": []
+    },
+    {
+      "id": "corrigendum-63-uin-waiver",
+      "file": "circulars/2019/Corrigendum_1003076.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a one-page corrigendum with a bold centred letterhead, superscript ordinals in dates, a bold two-line subject, bold quoted month ranges inside a sentence, a typo kept as printed ('tis regard') and a signature. No table.",
+      "verified": true,
+      "text_has": [
+        "F. No. 20/16/04/18-GST",
+        "Government of India",
+        "Ministry of Finance",
+        "Department of Revenue",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Policy Wing",
+        "New Delhi, Dated the 6th September, 2019",
+        "To,",
+        "The Principal Chief Commissioners/ Chief Commissioners/ Principal Commissioners/ Commissioners of Central Tax (All)/ The Principal Director General/ Director General (All)/ Pr. Chief Controller of Accounts (CBIC)",
+        "Madam/Sir,",
+        "Subject: Corrigendum to Circular No. 63/37/2018-GST dated 14th September, 2018 issued vide F. No 349/48/2017-GST- reg.",
+        "As the issue of non-recording of UINs has continued even after 31st March, 2019 it has been decided to extend the waiver given in tis regard vide Circular No.63/37/2018-GST dated 14th September, 2018 upto 31st March 2020.",
+        "Accordingly in para 7 of the Circular No.63/37/2018-GST dated 14th September, 2018, for the words and numbers 'April, 2018 to March, 2019' words and numbers 'April, 2018 to March, 2020' shall be substituted",
+        "shall be submitted to the jurisdictional officer.",
+        "2. It is requested that suitable trade notices may be issued to publicize the contents of this Circular.",
+        "ensure that a mechanism to record the UIN in the supply invoices is put in place before 31st March 2020.",
+        "3. Difficulty, if any, in implementation of this Circular may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Yogendra Garg)",
+        "Principal Commissioner (GST)"
+      ],
+      "text_not": ["Page 1 of 1"],
+      "numbers": ["20/16/04/18-GST", "349/48/2017-GST", "63/37/2018-GST"],
+      "tables": []
+    },
+    {
+      "id": "act-section-128A-129",
+      "file": "GST_act.pdf",
+      "pages": [101],
+      "why": "Held-out Act page: inserted section 128A in brackets with a footnote marker, italic clause letters and sub-section numbers, a run-on paragraph after the (a)-(c) list, three provisos, sub-sections (2)-(4) closing the bracket, the start of section 129, and one footnote.",
+      "verified": true,
+      "text_has": [
+        "[128A. Waiver of interest or penalty or both relating to demands raised under section 73, for certain tax periods.",
+        "(1) Notwithstanding anything to the contrary contained in this Act, where any amount of tax is payable by a person chargeable with tax in accordance with,",
+        "(a) a notice issued under sub-section (1) of section 73 or a statement issued under sub-section (3) of section 73, and where no order under sub-section (9) of section 73 has been issued; or",
+        "(b) an order passed under sub-section (9) of section 73, and where no order under sub-section (11) of section 107 or sub-section (1) of section 108 has been passed; or",
+        "(c) an order passed under sub-section (11) of section 107 or sub-section (1) of section 108, and where no order under sub-section (1) of section 113 has been passed,",
+        "pertaining to the period from 1st July, 2017 to 31st March, 2020, or a part thereof",
+        "no interest under section 50 and penalty under this Act, shall be payable",
+        "Provided that where a notice has been issued under sub-section (1) of section 74",
+        "Provided further that the conclusion of the proceedings under this sub-section",
+        "Provided also that where such interest and penalty has already been paid, no refund of the same shall be available.",
+        "(2) Nothing contained in sub-section (1) shall be applicable in respect of any amount payable by the person on account of erroneous refund.",
+        "(3) Nothing contained in sub-section (1) shall be applicable in respect of cases where an appeal or writ petition filed by the said person",
+        "(4) Notwithstanding anything contained in this Act, where any amount specified under sub-section (1) has been paid",
+        "clause (b) or clause (c) of sub-section (1), as the case may be.]",
+        "129. Detention, seizure and release of goods and conveyances in transit.",
+        "(1) Notwithstanding anything contained in this Act, where any person transports any goods or stores any goods while they are in transit",
+        "liable to detention or seizure and after detention or seizure, shall be released,",
+        "Ins. by Act 15 of 2024, s. 146, ibid. (w.e.f. 1-11-2024)."
+      ],
+      "numbers": ["128A", "1-11-2024"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-164-end-spl-forms",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [363],
+      "why": "Held-out Rules page: the end of a rule (sub-rules (16)-(17), an Explanation with an (a)/(b) hanging-indent list, a bold closing bracket), a bold form name carried from the page before, a mostly empty page, the running header and footer.",
+      "verified": true,
+      "_note": "text_not assumes the running header and footer should be removed (see the 2027/2028 notes on the chapter header).",
+      "text_has": [
+        "APL-04, that he has neither filed nor intends to file any appeal against the said order of the Appellate Authority.",
+        "(16) In cases where the taxpayer is required to pay an additional amount of tax liability as per the second proviso to sub-section (1) of section 128A",
+        "section as per the order issued in FORM GST SPL-05 or FORM GST SPL-06, if any, shall become void.",
+        "(17) In cases where the taxpayer is required to pay any amount of interest, or penalty, or both",
+        "Explanation.– For the purposes of this rule, the proper officer for issuance of order under this rule,–",
+        "(a) in cases where the application for waiver of interest, or penalty, or both is made with respect to a notice or statement mentioned in clause (a) of sub-section (1) of section 128A, shall be the proper officer for issuance of order as per section 73; and",
+        "(b) in cases where the application for waiver of interest, or penalty, or both, is made with respect to an order mentioned in clause (b) or clause (c) of sub-section (1) of section 128A, shall be the proper officer referred to in section 79 of the Act.]"
+      ],
+      "text_not": ["Ch-XIX : Offences and Penalties", "Rules 162-163", "GST & Indirect Taxes Committee"],
+      "numbers": ["APL-04", "SPL-05", "SPL-06", "128A"],
+      "tables": []
+    }
+  ]
+}

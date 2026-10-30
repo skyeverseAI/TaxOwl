@@ -1,0 +1,322 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2036: same format and matching rules as evals/ingestion_gold.json (see its _about). One of three fresh corpus draws (seeds 2034-2036) made after the gate -> Gemini pipeline (src/taxowl/ingestion_pipeline.py) was built.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2036` (list in evals/heldout_draw_2036.json). The scan page comes from a scan file's page no gold set uses (draw_heldout's scan fallback). Two files repeat from other new sets (Instruction 01/2023, also in 2034; Instruction 03/2022, also in 2035), on different pages.",
+    "Written from the page images in evals/heldout_pages_2036/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "142-table-i-cumulative-itc",
+      "file": "circulars/2020/142-12-2020--GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page: paras 3.2-4 with bold form names, then 'Table I': 5 columns with tall bold headings, right-aligned numbers, a bold TOTAL row, a last column merged down rows 1-8 (the worked answer), a full-width bold row in the middle and a full-width bold closing row.",
+      "verified": true,
+      "_note": "Full-width rows count as rows (9 and 11). Where the merged 'Effect' text lands among rows 1-8 is open, so it is checked in numbers (anywhere), not as a cell. 'Tax period' matches column 1 only because the match is case-sensitive (column 4 has 'tax period').",
+      "text_has": [
+        "months, till the due date of furnishing FORM GSTR-1 for the month of September, 2020.",
+        "should not exceed 110% of the cumulative value of the eligible credit available in respect of invoices or debit notes",
+        "3.3 It may be noted that availability of 110% of the cumulative value of the eligible credit",
+        "3.4 The excess ITC availed arising out of reconciliation during this period, if any, shall be required to be reversed in Table 4(B)(2) of FORM GSTR-3B, for the month of September, 2020.",
+        "4. The manner of cumulative reconciliation for the said months in terms of proviso to sub-rule (4) of rule 36 of the CGST Rules is explained by way of illustration, in a tabulated form, below.",
+        "Table I"
+      ],
+      "text_not": ["Circular No. 142/12/2020- GST", "Page 2 of 3"],
+      "numbers": ["110%", "Maximum eligible ITC in terms of rule 36 (4) is 2450 + [10% of 2450] =2695.", "Taxpayer had availed ITC of 2750.", "55 [2750-2695] would be required to be reversed as mentioned in para 3.4"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 5,
+          "rows": 11,
+          "headings": [["Tax period"], ["Eligible ITC as per the provisions of Chapter V of the CGST Act"], ["ITC availed by the taxpayer (recipient) in GSTR-3B of the respective months"], ["Invoices on which ITC is eligible and uploaded by the suppliers"], ["Effect of cumulative application of rule 36(4) on availability of ITC."]],
+          "cells": [
+            [1, "Tax period", "Feb, 2020"],
+            [1, "Eligible ITC", "300"],
+            [1, "ITC availed", "300"],
+            [1, "Invoices on which", "270"],
+            [3, "Tax period", "April, 2020"],
+            [3, "Invoices on which", "450"],
+            [7, "Tax period", "August, 2020"],
+            [7, "Eligible ITC", "200"],
+            [7, "Invoices on which", "150"],
+            [8, "Tax period", "TOTAL"],
+            [8, "Eligible ITC", "2750"],
+            [8, "ITC availed", "2750"],
+            [8, "Invoices on which", "2450"],
+            [9, "", "ITC Reversal required to the extent of 55"],
+            [10, "Tax period", "September, 2020"],
+            [10, "Eligible ITC", "500"],
+            [10, "ITC availed", "385"],
+            [10, "Invoices on which", "350"],
+            [10, "Effect of cumulative", "10% Rule shall apply independently for September, 2020"],
+            [11, "", "In the FORM GSTR-3B for the month of September, 2020, the tax payer shall avail ITC of 385 under Table 4(A) and would reverse ITC of 55 under Table 4(B)(2)"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "208-continued-rows-3-4",
+      "file": "circulars/2024/208-02-2024-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2 with no heading row: a long tail of row 2's answer (bold form names) must join the row above; then rows 3 and 4; row 4 runs onto p.4.",
+      "verified": true,
+      "text_not": ["Page 3 of 5"],
+      "numbers": ["04/2024-CT", "05.01.2024"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "3."],
+            [1, "", "Which value has to be reported in Column 8 of Table 9 of FORM GST SRM-II in case of goods having no MRP"],
+            [1, "", "In cases where there is no MRP of the package, then the sale price of the goods so manufactured shall be entered in Column 8 of Table 9 of FORM GST SRM-II"],
+            [2, "", "4."],
+            [2, "", "What should be the qualification and eligibility of the Chartered Engineer for providing Chartered Engineer certificate"],
+            [2, "", "It is clarified that a Practicing Chartered Engineer having a certificate of practice from the Institute of Engineers India (IEI)"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "146-continued-qr-code-lists",
+      "file": "circulars/2021/146-02-2021-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2 with no heading row: the tail of row 1's answer (superscript ordinals in dates) must join the row above; row 2 has a roman i-vi list inside the answer cell, row 3 a bold question and a roman list; row 3 runs onto p.4. Running header 'Circular no. ...'.",
+      "verified": true,
+      "text_not": ["Circular no. 146/02/2021-GST"],
+      "numbers": ["14/2020-Central Tax"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "2."],
+            [1, "", "What parameters/ details are required to be captured in the Quick Response (QR) Code?"],
+            [1, "", "required, inter-alia, to contain the following information:"],
+            [1, "", "Supplier GSTIN number"],
+            [1, "", "Payee's Bank A/C number and IFSC"],
+            [1, "", "GST amount along with breakup i.e. CGST, SGST, IGST, CESS, etc."],
+            [1, "", "Further, Dynamic QR Code should be such that it can be scanned to make a digital payment."],
+            [2, "", "3."],
+            [2, "", "If a supplier provides/ displays Dynamic QR Code, but the customer opts to make payment without using Dynamic QR Code"],
+            [2, "", "If the supplier has issued invoice having Dynamic QR Code for payment, the said invoice shall be deemed to have complied with Dynamic QR Code requirements."],
+            [2, "", "Using any mode like UPI, credit/ debit card or online banking or cash or combination of various modes of payment, with or without"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-01-2023-annexure-b-two-level-form",
+      "file": "instructions/2023/Instruction-No.-01-2023-GST.pdf",
+      "pages": [6],
+      "why": "Held-out table page: Annexure-B, an underlined two-line title, an A-E list with the table sitting under item C, a blank 8-column form with a two-level heading (Tax amount/ ITC involved over CGST/SGST/IGST/Cess/Total), a column-number row with '8 (4+5+6+7)', four empty rows with the first column merged, and a signature block.",
+      "verified": true,
+      "_note": "No row count or cells: the data rows are empty. The group heading is checked on column 4 only (as in the 106 form).",
+      "text_has": [
+        "Annexure-B",
+        "Intimation about details of the recipients of the non-existent suppliers detected during the special All-India drive against fake registrations",
+        "Tax administration of the non-existent supplier:",
+        "Tax administration of the recipient:",
+        "Details of the supplier, recipients and the tax amount involved:",
+        "Other relevant details, if any:",
+        "Details of enclosures (Panchnama/ Inspection report/ PV report/ Other relevant documents or evidences):",
+        "Place:",
+        "Date:",
+        "(Signature)",
+        "Name:",
+        "Designation:",
+        "Email address:",
+        "Enclosures: As above"
+      ],
+      "text_not": ["Page 6 of 7"],
+      "numbers": ["(4+5+6+7)"],
+      "tables": [
+        {
+          "pages": [6],
+          "columns": 8,
+          "headings": [["GSTIN of the non-existent supplier, along with Name & Address"], ["GSTIN of the recipient"], ["Name & Address of the recipient(s)"], ["Tax amount/ ITC involved (in Rs Lakhs)", "CGST"], ["SGST"], ["IGST"], ["Cess"], ["Total"]],
+          "cells": []
+        }
+      ]
+    },
+    {
+      "id": "207-italic-section-120-monetary-limits",
+      "file": "circulars/2024/207-01-2024-GST.pdf",
+      "pages": [2],
+      "why": "Held-out table page: an indented italic quote of section 120 (1)-(4) ending in a closing quote, para 2, then a small centred 2-column table of appellate forums with Indian-grouped amounts ('1,00,00,000/-').",
+      "verified": true,
+      "text_has": [
+        "(1) The Board may, on the recommendations of the Council, from time to time, issue orders or instructions or directions fixing such monetary limits",
+        "(2) Where, in pursuance of the orders or instructions or directions issued under sub-section (1), the officer of the central tax has not filed an appeal or application",
+        "(3) Notwithstanding the fact that no appeal or application has been filed by the officer of the central tax",
+        "(4) The Appellate Tribunal or court hearing such appeal or application shall have regard to the circumstances",
+        "issued under sub-section (1).\"",
+        "2. Accordingly, in exercise of the powers conferred by Section 120 of the CGST Act read with section 168 of the CGST Act",
+        "Goods and Service Tax Appellate Tribunal (GSTAT), High Court and Supreme Court under the provisions of CGST Act, subject to the exclusions mentioned in para 4 below:"
+      ],
+      "text_not": ["Page 2 of 5"],
+      "numbers": ["20,00,000/-", "1,00,00,000/-", "2,00,00,000/-"],
+      "tables": [
+        {
+          "pages": [2],
+          "columns": 2,
+          "rows": 3,
+          "headings": [["Appellate Forum"], ["Monetary Limit (amount involved in Rs.)"]],
+          "cells": [
+            [1, "Appellate Forum", "GSTAT"],
+            [1, "Monetary Limit", "20,00,000/-"],
+            [2, "Appellate Forum", "High Court"],
+            [2, "Monetary Limit", "1,00,00,000/-"],
+            [3, "Appellate Forum", "Supreme Court"],
+            [3, "Monetary Limit", "2,00,00,000/-"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-03-2022-ocr-zero-rated-checklist",
+      "file": "instructions/2022/Instruction-No.-03-2022-GST.pdf",
+      "pages": [3],
+      "why": "Held-out scan (OCR): a bold three-line 'B.' heading and an a)-o) checklist with form names, a circular number and date, superscript ordinals ('2nd and 3rd proviso', '1st proviso') and abbreviations (LoA, SEZ, DTA, BRC/FIRC). No table.",
+      "verified": true,
+      "_note": "Phrases stop before superscript ordinals, which OCR reads unpredictably.",
+      "text_has": [
+        "Additional details in case of the refund of accumulated ITC (on account of zero-rated supplies/ inverted rated structure) and refund of IGST paid on account of zero-rated supplies:",
+        "Whether the refund amount claimed has been debited from the electronic credit ledger, in terms of sub-rule (3) of rule 89 of CGST Rules.",
+        "In case of refund of IGST paid on account of zero-rated supplies, whether the amount of IGST has been paid through GSTR-3B return.",
+        "Whether calculation of Net ITC, where ever applicable, is correct as per the relevant provisions.",
+        "Whether it has been verified that ITC on capital goods has not been included in calculation of Net ITC for refund of ITC in zero rated supplies.",
+        "of the applicant in terms of Circular No. 135/05/2020-GST dated 31.03.2020.",
+        "Whether the refund is barred under the provisions of",
+        "Details of computation of refund claim amount as per the relevant provisions/ prescribed formula in the Act/ Rules",
+        "In case of refund on account of inversion, whether the supply qualifies for refund of unutilised ITC under clause (ii) of",
+        "In case of refund on account of export of goods, whether the details of shipping bill/ bill of exports, where ever applicable, have been verified from the ICEGATE portal.",
+        "In case of refund on account of zero-rated supply by DTA to SEZ, whether the said supply is meant for authorized operations on the basis of Letter of Authorisation (LoA).",
+        "Whether the documents pertaining to zero-rated supply to SEZ have been endorsed by the specified/authorized officer of the zone.",
+        "Whether the DTA supplier has received the payment from the SEZ recipient in case of supply of services to SEZ."
+      ],
+      "text_not": ["Instruction No. 03/2022-GST", "Page 3 of 6"],
+      "numbers": ["135/05/2020-GST", "31.03.2020", "54(3)", "GSTR-2A"],
+      "tables": []
+    },
+    {
+      "id": "111-worked-example-rupee-amounts",
+      "file": "circulars/2019/111-30-2019---GST.pdf",
+      "pages": [2],
+      "why": "Held-out plain page: the last page of a circular with paras 4-7, bold form names ('FORM GST RFD 01B'), a worked example full of rupee amounts ('Rs.100/-', 'Rs. 30/-'), a circular number with an en dash ('59/33/2018 – GST') and a signature. No table.",
+      "verified": true,
+      "text_has": [
+        "by the proper officer or such other order against which appeal has been preferred and other related documents.",
+        "4. Upon receipt of the application for refund under the category \"Refund on account of assessment/provisional assessment/appeal/any other order\"",
+        "make an order in FORM GST RFD 06 and issue payment order in FORM GST RFD 05 accordingly.",
+        "shall be made following the guideline as laid down in para 4.2 of Circular no. 59/33/2018 – GST dated 04/09/2018.",
+        "5. The above clarifications can be illustrated with the help of an example.",
+        "to the extent of Rs.100/- and debits the said amount from his electronic credit ledger.",
+        "The proper officer disposes the application by allowing refund of Rs.70/- and rejecting the refund of Rs. 30/-.",
+        "Assume that the appellate authority allows refund of only Rs.10/- out of the Rs. 30/- for which the registered person went in appeal.",
+        "the proper officer shall re-credit Rs.20/- to the electronic credit ledger of the claimant",
+        "will be uploaded with refund sanctioned amount as Rs.80/- and the amount to be re-credited as Rs. 20/-.",
+        "6. It is requested that suitable trade notices may be issued to publicize the contents of this circular.",
+        "7. Difficulty, if any, in implementation of the above instructions may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Yogendra Garg)",
+        "Principal Commissioner (GST)"
+      ],
+      "text_not": ["Circular No. 111/30/2019 - GST", "Page 2 of 2"],
+      "numbers": ["59/33/2018", "04/09/2018", "RFD 01B", "Rs.100/-", "Rs.70/-", "Rs.80/-"],
+      "tables": []
+    },
+    {
+      "id": "139-letterhead-italic-quoted-para",
+      "file": "circulars/2020/139-09-2020-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a bold letterhead with a CBEC file number, a superscript ordinal date, a bold subject with an en dash, a para with a bold form name split over two lines ('FORM' / 'GSTR-2A'), and an italic quoted block (5. and 5.1) from another circular. No table.",
+      "verified": true,
+      "text_has": [
+        "CBEC-20/06/03-2020 -GST",
+        "Government of India",
+        "Ministry of Finance",
+        "Department of Revenue",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Policy Wing",
+        "New Delhi, Dated the 10th June, 2020",
+        "To,",
+        "The Principal Chief Commissioners/Chief Commissioners/Principal Commissioners/ Commissioners of Central Tax (All)",
+        "The Principal Director Generals/ Director Generals (All)",
+        "Madam/Sir,",
+        "Subject: Clarification on refund related issues – reg.",
+        "Various representations have been received seeking clarification on the issue relating to refund of accumulated ITC in respect of invoices whose details are not reflected in the FORM GSTR-2A of the applicant.",
+        "exercise of its powers conferred by section 168 (1) of the Central Goods and Services Tax Act, 2017 (hereinafter referred to as \"CGST Act\"), hereby clarifies the issues detailed hereunder:",
+        "2. Circular No.135/05/2020 – GST dated the 31st March, 2020 states that:",
+        "\"5. Guidelines for refunds of Input Tax Credit under Section 54(3)",
+        "5.1 In terms of para 36 of circular No. 125/44/2019-GST dated 18.11.2019, the refund of ITC availed in respect of invoices not reflected in FORM GSTR-2A was also admissible",
+        "of insertion of sub-rule (4) to rule 36 of the CGST Rules, 2017 vide notification No. 49/2019-GST dated 09.10.2019",
+        "are not reflecting in the FORM GSTR-2A of the applicant."
+      ],
+      "text_not": ["Page 1 of 2"],
+      "numbers": ["CBEC-20/06/03-2020", "135/05/2020", "125/44/2019-GST", "18.11.2019", "49/2019-GST", "09.10.2019", "168(1)"],
+      "tables": []
+    },
+    {
+      "id": "act-sections-159-164",
+      "file": "GST_act.pdf",
+      "pages": [120],
+      "why": "Held-out Act page: the end of section 159 with an italic 'Explanation', then short sections 160-164 with bold headings, italic sub-section numbers and three provisos; no footnote.",
+      "verified": true,
+      "text_has": [
+        "(2) No publication under this section shall be made in relation to any penalty imposed under this Act until the time for presenting an appeal to the Appellate Authority under section 107 has expired",
+        "In the case of firm, company or other association of persons, the names of the partners of the firm",
+        "160. Assessment proceedings, etc., not to be invalid on certain grounds",
+        "(1) No assessment, re-assessment, adjudication, review, revision, appeal, rectification, notice, summons or other proceedings done",
+        "(2) The service of any notice, order or communication shall not be called in question",
+        "161. Rectification of errors apparent on the face of record.",
+        "Without prejudice to the provisions of section 160, and notwithstanding anything contained in any other provisions of this Act",
+        "Provided that no such rectification shall be done after a period of six months from the date of issue of such decision or order or notice or certificate or any other document:",
+        "Provided further that the said period of six months shall not apply in such cases where the rectification is purely in the nature of correction of a clerical or arithmetical error",
+        "Provided also that where such rectification adversely affects any person, the principles of natural justice shall be followed by the authority carrying out such rectification.",
+        "162. Bar on jurisdiction of civil courts.",
+        "Save as provided in sections 117 and 118, no civil court shall have jurisdiction",
+        "163. Levy of fee.",
+        "Wherever a copy of any order or document is to be provided to any person on an application made by him for that purpose, there shall be paid such fee as may be prescribed.",
+        "164. Power of Government to make rules.",
+        "(1) The Government may, on the recommendations of the Council, by notification, make rules for carrying out the provisions of this Act.",
+        "(2) Without prejudice to the generality of the provisions of sub-section (1), the Government may make rules for all or any of the matters",
+        "(3) The power to make rules conferred by this section shall include the power to give retrospective effect to the rules"
+      ],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-147-150-auction",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [353],
+      "why": "Held-out Rules page: rule 147 (8)-(15) with two bold 'Provided', bold form names, odd capitals kept as printed ('Not liable', 'Non-competitive'), three short rules 148-150 with bold headings ending '. -', the running header and footer.",
+      "verified": true,
+      "_note": "text_not assumes the running header and footer should be removed (see the 2027/2028 notes on the chapter header).",
+      "text_has": [
+        "Provided that where the goods are of perishable or hazardous nature or where the expenses of keeping them in custody are likely to exceed their value, the proper officer may sell them forthwith.",
+        "(8) Where any claim is preferred or any objection is raised with regard to the attachment or distraint of any property on the ground that such property is Not liable to such attachment or distraint",
+        "(9) The person making the claim or objection must adduce evidence to show that on the date of the order issued under sub-rule (1)",
+        "(10) Where, upon investigation, the proper officer is satisfied that",
+        "(11) Where the proper officer is satisfied that the property was, on the said date, in the possession of the defaulter as his own property and Not on account of any other person",
+        "(12) The proper officer shall issue a Notice to the successful bidder in FORM GST DRC-11",
+        "he shall issue a certificate in FORM GST DRC-12 specifying the details of the property",
+        "Provided that where the highest bid is made by more than one person and one of them is a co-owner of the property, he shall be deemed to be the successful bidder.",
+        "(13) Any amount, including stamp duty, tax or fee payable in respect of the transfer of the property specified in sub-rule (12)",
+        "(14) Where the defaulter pays the amount under recovery",
+        "(15) The proper officer shall cancel the process and proceed for re-auction where no bid is received or the auction is considered to be Non-competitive",
+        "Rule 148. Prohibition against bidding or purchase by officer. -",
+        "No officer or other person having any duty to perform in connection with any sale under the provisions of this Chapter shall",
+        "Rule 149. Prohibition against sale on holidays. -",
+        "No sale under the rules under the provision of this chapter shall take place on a Sunday or other general holidays",
+        "Rule 150. Assistance by police. -",
+        "The proper officer may seek such assistance from the officer- in charge of the jurisdictional police"
+      ],
+      "text_not": ["Ch-XVIII : Demands and Recovery", "Rules 142-161", "GST & Indirect Taxes Committee"],
+      "numbers": ["DRC-11", "DRC-12"],
+      "tables": []
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "_about": [
+    "Held-out gold set, seed 2035: same format and matching rules as evals/ingestion_gold.json (see its _about). One of three fresh corpus draws (seeds 2034-2036) made after the gate -> Gemini pipeline (src/taxowl/ingestion_pipeline.py) was built.",
+    "Pages drawn by `evals/draw_heldout.py --seed 2035` (list in evals/heldout_draw_2035.json). The scan page comes from a scan file's page no gold set uses (draw_heldout's scan fallback).",
+    "Written from the page images in evals/heldout_pages_2035/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
+  ],
+  "pages": [
+    {
+      "id": "186-letterhead-then-table-with-section-row",
+      "file": "circulars/2022/186-18-2022-GST.pdf",
+      "pages": [1],
+      "why": "Held-out table page: a full circular letterhead and an i/ii list, then an S. No./Issue/Clarification table whose first row is a full-width bold section heading; row 1 runs onto p.2.",
+      "verified": true,
+      "_note": "The full-width section heading counts as a row of its own (row 1), as in earlier sets.",
+      "text_has": [
+        "F. No. CBIC-20001/2/2022 - GST",
+        "Government of India",
+        "Ministry of Finance",
+        "Department of Revenue",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Policy Wing",
+        "New Delhi, Dated the 27th December, 2022",
+        "To,",
+        "The Principal Chief Commissioners/ Chief Commissioners/ Principal Commissioners/ Commissioners of Central Tax (All)",
+        "The Principal Directors General/ Directors General (All)",
+        "Madam/Sir,",
+        "Subject: Clarification on various issue pertaining to GST-reg.",
+        "Representations have been received from the field formations seeking clarification on certain issues with respect to",
+        "taxability of No Claim Bonus offered by Insurance companies;",
+        "applicability of e-invoicing w.r.t an entity.",
+        "2. In order to clarify the issue and to ensure uniformity in the implementation of the provisions of law across the field formations",
+        "section 168 (1) of the Central Goods and Services Tax Act, 2017 (hereinafter referred to as \"CGST Act\"), hereby clarifies the issues as under:"
+      ],
+      "text_not": ["Page 1 of 3"],
+      "numbers": ["CBIC-20001/2/2022", "168(1)"],
+      "tables": [
+        {
+          "pages": [1],
+          "columns": 3,
+          "rows": 2,
+          "headings": [["S. No."], ["Issue"], ["Clarification"]],
+          "cells": [
+            [1, "", "Taxability of No Claim Bonus offered by Insurance companies"],
+            [2, "S. No.", "1."],
+            [2, "Issue", "Whether the deduction on account of No Claim Bonus allowed by the insurance company from the insurance premium payable by the insured"],
+            [2, "Clarification", "As per practice prevailing in the insurance sector, the insurance companies deduct No Claim Bonus from the gross insurance premium amount"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "47-continued-answer-then-rows-4-5",
+      "file": "circulars/2018/47-21-2018-GST.pdf",
+      "pages": [3],
+      "why": "Held-out table page, continued from p.2 with no heading row: a long tail of row 3's answer ((b), (c) hanging-indent items and para 3.2) must join the row above; then row 4, and row 5 whose question and answer are split into (i) parts; row 5 runs onto p.4.",
+      "verified": true,
+      "numbers": ["138(2A)"],
+      "tables": [
+        {
+          "pages": [3],
+          "columns": 3,
+          "rows": 2,
+          "headings": [],
+          "cells": [
+            [1, "", "In case of transportation of goods by railways, whether goods can be delivered even if the e-way bill is not produced at the time of delivery?"],
+            [1, "", "As per proviso to rule 138(2A) of the Central Goods and Services Tax Rules, 2017 (CGST Rules for short), the railways shall not deliver the goods unless the e-way bill is produced at the time of delivery."],
+            [2, "", "Whether e-way bill is required in the following cases-"],
+            [2, "", "(i) Where goods transit through another State while moving from one area in a State to another area in the same State."],
+            [2, "", "(i) It may be noted that e-way bill generation is not dependent on whether a supply is inter-State or not"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "75-annexure-c-pao-table",
+      "file": "circulars/2018/75-49-2018-GST.pdf",
+      "pages": [29],
+      "why": "Held-out table page: an annexure page with blue numbered headings, underlined order numbers with superscript ordinals, a brace grouping five 'Head:' lines next to '(Ministry of Culture will provide)', a small 2-column Zone/PAO table with 6-digit codes, roman lists and a bold address.",
+      "verified": true,
+      "_note": "'(Ministry of Culture will provide)' sits beside the brace, so its reading order is open; it is checked in numbers (anywhere), not in text_has.",
+      "text_has": [
+        "1. Background:",
+        "The Scheme of Financial Assistance under 'Seva Bhoj Yojna' (SBY) has been launched by the Ministry of Culture from the financial year 2018-19 vide Order No. 13-I/2018-US (S&F)",
+        "The Guidelines have been issued in this regard by Ministry of Culture vide F. No. 13-1/2016-US (S&F) dated 1st August 2018.",
+        "2. Authorization of Budget by Ministry of Culture:",
+        "The budget under the Central Scheme of SBY will be authorized by the Ministry of Culture to CBIC in accordance with the LOA Module of PFMS.",
+        "The 15 digit accounting codes under the Charter of Accounts will be as follows.",
+        "Grant No. : (Will change year to year)",
+        "Major Head:",
+        "Submajor / Minor Head:",
+        "Subhead:",
+        "Detailed/Object Head:",
+        "As per the LOA module of PFMS the budget will be authorized DDO wise Location wise by the Pr. Accounts office of Ministry of Culture to Pr. Accounts office of CBIC, Department of Revenue.",
+        "3. PAOs designated for disbursal of payments under the Scheme:",
+        "Following five PAOs have been designated for making payment & accounting under the scheme:",
+        "The zone-wise grouping of States & 8 UTs against the designated zonal PAOs is attached at Annexure 'A'",
+        "4. Creation of DDOs for processing of claims under the Scheme:",
+        "State/UT-wise new DDOs (36 in nos.) will be created which will be duly mapped with the 5 PAOs (as per Point 3 above).",
+        "Request for opening of new DDO Code will be forwarded to the Accounts Officer (Revenue Coordination), O/o Pr. Chief Controller of Accounts, Central Board of Indirect Taxes,",
+        "Floor, DGACR Building, I.P. Estate, New Delhi 110002 in the Format as given in Annexure 'B' under the signatures of the competent authority of the concerned Commissionerate."
+      ],
+      "text_not": ["Page 2 of 4"],
+      "numbers": ["(Ministry of Culture will provide)", "13-I/2018-US", "13-1/2016-US", "050240", "052679", "054975", "055240", "051493", "110002"],
+      "tables": [
+        {
+          "pages": [29],
+          "columns": 2,
+          "rows": 5,
+          "headings": [["Zone"], ["PAO"]],
+          "cells": [
+            [1, "Zone", "North"],
+            [1, "PAO", "PAO, Customs, Amritsar (Code 050240)"],
+            [2, "Zone", "East"],
+            [2, "PAO", "PAO, GST, Kolkata II (Code 052679)"],
+            [3, "Zone", "West"],
+            [3, "PAO", "PAO, Nasik (Code 054975)"],
+            [4, "Zone", "South"],
+            [4, "PAO", "PAO, Tirupati (Code 055240)"],
+            [5, "Zone", "Central"],
+            [5, "PAO", "PAO, GST, Delhi (Code 051493)"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "156-only-table-tail-then-closing",
+      "file": "circulars/2021/156-12-2021-GST.pdf",
+      "pages": [4],
+      "why": "Held-out table page whose table part is only the tail of the last row from p.3 (no S. No. on this page): it must join the row above, so no table row starts here. Then paras 3-5 and a signature; running header 'Circular no. ...'.",
+      "verified": true,
+      "_note": "tables is [] on purpose: a correct join leaves no table row starting on p.4.",
+      "text_has": [
+        "3. Circular No. 146/2/2021-GST, dated 23.02.2021 stands modified to this extent.",
+        "4. It is requested that suitable trade notices may be issued to publicize the contents of this circular.",
+        "5. Difficulty, if any, in the implementation of the above instructions may please be brought to the notice of the Board. Hindi version would follow.",
+        "(Sanjay Mangal)",
+        "Commissioner"
+      ],
+      "text_not": ["Circular no. 156/12/2021-GST"],
+      "numbers": ["146/2/2021-GST", "23.02.2021"],
+      "tables": []
+    },
+    {
+      "id": "125-annexure-a-merged-refund-list",
+      "file": "circulars/2019/125-44-2019---GST.pdf",
+      "pages": [26],
+      "why": "Held-out table page: Annexure-A, a 4-column list whose Sl. No. and Type of Refund cells are merged down 4-6 sub-rows each, with empty cells in either of the last two columns; Sl. 4 runs onto p.27.",
+      "verified": true,
+      "_note": "Each sub-row is a row (as in the 2030 merged-cell set): 4 + 5 + 6 + 1 = 16 rows start here. Where the merged Sl. No. / Type of Refund text lands among its sub-rows is open, so those are checked in numbers (anywhere), not as cells.",
+      "text_has": [
+        "Annexure-A",
+        "List of all statements/declarations/undertakings/certificates and other supporting documents to be provided along with the refund application"
+      ],
+      "text_not": ["Circular No. 125/44/2019 - GST", "26 of 29"],
+      "numbers": ["Refund of unutilized ITC on account of exports without payment of tax", "Refund of tax paid on export of services made with payment of tax", "Refund of unutilized ITC on account of Supplies made to SEZ units/developer without payment of tax", "89(2)(l)", "89(2)(m)"],
+      "tables": [
+        {
+          "pages": [26],
+          "columns": 4,
+          "rows_min": 16,
+          "headings": [["Sl. No."], ["Type of Refund"], ["to be filled online"], ["Supporting documents to be additionally uploaded"]],
+          "cells": [
+            [1, "filled online", "Declaration under second and third proviso to section 54(3)"],
+            [1, "Supporting", "Copy of GSTR-2A of the relevant period"],
+            [2, "filled online", "Undertaking in relation to sections 16(2)(c) and section 42(2)"],
+            [2, "Supporting", "Statement of invoices (Annexure-B)"],
+            [3, "filled online", "Statement 3 under rule 89(2)(b) and rule 89(2)(c)"],
+            [3, "Supporting", "Self-certified copies of invoices entered in Annexure-B whose details are not found in GSTR-2A of the relevant period"],
+            [4, "filled online", "Statement 3A under rule 89(4)"],
+            [4, "Supporting", "BRC/FIRC in case of export of services and shipping bill (only in case of exports made through non-EDI ports) in case of goods"],
+            [5, "Supporting", "BRC/FIRC /any other document indicating the receipt of sale proceeds of services"],
+            [7, "filled online", "Statement 2 under rule 89(2)(c)"],
+            [8, "Supporting", "Self-certified copies of invoices entered in Annexure-A whose details are not found in GSTR-2A of the relevant period"],
+            [9, "Supporting", "Self-declaration regarding non-prosecution under sub-rule (1) of rule 91 of the CGST Rules for availing provisional refund"],
+            [10, "filled online", "Declaration under third proviso to section 54(3)"],
+            [11, "filled online", "Statement 5 under rule 89(2)(d) and rule 89(2)(e)"],
+            [12, "filled online", "Statement 5A under rule 89(4)"],
+            [13, "filled online", "Declaration under rule 89(2)(f)"],
+            [13, "Supporting", "Endorsement(s) from the specified officer of the SEZ regarding receipt of goods/services for authorized operations under second proviso to rule 89(1)"],
+            [15, "filled online", "Self-declaration under rule 89(2)(l) if amount claimed does not exceed two lakh rupees, certification under rule 89(2)(m) otherwise"],
+            [-1, "filled online", "Declaration under second and third proviso to section 54(3)"]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "instruction-03-2022-ocr-speaking-order-list",
+      "file": "instructions/2022/Instruction-No.-03-2022-GST.pdf",
+      "pages": [2],
+      "why": "Held-out scan (OCR), slightly tilted: a bold numbered heading, para 2.1.1 with circular numbers, dates and italic Latin ('inter-alia', 'inter alia'), a bold 'A.' sub-heading and an a)-i) list with form names and section numbers. No table.",
+      "verified": true,
+      "text_has": [
+        "2.1 Sanction of Refund",
+        "Detailed guidelines for processing of refund claims in GST have been issued by the Board vide Circular No. 17/17/2017",
+        "dated 15.11.2017 (for manual processing of refunds) and Circular No. 125/44/2019-GST dated 18.11.2019",
+        "the proper officer shall follow the principle of natural justice before taking the final decision with regard to refund claim.",
+        "Therefore, while passing the refund sanction order in FORM GST RFD-06, the proper officer should also upload a detailed speaking order",
+        "Details for all category of refund claims:",
+        "The period for which refund claim has been filed, date of filing & the category in which refund has been claimed.",
+        "Whether it has been checked that refund claim for the same period has not been filed in the same category including any claim filed under 'Any Other' Category.",
+        "Details of Deficiency Memo, if any, in FORM GST RFD-03 issued in respect of the said refund claim previously.",
+        "Whether the refund claim has been filed within limitation of time",
+        "Whether all the necessary documents have been uploaded with the refund claim in terms of rule 89(2) of the CGST Rules.",
+        "any amount is required to be deducted as per provisions of section 54(10) of CGST Act",
+        "Whether any SCN was issued to the applicant. Details of reply of the applicant and PH details.",
+        "Discussion and findings in respect of applicant submission.",
+        "Whether provisions of unjust enrichment are applicable or not in terms of the provisions of section 54(8) of the CGST Act.",
+        "in respect of which refund is being claimed, on any other person."
+      ],
+      "text_not": ["Instruction No. 03/2022-GST", "Page 2 of 6"],
+      "numbers": ["15.11.2017", "125/44/2019-GST", "18.11.2019", "RFD-06", "RFD-03", "89(2)", "54(10)", "54(8)", "54(4)"],
+      "tables": []
+    },
+    {
+      "id": "86-letterhead-bf-bc-issue-1",
+      "file": "circulars/2019/86-05-2019-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a TRU letterhead (bold F. No., plain lines, a bold right-aligned room and date with a superscript '1st'), an underlined bold subject over two lines, (i)/(ii) questions, para 2.1 starting with an underlined issue title and an RBI circular number with dots and slashes. No table.",
+      "verified": true,
+      "text_has": [
+        "F. No. 354/428/2018-TRU",
+        "Government of India",
+        "Ministry of Finance",
+        "Department of Revenue",
+        "Tax research Unit",
+        "Room No. 156, North Block,",
+        "New Delhi, the 1st January, 2018",
+        "To,",
+        "The Principal Chief Commissioners/ Chief Commissioners/ Principal Commissioners/ Commissioner of Central Tax (All) /",
+        "The Principal Director Generals/ Director Generals (All)",
+        "Madam/Sir,",
+        "Subject: GST on Services of Business Facilitator (BF) or a Business Correspondent (BC) to Banking Company- reg.",
+        "Representations have been received seeking clarification on following two issues:",
+        "(i) What is the value to be adopted for the purpose of computing GST on services provided by BF/BC to a banking company?",
+        "(ii) What is the scope of services provided by BF/BC to a banking company with respect to accounts in its rural area branch that are eligible for existing GST exemption?",
+        "2. The matter has been examined. The issues involved are clarified as follows:",
+        "2.1 Issue 1: Clarification on value of services by BF/BC to a banking company: As per RBI's Circular No. DBOD.No.BL.BC. 58/22.01.001/2005-2006 dated 25.01.2006",
+        "for acts of omission and commission of the Business Facilitator/Correspondent."
+      ],
+      "text_not": ["Circular No. 86/05/2019- GST"],
+      "numbers": ["354/428/2018-TRU", "58/22.01.001/2005-2006", "25.01.2006"],
+      "tables": []
+    },
+    {
+      "id": "158-letterhead-revocation-extension",
+      "file": "circulars/2021/158-14-2021-GST.pdf",
+      "pages": [1],
+      "why": "Held-out plain page: a bold letterhead with a File No., a bold justified three-line subject with a superscript ordinal, and a long paragraph with many superscript ordinal dates, bold quoted defined terms ('the CGST Act / said Act') and a bold form name. No table.",
+      "verified": true,
+      "text_has": [
+        "File No. CBIC-20006/17/2021-GST",
+        "Government of India",
+        "Ministry of Finance",
+        "Department of Revenue",
+        "Central Board of Indirect Taxes and Customs",
+        "GST Policy Wing",
+        "New Delhi, dated the 6th September, 2021",
+        "To,",
+        "The Principal Chief Commissioners / Chief Commissioners / Principal Commissioners / Commissioners of Central Tax (All)",
+        "The Principal Directors General / Directors General (All)",
+        "Madam/Sir,",
+        "Subject: Clarification regarding extension of time limit to apply for revocation of cancellation of registration in view of Notification No. 34/2021-Central Tax dated 29th August, 2021 - Reg.",
+        "Vide Circular No. 148/04/2021-GST, dated 18th May, 2021, detailed guidelines for implementation of the provision of extension of time limit",
+        "(hereinafter referred to as \"the CGST Act / said Act\") and rule 23 of the Central Goods and Services Tax Rules, 2017 (hereinafter referred to as \"the CGST Rules\")",
+        "independent functionality for extension of time limit for applying in FORM GST REG-21 is developed on the GSTN portal.",
+        "It may be noted that notification No.14/2021-Central Tax, dated 1st May, 2021, as amended, had, inter-alia, extended the date of filing of application",
+        "falling between 15th April, 2021 to 29th June, 2021. Government has now issued notification No. 34/2021-Central Tax dated 29th August, 2021 (hereinafter referred to as \"the said notification\")"
+      ],
+      "text_not": ["Page 1 of 5"],
+      "numbers": ["CBIC-20006/17/2021-GST", "34/2021-Central Tax", "148/04/2021-GST", "14/2021-Central Tax", "REG-21"],
+      "tables": []
+    },
+    {
+      "id": "act-section-148A-149-150",
+      "file": "GST_act.pdf",
+      "pages": [116],
+      "why": "Held-out Act page: inserted section 148A in brackets with a footnote marker, italic clause letters, run-on lines after lists ('to which the provisions...', 'as may be prescribed.]'), sections 149 and 150 with an (a)-(g) list citing other Acts and years, and one footnote.",
+      "verified": true,
+      "text_has": [
+        "[148A. Track and trace mechanism for certain goods.",
+        "(1) The Government may, on the recommendations of the Council, by notification, specify,",
+        "(a) the goods;",
+        "(b) persons or class of persons who are in possession or deal with such goods,",
+        "to which the provisions of this section shall apply.",
+        "(2) The Government may, in respect of the goods referred to in clause (a) of sub-section (1),",
+        "(a) provide a system for enabling affixation of unique identification marking and for electronic storage and access of information contained therein",
+        "(b) prescribe the unique identification marking for such goods, including the information to be recorded therein.",
+        "(3) The persons referred to in sub-section (1), shall,",
+        "(c) furnish details of the machinery installed in the place of business of manufacture of such goods",
+        "(d) pay such amount in relation to the system referred to in sub-section (2),",
+        "as may be prescribed.]",
+        "149. Goods and services tax compliance rating.",
+        "(1) Every registered person may be assigned a goods and services tax compliance rating score by the Government",
+        "(3) The goods and services tax compliance rating score may be updated at periodic intervals",
+        "150. Obligation to furnish information return.",
+        "(1) Any person, being",
+        "(a) a taxable person; or",
+        "(d) an income tax authority appointed under the provisions of the Income-tax Act, 1961 (43 of 1961); or",
+        "(e) a banking company within the meaning of clause (a) of section 45A of the Reserve Bank of India Act, 1934 (2 of 1934); or",
+        "(f) a State Electricity Board or an electricity distribution or transmission licensee under the Electricity Act, 2003 (36 of 2003)",
+        "(g) the Registrar or Sub-Registrar appointed under section 6 of the Registration Act, 1908 (16 of 1908); or",
+        "Ins by Act 7 of 2025, s.132 (w.e.f. 1.10.2025)."
+      ],
+      "numbers": ["148A", "45A", "1.10.2025"],
+      "tables": []
+    },
+    {
+      "id": "rules-rule-101-102-short-page",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "pages": [310],
+      "why": "Held-out Rules page: the end of rule 101 and a short rule 102 with a bold heading, bold form names (one split 'FORM GST' / 'ADT-02.' over two lines), a mostly empty page, the running header and footer.",
+      "verified": true,
+      "_note": "text_not assumes the running header and footer should be removed (see the 2027/2028 notes on the chapter header).",
+      "text_has": [
+        "(4) The proper officer may inform the registered person of the discrepancies noticed, if any, as observed in the audit",
+        "(5) On conclusion of the audit, the proper officer shall inform the findings of audit to the registered person in accordance with the provisions of sub-section (6) of section 65 in FORM GST ADT-02.",
+        "Rule 102. Special Audit.-",
+        "(1) Where special audit is required to be conducted in accordance with the provisions of section 66, the officer referred to in the said section shall issue a direction in FORM GST ADT-03",
+        "(2) On conclusion of the special audit, the registered person shall be informed of the findings of the special audit in FORM GST ADT-04."
+      ],
+      "text_not": ["Ch-XI : Assessment and Audit", "Rules 98-102", "GST & Indirect Taxes Committee"],
+      "numbers": ["ADT-02", "ADT-03", "ADT-04"],
+      "tables": []
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "seed": 2034,
+  "pages": [
+    {
+      "kind": "table",
+      "file": "instructions/2023/Instruction-No.-01-2023-GST.pdf",
+      "page": 7,
+      "image": "evals/heldout_pages_2034/01-table-Instruction-No.-01-2023-GST-p7.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2024/225-19-2024-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2034/02-table-225-19-2024-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2020/137-07-2020-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2034/03-table-137-07-2020-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2020/134-04-2020-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2034/04-table-134-04-2020-GST-p2.png"
+    },
+    {
+      "kind": "table",
+      "file": "circulars/2023/192-04-2023-GST.pdf",
+      "page": 3,
+      "image": "evals/heldout_pages_2034/05-table-192-04-2023-GST-p3.png"
+    },
+    {
+      "kind": "scan",
+      "file": "circulars/2024/228-22-2024-GST.pdf",
+      "page": 2,
+      "image": "evals/heldout_pages_2034/06-scan-228-22-2024-GST-p2.png"
+    },
+    {
+      "kind": "plain",
+      "file": "notifications/2026/02-2026-Central-Tax.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2034/07-plain-02-2026-Central-Tax-p1.png"
+    },
+    {
+      "kind": "plain",
+      "file": "circulars/2019/Corrigendum_1003076.pdf",
+      "page": 1,
+      "image": "evals/heldout_pages_2034/08-plain-Corrigendum_1003076-p1.png"
+    },
+    {
+      "kind": "act",
+      "file": "GST_act.pdf",
+      "page": 101,
+      "image": "evals/heldout_pages_2034/09-act-GST_act-p101.png"
+    },
+    {
+      "kind": "rules",
+      "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
+      "page": 363,
+      "image": "evals/heldout_pages_2034/10-rules-GST Act(s) and Rule(s)-Bare Law-p363.png"
+    }
+  ]
+}
