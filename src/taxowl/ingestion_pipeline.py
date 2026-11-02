@@ -2,12 +2,20 @@
 
 Works on a corpus file or a user's upload alike: nothing is precomputed. Per document:
 
+  0. Upload guard: an upload that can't be read (not a PDF, password, no pages, too big) gets a
+     clear error instead of a crash. Corpus files skip the size limits: we chose them.
   1. Open it; sha256 of the bytes (names the caches; an upload has no stable path).
   2. Per page, what kind it is (the rules of ingestion/check_scans.py, per page, not per file, so
      a typed letter with a scanned annexure works):
        text   PyMuPDF's words
        scan   too few letters: Docling + RapidOCR (ocr.py), text and tables. A corpus file's OCR
               is saved in docs/ocr/<file>.json the first time and reused after; an upload's never is.
+       hidden uploads only: a scanner's picture of the page with its own OCR hidden behind it (a
+              picture covering the page, the text drawn invisible). That OCR is often wrong ("SO"
+              for 50), so the page is read like a scan. Found on all the private petition pages
+              with text. Not used for corpus files: 84 pages of 25 of them have such a layer too,
+              but CBIC's layer is good, and re-reading them lost 21 held-out checks (letterheads
+              moved to the end of the page, a garbled subject, lost table headings).
        hindi  mostly Devanagari: kept as text, flagged (v1 is English only)
   3. Tables on text pages: PyMuPDF (tables.py).
   4. Gate (gate.py): pages whose tables look complex. A table cut by a page break goes to one
@@ -48,16 +56,34 @@ MODEL = "google/gemini-3.5-flash-lite"  # 95.9% on the held-out runs, ~$0.0012 a
 WORKERS = 8           # model pages sent at the same time
 EMPTY_PAGE_CHARS = 100  # fewer letters than this: a scanned page (as in ingestion/check_scans.py)
 HINDI_SHARE = 0.5       # more than half the letters Devanagari: a Hindi page
+PICTURE_SHARE = 0.8     # a picture covering this much of the page: the page is a scan
+INVISIBLE_SHARE = 0.5   # ...and more than half its text invisible: the scanner's own OCR
+MAX_UPLOAD_MB = 100     # upload limits (the largest private petition is under 400 pages)
+MAX_UPLOAD_PAGES = 1000
 
 
 # ---------- per page ----------
 
-def page_kind(page):
+def page_kind(page, upload):
     text = page.get_text("text")
     if len(re.sub(r"\s", "", text)) < EMPTY_PAGE_CHARS:
         return "scan"
+    if upload and hidden_layer(page):
+        return "hidden"
     latin, hindi = len(re.findall(r"[A-Za-z]", text)), len(re.findall(r"[ऀ-ॿ]", text))
     return "hindi" if hindi > HINDI_SHARE * (latin + hindi) else "text"
+
+
+def hidden_layer(page):
+    """A scanner's page: a picture covering the page, with the text drawn invisible (PDF text
+    render mode 3, which PyMuPDF reports as span type 3)."""
+    area = abs(page.rect)
+    if not any(abs(r & page.rect) > PICTURE_SHARE * area
+               for img in page.get_images() for r in page.get_image_rects(img[0])):
+        return False
+    spans = page.get_texttrace()
+    total = sum(len(s["chars"]) for s in spans)
+    return total > 0 and sum(len(s["chars"]) for s in spans if s["type"] == 3) > INVISIBLE_SHARE * total
 
 
 def saved_ocr(meta, sha):
@@ -114,21 +140,28 @@ def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
     meta = meta or {"file": path.name, "sha256": sha}
     doc_id = meta.get("number") or Path(meta["file"]).stem
     stats = {} if stats is None else stats
+    if not corpus and len(data) > MAX_UPLOAD_MB * 1024 * 1024:
+        return ExtractedDoc(meta["file"], sha, [], quality={"error": f"file is over {MAX_UPLOAD_MB} MB"})
     try:
         pdf = pymupdf.open(stream=data, filetype="pdf")
     except Exception as e:  # not a PDF, or damaged
         return ExtractedDoc(meta["file"], sha, [], quality={"error": f"can't open: {e!r}"[:300]})
     if pdf.needs_pass:
         return ExtractedDoc(meta["file"], sha, [], quality={"error": "password-protected"})
+    if len(pdf) == 0:
+        return ExtractedDoc(meta["file"], sha, [], quality={"error": "the PDF has no pages"})
+    if not corpus and len(pdf) > MAX_UPLOAD_PAGES:
+        return ExtractedDoc(meta["file"], sha, [], quality={"error": f"over {MAX_UPLOAD_PAGES} pages ({len(pdf)})"})
 
     with pdf:
         n = len(pdf)
-        kinds = [page_kind(p) for p in pdf]
+        kinds = [page_kind(p, upload=not corpus) for p in pdf]
         stats["pages"] = {k: kinds.count(k) for k in set(kinds)}
         words, raws_by_page, ocr_pages = {}, {}, {}
-        saved = saved_ocr(meta, sha) if corpus and "scan" in kinds else {}
+        to_ocr = {i for i, k in enumerate(kinds, 1) if k in ("scan", "hidden")}
+        saved = saved_ocr(meta, sha) if corpus and to_ocr else {}
         for i, page in enumerate(pdf, 1):
-            if kinds[i - 1] == "scan":
+            if i in to_ocr:
                 if i in saved:
                     ocr_pages[i] = saved[i]
                 else:
