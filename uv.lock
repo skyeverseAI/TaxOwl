@@ -2062,6 +2062,8 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "docling" },
+    { name = "docling-core" },
+    { name = "docling-ibm-models" },
     { name = "onnxruntime" },
     { name = "pymupdf" },
     { name = "rapidocr" },
@@ -2070,9 +2072,11 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "docling", specifier = "==2.99.0" },
-    { name = "onnxruntime", specifier = ">=1.31.0" },
-    { name = "pymupdf", specifier = ">=2.0" },
-    { name = "rapidocr", specifier = ">=3.10.0" },
+    { name = "docling-core", specifier = "==2.105.0" },
+    { name = "docling-ibm-models", specifier = "==3.15.0" },
+    { name = "onnxruntime", specifier = "==1.31.0" },
+    { name = "pymupdf", specifier = "==2.0" },
+    { name = "rapidocr", specifier = "==3.10.0" },
 ]
 
 [[package]]
