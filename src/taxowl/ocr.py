@@ -16,10 +16,15 @@ Per page:
      text is repeated in each row it covers, as in our other tables.
 
 Docling is heavy (torch, layout models), so it's imported on first use and the converter is
-built once and reused for every page.
+built once and reused for every page. Pages go to it in runs of up to CHUNK_PAGES consecutive
+pages, one call per run: one call per page re-opened the whole PDF every time, so a 453-page
+petition did that 453 times.
 """
 
 import io
+import time
+
+CHUNK_PAGES = 50  # pages per Docling call: fewer calls, but memory stays bounded and progress shows
 
 _converter = None
 
@@ -42,26 +47,59 @@ def converter():
     return _converter
 
 
-def read_page(data, page, name="document.pdf"):
-    """OCR page `page` (1-based) of the PDF bytes `data`. Returns (text, tables), where each
-    table is {"headings": [...], "rows": [[...], ...]}."""
+def read_pages(data, pages, name="document.pdf", progress=None):
+    """OCR `pages` (1-based page numbers) of the PDF bytes `data`. Returns {page: (text, tables)},
+    where each table is {"headings": [...], "rows": [[...], ...]}. `progress`, if given, is called
+    after each run with (pages done, pages in all, seconds so far): the hook a server uses to
+    show "200 of 453 pages read" while an upload is processed in the background."""
     from docling.datamodel.base_models import DocumentStream
     from docling_core.types.doc import ListItem, TableItem
 
-    stream = DocumentStream(name=name, stream=io.BytesIO(data))
-    doc = converter().convert(stream, page_range=(page, page)).document
-    text, tables = [], []
-    for item, _ in doc.iterate_items():
-        if isinstance(item, TableItem):
-            t = to_table(item)
-            if t:
-                tables.append(t)
-        elif getattr(item, "text", ""):
-            # Docling keeps a numbered para's number ("2.1", "15.", "(a)") in .marker, not .text; put it
-            # back. Bullets ("-", "•") have no letter or digit and are skipped.
-            marker = item.marker if isinstance(item, ListItem) else ""
-            text.append(f"{marker} {item.text}" if any(c.isalnum() for c in marker or "") else item.text)
-    return "\n".join(text), tables
+    out = {p: ([], []) for p in pages}
+    started, done = time.time(), 0
+    for first, last in runs(sorted(out)):
+        stream = DocumentStream(name=name, stream=io.BytesIO(data))
+        doc = converter().convert(stream, page_range=(first, last)).document
+        for item, _ in doc.iterate_items():
+            if not item.prov or item.prov[0].page_no not in out:
+                continue
+            if isinstance(item, TableItem):
+                t = to_table(item)
+                if t:
+                    out[item.prov[0].page_no][1].append(t)
+            elif getattr(item, "text", ""):
+                # Docling keeps a numbered para's number ("2.1", "15.", "(a)") in .marker, not .text; put
+                # it back. Bullets ("-", "•") have no letter or digit and are skipped.
+                marker = item.marker if isinstance(item, ListItem) else ""
+                marker = f"{marker} " if any(c.isalnum() for c in marker or "") else ""
+                for page, part in split_by_page(item):
+                    if page in out and part.strip():
+                        out[page][0].append(marker + part.strip())
+                    marker = ""  # only the part that starts the para gets its number
+        done += last - first + 1
+        if progress:
+            progress(done, len(out), time.time() - started)
+    return {p: ("\n".join(text), tables) for p, (text, tables) in out.items()}
+
+
+def split_by_page(item):
+    """A paragraph that runs over a page break -> its part on each page. Read together, Docling
+    joins such a paragraph and records each page's part as a character span; giving all of it to
+    the first page lost a sentence and a number from the next (a petition's p.22: "10,41,411")."""
+    if len(item.prov) > 1 and all(pr.charspan for pr in item.prov):
+        return [(pr.page_no, item.text[pr.charspan[0]:pr.charspan[1]]) for pr in item.prov]
+    return [(item.prov[0].page_no, item.text)]
+
+
+def runs(pages):
+    """Sorted page numbers -> (first, last) runs of consecutive pages, each at most CHUNK_PAGES."""
+    result = []
+    for p in pages:
+        if result and p == result[-1][1] + 1 and p - result[-1][0] < CHUNK_PAGES:
+            result[-1][1] = p
+        else:
+            result.append([p, p])
+    return [tuple(r) for r in result]
 
 
 def to_table(item):

@@ -126,10 +126,11 @@ def model_pages(flagged, raws_by_page, n_pages):
 
 # ---------- one document ----------
 
-def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
+def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None, progress=None):
     """One PDF -> ExtractedDoc. `meta`: the manifest row if known (else looked up, else made from
     the file). `model=None`: no page leaves this machine; complex tables stay PyMuPDF's, flagged.
-    `stats`, if a dict, is filled with what happened (pages by kind, gate, model time and cost)."""
+    `stats`, if a dict, is filled with what happened (pages by kind, gate, model time and cost).
+    `progress`: called as OCR goes, see ocr.read_pages."""
     path = Path(path)
     data = path.read_bytes()
     sha = hashlib.sha256(data).hexdigest()
@@ -160,13 +161,11 @@ def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
         words, raws_by_page, ocr_pages = {}, {}, {}
         to_ocr = {i for i, k in enumerate(kinds, 1) if k in ("scan", "hidden")}
         saved = saved_ocr(meta, sha) if corpus and to_ocr else {}
+        fresh = sorted(to_ocr - set(saved))
+        read = ocr.read_pages(data, fresh, Path(meta["file"]).stem + ".pdf", progress) if fresh else {}
         for i, page in enumerate(pdf, 1):
             if i in to_ocr:
-                if i in saved:
-                    ocr_pages[i] = saved[i]
-                else:
-                    text, tables = ocr.read_page(data, i, Path(meta["file"]).stem + ".pdf")
-                    ocr_pages[i] = {"text": text, "tables": tables}
+                ocr_pages[i] = saved[i] if i in saved else {"text": read[i][0], "tables": read[i][1]}
                 continue
             words[i] = [(*w[:4], normalize(w[4]), *w[5:]) for w in page.get_text("words")]
             if kinds[i - 1] == "text":
@@ -296,7 +295,8 @@ def main():
     for i, path in enumerate(paths, 1):
         stats, t0 = {}, time.time()
         try:
-            doc = ingest(path, model=model, stats=stats)
+            doc = ingest(path, model=model, stats=stats, progress=lambda done, total, secs: print(
+                f"      OCR {done}/{total} pages, {secs:.0f}s", flush=True))
         except Exception as e:  # one bad PDF shouldn't stop the run
             doc = ExtractedDoc(path.name, "", [], quality={"error": repr(e)[:300]})
         out = OUT / (doc.file + ".json")
