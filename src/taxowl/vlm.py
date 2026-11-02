@@ -264,10 +264,14 @@ def snap(text, pw, anchor):
             chosen, skipped = grow(target, exact, bounds, b + len(pw.keys[j]), [j], pw)
             found = sum(len(pw.keys[c]) for c in chosen)
             case_misses = sum(not pw.same_case(c, exact, target.find(pw.keys[c])) for c in chosen)
-            # A different case costs as much as being ~2 lines off: it decides between near
-            # matches, but never pulls a cell into another table.
-            score = (found, -(skipped + n_lead), -(place_cost(chosen, pw, anchor) + CASE_COST * case_misses),
-                     -sum(pw.used[c] for c in chosen))
+            # Jumps: next word not the PDF's next word. A cell's words follow each other in the PDF,
+            # so of two complete matches the one in one piece wins: "Statement 3 under..." took its
+            # "Statement" from the "Statement 3A" line below, and read "3 under ... Statement"
+            # (125/44/2019 p.26). A different case costs as much as being ~2 lines off: it decides
+            # between near matches, but never pulls a cell into another table.
+            jumps = sum(b != a + 1 for a, b in zip(chosen, chosen[1:]))
+            score = (found, -(skipped + n_lead), -jumps,
+                     -(place_cost(chosen, pw, anchor) + CASE_COST * case_misses), -sum(pw.used[c] for c in chosen))
             if best is None or score > best[0]:
                 best = (score, chosen)
         if best and best[0][0] == len(target):
@@ -301,7 +305,8 @@ def snap_heading(text, pw, col_x, zone, below, prev_x=None):
                and (below is None or y < below - pw.height / 2)}
     chosen, pos, found = [], 0, 0
     while pos < len(target):
-        fits = [j for j in pw.by_first.get(target[pos], []) if j in allowed and target.startswith(pw.keys[j], pos)]
+        fits = [j for j in pw.by_first.get(target[pos], []) if j in allowed and j not in chosen
+                and target.startswith(pw.keys[j], pos)]
         if fits:
             # Narrow columns split words in the PDF ("Sup plier", 106/25/2019): the rest of a word
             # is the PDF's next word, not a matching letter elsewhere. Otherwise: same case, near
@@ -316,7 +321,16 @@ def snap_heading(text, pw, col_x, zone, below, prev_x=None):
                 if prev_x is not None:
                     return abs(x - prev_x) + (1000 if x < prev_x - SLACK_PT else 0)
                 return x
-            j = min(fits, key=lambda j: (mid_word and j != last + 1, not pw.same_case(j, exact, pos),
+            def dead_end(j):
+                # A word that spells only the start of the model's word ("(Rs." for "(Rs.)") is
+                # fine if the PDF's next word goes on with it ("Sup" + "plier"); otherwise the rest
+                # can't be found and is lost. "(Rs." from the column before won over "(Rs.)" and
+                # the ")" was lost (Instruction 01/2023 p.7).
+                end = pos + len(pw.keys[j])
+                if end in starts or end >= len(target):
+                    return False
+                return not (j + 1 < len(pw.keys) and pw.keys[j + 1] and target.startswith(pw.keys[j + 1], end))
+            j = min(fits, key=lambda j: (mid_word and j != last + 1, dead_end(j), not pw.same_case(j, exact, pos),
                                          round(place(j) / COLUMN_STEP), -len(pw.keys[j])))
             chosen.append(j)
             pos += len(pw.keys[j])
