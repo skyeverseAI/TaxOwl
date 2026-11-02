@@ -4,7 +4,7 @@ The extractor's job: **PDF in → clean text + tables out** (one `ExtractedDoc` 
 
 Each step below says **what we did, why, and what came out.** The steps are in the order we did them. The last section is what's left, and why.
 
-Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_runs.md`, `evals/paddle_results.md`.
+Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/heldout_runs.md`, `archive/notes/paddle_results.md`.
 
 ---
 
@@ -23,7 +23,12 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
 10. Stress test: uploads  →  private petitions 62.6% → hidden scanner layer is the problem
 11. Docling + OCR trial   →  petitions 82.3% (re-reading the page fixes it)
 12. OCR engine shoot-out  →  Docling + RapidOCR chosen (scans 94.3%, runs on Linux)
-13. What's left           →  wire it in, upload guard, small bugs, pin versions, final check
+13. Wire OCR into pipeline →  scans 94.3% in the real pipeline; OcrMac removed
+14. Upload guard          →  re-read scanner layers on uploads only (corpus layers are good)
+15. Snap fixes            →  ")" and word order; held-out 97.8% / 97.9%
+16. Batch the OCR         →  3.0 → 1.75 s/page, same results
+17. Pin versions          →  exact versions + `uv sync --frozen`
+18. Final scores          →  extractor done
 ```
 
 ---
@@ -39,7 +44,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
 
 ## 2. Find the scans (2026-10-24)
 
-- **What:** `ingestion/check_scans.py` counted the letters in each page's text layer.
+- **What:** `scripts/02_check_scans.py` counted the letters in each page's text layer.
 - **Why:** a scanned page is only a picture. It has no words inside it, so it needs OCR (a program that reads the picture).
 - **Result:** **8 files are real scans** (about 37 pages). We checked all 8 by eye. Some files only *look* scanned but have a hidden text layer behind the picture (for example 56/2018). We noted those for later.
 
@@ -75,7 +80,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
 
 ## 6. Build the extractor (2026-10-27)
 
-- **What:** `src/taxowl/extract.py` and `tables.py`, scored by `evals/check_ingestion.py` against a **gold set**. The gold set has 11 cases, 13 pages and 230 checks, written from page images and verified by the user.
+- **What:** `src/taxowl/extract.py` and `tables.py`, scored by `eval_results/check_ingestion.py` against a **gold set**. The gold set has 11 cases, 13 pages and 230 checks, written from page images and verified by the user.
 - **Why:** we need a score to know whether a change helps or hurts.
 - **Result:** **gold 256/256 (100%).** All 314 files ran in about 2 minutes, and no file lost words. But the rules were built while looking at the gold pages, so 100% could be overfitting: the rules might only fit those pages.
 
@@ -126,7 +131,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
 
 ## 11. Docling + OCR trial (2026-10-30)
 
-- **What:** `evals/docling_trial.py`. It throws away the hidden layer, re-reads every page with OCR (Docling + OcrMac, the setup LERAGS used), and lets Docling build the tables.
+- **What:** `eval_results/docling_trial.py`. It throws away the hidden layer, re-reads every page with OCR (Docling + OcrMac, the setup LERAGS used), and lets Docling build the tables.
 - **Why:** if the hidden layer is the problem, reading the page fresh should fix it.
 - **Result:**
   - **Petitions: 82.3%**, up from 73.1%. Reading the page again works.
@@ -155,6 +160,58 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
   - The cost: it's heavy (torch, about 1–2 GB) and 2× slower than OcrMac. The server size gets decided at deployment. Typed pages never touch Docling, so the extra load only falls on scan pages.
   - We also checked that Docling installs on the project's Python 3.14.
 
+## 13. Wire Docling + RapidOCR into the pipeline (2026-11-02)
+
+- **What:** the reader moved from the trial script into `src/taxowl/ocr.py`, and the old OcrMac code was deleted. A file with a row in the manifest counts as a **foundation file**. The first time a foundation file is read, its OCR result (text and tables) is saved to `docs/ocr/<file>.json`, keyed by the PDF's sha256, so it's never read again. Uploads are never saved. `ingestion/ocr_scans.py` was no longer needed and was removed.
+- **Why:** the decision only existed in a test script. The pipeline was still calling OcrMac.
+- **Result:**
+  - **Corpus scans: 94.3%**, exactly the trial's score with the same failures, now running in the project's own Python 3.14 env.
+  - Held-out scores held.
+  - The pipeline was scored on **gold** for the first time: **94.1%**. 11 of the 15 misses are Gemini tables on typed pages (254, 182, 133), which this change never touched. The old 256/256 was the PyMuPDF-only extractor, whose rules were built while looking at those exact pages. The other 4 misses are Docling dropping the subject line and three paragraph starts on 229, page 1.
+
+## 14. Upload guard (2026-11-02)
+
+- **What:** two jobs.
+  1. **Clean rejections.** A PDF with no pages gets a clear error. Uploads also get one if they're over 500 MB or over 1,000 pages. (The first limit was 100 MB, and it blocked a real 200-page petition of 164 MB. High-resolution scans take about 0.8 MB a page.) The "not a PDF" and "password" checks were already there.
+  2. **A new page type, `hidden`:** a picture covers more than 80% of the page **and** more than half the text is drawn invisible. That's a scanner's own OCR hidden behind the picture, so the page is read fresh, like a scan.
+- **Why:** the hidden layer was the cause of the petition losses (step 10).
+- **Checked before building:** all 20 petition pages that carry text show both signs at 100%. Across the 314 corpus files, **no** typed page has a full-page picture, so the rule can't misfire on a typed page.
+- **A surprise:** 25 of our own files (84 pages) carry the same kind of layer. Re-reading them **lost 21 held-out checks.** CBIC's scanner layer was good. Docling moved letterheads to the end of the page (and the checker reads in order), garbled one subject line, and lost one table's headings.
+- **Decision:** the `hidden` rule runs on **uploads only.** Our files keep their measured-good layer; uploads always get fresh OCR, because we can't know how good their scanner was. After this change, every held-out score was back where it had been.
+
+## 15. Snap fixes (2026-11-02)
+
+- **What:** two bugs in the code that fills Gemini's grid with the PDF's own words (`vlm.py`).
+  1. **")" lost at the end of a heading.** `Recoveries made till date (Rs.)` came out as `…(Rs.`, because the code took `(Rs.` from the column before. **Fix:** a word is used once per heading, and a word that spells only the start of the model's word is a **dead end** unless the PDF's next word continues it (`Sup` + `plier` still joins).
+  2. **Words in the wrong order.** `Statement 3 under…` came out as `3 under … Statement`, because "Statement" was taken from the `Statement 3A` line below. **Fix:** of two complete matches, the one whose words follow each other in the PDF wins.
+- **Why:** these are wrong-text errors in table headings and cells, which are exactly what search and citations depend on.
+- **Result:** gold went from 94.1% to **94.5%**; held-out 2029–33 from 97.6% to **97.8%**; 2034–36 from 97.1% to **97.9%**. No set went down.
+- **What went wrong first:** the first fix for bug 1 ("choose words near this heading's other words") fixed one page and broke a narrow blank form (106/2019, 4 checks lost). Only the full test caught it. The dead-end rule replaced it.
+
+## 16. Batch the OCR (2026-11-02)
+
+- **What:** consecutive scan pages go to Docling together, up to 50 at a time, in one call. Before, every page was its own call, and each call re-opened the whole PDF.
+- **Why:** a 453-page petition was opening the full PDF 453 times. Users won't wait 45 minutes for an upload.
+- **A bug the test caught:** when Docling reads pages together, it joins a paragraph that runs over a page break into one piece, and that piece was tagged with only the first page. A sentence and the number "10,41,411" moved from page 22 to page 21. **Fix:** Docling records which part of the paragraph sits on each page (a character span), so the paragraph is split back by those spans.
+- **Result:** **3.0 → 1.75 seconds per page**, with identical output (7 corpus pages matched page-by-page reading exactly, and petition C matched the trial exactly, 102/123).
+- **For background uploads:** `ingest(progress=...)` now reports pages done, total pages and seconds so far. The future app will use it to show "200 of 453 pages read" while the user waits. The app itself is a deployment task.
+
+## 17. Pin versions (2026-11-02)
+
+- **What:** exact versions (`==`) in `pyproject.toml` for docling, docling-core, docling-ibm-models, rapidocr, onnxruntime and pymupdf. The README now says to install with `uv sync --frozen`.
+- **Why:** in step 12, the same OCR scored 84% or 74% depending only on the versions of `docling-core` and `docling-ibm-models`. `uv.lock` already pinned everything; the `==` rules stop an accidental upgrade, and `--frozen` makes a server install exactly what we measured.
+
+## 18. Final scores (2026-11-02)
+
+| Set | Score |
+|---|---|
+| Gold (pipeline) | 94.5% |
+| Held-out 2029–33, pooled | 97.8% |
+| Held-out 2034–36 (fresh), pooled | 97.9% |
+| Corpus scans | 94.3% |
+| Private petitions (uploads, 854 pages) | **82.6%** (was 73.1% before the guard; the Docling + RapidOCR trial gave the same 82.6%) |
+| Numbers, held-out | 100% |
+
 ---
 
 ## The extractor today
@@ -162,39 +219,31 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `evals/heldout_ru
 ```
                 PDF
                  │
-     upload? ──► GUARD (todo)
+     upload? ──► GUARD: reject unreadable / too big
                  │
-     per page: real text?
-        │ yes                          │ no (scan)
+     per page:
+        │ typed                        │ scan, or (uploads) hidden scanner layer
         ▼                              ▼
-   PyMuPDF text + tables         Docling + RapidOCR (todo: wire in)
+   PyMuPDF text + tables         Docling + RapidOCR, 50 pages per call
         │                          text + tables
-   gate → Gemini grid (done)
+   gate → Gemini grid,             foundation files: saved to docs/ocr/
+   words snapped from the PDF
         └──────────────┬───────────────┘
                        ▼
-                 ExtractedDoc
+                 ExtractedDoc + self-check
 ```
 
-Foundation files (Act, Rules, circulars) and user uploads go through the **same pipeline**. Uploads also pass through the guard first, because we don't control what users send.
-
----
-
-## What's left, and why
-
-| # | Step | Why |
-|---|---|---|
-| 1 | **First git commit** | There's no commit yet. We need a safety net before a big change, so we can go back if something breaks. Private data (`data/private/`, `sep_docs/`) must never enter this public repo. |
-| 2 | **Wire Docling + RapidOCR into the pipeline.** Move `read_page` and `to_table` from the trial script into `src/taxowl/ocr.py`, re-read the corpus scans into `docs/ocr/`, and remove ocrmac from `pyproject.toml`. | The decision only exists in a test script today. The pipeline still calls OcrMac. |
-| 3 | **Upload guard.** Spot a bad hidden scanner layer and send that page to OCR. Reject broken, encrypted or empty files with a clear message. | This was the cause of the petition losses (step 10). A crash on a bad file is worse than a clear "can't read this". |
-| 4 | **Snap bugs:** ")" gets dropped, and words inside a table cell come out in the wrong order. | Small, known losses. Cheap to fix. |
-| 5 | **Pin library versions.** | Step 12 showed that the same tool can score 84% or 74% depending only on library versions. The server must run exactly what we measured. |
-| 6 | **Final check:** re-run the gold set, the held-out sets, the corpus scans and the petitions. | The extractor counts as **done** only if no score drops. |
+Foundation files (Act, Rules, circulars) and user uploads go through the **same pipeline**. A file is a foundation file if it has a row in `docs/manifest.jsonl`. To add a new notification: download it with `scripts/01_download.py`, which adds its manifest row, run the pipeline, and commit `docs/ocr/` if it had scan pages.
 
 **Known gaps we're deferring:**
 - an image inside a typed page is ignored (rare);
-- the Rules' chapter running header isn't removed (10 checks across the held-out runs).
+- the Rules' chapter running header isn't removed (10 checks across the held-out runs);
+- Gemini tables with two-row headings or a table continued from the page before (182, 251) still lose a few cells;
+- Docling drops the subject line on one scanned page (229, page 1);
+- uploads take about 1.75 s per scanned page on a laptop CPU, so a 1,000-page upload is about 30 minutes. A GPU, or sending scan pages to Gemini, is a deployment decision;
+- the web server in front of the app (for example Nginx, 1 MB by default) needs its own upload limit raised to 500 MB at deployment.
 
-Neither one blocks calling the extractor done.
+None of these blocks calling the extractor done.
 
 ---
 
@@ -207,3 +256,6 @@ Neither one blocks calling the extractor done.
 5. **Change one thing at a time.** The OCR shoot-out kept Docling fixed and swapped only the engine. That's how we caught both the paragraph-number bug and the library-version problem.
 6. **Check your own measuring tools.** One "Docling is bad" result turned out to be a bug in our own trial script.
 7. **Pin versions.** The same code and model scored 10 points apart in two environments.
+8. **A rule that's right for one source can be wrong for another.** Re-reading hidden scanner layers fixed the petitions but hurt CBIC's files. So the rule depends on where the file came from.
+9. **Run the full test after every fix.** The first ")" fix fixed one page and broke another. Only the full held-out run showed it.
+10. **Speed fixes need correctness checks too.** Batching OCR silently moved a paragraph to the wrong page. Comparing against the page-by-page output caught it.

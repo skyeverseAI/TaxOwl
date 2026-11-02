@@ -1,6 +1,6 @@
 """Draw held-out pages for a second gold set, to test whether the extractor overfits the first one.
 
-Why: extract.py's rules were tuned until evals/ingestion_gold.json passed 256/256. A score on the
+Why: extract.py's rules were tuned until eval_results/gold/ingestion_gold.json passed 256/256. A score on the
 pages you tuned on only shows the rules fit those pages. Pages the rules have never seen show
 whether they generalize.
 
@@ -13,9 +13,9 @@ How:
     never from an extractor's output.
 
 Usage:
-    uv run evals/draw_heldout.py              # the first held-out draw (seed 2026)
-    uv run evals/draw_heldout.py --seed 2027  # a fresh draw, skipping every file already in a gold set
-Writes evals/heldout_draw.json and evals/heldout_pages/*.png (or heldout_draw_<seed>.json and
+    uv run eval_results/draw_heldout.py              # the first held-out draw (seed 2026)
+    uv run eval_results/draw_heldout.py --seed 2027  # a fresh draw, skipping every file already in a gold set
+Writes eval_results/draws/heldout_draw.json and eval_results/pages/heldout_pages/*.png (or heldout_draw_<seed>.json and
 heldout_pages_<seed>/ for another seed), then prints the drawn pages.
 """
 
@@ -29,11 +29,11 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-GOLD = ROOT / "evals" / "ingestion_gold.json"
-TABLE_REPORT = ROOT / "ingestion" / "table_report.csv"
-SCAN_REPORT = ROOT / "ingestion" / "scan_report.csv"
-OUT = ROOT / "evals" / "heldout_draw.json"
-IMAGES = ROOT / "evals" / "heldout_pages"
+GOLD = ROOT / "eval_results" / "gold" / "ingestion_gold.json"
+TABLE_REPORT = ROOT / "eval_results" / "draws" / "table_report.csv"
+SCAN_REPORT = ROOT / "eval_results" / "draws" / "scan_report.csv"
+OUT = ROOT / "eval_results" / "draws" / "heldout_draw.json"
+IMAGES = ROOT / "eval_results" / "pages" / "heldout_pages"
 
 SEED = 2026
 HOW_MANY = {"table": 5, "scan": 1, "plain": 2, "act": 1, "rules": 1}
@@ -110,12 +110,12 @@ def save_images(picks, images):
         name = f"{i:02d}-{p['kind']}-{Path(p['file']).stem}-p{p['page']}.png"
         with pymupdf.open(DOCS / p["file"]) as pdf:
             pdf[p["page"] - 1].get_pixmap(dpi=DPI).save(images / name)
-        p["image"] = f"evals/{images.name}/{name}"
+        p["image"] = f"eval_results/{images.name}/{name}"
 
 
 def main():
     # A new seed is a fresh draw (after fixes, the old held-out pages count as seen). It goes to
-    # its own files, and skips the files of every existing gold set: evals/ingestion_*.json.
+    # its own files, and skips the files of every existing gold set: eval_results/gold/ingestion_*.json.
     seed = int(sys.argv[sys.argv.index("--seed") + 1]) if "--seed" in sys.argv else SEED
     out, images = (OUT, IMAGES) if seed == SEED else (
         OUT.with_name(f"heldout_draw_{seed}.json"), IMAGES.with_name(f"heldout_pages_{seed}"))

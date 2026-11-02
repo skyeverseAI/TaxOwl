@@ -1,8 +1,8 @@
 {
   "_about": [
-    "Held-out gold set, seed 2032: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between.",
-    "Pages drawn by `evals/draw_heldout.py --seed 2032` (list in evals/heldout_draw_2032.json). All 8 scan files were already in gold sets, so the scan page was drawn (same seed) from a scan file's page that no gold set uses (scratchpad wrapper; the repo script was not changed).",
-    "Written from the page images in evals/heldout_pages_2032/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Held-out gold set, seed 2032: same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between.",
+    "Pages drawn by `eval_results/draw_heldout.py --seed 2032` (list in eval_results/draws/heldout_draw_2032.json). All 8 scan files were already in gold sets, so the scan page was drawn (same seed) from a scan file's page that no gold set uses (scratchpad wrapper; the repo script was not changed).",
+    "Written from the page images in eval_results/pages/heldout_pages_2032/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
     "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
   ],
   "pages": [

@@ -17,8 +17,8 @@ Each file gets one status:
   hindi       mostly Hindi text                  -> decide later (v1 is English only)
 
 Usage:
-    uv run ingestion/check_scans.py
-Writes ingestion/scan_report.csv (one row per file) and prints a summary.
+    uv run scripts/02_check_scans.py
+Writes eval_results/draws/scan_report.csv (one row per file) and prints a summary.
 """
 
 import csv
@@ -32,7 +32,7 @@ import pymupdf
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
 MANIFEST = DOCS / "manifest.jsonl"
-REPORT = Path(__file__).resolve().parent / "scan_report.csv"
+REPORT = ROOT / "eval_results" / "draws" / "scan_report.csv"
 
 EMPTY_PAGE_CHARS = 100        # a page with fewer letters than this counts as "no text"
 SCAN_SHARE = 0.5              # more than half the pages empty -> scan

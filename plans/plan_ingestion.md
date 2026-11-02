@@ -57,12 +57,12 @@ Try each step in order and stop at the first that works:
 - [x] Check: **314 rows = 267 circulars + 43 instructions + 2 notifications + Act + Rules.** All are valid PDFs, and the counts match the portal's lists.
 
 ### C. Parse into structural chunks
-- [x] Check text quality first. **Done 2026-10-24 with `ingestion/check_scans.py`** (report: `ingestion/scan_report.csv`).
+- [x] Check text quality first. **Done 2026-10-24 with `scripts/02_check_scans.py`** (report: `eval_results/draws/scan_report.csv`).
   - **8 files are real scans** (about 37 pages): circulars 228/2024, 229/2024 and 247/2025, plus instructions 03/2022, 04/2022, 01/2024, 01/2020-21 (investigation) and 01/2026. All 8 were checked by eye. 7 are plain paragraphs. Instruction 01/2020-21 ends with a 2-page empty form (headings only).
   - 4 files flagged `part_scan` are fine. Their empty pages are covers, blank pages or section title pages.
   - Some files *look* scanned (tilted, stamped) but have a hidden text layer, e.g. circular 56/2018. In LERAGS such layers were often wrong on numbers, so spot-check one when building the extractor.
 - [x] OCR the 8 scans with **`ocrmac` (Apple Vision)**. **Done 2026-10-25:** `ingestion/ocr_scans.py` writes `docs/ocr/<same path>.txt`, with pages separated by `\f`. Mark the chunks `ocr: true` later. Problems found and fixed: paragraph numbers skipped (re-read the left margin with both Apple engines, Vision and LiveText); lines merged on tilted pages; numbers on a line of their own; garbled date ordinals; "SI. No.". Inserted numbers must start a sentence and fit the paragraph sequence, because the first version of the fix put numbers on the page that weren't there. Checked against page images: circular 229/2024 in full, plus every spot where a problem showed up. Rates, HSN codes and notification numbers were correct. Every paragraph sequence is now complete.
-- [x] Check for tables. **Done 2026-10-24** (report: `ingestion/table_report.csv`). Two independent methods ran on every page of all 304 text files: PyMuPDF `find_tables()`, and a count of drawn horizontal and vertical lines. They agreed on 296 files; the 9 disagreements were checked by eye (6 real tables, 3 not).
+- [x] Check for tables. **Done 2026-10-24** (report: `eval_results/draws/table_report.csv`). Two independent methods ran on every page of all 304 text files: PyMuPDF `find_tables()`, and a count of drawn horizontal and vertical lines. They agreed on 296 files; the 9 disagreements were checked by eye (6 real tables, 3 not).
   - **About 110 of 304 files have tables** (about 1 in 3). **0 misses in 28 "no tables" files checked by eye** (13 by Claude, 15 by the user).
   - The kinds of table: **Q&A tables** (S.No / Issue / Clarification, e.g. circular 238/32/2024 on s.128A), which are the content itself; **tables of limits or assignments** (e.g. 254/11/2025); and **blank forms** (e.g. MOV-01 in 41/15/2018), which are low value.
 - [ ] The extractor needs **two modes**: plain text, and tables **row by row**. Each row becomes one chunk with its column names (`Issue: … Clarification: …`). This is the LERAGS lesson: flattening tables left 55.6% of rows without their headings, and keeping structure cut that to 5.9%.
@@ -90,7 +90,7 @@ Try each step in order and stop at the first that works:
     | Two-row headings | `circulars/2022/182-14-2022-GST.pdf` | page 13 ("Amount" → CGST / SGST) |
 
   - Other files found by the same scan, for later checks. Long split runs: 160/16/2021, 167/23/2021, 146/02/2021, 134/04/2020, 125/44/2019, 27/01/2018, 195/07/2023, 203/15/2023. Forms with two-row headings: 24/24/2017, 17/17/2017, 125/44/2019 (Annexure-B). Scan output: scratchpad `hard_tables.json` (to be regenerated into `ingestion/` if needed).
-  - [x] **Comparison done 2026-10-25** (`ingestion/compare_tables.py`, output in `ingestion/table_compare/`). There's no single winner. The strategy chosen from it is in **section C2** below.
+  - [x] **Comparison done 2026-10-25** (`archive/experiments/compare_tables.py`, output in `archive/experiments/table_compare/`). There's no single winner. The strategy chosen from it is in **section C2** below.
 
 ### C2. How we read tables: the strategy (decided 2026-10-26)
 
@@ -174,7 +174,7 @@ The same in words:
 - **Building the user-upload feature.** We only keep the door open: in `src/extract.py` each tool is one swappable "reader" function, so adding a VLM later is one more function, with no redesign.
 
 #### Nested tables (checked 2026-10-27)
-- **Finder:** `ingestion/find_nested.py` → `ingestion/nested_report.csv`. PyMuPDF doesn't return a nested table as two tables; it merges the inner grid into the outer one (133/2020, page 5: 10 columns instead of 3). The rule looks for rows whose cells all sit inside one wide cell of another row.
+- **Finder:** `archive/experiments/find_nested.py` → `archive/experiments/nested_report.csv`. PyMuPDF doesn't return a nested table as two tables; it merges the inner grid into the outer one (133/2020, page 5: 10 columns instead of 3). The rule looks for rows whose cells all sit inside one wide cell of another row.
 - **Result: 6 of 111 table files flagged.** 133, 136, 123 (known), 75/49/2018 page 10 (a form with a CGST/IGST/Total sub-grid inside a cell): **4 real**. 26/26/2017 (a three-level heading grid) is borderline; HTML suits it anyway. 99/18/2019 is a false alarm. A false alarm is cheap (HTML instead of Markdown), so the rule leans towards "nested".
 - **Missed ones?** The first version flagged 23 files. All 17 dropped by the fix were checked by eye: section-heading rows, forms and an index, none nested. Files the rule never flagged weren't checked page by page.
 - **Docling on nested tables:** it reads the **inner** table cleanly (133: every number right, columns named), but **loses the outer table around it**. In 133, pages 4–6 have no outer table at all; in 136, Q&A rows 6–8 on page 4 are missing from the tables (they may have gone to plain text; not checked). PyMuPDF keeps everything but mashes both grids together.
@@ -214,15 +214,15 @@ PDF → read (PyMuPDF; Docling for scans, because it also gives table structure)
 | Does it block good documents? | Run it on correct documents | false-alarm rate |
 | Can we trust the LLM judge? | Judge vs user on the same pages | % agreement |
 
-- **First run, 2026-10-27.** `src/taxowl/extract.py` + `tables.py`, scored by `evals/check_ingestion.py`: gold 256/256. All 314 files in about 2 minutes, and no file lost words. 22 files flagged by the self-check (14 tables without headings, 9 sparse tables, 1 invented word), still to look at. Because the rules were built on the gold pages, the 100% may be overfitting: test on held-out pages next.
-- **Held-out test, 2026-10-28.** 10 pages drawn at random (`evals/draw_heldout.py`, seed 2026: 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; none from the gold files) → `evals/ingestion_heldout.json`, written from page images, verified by GPT (Codex) and the user. Same extractor and checker (`--gold` option): **held-out 152/164 (92.7%)** vs gold 256/256. Numbers 23/23; Act, Rules, OCR, plain pages and both split tables all passed. The 12 failures come from 4 causes, each seen once (so how common each one is is still unknown):
+- **First run, 2026-10-27.** `src/taxowl/extract.py` + `tables.py`, scored by `eval_results/check_ingestion.py`: gold 256/256. All 314 files in about 2 minutes, and no file lost words. 22 files flagged by the self-check (14 tables without headings, 9 sparse tables, 1 invented word), still to look at. Because the rules were built on the gold pages, the 100% may be overfitting: test on held-out pages next.
+- **Held-out test, 2026-10-28.** 10 pages drawn at random (`eval_results/draw_heldout.py`, seed 2026: 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; none from the gold files) → `eval_results/gold/ingestion_heldout.json`, written from page images, verified by GPT (Codex) and the user. Same extractor and checker (`--gold` option): **held-out 152/164 (92.7%)** vs gold 256/256. Numbers 23/23; Act, Rules, OCR, plain pages and both split tables all passed. The 12 failures come from 4 causes, each seen once (so how common each one is is still unknown):
   1. Footer kept on 2-page documents: `strip_headers` skips fewer than 3 pages (194/2023). Coverage gap.
   2. Footer kept on page 1 when a table reaches the page bottom (219/2024). Cause not yet confirmed.
   3. Empty form table (headings only, 0 data rows) missing from the output, and **no flag raised** (63/2018, p.10). A hole in the safety net.
   4. **Partly scanned file:** text layer for the body, the table is only a picture → headings "Column 1-3", no cells; the text layer also lost "24th"/"31st" (56/2018). Content lost, but the self-check DID flag it (tables_without_headings).
   This 92.7% is the held-out number for the quality page. Once these are fixed, these pages count as seen; a fresh draw (new seed) is needed for the next held-out score.
 - **Goal for tables (agreed 2026-10-28):** every table comes out right OR is flagged and handled; never wrong without a flag. Next steps: (1) sort the 22 flagged files' tables into fine / picture / broken, using page images from a small script; (2) choose the fix from the counts (handful → Docling/region OCR, many → test a VLM); (3) add a check for tables that disappear (PyMuPDF sees a table, output has none); (4) at answer time, cite the PDF page and mark chunks from flagged tables. Small fixes (2-page footers, 219) after step 1.
-- **Gold set: done 2026-10-27.** `evals/ingestion_gold.json`: 11 cases, 13 pages, 230 checks. Written from page images (not from any extractor's output), and every case verified against the PDF by the user.
+- **Gold set: done 2026-10-27.** `eval_results/gold/ingestion_gold.json`: 11 cases, 13 pages, 230 checks. Written from page images (not from any extractor's output), and every case verified against the PDF by the user.
 - **Damaging output on purpose** is the strongest test: we know where the mistake is, so we know whether it was caught.
 
 ### D. Ingest into Chroma
@@ -253,10 +253,10 @@ PDF → text → split by law structure → chunks → vectors → database.
 | File | Job | Status |
 |---|---|---|
 | `scripts/01_download.py` | Download + manifest | done |
-| `ingestion/check_scans.py` | Find scans | done |
+| `scripts/02_check_scans.py` | Find scans | done |
 | `ingestion/ocr_scans.py` | OCR the 8 scans | done |
-| `ingestion/compare_tables.py` | PyMuPDF vs Docling on the 9 hardest table files | done |
-| `ingestion/find_nested.py` | Find tables inside tables | done |
+| `archive/experiments/compare_tables.py` | PyMuPDF vs Docling on the 9 hardest table files | done |
+| `archive/experiments/find_nested.py` | Find tables inside tables | done |
 | `src/config.py` | Paths and settings | reuse from LERAGS |
 | `src/schema.py` | What a chunk looks like (text + metadata) | new |
 | `src/extract.py` | PDF → clean text, tables as JSON, and a quality report per file (section C2) | new |

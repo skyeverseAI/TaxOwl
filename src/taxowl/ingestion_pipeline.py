@@ -1,11 +1,11 @@
-"""Any PDF -> one ExtractedDoc: page text, tables, a quality report (plans/ingestion_pipeline.md).
+"""Any PDF -> one ExtractedDoc: page text, tables, a quality report (plans/extraction_journey.md).
 
 Works on a corpus file or a user's upload alike: nothing is precomputed. Per document:
 
   0. Upload guard: an upload that can't be read (not a PDF, password, no pages, too big) gets a
      clear error instead of a crash. Corpus files skip the size limits: we chose them.
   1. Open it; sha256 of the bytes (names the caches; an upload has no stable path).
-  2. Per page, what kind it is (the rules of ingestion/check_scans.py, per page, not per file, so
+  2. Per page, what kind it is (the rules of scripts/02_check_scans.py, per page, not per file, so
      a typed letter with a scanned annexure works):
        text   PyMuPDF's words
        scan   too few letters: Docling + RapidOCR (ocr.py), text and tables. A corpus file's OCR
@@ -28,9 +28,9 @@ Works on a corpus file or a user's upload alike: nothing is precomputed. Per doc
 Usage:
     uv run python -m taxowl.ingestion_pipeline docs/circulars/2019/98-17-2019-GST.pdf
     uv run python -m taxowl.ingestion_pipeline some_upload.pdf --no-model
-    uv run python -m taxowl.ingestion_pipeline --gold evals/ingestion_heldout_2034.json
+    uv run python -m taxowl.ingestion_pipeline --gold eval_results/gold/ingestion_heldout_2034.json
     uv run python -m taxowl.ingestion_pipeline --corpus
-Output: data/ingested/<file>.json (one ExtractedDoc each), scored by evals/check_ingestion.py.
+Output: data/ingested/<file>.json (one ExtractedDoc each), scored by eval_results/check_ingestion.py.
 """
 
 import hashlib
@@ -54,12 +54,12 @@ OUT = ROOT / "data" / "ingested"
 VLM_CACHE = ROOT / "data" / "cache" / "vlm"
 MODEL = "google/gemini-3.5-flash-lite"  # 95.9% on the held-out runs, ~$0.0012 a page
 WORKERS = 8           # model pages sent at the same time
-EMPTY_PAGE_CHARS = 100  # fewer letters than this: a scanned page (as in ingestion/check_scans.py)
+EMPTY_PAGE_CHARS = 100  # fewer letters than this: a scanned page (as in scripts/02_check_scans.py)
 HINDI_SHARE = 0.5       # more than half the letters Devanagari: a Hindi page
 PICTURE_SHARE = 0.8     # a picture covering this much of the page: the page is a scan
 INVISIBLE_SHARE = 0.5   # ...and more than half its text invisible: the scanner's own OCR
-MAX_UPLOAD_MB = 100     # upload limits (the largest private petition is under 400 pages)
-MAX_UPLOAD_PAGES = 1000
+MAX_UPLOAD_MB = 500     # upload limits: a real 200-page scanned petition is 164 MB (~0.8 MB a page);
+MAX_UPLOAD_PAGES = 1000  # the largest we have is 453 pages. ~30 min of OCR at 1.75 s a page
 
 
 # ---------- per page ----------

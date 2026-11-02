@@ -3,7 +3,7 @@
 Used by the ingestion pipeline for pages without a text layer (fewer than 100 letters), for
 corpus files and uploads alike. Chosen 2026-11-02 over Apple's OcrMac (plans/extraction_journey.md,
 step 12): on the corpus scans 94.3% against 86.3%, it runs on Linux, and it gives tables on scan
-pages. Measured with evals/docling_trial.py; this is the same reading, moved here.
+pages. Measured with eval_results/docling_trial.py; this is the same reading, moved here.
 
 Per page:
   1. Docling turns the page into an image, RapidOCR reads every word on it (full-page OCR: any

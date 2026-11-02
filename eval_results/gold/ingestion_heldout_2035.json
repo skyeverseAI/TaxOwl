@@ -1,8 +1,8 @@
 {
   "_about": [
-    "Held-out gold set, seed 2035: same format and matching rules as evals/ingestion_gold.json (see its _about). One of three fresh corpus draws (seeds 2034-2036) made after the gate -> Gemini pipeline (src/taxowl/ingestion_pipeline.py) was built.",
-    "Pages drawn by `evals/draw_heldout.py --seed 2035` (list in evals/heldout_draw_2035.json). The scan page comes from a scan file's page no gold set uses (draw_heldout's scan fallback).",
-    "Written from the page images in evals/heldout_pages_2035/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
+    "Held-out gold set, seed 2035: same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about). One of three fresh corpus draws (seeds 2034-2036) made after the gate -> Gemini pipeline (src/taxowl/ingestion_pipeline.py) was built.",
+    "Pages drawn by `eval_results/draw_heldout.py --seed 2035` (list in eval_results/draws/heldout_draw_2035.json). The scan page comes from a scan file's page no gold set uses (draw_heldout's scan fallback).",
+    "Written from the page images in eval_results/pages/heldout_pages_2035/ before any extractor output for these pages was looked at. Dashes: phrases avoid the em dash after headings.",
     "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase, number, heading and cell checked against the raw PDF text layer (PyMuPDF get_text, not the extractor); misses re-read on the image."
   ],
   "pages": [

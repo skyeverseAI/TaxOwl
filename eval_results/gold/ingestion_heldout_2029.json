@@ -1,7 +1,7 @@
 {
   "_about": [
-    "Held-out gold set, seed 2029: same format and matching rules as evals/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between, to measure accuracy on unseen pages.",
-    "Pages drawn by `evals/draw_heldout.py --seed 2029` (list in evals/heldout_draw_2029.json); written from the page images in evals/heldout_pages_2029/ before any extractor output for these pages was looked at.",
+    "Held-out gold set, seed 2029: same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about). One of five fresh draws (seeds 2029-2033) scored on the same extractor, with no fixes in between, to measure accuracy on unseen pages.",
+    "Pages drawn by `eval_results/draw_heldout.py --seed 2029` (list in eval_results/draws/heldout_draw_2029.json); written from the page images in eval_results/pages/heldout_pages_2029/ before any extractor output for these pages was looked at.",
     "185 p.5 holds only the tail of a table row that started pages earlier. Its 'tables' is [] on purpose: if the tail is joined to the row above, no table row starts on p.5; if it isn't, a stray row starts there and the check fails. text_not checks the cell text didn't fall into the page text instead.",
     "Dashes: phrases avoid the em dash after headings ('Definitions.—In'), since the PDFs store it inconsistently (one em dash, or two en dashes) and the checker doesn't yet ignore dash style.",
     "Status: drafted by Claude from page images, 2026-10-29. Verified by Claude: every phrase and number re-read against the page image."

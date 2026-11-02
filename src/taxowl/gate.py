@@ -4,7 +4,7 @@ PyMuPDF reads simple tables right and complex ones wrong: shaded boxes become gr
 cells and multi-level headings land in the wrong columns, scanned pages give a wrong grid. Each
 signal below is cheap (PyMuPDF's own grid and drawings, no model) and fires on one of those.
 
-Measured by evals/gate_test.py on 8 held-out sets + the dev set (plans/table_gate_feasibility.md):
+Measured by archive/experiments/gate_test.py on 8 held-out sets + the dev set (archive/notes/table_gate_feasibility.md):
 every table PyMuPDF got wrong was caught (13 of 14; the 14th is a checker bug), 9 of 31 good
 ones were sent anyway (that only costs time), and 56% of the corpus' table pages go to the model.
 

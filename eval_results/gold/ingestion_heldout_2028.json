@@ -1,9 +1,9 @@
 {
   "_about": [
-    "Third held-out gold set (fresh draw, seed 2028): same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Third held-out gold set (fresh draw, seed 2028): same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about).",
     "Purpose: the second held-out set (ingestion_heldout_2027.json) was used to find and fix bugs on 2026-10-29 (section rows, the repeated-cells check), so it now counts as seen. These pages were never looked at while building or fixing the extractor.",
-    "Pages drawn at random by `evals/draw_heldout.py --seed 2028` (list in evals/heldout_draw_2028.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
-    "Written from the page images in evals/heldout_pages_2028/, before any extractor output for these pages was looked at.",
+    "Pages drawn at random by `eval_results/draw_heldout.py --seed 2028` (list in eval_results/draws/heldout_draw_2028.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
+    "Written from the page images in eval_results/pages/heldout_pages_2028/, before any extractor output for these pages was looked at.",
     "217 p.3 is entirely the continuation of one table row, so its case covers pages 2-3 (p.2 rendered only to see where the row starts): it tests that text cut by the page break lands in the same row and the same column.",
     "Status: drafted by Claude from page images, 2026-10-29. Verified the same day by GPT (Codex) against the PDFs: all 10 OK, including the three points flagged for a second look (217's p.2-3 continuation is one row; 223's (1)(2)(3) line is part of the headings, 2 data rows; the Rules page's 'Ch-XVIII : Demands and Recovery', 'Rules 142-161' and 'GST & Indirect Taxes Committee' are a running header/footer)."
   ],

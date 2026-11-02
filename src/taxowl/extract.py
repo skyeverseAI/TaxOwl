@@ -1,50 +1,29 @@
-"""PDF -> ExtractedDoc: text per page, tables, and a quality report (plans/plan_ingestion.md, C2-C3).
+"""Text helpers for the ingestion pipeline (ingestion_pipeline.py), and its self-check.
 
-For each PDF in docs/manifest.jsonl:
-  1. Text. Born-digital PDFs: PyMuPDF's words, rebuilt into lines, leaving out words that sit
-     inside a table (the table has them, so nothing appears twice). The 8 scans: the OCR text in
-     docs/ocr/ (saved there by the ingestion pipeline's first read of the file).
-  2. Clean-up, with general rules only:
-       - normalise characters: Unicode forms, and odd quote marks (circular 164/20/2021 stores
-         'restaurant service' with „ and ‟);
-       - drop headers and footers: a line at the top or bottom of the page that repeats, numbers
-         aside, on at least half the pages and at least 2 ("Page 5 of 6"). Page 1 keeps its top lines, because
-         there the "header" is the document's own title ("Circular No. 133/03/2020-GST").
-  3. Tables: src/taxowl/tables.py.
-  4. Self-check (layer 1 of the harness): did every word of the PDF reach the output, and did
-     the output gain any word the PDF doesn't have? Tables without any heading, and sparse
-     tables (mostly empty cells: fragments or blank forms), are flagged too.
+  - normalize: Unicode forms and odd quote marks (circular 164/20/2021 stores 'restaurant
+    service' with „ and ‟).
+  - page_lines: PyMuPDF's words rebuilt into lines, leaving out words inside a table (the table
+    has them, so nothing appears twice).
+  - strip_headers: drop headers and footers: a line at the top or bottom of the page that repeats,
+    numbers aside, on at least half the pages and at least 2 ("Page 5 of 6"). Page 1 keeps its top
+    lines, because there the "header" is the document's own title ("Circular No. 133/03/2020-GST").
+  - self_check (layer 1 of the harness): did every word of the PDF reach the output, and did the
+    output gain any word the PDF doesn't have? Tables without any heading, sparse tables (mostly
+    empty cells: fragments or blank forms) and cells repeating text are flagged too.
 
-Output: data/extracted/<pdf path>.json, one ExtractedDoc each. evals/check_ingestion.py scores it.
-
-Usage:
-    uv run python -m taxowl.extract            # all documents in the manifest
-    uv run python -m taxowl.extract --gold     # only the files in the gold set
-    uv run python -m taxowl.extract circulars/2025/254-11-2025-GST.pdf
+This file was the first extractor (2026-10-27); the pipeline replaced its document loop, which is
+in archive/ (see archive/README.md). Only the shared pieces are left here.
 """
 
-import csv
-import json
 import re
-import sys
-import time
 import unicodedata
 from collections import Counter
-from dataclasses import asdict
 from pathlib import Path
-
-import pymupdf
-
-from taxowl.schema import ExtractedDoc
-from taxowl.tables import join_tables, read_page_tables, to_tables
 
 ROOT = Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs"
 OCR_DIR = DOCS / "ocr"
 MANIFEST = DOCS / "manifest.jsonl"
-SCAN_REPORT = ROOT / "ingestion" / "scan_report.csv"
-GOLD = ROOT / "evals" / "ingestion_gold.json"
-OUT = ROOT / "data" / "extracted"
 
 EDGE_LINES = 2       # how many lines at the top and bottom of a page can be a header or footer
 REPEAT_SHARE = 0.5   # ...if they repeat on at least this share of the pages
@@ -115,32 +94,7 @@ def strip_headers(pages):
     return kept, removed
 
 
-# ---------- one document ----------
-
-def extract(meta, scans):
-    rel = meta["file"]
-    doc_id = meta.get("number") or Path(rel).stem
-    if rel in scans:
-        # Saved by the ingestion pipeline (Docling + RapidOCR); only the text is used here.
-        saved = json.loads((OCR_DIR / rel).with_suffix(".json").read_text())
-        texts = [normalize(saved["pages"].get(str(p), {}).get("text", "")) for p in range(1, saved["n_pages"] + 1)]
-        pages, _ = strip_headers([list(enumerate(t.splitlines())) for t in texts])
-        return ExtractedDoc(rel, meta["sha256"], ["\n".join(p) for p in pages], ocr=True)
-
-    pages, raws, source = [], [], []
-    with pymupdf.open(DOCS / rel) as pdf:
-        for page in pdf:
-            words = [(*w[:4], normalize(w[4]), *w[5:]) for w in page.get_text("words")]
-            source += [w[4] for w in words]
-            page_raws = read_page_tables(page, words)
-            raws += page_raws
-            pages.append(page_lines(words, [r["box"] for r in page_raws]))
-    pages, removed = strip_headers(pages)
-    joined, dropped = join_tables(raws)
-    doc = ExtractedDoc(rel, meta["sha256"], ["\n".join(p) for p in pages], to_tables(joined, doc_id))
-    doc.quality = self_check(doc, source, removed + dropped, raws)
-    return doc
-
+# ---------- self-check ----------
 
 def repeated_beyond_source(text, source_text):
     """Does a run of REPEAT_RUN words occur twice in this cell (without overlapping) but not twice
@@ -193,43 +147,3 @@ def self_check(doc, source, dropped_on_purpose, raws):
     if pages:
         failed["tables_sparse"] = "page(s) " + ", ".join(map(str, pages[:10])) + (" ..." if len(pages) > 10 else "")
     return failed
-
-
-# ---------- all documents ----------
-
-def main():
-    manifest = [json.loads(line) for line in MANIFEST.open()]
-    scans = {r["file"] for r in csv.DictReader(SCAN_REPORT.open()) if r["status"] == "scan"}
-    args = sys.argv[1:]
-    if "--gold" in args:
-        wanted = {case["file"] for case in json.loads(GOLD.read_text())["pages"]}
-    elif args:
-        wanted = set(args)
-    else:
-        wanted = {m["file"] for m in manifest}
-    docs = [m for m in manifest if m["file"] in wanted]
-
-    start, flagged, n_tables = time.time(), [], 0
-    for i, meta in enumerate(docs, 1):
-        print(f"\r[{i}/{len(docs)}] {meta['file'][:70]:<70}", end="", flush=True)
-        try:
-            doc = extract(meta, scans)
-        except Exception as e:  # one bad PDF shouldn't stop the run
-            doc = ExtractedDoc(meta["file"], meta["sha256"], [], quality={"error": repr(e)})
-        out = OUT / (meta["file"] + ".json")
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text(json.dumps(asdict(doc), ensure_ascii=False))
-        n_tables += len(doc.tables)
-        if doc.quality:
-            flagged.append(doc)
-    print(f"\n\n{len(docs)} documents, {n_tables} tables, {time.time() - start:.0f}s. "
-          f"Output: {OUT.relative_to(ROOT)}/")
-    print(f"Self-check flagged {len(flagged)} document(s):")
-    for doc in flagged:
-        print(f"  {doc.file}")
-        for check, reason in doc.quality.items():
-            print(f"      {check}: {reason}")
-
-
-if __name__ == "__main__":
-    main()

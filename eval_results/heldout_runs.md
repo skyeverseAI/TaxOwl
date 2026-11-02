@@ -2,7 +2,7 @@
 
 Every run scores the same extractor (no fixes between runs) on 10 freshly drawn pages that were never used to build or fix it. 5 table pages, 1 scan, 2 plain, 1 Act, 1 Rules each. Gold written from page images, then each phrase/number/cell checked against the raw PDF text layer.
 
-Command per run: `uv run evals/check_ingestion.py data/extracted --gold evals/ingestion_heldout_<seed>.json`
+Command per run: `uv run eval_results/check_ingestion.py data/ingested --gold eval_results/gold/ingestion_heldout_<seed>.json`
 
 ## Scores
 
@@ -77,9 +77,9 @@ Most of the loss is in tables. Plain text, Act and Rules pages score ~99% apart 
 
 ## Vision-model grids on runs #1-#5 (2026-10-29)
 
-Same pages and the same snapping to PDF words (`ingestion/vlm_tables.py`); only the grid's source
+Same pages and the same snapping to PDF words (`archive/experiments/vlm_tables.py`); only the grid's source
 changes. Paddle = PaddleOCR-VL 1.6 run locally (MLX, M5 Mac). Tested and dropped; full results,
-setup and conversion rules in `evals/paddle_results.md` (its code was removed).
+setup and conversion rules in `archive/notes/paddle_results.md` (its code was removed).
 
 | Run | PyMuPDF | Gemini 3.5 Flash Lite | PaddleOCR-VL 1.6 |
 |---|---|---|---|
@@ -107,7 +107,7 @@ model's reading; no number was misread.
 
 ### Gemini after the box fix (2026-10-29)
 
-Fix in `ingestion/vlm_tables.py`. On a blank form, the table's area is now found from its
+Fix in `archive/experiments/vlm_tables.py`. On a blank form, the table's area is now found from its
 headings. Headings are never looked for on the whole page. A table's box stays within 2 lines of
 its PyMuPDF area. The Gemini answers came from the cache, so the model was not asked again.
 

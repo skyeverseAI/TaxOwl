@@ -1,9 +1,9 @@
 {
   "_about": [
-    "Held-out gold set: same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Held-out gold set: same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about).",
     "Purpose: extract.py's rules were tuned on ingestion_gold.json, so its 256/256 may be overfitting. These pages were never used to build the rules.",
-    "Pages drawn at random by evals/draw_heldout.py (seed 2026, list in evals/heldout_draw.json): 5 table pages, 1 scan, 2 plain pages, 1 Act page, 1 Rules page; no file from the first gold set.",
-    "Written from the page images in evals/heldout_pages/, before any extractor output for these pages was looked at.",
+    "Pages drawn at random by eval_results/draw_heldout.py (seed 2026, list in eval_results/draws/heldout_draw.json): 5 table pages, 1 scan, 2 plain pages, 1 Act page, 1 Rules page; no file from the first gold set.",
+    "Written from the page images in eval_results/pages/heldout_pages/, before any extractor output for these pages was looked at.",
     "Rule: do not change extract.py while this set is being written or verified. A fix made after scoring turns these pages into 'seen' pages.",
     "Status: drafted by Claude from page images, 2026-10-28. Verified the same day: GPT (Codex) checked all 10 cases against the PDFs (9 OK; 1 objection on rule 107A, which the user settled in favour of the draft by reading the PDF); the user checked the hard spots by eye (63 rows 0 and running header, 183 one row, 247 handwriting over the name, 56 table is a picture)."
   ],

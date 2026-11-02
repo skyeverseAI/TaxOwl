@@ -1,4 +1,4 @@
-"""Score an extraction against the gold set (evals/ingestion_gold.json; plans/plan_ingestion.md, C3).
+"""Score an extraction against the gold set (eval_results/gold/ingestion_gold.json; plans/plan_ingestion.md, C3).
 
 Input: one JSON file per PDF, holding an ExtractedDoc (src/taxowl/schema.py), at
 <extracted dir>/<pdf path>.json, e.g. out/circulars/2025/254-11-2025-GST.pdf.json.
@@ -20,9 +20,9 @@ Rows are counted only among rows on the gold's pages (238's table runs to page 1
 checks pages 8-9), so "row 2" means the second row that starts on those pages.
 
 Usage:
-    uv run evals/check_ingestion.py <extracted dir>
-    uv run evals/check_ingestion.py <extracted dir> --show-passed
-    uv run evals/check_ingestion.py <extracted dir> --gold evals/ingestion_heldout.json
+    uv run eval_results/check_ingestion.py <extracted dir>
+    uv run eval_results/check_ingestion.py <extracted dir> --show-passed
+    uv run eval_results/check_ingestion.py <extracted dir> --gold eval_results/gold/ingestion_heldout.json
 --gold scores against another gold file in the same format (default: ingestion_gold.json), e.g. the
 held-out pages that were never used to build the extractor's rules.
 """
@@ -35,7 +35,7 @@ from pathlib import Path
 
 from taxowl.schema import ExtractedDoc, Table
 
-GOLD = Path(__file__).resolve().parent / "ingestion_gold.json"
+GOLD = Path(__file__).resolve().parent / "gold" / "ingestion_gold.json"
 
 
 QUOTES = str.maketrans({c: "'" for c in "‘’‚‛′“”„‟″\""})

@@ -1,9 +1,9 @@
 {
   "_about": [
-    "Second held-out gold set (fresh draw, seed 2027): same format and matching rules as evals/ingestion_gold.json (see its _about).",
+    "Second held-out gold set (fresh draw, seed 2027): same format and matching rules as eval_results/gold/ingestion_gold.json (see its _about).",
     "Purpose: the first held-out set (ingestion_heldout.json) was used to find and fix bugs on 2026-10-29 (heading rows, footers), so it now counts as seen. These pages were never looked at while building or fixing the extractor.",
-    "Pages drawn at random by `evals/draw_heldout.py --seed 2027` (list in evals/heldout_draw_2027.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
-    "Written from the page images in evals/heldout_pages_2027/, before any extractor output for these pages was looked at.",
+    "Pages drawn at random by `eval_results/draw_heldout.py --seed 2027` (list in eval_results/draws/heldout_draw_2027.json): 5 table, 1 scan, 2 plain, 1 Act, 1 Rules; no file from any earlier gold set.",
+    "Written from the page images in eval_results/pages/heldout_pages_2027/, before any extractor output for these pages was looked at.",
     "Four table pages continue a table from the page before, whose headings were not looked at. There, 'headings' is [] and cells use '' (any column): they test that each row's text is in the right ROW, and 'rows' tests that the text cut by the page break is joined to the row above instead of becoming a row of its own.",
     "Status: drafted by Claude from page images, 2026-10-29. Verified the same day by GPT (Codex) against the PDFs: all 10 OK, including the three points flagged for a second look (203's full-width section line is its own row; the Rules page's 'Ch-IX : Payment of Tax' and 'GST & Indirect Taxes Committee' are a running header/footer; row counts 166 = 2, 195 = 3, 48 = 1)."
   ],

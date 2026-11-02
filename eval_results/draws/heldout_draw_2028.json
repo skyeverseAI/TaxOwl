@@ -5,61 +5,61 @@
       "kind": "table",
       "file": "circulars/2017/16-16-2017-GST.pdf",
       "page": 1,
-      "image": "evals/heldout_pages_2028/01-table-16-16-2017-GST-p1.png"
+      "image": "eval_results/pages/heldout_pages_2028/01-table-16-16-2017-GST-p1.png"
     },
     {
       "kind": "table",
       "file": "circulars/2022/179-11-2022-GST.pdf",
       "page": 4,
-      "image": "evals/heldout_pages_2028/02-table-179-11-2022-GST-p4.png"
+      "image": "eval_results/pages/heldout_pages_2028/02-table-179-11-2022-GST-p4.png"
     },
     {
       "kind": "table",
       "file": "circulars/2024/215-09-2024-GST.pdf",
       "page": 2,
-      "image": "evals/heldout_pages_2028/03-table-215-09-2024-GST-p2.png"
+      "image": "eval_results/pages/heldout_pages_2028/03-table-215-09-2024-GST-p2.png"
     },
     {
       "kind": "table",
       "file": "circulars/2024/217-11-2024-GST.pdf",
       "page": 3,
-      "image": "evals/heldout_pages_2028/04-table-217-11-2024-GST-p3.png"
+      "image": "eval_results/pages/heldout_pages_2028/04-table-217-11-2024-GST-p3.png"
     },
     {
       "kind": "table",
       "file": "circulars/2024/223-17-2024-GST.pdf",
       "page": 2,
-      "image": "evals/heldout_pages_2028/05-table-223-17-2024-GST-p2.png"
+      "image": "eval_results/pages/heldout_pages_2028/05-table-223-17-2024-GST-p2.png"
     },
     {
       "kind": "scan",
       "file": "circulars/2024/228-22-2024-GST.pdf",
       "page": 4,
-      "image": "evals/heldout_pages_2028/06-scan-228-22-2024-GST-p4.png"
+      "image": "eval_results/pages/heldout_pages_2028/06-scan-228-22-2024-GST-p4.png"
     },
     {
       "kind": "plain",
       "file": "circulars/2022/174-06-2022-GST.pdf",
       "page": 1,
-      "image": "evals/heldout_pages_2028/07-plain-174-06-2022-GST-p1.png"
+      "image": "eval_results/pages/heldout_pages_2028/07-plain-174-06-2022-GST-p1.png"
     },
     {
       "kind": "plain",
       "file": "circulars/2018/40-14-2018-GST.pdf",
       "page": 2,
-      "image": "evals/heldout_pages_2028/08-plain-40-14-2018-GST-p2.png"
+      "image": "eval_results/pages/heldout_pages_2028/08-plain-40-14-2018-GST-p2.png"
     },
     {
       "kind": "act",
       "file": "GST_act.pdf",
       "page": 55,
-      "image": "evals/heldout_pages_2028/09-act-GST_act-p55.png"
+      "image": "eval_results/pages/heldout_pages_2028/09-act-GST_act-p55.png"
     },
     {
       "kind": "rules",
       "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
       "page": 350,
-      "image": "evals/heldout_pages_2028/10-rules-GST Act(s) and Rule(s)-Bare Law-p350.png"
+      "image": "eval_results/pages/heldout_pages_2028/10-rules-GST Act(s) and Rule(s)-Bare Law-p350.png"
     }
   ]
 }

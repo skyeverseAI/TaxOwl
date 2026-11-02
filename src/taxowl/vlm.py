@@ -1,8 +1,8 @@
-"""Read a table's GRID with a vision model, keep the PDF's own WORDS (plans/table_gate_feasibility.md).
+"""Read a table's GRID with a vision model, keep the PDF's own WORDS (archive/notes/table_gate_feasibility.md).
 
 Used by the ingestion pipeline for the tables the gate (gate.py) sends: shaded boxes, merged
 cells, nested tables, broken grids. Measured on the held-out runs: 95.9% with Gemini 3.5 Flash
-Lite against 85.6% for PyMuPDF alone (evals/heldout_runs.md).
+Lite against 85.6% for PyMuPDF alone (eval_results/heldout_runs.md).
 
   ask_cached(path, model, png, key)   one page image -> the model's tables (headings, rows, flags),
                                       cached on disk, failures returned, not raised

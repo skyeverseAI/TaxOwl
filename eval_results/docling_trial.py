@@ -21,28 +21,28 @@ How a Docling table becomes our Table:
     because Docling puts them in a separate layer.
 
 Only the gold pages are converted (one convert() per page); every other page is left "".
-Defaults: gold data/private/ingestion_petitions.json, PDFs in sep_docs/, output data/private/run_docling/
+Defaults: gold data/private/gold/ingestion_petitions.json, PDFs in data/private/petitions/, output data/private/runs/run_docling/
 (<pdf path>.json, and markdown/<case id>.md to read by eye).
 
 --ocr rapid swaps OcrMac for RapidOCR and changes nothing else, so the score difference is the OCR
 engine alone. RapidOCR runs on Linux (OcrMac is Mac-only), so this is the setup a server would have.
-Its default output is data/private/run_docling_rapid/.
+Its default output is data/private/runs/run_docling_rapid/.
 
 --scans-only keeps the cases whose pages are all scans (fewer than 100 letters in the text layer, the
 pipeline's rule), and writes them to <out>/scan_gold.json, so the pipeline (ocrmac) can be scored on
 exactly the same cases.
 
 Usage (any Python with docling 2.99, e.g. LERAGS' venv, or `uv run --script`):
-    python evals/docling_trial.py
-    uv run evals/check_ingestion.py data/private/run_docling --gold data/private/ingestion_petitions.json
+    python eval_results/docling_trial.py
+    uv run eval_results/check_ingestion.py data/private/runs/run_docling --gold data/private/gold/ingestion_petitions.json
 
     # the corpus scans in every gold set: Docling vs the pipeline's ocrmac
-    python evals/docling_trial.py --gold evals/ingestion_*.json --pdfs docs --out data/docling_scans --scans-only
-    uv run evals/check_ingestion.py data/docling_scans --gold data/docling_scans/scan_gold.json
+    python eval_results/docling_trial.py --gold eval_results/gold/ingestion_*.json --pdfs docs --out data/runs/docling_scans --scans-only
+    uv run eval_results/check_ingestion.py data/runs/docling_scans --gold data/runs/docling_scans/scan_gold.json
 
     # the same two runs with RapidOCR
-    python evals/docling_trial.py --ocr rapid
-    python evals/docling_trial.py --ocr rapid --gold evals/ingestion_*.json --pdfs docs --out data/docling_scans_rapid --scans-only
+    python eval_results/docling_trial.py --ocr rapid
+    python eval_results/docling_trial.py --ocr rapid --gold eval_results/gold/ingestion_*.json --pdfs docs --out data/runs/docling_scans_rapid --scans-only
 """
 
 import hashlib
@@ -53,9 +53,9 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-GOLD = ROOT / "data" / "private" / "ingestion_petitions.json"
-PDFS = ROOT / "sep_docs"
-OUT = ROOT / "data" / "private" / "run_docling"
+GOLD = ROOT / "data" / "private" / "gold" / "ingestion_petitions.json"
+PDFS = ROOT / "data" / "private" / "petitions"
+OUT = ROOT / "data" / "private" / "runs" / "run_docling"
 EMPTY_PAGE_CHARS = 100  # as in ingestion_pipeline.py: fewer letters than this is a scan
 
 

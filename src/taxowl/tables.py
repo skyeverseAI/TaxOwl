@@ -1,6 +1,6 @@
 """Read tables with PyMuPDF and join them across pages (plans/plan_ingestion.md, C2).
 
-The rules here were tested in ingestion/compare_tables.py on the 9 hardest files. Three steps:
+The rules here were tested in archive/experiments/compare_tables.py on the 9 hardest files. Three steps:
 
   read_page_tables(page, words)  one page -> raw tables. Each cell's text is the PDF's own words
                                  whose centre lies inside the cell. A nested table (133/03/2020)
@@ -139,7 +139,7 @@ def find_container(boxes, table_box):
 
 
 def is_nested(table):
-    """For a PyMuPDF table: does one of its cells hold another table? (Used by find_nested.py.)"""
+    """For a PyMuPDF table: does one of its cells hold another table? (Used by archive/experiments/find_nested.py.)"""
     return find_container([row.cells for row in table.rows], table.bbox) is not None
 
 
