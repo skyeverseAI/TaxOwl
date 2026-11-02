@@ -6,7 +6,8 @@ Works on a corpus file or a user's upload alike: nothing is precomputed. Per doc
   2. Per page, what kind it is (the rules of ingestion/check_scans.py, per page, not per file, so
      a typed letter with a scanned annexure works):
        text   PyMuPDF's words
-       scan   too few letters: OCR (ocr.py). docs/ocr/ is used when the corpus already has it.
+       scan   too few letters: Docling + RapidOCR (ocr.py), text and tables. A corpus file's OCR
+              is saved in docs/ocr/<file>.json the first time and reused after; an upload's never is.
        hindi  mostly Devanagari: kept as text, flagged (v1 is English only)
   3. Tables on text pages: PyMuPDF (tables.py).
   4. Gate (gate.py): pages whose tables look complex. A table cut by a page break goes to one
@@ -35,9 +36,8 @@ from pathlib import Path
 
 import pymupdf
 
-from taxowl import gate, vlm
+from taxowl import gate, ocr, vlm
 from taxowl.extract import DOCS, MANIFEST, OCR_DIR, normalize, page_lines, self_check, strip_headers
-from taxowl.ocr import page_to_lines
 from taxowl.schema import ExtractedDoc, Table
 from taxowl.tables import CONTINUE_BOTTOM, CONTINUE_TOP, join_tables, read_page_tables, to_tables
 
@@ -60,14 +60,22 @@ def page_kind(page):
     return "hindi" if hindi > HINDI_SHARE * (latin + hindi) else "text"
 
 
-def corpus_ocr(meta, n_pages):
-    """The corpus' own OCR of this file (docs/ocr/, made by ingestion/ocr_scans.py), as page texts,
-    or None. Same code as ocr.py, so it only saves time."""
-    path = (OCR_DIR / meta["file"]).with_suffix(".txt")
+def saved_ocr(meta, sha):
+    """A corpus file's saved OCR, {page number: {"text", "tables"}}, or {} if there is none or the
+    PDF has changed since (sha256 differs). Saved by the pipeline itself, so it only saves time."""
+    path = (OCR_DIR / meta["file"]).with_suffix(".json")
     if not path.exists():
-        return None
-    pages = [normalize(p.strip()) for p in path.read_text().split("\f")]
-    return pages if len(pages) == n_pages else None
+        return {}
+    saved = json.loads(path.read_text())
+    return {int(p): v for p, v in saved["pages"].items()} if saved["sha256"] == sha else {}
+
+
+def save_ocr(meta, sha, n_pages, pages):
+    """Write a corpus file's OCR to docs/ocr/<file>.json (tracked in git), so it's read only once."""
+    path = (OCR_DIR / meta["file"]).with_suffix(".json")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps({"file": meta["file"], "sha256": sha, "n_pages": n_pages, "reader": "docling+rapidocr",
+                                "pages": {str(p): pages[p] for p in sorted(pages)}}, ensure_ascii=False, indent=1))
 
 
 def model_pages(flagged, raws_by_page, n_pages):
@@ -99,7 +107,11 @@ def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
     path = Path(path)
     data = path.read_bytes()
     sha = hashlib.sha256(data).hexdigest()
-    meta = meta or lookup(path) or {"file": path.name, "sha256": sha}
+    meta = meta or lookup(path)
+    # In the manifest: a foundation file (Act, Rules, circular, notification...), which we added
+    # ourselves. Its OCR is saved. Anything else is a user's upload.
+    corpus = meta is not None
+    meta = meta or {"file": path.name, "sha256": sha}
     doc_id = meta.get("number") or Path(meta["file"]).stem
     stats = {} if stats is None else stats
     try:
@@ -113,16 +125,21 @@ def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
         n = len(pdf)
         kinds = [page_kind(p) for p in pdf]
         stats["pages"] = {k: kinds.count(k) for k in set(kinds)}
-        words, raws_by_page, ocr_text = {}, {}, {}
-        saved_ocr = corpus_ocr(meta, n) if "scan" in kinds else None
-        state = {"last_top": 0}  # carried across OCR pages (ocr.add_margin_numbers)
+        words, raws_by_page, ocr_pages = {}, {}, {}
+        saved = saved_ocr(meta, sha) if corpus and "scan" in kinds else {}
         for i, page in enumerate(pdf, 1):
             if kinds[i - 1] == "scan":
-                ocr_text[i] = saved_ocr[i - 1] if saved_ocr else normalize(page_to_lines(page, state)[0])
+                if i in saved:
+                    ocr_pages[i] = saved[i]
+                else:
+                    text, tables = ocr.read_page(data, i, Path(meta["file"]).stem + ".pdf")
+                    ocr_pages[i] = {"text": text, "tables": tables}
                 continue
             words[i] = [(*w[:4], normalize(w[4]), *w[5:]) for w in page.get_text("words")]
             if kinds[i - 1] == "text":
                 raws_by_page[i] = read_page_tables(page, words[i])
+        if corpus and set(ocr_pages) - set(saved):
+            save_ocr(meta, sha, n, ocr_pages)
 
         # Gate: on PyMuPDF's joined tables, as they would come out.
         all_raws = [r for p in sorted(raws_by_page) for r in raws_by_page[p]]
@@ -156,12 +173,13 @@ def ingest(path, meta=None, model=MODEL, workers=WORKERS, stats=None):
             else:
                 answers = {p: r["answer"] for (p, _), r in zip(jobs, results)}
 
-    return build(meta, sha, n, kinds, words, raws_by_page, ocr_text, answers, quality, doc_id)
+    return build(meta, sha, n, kinds, words, raws_by_page, ocr_pages, answers, quality, doc_id)
 
 
-def build(meta, sha, n, kinds, words, raws_by_page, ocr_text, answers, quality, doc_id):
+def build(meta, sha, n, kinds, words, raws_by_page, ocr_pages, answers, quality, doc_id):
     """Assemble the ExtractedDoc: PyMuPDF's tables on the pages the model didn't read, the model's
-    snapped tables on the pages it did, page text outside both, then the self-checks."""
+    snapped tables on the pages it did, Docling's tables on scan pages, page text outside all of
+    them, then the self-checks."""
     keep_raws = [r for p in sorted(raws_by_page) if p not in answers for r in raws_by_page[p]]
     joined, dropped = join_tables(keep_raws)
     tables = to_tables(joined, doc_id)
@@ -176,13 +194,22 @@ def build(meta, sha, n, kinds, words, raws_by_page, ocr_text, answers, quality, 
         headings = [h or f"Column {j + 1}" for j, h in enumerate(t["headings"])]
         tables.append(Table(f"{doc_id}:table-{len(tables) + 1}", headings, [r for r, _ in t["rows"]],
                             [p for _, p in t["rows"]], reader="vlm"))
+    # Scan pages: the words come from the OCR, so its tables are as much "source" as its text.
+    ocr_text, source = {}, []
+    for p in sorted(ocr_pages):
+        ocr_text[p] = normalize(ocr_pages[p]["text"])
+        source += ocr_text[p].split()
+        for t in ocr_pages[p]["tables"]:
+            headings = [normalize(h) for h in t["headings"]]
+            rows = [[normalize(c) for c in row] for row in t["rows"]]
+            tables.append(Table(f"{doc_id}:table-{len(tables) + 1}", headings, rows, [p] * len(rows), reader="docling"))
+            source += " ".join(headings + [c for row in rows for c in row]).split()
     tables.sort(key=lambda t: min(t.row_pages, default=0))
 
-    lines, source = [], []
+    lines = []
     for p in range(1, n + 1):
         if p in ocr_text:
             lines.append(list(enumerate(ocr_text[p].splitlines())))
-            source += ocr_text[p].split()
             continue
         source += [w[4] for w in words[p]]
         page_boxes = boxes[p] if p in answers else [r["box"] for r in raws_by_page.get(p, [])]

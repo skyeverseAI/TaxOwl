@@ -3,7 +3,7 @@
 For each PDF in docs/manifest.jsonl:
   1. Text. Born-digital PDFs: PyMuPDF's words, rebuilt into lines, leaving out words that sit
      inside a table (the table has them, so nothing appears twice). The 8 scans: the OCR text in
-     docs/ocr/ (made by ingestion/ocr_scans.py).
+     docs/ocr/ (saved there by the ingestion pipeline's first read of the file).
   2. Clean-up, with general rules only:
        - normalise characters: Unicode forms, and odd quote marks (circular 164/20/2021 stores
          'restaurant service' with „ and ‟);
@@ -121,8 +121,10 @@ def extract(meta, scans):
     rel = meta["file"]
     doc_id = meta.get("number") or Path(rel).stem
     if rel in scans:
-        text = normalize((OCR_DIR / rel).with_suffix(".txt").read_text())
-        pages, _ = strip_headers([list(enumerate(p.strip().splitlines())) for p in text.split("\f")])
+        # Saved by the ingestion pipeline (Docling + RapidOCR); only the text is used here.
+        saved = json.loads((OCR_DIR / rel).with_suffix(".json").read_text())
+        texts = [normalize(saved["pages"].get(str(p), {}).get("text", "")) for p in range(1, saved["n_pages"] + 1)]
+        pages, _ = strip_headers([list(enumerate(t.splitlines())) for t in texts])
         return ExtractedDoc(rel, meta["sha256"], ["\n".join(p) for p in pages], ocr=True)
 
     pages, raws, source = [], [], []
