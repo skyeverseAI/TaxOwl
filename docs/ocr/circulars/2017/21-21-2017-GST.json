@@ -1,0 +1,12 @@
+{
+ "file": "circulars/2017/21-21-2017-GST.pdf",
+ "sha256": "93d669de486e06c1d1bc977d8bc70237e877f4114be2f5295b7c37dfb9c8bd50",
+ "n_pages": 2,
+ "reader": "docling+rapidocr",
+ "pages": {
+  "2": {
+   "text": "",
+   "tables": []
+  }
+ }
+}

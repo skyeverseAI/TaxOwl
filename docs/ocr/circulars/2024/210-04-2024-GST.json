@@ -1,0 +1,12 @@
+{
+ "file": "circulars/2024/210-04-2024-GST.pdf",
+ "sha256": "6305979a2a30ac72d383ee042ee701713cb8a300b89ba25638e203157d1aa90c",
+ "n_pages": 4,
+ "reader": "docling+rapidocr",
+ "pages": {
+  "4": {
+   "text": "",
+   "tables": []
+  }
+ }
+}
