@@ -62,7 +62,12 @@ class Unit:
     term: str = ""     # definitions only: the word defined, e.g. "goods", for following one definition to another
     amended_by: list[str] = field(default_factory=list)  # footnotes: "Ins. by Act 8 of 2023, s. 138 (w.e.f. 1-10-2023)"
     history: list[str] = field(default_factory=list)     # old wording ("Prior to substitution, it read ..."), never in `text`
-    table_id: str = ""  # tables only: the way back to the whole Table
+    table_ids: list[str] = field(default_factory=list)   # the tables in or of this unit: the way back to each whole Table
+    warnings: list[str] = field(default_factory=list)    # small problems the splitter saw, kept with the unit, never hidden
+    # Filled for every splitter the same way, by splitting.finish():
+    unit_id: str = ""        # stable across runs: "act-12-of-2017:section-16"
+    source_sha256: str = ""  # the PDF version this came from (from the manifest)
+    token_count: int = 0     # bge-small tokens in `text`: for the chunker and the answer step's context budget
 
 
 @dataclass

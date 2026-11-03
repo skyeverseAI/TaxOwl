@@ -1,3 +1,56 @@
 """ExtractedDoc -> list[Unit]: cut each document where the law itself divides it
-(plans/stage2_splitchunk.md, part A). One splitter per document family: act.py, rules.py,
-circulars.py."""
+(plans/stage2_splitchunk.md, part A; checklist in to-do-list.md). One splitter per document
+family: act.py, rules.py, circulars.py. Every splitter ends with finish(), so the fields that
+are the same for all of them are filled the same way."""
+
+import json
+import re
+from functools import lru_cache
+
+from tokenizers import Tokenizer
+
+from taxowl.ingestion.extract import MANIFEST
+from taxowl.schema import Unit
+
+EMBEDDER = "BAAI/bge-small-en-v1.5"  # the tokenizer must be the embedder's own, or the counts are wrong
+
+
+@lru_cache(maxsize=1)
+def tokenizer() -> Tokenizer:
+    """Loaded once (from the Hugging Face cache; downloaded the first time on a new machine)."""
+    return Tokenizer.from_pretrained(EMBEDDER)
+
+
+def count_tokens(text: str) -> int:
+    """Tokens as bge-small counts them, without its [CLS]/[SEP] markers. bge reads at most 512."""
+    return len(tokenizer().encode(text, add_special_tokens=False).ids)
+
+
+def manifest_row(doc_file: str) -> dict:
+    """This document's row in docs/manifest.jsonl (number, sha256, official_url, ...)."""
+    for row in map(json.loads, MANIFEST.open()):
+        if row["file"] == doc_file:
+            return row
+    raise KeyError(f"{doc_file} is not in {MANIFEST.name}")
+
+
+def slug(text: str) -> str:
+    """'Act 12 of 2017' -> 'act-12-of-2017'; 'section 2(52)' -> 'section-2-52'."""
+    return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+def finish(units: list[Unit], doc_file: str) -> list[str]:
+    """Fill unit_id, source_sha256 and token_count on every unit. Returns problems found
+    (for the splitter's self-check): an id used twice would make two units collide in the store."""
+    row = manifest_row(doc_file)
+    doc_key = slug(row["number"])
+    for u in units:
+        u.unit_id = f"{doc_key}:{slug(u.location)}"
+        u.source_sha256 = row["sha256"]
+        u.token_count = count_tokens(u.text)
+    seen, repeated = set(), []
+    for u in units:
+        if u.unit_id in seen:
+            repeated.append(u.unit_id)
+        seen.add(u.unit_id)
+    return [f"unit_id used twice: {repeated[:5]}"] if repeated else []

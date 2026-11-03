@@ -1,5 +1,7 @@
 # Stage 2: Splitting and Chunking — plan
 
+> **Working checklist: `to-do-list.md`** (2026-11-03). It adds what was decided after this plan: two pipelines (foundation now, uploads after v1) sharing the extractor, Unit and chunker; ChatGPT's review (sequence as a check, not the detector; warnings; no invented citations); Jev as an upload tie-breaker.
+
 ## Context
 Extraction is done. Each PDF becomes one `ExtractedDoc` JSON in `data/ingested/`, holding page text, tables and a quality report (`src/taxowl/schema.py`). The next step turns those into **chunks**: the pieces we search and cite. We do this in two separate steps, because they answer different questions:
 
@@ -46,7 +48,7 @@ Each splitter is a small file of pattern rules. Rules suit this text: legal docu
 **Act findings (looked at 2026-11-03, PDF pages):** contents = p.3–9 (same `16. Heading.` format, so skip them as text); body from p.10; a section starts `N. Heading.—` (heading can wrap); inserted ones carry the marker before the number (`4[74A.`, p.69); amendment markers `1[…]` (p.30) pair with the footnotes at the page bottom (p.31; numbering restarts each page); `3*` + `* * * *` = deleted text; omitted sections (s.42, p.50) kept as small units; s.2 definitions `(52) "goods"` (p.14) one unit each; schedules (p.125) one unit per item. **Traps:** footnotes (`1. Ins. by…`) and schedule items (`1. Permanent transfer…`) both look like section starts.
 - [ ] **Use the contents pages as a checklist** (user's idea): they list every section number and heading, grouped by chapter. The splitter accepts a section start only if its number is the next one on that list (which also defeats both traps), fills `parent` from the chapter, and the self-check reports any listed section not found.
 
-- [ ] Write `act.py`, then run it and look at the output with the user before moving on.
+- [x] Write `act.py`, then run it and look at the output with the user before moving on.
 - [ ] Write `rules.py`.
 - [ ] Write `circulars.py` (covers instructions and notifications too).
 - [ ] Text that fits no pattern is **never dropped**. It becomes a "preamble" or "other" unit and is counted. Silent loss was the worst failure in extraction, so it gets the same rule here.

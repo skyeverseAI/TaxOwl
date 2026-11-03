@@ -30,6 +30,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from taxowl.schema import Unit
+from taxowl.splitting import finish
 
 ROOT = Path(__file__).resolve().parents[3]
 DOC_FILE = "GST_act.pdf"
@@ -235,7 +236,10 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
     close()
     attach_leftover_footnotes(units, notes)
 
-    return units, self_check(units, body_text, notes, skipped + numbers[next_i:])
+    report = self_check(units, body_text, notes, skipped + numbers[next_i:])
+    for problem in finish(units, DOC_FILE):  # unit_id, source_sha256, token_count
+        report["finish"] = problem
+    return units, report
 
 
 def resolve_ibid(notes: dict[int, dict[int, str]]) -> None:
@@ -348,9 +352,13 @@ def main():
         u = next((u for u in units if u.location == loc), None)
         if u:
             print(f"--- {u.location} | {u.heading} | {u.parent} | pages {u.page_start}-{u.page_end}")
+            print(f"    id {u.unit_id} | {u.token_count} tokens")
             print(u.text[:300] + (" ..." if len(u.text) > 300 else ""))
             print(f"    amended_by: {len(u.amended_by)} footnote(s)"
                   + (f", first: {u.amended_by[0][:90]}" if u.amended_by else "") + "\n")
+    sizes = sorted((u.token_count for u in units), reverse=True)
+    print(f"Tokens per unit: median {sizes[len(sizes) // 2]}, largest {sizes[:3]}, "
+          f"over 512: {sum(s > 512 for s in sizes)} of {len(sizes)}\n")
     # Green if all passed, red for each problem (plain text when the output goes to a file).
     green, red, reset = ("\033[32m", "\033[31m", "\033[0m") if sys.stdout.isatty() else ("", "", "")
     print("Self-check:", f"{green}all passed{reset}" if not report else "")

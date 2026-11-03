@@ -2067,6 +2067,7 @@ dependencies = [
     { name = "onnxruntime" },
     { name = "pymupdf" },
     { name = "rapidocr" },
+    { name = "tokenizers" },
 ]
 
 [package.metadata]
@@ -2077,6 +2078,7 @@ requires-dist = [
     { name = "onnxruntime", specifier = "==1.31.0" },
     { name = "pymupdf", specifier = "==2.0" },
     { name = "rapidocr", specifier = "==3.10.0" },
+    { name = "tokenizers", specifier = "==0.22.2" },
 ]
 
 [[package]]

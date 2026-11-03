@@ -17,6 +17,7 @@ dependencies = [
     "onnxruntime==1.31.0",
     "pymupdf==2.0",
     "rapidocr==3.10.0",
+    "tokenizers==0.22.2",  # bge-small's token counts in the splitter and chunker (src/taxowl/splitting/__init__.py)
 ]
 
 [project.scripts]
