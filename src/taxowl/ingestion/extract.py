@@ -3,7 +3,8 @@
   - normalize: Unicode forms and odd quote marks (circular 164/20/2021 stores 'restaurant
     service' with „ and ‟).
   - page_lines: PyMuPDF's words rebuilt into lines, leaving out words inside a table (the table
-    has them, so nothing appears twice).
+    has them, so nothing appears twice). Pieces of one printed line that PyMuPDF split apart (wide
+    justified gaps) are joined back (join_spread_lines).
   - strip_headers: drop headers and footers: a line at the top or bottom of the page that repeats,
     numbers aside, on at least half the pages and at least 2 ("Page 5 of 6"). Page 1 keeps its top
     lines, because there the "header" is the document's own title ("Circular No. 133/03/2020-GST").
@@ -28,7 +29,8 @@ MANIFEST = DOCS / "manifest.jsonl"
 EDGE_LINES = 2       # how many lines at the top and bottom of a page can be a header or footer
 REPEAT_SHARE = 0.5   # ...if they repeat on at least this share of the pages
 MISSING_WORDS = 0.01  # flag a document when more than 1% of its words are missing (at least 10)
-REPEAT_RUN = 20       # words in a run that, found twice in one cell, flags it (legal text repeats shorter phrases)
+MAX_GAP = 3           # join pieces of one printed line only if the gap is at most 3x the text height
+REPEAT_RUN = 20      # words in a run that, found twice in one cell, flags it (legal text repeats shorter phrases)
 
 QUOTES = str.maketrans({"‘": "'", "’": "'", "‚": "'", "‛": "'", "′": "'",
                         "“": '"', "”": '"', "„": '"', "‟": '"', "″": '"', "­": ""})
@@ -58,8 +60,37 @@ def page_lines(words, boxes):
         if any(b[0] <= cx <= b[2] and b[1] <= cy <= b[3] for b in boxes):
             continue
         lines.setdefault((w[5], w[6]), []).append(w)
-    return [(min(w[1] for w in ws), " ".join(w[4] for w in sorted(ws, key=lambda w: w[7])))
-            for ws in lines.values()]
+    rows = [sorted(ws, key=lambda w: w[7]) for ws in lines.values()]
+    return [(min(w[1] for w in ws), " ".join(w[4] for w in ws)) for ws in join_spread_lines(rows)]
+
+
+def join_spread_lines(rows):
+    """Join the pieces of one printed line that PyMuPDF split up. In a justified line with wide
+    gaps it can give every word its own line: the Act's "1[158A. Consent based sharing of ..."
+    heading (p.119) came out one word per line, and so did 240 places in 84 corpus files.
+
+    A piece joins the row before it only if all four hold, so two columns, or a header's page
+    number and title at the two ends of the page, stay apart:
+      - same block (PyMuPDF's paragraph);
+      - same height: they overlap by at least half the shorter one's height;
+      - it starts to the right of where the row before ends (the stored order, left to right);
+      - the gap is at most MAX_GAP times the text height. A justified line's gaps are about 1x
+        (158A: 13pt gap, 13pt text); the Rules header "278 ... GST & Indirect Taxes Committee"
+        is 16x. Joining that header made it different on every page, so strip_headers stopped
+        removing it (held-out text_not checks fell; measured 2026-11-03)."""
+    out = []
+    for ws in rows:
+        if out:
+            prev = out[-1]
+            top, bottom = max(prev[0][1], ws[0][1]), min(prev[0][3], ws[0][3])
+            height = min(prev[0][3] - prev[0][1], ws[0][3] - ws[0][1])
+            gap = ws[0][0] - prev[-1][2]
+            if (ws[0][5] == prev[-1][5] and height > 0 and bottom - top >= height / 2
+                    and 0 <= gap <= MAX_GAP * height):
+                out[-1] = prev + ws
+                continue
+        out.append(ws)
+    return out
 
 
 def shape(line):

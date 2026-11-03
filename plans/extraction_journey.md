@@ -29,6 +29,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 16. Batch the OCR         →  3.0 → 1.75 s/page, same results
 17. Pin versions          →  exact versions + `uv sync --frozen`
 18. Final scores          →  extractor done
+19. Join spread lines     →  justified words back on one line; scores unchanged (found by the splitter)
 ```
 
 ---
@@ -211,6 +212,15 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 | Corpus scans | 94.3% |
 | Private petitions (uploads, 854 pages) | **82.6%** (was 73.1% before the guard; the Docling + RapidOCR trial gave the same 82.6%) |
 | Numbers, held-out | 100% |
+
+## 19. Join spread lines (2026-11-03, found while building the splitter)
+
+- **What:** in a justified line with wide gaps, PyMuPDF gave every word its own line. The Act's heading `1[158A. Consent based sharing of information furnished by taxable person.—` came out as ten one-word lines. The user spotted it by comparing the splitter's output with the PDF.
+- **How common:** 240 places in 84 corpus files (four or more one-word lines in a row).
+- **Fix (`extract.join_spread_lines`):** join a piece onto the line before it when they're in the same block, at the same height, the piece is to the right, and the gap is at most 3x the text height. Runs of one-word lines: 728 → 209 (7,719 pieces joined in 290 files). It also puts paragraph numbers back with their text (`3.` + `Accordingly, it is…`), which the circular splitter needs.
+- **What went wrong first:** without the gap limit, the Rules running header (`278` at one end of the page, `GST & Indirect Taxes Committee` at the other, 16x apart) became one line that differs on every page, so `strip_headers` stopped removing it. Held-out fell 5 + 3 checks. The full test caught it; the gap limit (justified text is about 1x) fixed it.
+- **Result:** gold 94.5%, held-out 2029–33 939/960 (97.8%), 2034–36 650/664 (97.9%), all exactly as before. The checks compare words, not line breaks, so the gain shows up in the splitter, not here.
+- **Lesson:** fix at the root, then re-run every test. A downstream step (the splitter) is a good test of the step before it.
 
 ---
 
