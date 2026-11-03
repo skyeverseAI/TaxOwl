@@ -42,16 +42,19 @@ PDF ─► Extractor (done, shared) ─► ExtractedDoc
 - [x] Re-run: all passed (before/after diff: 337 units, 0 changes)
 
 **A3. Known-file facts in config, not in code**
-- [ ] One small config file for facts about one file only (first entry: the CGST Rules' page range inside the ICAI PDF)
+- [x] `src/taxowl/splitting/known_docs.json`: the ICAI PDF's five parts and their pages (checked by the user in Preview)
+- [x] `known_parts()` reads it; `finish(..., part=)` puts the part's name in every id (`igst-rules-2017:rule-2`), so two parts never collide
+- [x] Scope (decided 2026-11-03): IGST Act + Rules, UTGST Act and the Compensation Act join v1, all from ICAI (simple: one source, one format, as of 31-03-2026)
 
-**A4. rules.py** (look at the real pages together first)
-- [ ] CGST Rules pages only (from A3)
-- [ ] One unit per rule (`Rule 56. Maintenance of…`); rule 2 split into definitions with `term`
+**A4. icai.py: one splitter for the five ICAI parts** (look at the real pages together first)
+- [ ] Acts and Rules share ICAI's style: units start `Section 25.` / `Rule 56.`; same running headers ("Ch-X : Refund Rules 89-97A") and footnotes
+- [ ] One unit per section / rule; definitions (s.2, rule 2) split with `term`
+- [ ] Running headers and chapter titles out of the text; chapter into `parent`
 - [ ] "Prior to substitution, it read …" → `history`, never in `text`
 - [ ] Old tables (e-way bill copy on p.331–334?) → `history`; check which copy is old first
-- [ ] Part B forms left out (or titles only)
+- [ ] Forms left out (or titles only)
 - [ ] Tables become units, linked by `table_ids`
-- [ ] Self-check: rule numbers in order, nothing lost, nothing double, no "Prior to substitution" in any `text`
+- [ ] Self-check per part: numbers in order, nothing lost, nothing double, no "Prior to substitution" in any `text`, ids unique across all five parts
 
 **A5. circulars.py** (covers instructions and notifications; look at real pages first)
 - [ ] Subject line found once and kept for every unit

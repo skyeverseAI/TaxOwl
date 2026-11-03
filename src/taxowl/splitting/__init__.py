@@ -6,6 +6,7 @@ are the same for all of them are filled the same way."""
 import json
 import re
 from functools import lru_cache
+from pathlib import Path
 
 from tokenizers import Tokenizer
 
@@ -13,6 +14,13 @@ from taxowl.ingestion.extract import MANIFEST
 from taxowl.schema import Unit
 
 EMBEDDER = "BAAI/bge-small-en-v1.5"  # the tokenizer must be the embedder's own, or the counts are wrong
+KNOWN_DOCS = Path(__file__).with_name("known_docs.json")  # facts about one specific file (A3)
+
+
+def known_parts(doc_file: str) -> list[dict]:
+    """The parts of a known multi-law PDF, from known_docs.json: name, type, pages [first, last],
+    and the word its units start with ("Rule" / "Section"). [] for any other file."""
+    return json.loads(KNOWN_DOCS.read_text()).get(doc_file, {}).get("parts", [])
 
 
 @lru_cache(maxsize=1)
@@ -39,11 +47,14 @@ def slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
-def finish(units: list[Unit], doc_file: str) -> list[str]:
+def finish(units: list[Unit], doc_file: str, part: str = "") -> list[str]:
     """Fill unit_id, source_sha256 and token_count on every unit. Returns problems found
-    (for the splitter's self-check): an id used twice would make two units collide in the store."""
+    (for the splitter's self-check): an id used twice would make two units collide in the store.
+    `part`: for a PDF holding several laws, the part's name from known_docs.json ("IGST Rules,
+    2017"), so its ids differ from another part's ("igst-rules-2017:rule-2"). Otherwise the
+    manifest's number names the document ("act-12-of-2017:section-16")."""
     row = manifest_row(doc_file)
-    doc_key = slug(row["number"])
+    doc_key = slug(part or row["number"])
     for u in units:
         u.unit_id = f"{doc_key}:{slug(u.location)}"
         u.source_sha256 = row["sha256"]

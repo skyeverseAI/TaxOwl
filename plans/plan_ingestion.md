@@ -16,7 +16,7 @@ Covers days 1–2 of `plan.md`: get the official documents, record where each on
 |---|---|
 | Finance Acts, amending notifications | Only to **check** that the consolidated text is current. Amendment text ("for the words X substitute Y") makes poor chunks. |
 | Tariffs (HSN → rate) | A table, not prose, so it gets a structured lookup in v1.1. |
-| IGST Act | Known gap. Place-of-supply questions go in the evalset as out-of-scope, and the system should decline them. |
+| ~~IGST Act~~ | **Moved into v1 (2026-11-03):** IGST Act + Rules, UTGST Act and the Compensation Act, all from the ICAI compilation (pages in `src/taxowl/splitting/known_docs.json`). Unofficial copy as of 31-03-2026, the same footing as the CGST Rules. |
 | Non-rate CGST notifications | High volume and short-lived. Revisit only if the consolidated Rules turn out to be stale. |
 | HC judgments | v2. |
 

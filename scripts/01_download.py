@@ -45,7 +45,7 @@ MANUAL_DOCS = [
      "official_url": "https://www.indiacode.nic.in/indiacode/bitstream/123456789/15689/1/A2017-12.pdf",
      "publisher": "India Code (Legislative Department)", "official": True},
     {"doc_type": "rules", "number": "CGST Rules, 2017",
-     "title": "GST Act(s) and Rule(s) - Bare Law, 12th edition (CGST Rules part used)",
+     "title": "GST Act(s) and Rule(s) - Bare Law, 12th edition (parts used: CGST Rules, IGST Act, IGST Rules, UTGST Act, Compensation Act; pages in src/taxowl/splitting/known_docs.json)",
      "date": "2026-04-15", "as_of": "2026-03-31", "file": "GST Act(s) and Rule(s)-Bare Law.pdf",
      "official_url": "https://idtc.icai.org",
      "publisher": "ICAI GST & Indirect Taxes Committee", "official": False},
