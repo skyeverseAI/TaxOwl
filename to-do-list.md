@@ -36,10 +36,10 @@ PDF ─► Extractor (done, shared) ─► ExtractedDoc
 - [x] Update `act.py` to fill them; re-run, still all passed
 
 **A2. act.py: tidy for the new rules**
-- [ ] File name passed in, not hard-coded
-- [ ] A skip in the section numbers becomes a warning, not a silent pass
-- [ ] Two new self-checks: no text appears twice; every section unit starts with its own number
-- [ ] Re-run: all passed
+- [x] File name passed in, not hard-coded
+- [x] A skip in the section numbers becomes a warning, not a silent pass
+- [x] Two new self-checks: no text appears twice; every section unit starts with its own number
+- [x] Re-run: all passed (before/after diff: 337 units, 0 changes)
 
 **A3. Known-file facts in config, not in code**
 - [ ] One small config file for facts about one file only (first entry: the CGST Rules' page range inside the ICAI PDF)

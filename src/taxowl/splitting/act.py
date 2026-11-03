@@ -18,8 +18,9 @@ Two traps: footnotes and schedule items both start "1. ...", just like section 1
 lifted off each page first. For the rest, the contents list decides: a line starts a section
 only if its number is the NEXT one on the list.
 
-Run:  uv run python -m taxowl.splitting.act
-Out:  data/units/GST_act.pdf.jsonl (one Unit per line, to look at), plus a summary and self-check.
+Run:  uv run python -m taxowl.splitting.act                (the CGST Act)
+      uv run python -m taxowl.splitting.act <file under docs/>  (another India Code Act, once extracted)
+Out:  data/units/<file>.jsonl (one Unit per line, to look at), plus a summary and self-check.
 """
 
 import json
@@ -33,9 +34,9 @@ from taxowl.schema import Unit
 from taxowl.splitting import finish
 
 ROOT = Path(__file__).resolve().parents[3]
-DOC_FILE = "GST_act.pdf"
-IN = ROOT / "data" / "ingested" / (DOC_FILE + ".json")
-OUT = ROOT / "data" / "units" / (DOC_FILE + ".jsonl")
+INGESTED = ROOT / "data" / "ingested"  # the extractor's output: <file>.json per PDF
+UNITS = ROOT / "data" / "units"        # ours: <file>.jsonl, one Unit per line
+DEFAULT = "GST_act.pdf"                # the CGST Act; another Act is passed on the command line
 
 # A section number: 16, 11A, 158A. An inserted section carries its mark first: "4[74A."
 SECTION_START = re.compile(r"^(?:\d{1,2}\[)?(\d{1,3}[A-Z]{0,2})\.(?:\s|$)")  # "1[158A." can end its line
@@ -151,7 +152,7 @@ def footnotes_used(lines: list[tuple[int, str]], notes: dict[int, dict[int, str]
 
 def split(doc: dict) -> tuple[list[Unit], dict]:
     """ExtractedDoc (as loaded from its JSON) -> (units, self-check report)."""
-    pages = doc["pages"]
+    pages, doc_file = doc["pages"], doc["file"]  # the document names itself; no file is hard-coded
     contents_from = next(i for i, p in enumerate(pages) if "ARRANGEMENT OF SECTIONS" in p)
     body_from = next(i for i, p in enumerate(pages)
                      if re.search(r"^1\. Short title[^\n]*(—|––)", p, re.M))
@@ -167,7 +168,7 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
     resolve_ibid(notes)
     body_text = "\n".join(pages[:contents_from] + [l for _, l in lines])  # for the self-check
 
-    units = [Unit("other", DOC_FILE, "front matter", "Title and list of amending Acts",
+    units = [Unit("other", doc_file, "front matter", "Title and list of amending Acts",
                   clean("\n".join(pages[:contents_from])), 1, contents_from)]
 
     # Walk the lines. `block` holds the lines of the piece we're in; close() turns it into units.
@@ -175,6 +176,7 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
     current = ("other", "preamble", "Long title and enacting formula", "")  # type, location, heading, parent
     next_i = 0              # position on the contents list: the section we expect next
     skipped: list[str] = []
+    skip_notes: dict[str, str] = {}  # location of the section found after a gap -> warning
     chapter, chapter_words, in_chapter_heading = "", [], False
     schedule, schedule_title, item = "", [], 0
 
@@ -183,9 +185,9 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
             return
         unit_type, location, heading, parent = current
         if location == "section 2":
-            units.extend(split_definitions(block, notes, parent))
+            units.extend(split_definitions(block, notes, parent, doc_file))
         else:
-            units.append(Unit(unit_type, DOC_FILE, location, clean(heading),
+            units.append(Unit(unit_type, doc_file, location, clean(heading),
                               clean("\n".join(l for _, l in block)), block[0][0], block[-1][0],
                               parent=parent, amended_by=footnotes_used(block, notes)))
 
@@ -224,6 +226,9 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
             # the rest; anything jumped over is reported).
             close()
             found = numbers.index(m.group(1), next_i)
+            if numbers[next_i:found]:
+                skip_notes[f"section {m.group(1)}"] = (
+                    f"section(s) {', '.join(numbers[next_i:found])} on the contents list not found before this one")
             skipped += numbers[next_i:found]
             next_i = found + 1
             number, listed_heading, _ = contents[found]
@@ -235,9 +240,12 @@ def split(doc: dict) -> tuple[list[Unit], dict]:
         block.append((page, line))
     close()
     attach_leftover_footnotes(units, notes)
+    for u in units:  # a gap in the numbering is kept on the unit where it showed up, never hidden
+        if u.location in skip_notes:
+            u.warnings.append(skip_notes[u.location])
 
     report = self_check(units, body_text, notes, skipped + numbers[next_i:])
-    for problem in finish(units, DOC_FILE):  # unit_id, source_sha256, token_count
+    for problem in finish(units, doc_file):  # unit_id, source_sha256, token_count
         report["finish"] = problem
     return units, report
 
@@ -272,7 +280,7 @@ def attach_leftover_footnotes(units: list[Unit], notes: dict[int, dict[int, str]
                 owner.amended_by.append(note)
 
 
-def split_definitions(block: list[tuple[int, str]], notes: dict, parent: str) -> list[Unit]:
+def split_definitions(block: list[tuple[int, str]], notes: dict, parent: str, doc_file: str) -> list[Unit]:
     """Section 2 -> its opening words as a small section unit, then one unit per definition.
     A "(N)" line starts a definition only if N comes just after the last one (a gap of up to 3
     for omitted ones; "80A" after "80"), so a numbered list inside a definition can't."""
@@ -288,7 +296,7 @@ def split_definitions(block: list[tuple[int, str]], notes: dict, parent: str) ->
     units = []
     for label, lines in pieces:
         text = clean("\n".join(l for _, l in lines))
-        common = dict(doc_file=DOC_FILE, text=text, page_start=lines[0][0], page_end=lines[-1][0],
+        common = dict(doc_file=doc_file, text=text, page_start=lines[0][0], page_end=lines[-1][0],
                       amended_by=footnotes_used(lines, notes))
         if label == "intro":
             units.append(Unit("section", location="section 2", heading="Definitions", parent=parent, **common))
@@ -333,21 +341,47 @@ def self_check(units: list[Unit], body_text: str, notes: dict[int, dict[int, str
     unstored = {n.strip() for p in notes.values() for n in p.values()} - stored
     if unstored:
         problems["footnotes_lost"] = f"{len(unstored)}, e.g. {sorted(unstored)[:3]}"
+    # Nothing doubled: no word is in the units' text more often than on the pages. (Text only:
+    # a heading or parent is repeated on purpose.) Catches a paragraph put into two units.
+    text_words = Counter()
+    for u in units:
+        text_words += words(u.text)
+    doubled = text_words - words(body_text)
+    if doubled:
+        problems["words_doubled"] = f"{sum(doubled.values())} words, e.g. {doubled.most_common(10)}"
+    # Every unit starts with its own number: "section 16" with "16.", "section 2(52)" with
+    # "(52)", "Schedule I para 1" with "1.". Catches a boundary that slipped by a line.
+    wrong_start = []
+    for u in units:
+        if u.unit_type == "section":
+            anchor = u.location.removeprefix("section ") + "."
+        elif u.unit_type == "definition":
+            anchor = "(" + u.location.removeprefix("section 2(")
+        elif u.unit_type == "schedule":
+            anchor = u.location.rsplit(" ", 1)[-1] + "."
+        else:
+            continue
+        if not u.text.startswith(anchor):
+            wrong_start.append(f"{u.location}: {u.text[:30]!r}")
+    if wrong_start:
+        problems["wrong_start"] = f"{len(wrong_start)} units, e.g. {wrong_start[:3]}"
     return problems
 
 
 # ---------- Run ----------
 
 def main():
-    units, report = split(json.loads(IN.read_text()))
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    with OUT.open("w") as f:
+    doc_file = sys.argv[1] if len(sys.argv) > 1 else DEFAULT
+    units, report = split(json.loads((INGESTED / (doc_file + ".json")).read_text()))
+    out = UNITS / (doc_file + ".jsonl")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with out.open("w") as f:
         for u in units:
             f.write(json.dumps(asdict(u), ensure_ascii=False) + "\n")
 
     kinds = Counter(u.unit_type for u in units)
-    print(f"{DOC_FILE}: {len(units)} units  (" + ", ".join(f"{k} {n}" for k, n in kinds.most_common()) + ")")
-    print(f"Saved: {OUT.relative_to(ROOT)}\n")
+    print(f"{doc_file}: {len(units)} units  (" + ", ".join(f"{k} {n}" for k, n in kinds.most_common()) + ")")
+    print(f"Saved: {out.relative_to(ROOT)}\n")
     for loc in ["section 16", "section 2(52)", "section 42", "section 74A", "Schedule I para 1"]:
         u = next((u for u in units if u.location == loc), None)
         if u:
