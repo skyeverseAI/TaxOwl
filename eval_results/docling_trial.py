@@ -56,7 +56,7 @@ ROOT = Path(__file__).resolve().parent.parent
 GOLD = ROOT / "data" / "private" / "gold" / "ingestion_petitions.json"
 PDFS = ROOT / "data" / "private" / "petitions"
 OUT = ROOT / "data" / "private" / "runs" / "run_docling"
-EMPTY_PAGE_CHARS = 100  # as in ingestion_pipeline.py: fewer letters than this is a scan
+EMPTY_PAGE_CHARS = 100  # as in src/taxowl/ingestion/pipeline.py: fewer letters than this is a scan
 
 
 def args_after(flag):

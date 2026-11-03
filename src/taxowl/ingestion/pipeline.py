@@ -26,10 +26,10 @@ Works on a corpus file or a user's upload alike: nothing is precomputed. Per doc
   7. Self-check (extract.self_check), plus the model's own checks.
 
 Usage:
-    uv run python -m taxowl.ingestion_pipeline docs/circulars/2019/98-17-2019-GST.pdf
-    uv run python -m taxowl.ingestion_pipeline some_upload.pdf --no-model
-    uv run python -m taxowl.ingestion_pipeline --gold eval_results/gold/ingestion_heldout_2034.json
-    uv run python -m taxowl.ingestion_pipeline --corpus
+    uv run python -m taxowl.ingestion.pipeline docs/circulars/2019/98-17-2019-GST.pdf
+    uv run python -m taxowl.ingestion.pipeline some_upload.pdf --no-model
+    uv run python -m taxowl.ingestion.pipeline --gold eval_results/gold/ingestion_heldout_2034.json
+    uv run python -m taxowl.ingestion.pipeline --corpus
 Output: data/ingested/<file>.json (one ExtractedDoc each), scored by eval_results/check_ingestion.py.
 """
 
@@ -44,12 +44,12 @@ from pathlib import Path
 
 import pymupdf
 
-from taxowl import gate, ocr, vlm
-from taxowl.extract import DOCS, MANIFEST, OCR_DIR, normalize, page_lines, self_check, strip_headers
+from taxowl.ingestion import gate, ocr, vlm
+from taxowl.ingestion.extract import DOCS, MANIFEST, OCR_DIR, normalize, page_lines, self_check, strip_headers
 from taxowl.schema import ExtractedDoc, Table
-from taxowl.tables import CONTINUE_BOTTOM, CONTINUE_TOP, join_tables, read_page_tables, to_tables
+from taxowl.ingestion.tables import CONTINUE_BOTTOM, CONTINUE_TOP, join_tables, read_page_tables, to_tables
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 OUT = ROOT / "data" / "ingested"
 VLM_CACHE = ROOT / "data" / "cache" / "vlm"
 MODEL = "google/gemini-3.5-flash-lite"  # 95.9% on the held-out runs, ~$0.0012 a page

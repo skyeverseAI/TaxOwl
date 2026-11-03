@@ -129,7 +129,7 @@ What is left:
 
 ### The ingestion pipeline: PyMuPDF + gate → Gemini (2026-10-29)
 
-`src/taxowl/ingestion_pipeline.py`, output in `data/ingested/`. Gemini reads only the pages the
+`src/taxowl/ingestion/pipeline.py`, output in `data/ingested/`. Gemini reads only the pages the
 gate sends, plus the pages their tables run onto. PyMuPDF reads the rest.
 
 | Run | PyMuPDF only | Gemini on every page of table files | Pipeline (gate) |

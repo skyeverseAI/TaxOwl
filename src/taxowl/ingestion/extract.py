@@ -1,4 +1,4 @@
-"""Text helpers for the ingestion pipeline (ingestion_pipeline.py), and its self-check.
+"""Text helpers for the ingestion pipeline (pipeline.py), and its self-check.
 
   - normalize: Unicode forms and odd quote marks (circular 164/20/2021 stores 'restaurant
     service' with „ and ‟).
@@ -20,7 +20,7 @@ import unicodedata
 from collections import Counter
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 DOCS = ROOT / "docs"
 OCR_DIR = DOCS / "ocr"
 MANIFEST = DOCS / "manifest.jsonl"

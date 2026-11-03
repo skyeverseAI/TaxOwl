@@ -25,10 +25,10 @@ import urllib.request
 from collections import Counter
 from pathlib import Path
 
-from taxowl.extract import normalize
-from taxowl.tables import tidy
+from taxowl.ingestion.extract import normalize
+from taxowl.ingestion.tables import tidy
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[3]
 URL = "https://openrouter.ai/api/v1/chat/completions"
 DPI = 200       # small figures in dense tables stay readable; PNG is still ~1 MB
 RETRIES = 2

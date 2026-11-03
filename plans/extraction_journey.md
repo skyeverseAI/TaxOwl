@@ -80,7 +80,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 
 ## 6. Build the extractor (2026-10-27)
 
-- **What:** `src/taxowl/extract.py` and `tables.py`, scored by `eval_results/check_ingestion.py` against a **gold set**. The gold set has 11 cases, 13 pages and 230 checks, written from page images and verified by the user.
+- **What:** `src/taxowl/ingestion/extract.py` and `tables.py`, scored by `eval_results/check_ingestion.py` against a **gold set**. The gold set has 11 cases, 13 pages and 230 checks, written from page images and verified by the user.
 - **Why:** we need a score to know whether a change helps or hurts.
 - **Result:** **gold 256/256 (100%).** All 314 files ran in about 2 minutes, and no file lost words. But the rules were built while looking at the gold pages, so 100% could be overfitting: the rules might only fit those pages.
 
@@ -109,7 +109,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 
 ## 9. Gate + pipeline (2026-10-29 / 30)
 
-- **What:** a cheap **gate** (`gate.py`) looks for signs of a complex table: merged cells, nesting, colour, white boxes, scans, broken grids. Only flagged pages go to Gemini; PyMuPDF reads the rest. All of this is wired into `src/taxowl/ingestion_pipeline.py`.
+- **What:** a cheap **gate** (`gate.py`) looks for signs of a complex table: merged cells, nesting, colour, white boxes, scans, broken grids. Only flagged pages go to Gemini; PyMuPDF reads the rest. All of this is wired into `src/taxowl/ingestion/pipeline.py`.
 - **Why:** to save money and time, and because simple tables are read *more* exactly by PyMuPDF than by any model.
 - **Result:**
   - The gate caught every real bad table and sends 56% of table pages to Gemini.
@@ -162,7 +162,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 
 ## 13. Wire Docling + RapidOCR into the pipeline (2026-11-02)
 
-- **What:** the reader moved from the trial script into `src/taxowl/ocr.py`, and the old OcrMac code was deleted. A file with a row in the manifest counts as a **foundation file**. The first time a foundation file is read, its OCR result (text and tables) is saved to `docs/ocr/<file>.json`, keyed by the PDF's sha256, so it's never read again. Uploads are never saved. `ingestion/ocr_scans.py` was no longer needed and was removed.
+- **What:** the reader moved from the trial script into `src/taxowl/ingestion/ocr.py`, and the old OcrMac code was deleted. A file with a row in the manifest counts as a **foundation file**. The first time a foundation file is read, its OCR result (text and tables) is saved to `docs/ocr/<file>.json`, keyed by the PDF's sha256, so it's never read again. Uploads are never saved. `ingestion/ocr_scans.py` was no longer needed and was removed.
 - **Why:** the decision only existed in a test script. The pipeline was still calling OcrMac.
 - **Result:**
   - **Corpus scans: 94.3%**, exactly the trial's score with the same failures, now running in the project's own Python 3.14 env.
