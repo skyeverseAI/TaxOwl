@@ -1,12 +1,9 @@
 {
-  "_about": "Facts true of one specific file, kept out of the splitters' code (to-do-list.md, A3). The ICAI compilation holds several laws in one PDF: each part gets its own name, so its units get their own ids (CGST and IGST Rules both have a rule 2). Pages are the PDF's own, 1-based, inclusive; checked by the user in Preview 2026-11-03. Pages left out: 1-19 front matter and index, 20-181 the CGST Act (taken from India Code instead), 182-183 ICAI's notes, 441-442 blank and ICAI's address. Each Act's range starts at its title page, which carries the dates its sections came into force.",
+  "_about": "Facts true of one specific file, kept out of the splitters' code (to-do-list.md, A3). The ICAI compilation holds several laws in one PDF; we take only its Rules from it (there is no official consolidated copy of the Rules). The Acts come from India Code instead (decided 2026-11-03): CGST, IGST, UTGST and Compensation Acts, split by act.py. Each part gets its own name, so its units get their own ids (CGST and IGST Rules both have a rule 2). Pages are the PDF's own, 1-based, inclusive; checked by the user in Preview 2026-11-03. Pages left out: 1-19 front matter and index, 20-181 the CGST Act (used only as icai.py's held-out test), 182-183 ICAI's notes, 364-391 IGST Act, 404-440 UTGST and Compensation Acts, 441-442 blank and ICAI's address.",
   "GST Act(s) and Rule(s)-Bare Law.pdf": {
     "parts": [
       {"name": "CGST Rules, 2017", "type": "rules", "pages": [184, 363], "starts_with": "Rule"},
-      {"name": "IGST Act, 2017", "type": "act", "pages": [364, 391], "starts_with": "Section"},
-      {"name": "IGST Rules, 2017", "type": "rules", "pages": [392, 403], "starts_with": "Rule"},
-      {"name": "UTGST Act, 2017", "type": "act", "pages": [404, 423], "starts_with": "Section"},
-      {"name": "GST (Compensation to States) Act, 2017", "type": "act", "pages": [424, 440], "starts_with": "Section"}
+      {"name": "IGST Rules, 2017", "type": "rules", "pages": [392, 403], "starts_with": "Rule"}
     ]
   }
 }
