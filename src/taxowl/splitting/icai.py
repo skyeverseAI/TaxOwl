@@ -30,7 +30,7 @@ from collections import Counter
 import pymupdf
 
 from taxowl.splitting import known_parts
-from taxowl.splitting.act import INGESTED, ROOT
+from taxowl.splitting.act import INGESTED, ROOT, clean
 
 DOC_FILE = "GST Act(s) and Rule(s)-Bare Law.pdf"
 SMALLER = 0.5   # a line counts as small if it is at least 0.5pt below the body size
@@ -96,7 +96,8 @@ def split_page(page_text: str, first_note_lines: list[str]) -> tuple[list[str], 
     lines = page_text.split("\n")
     if not first_note_lines:
         return lines, []
-    target = key(" ".join(first_note_lines))[:2 * KEY_CHARS]
+    # Both lines in full: on p.50 (held-out) the first line alone, 70 letters long, repeats lower down.
+    target = key(" ".join(first_note_lines))
     for k in range(len(lines) - 1, -1, -1):
         if key(" ".join(lines[k:k + 3])).startswith(target):
             return lines[:k], lines[k:]
@@ -121,37 +122,200 @@ def split_footnotes_part(doc: dict, pdf: pymupdf.Document, part: dict) -> dict:
     return {"body_size": body, "pages": pages, "warnings": warnings}
 
 
-# ---------- 3. Run it and show what happened ----------
+# ---------- 3. Footnote lines -> footnotes; marks in the law -> their footnote ----------
+#
+# What the footnote area holds (p.220 shows all of it):
+#   "8 Substituted vide Notification No. 27/2021 ... Prior to its substitution, it was read as:"
+#   '"*[Provided further that ...]".'            <- the old text, over several lines
+#   "* Inserted vide Notification No. 13/2021"   <- a footnote OF the old text ("*[" is in it)
+# Numbered footnotes belong to marks in the law ("8[Provided further ..."). Symbol footnotes
+# (*, @, #, $) belong to marks inside another footnote's old text: in the five parts such marks
+# appear 0 times in law text and 92 times in footnotes (counted 2026-11-03).
+
+# A mark in the law: "10[", or glued to a word ("Authority21[or", CGST Act copy p.124).
+# Never after a digit, a capital or a dot, so "GSTR-2[" style text or "(w.e.f." is not touched.
+OPEN_MARK = r"(?:(?<![\w.])|(?<=[a-z]))\d{1,3}\["
+LAW_MARK = re.compile(r"(?:(?<![\w.])|(?<=[a-z]))(\d{1,3})(?=\[)")
+SYMBOL = re.compile(r"^[@#$*]+$")
+# "Prior to its substitution, it was read as: ...". Not bare "prior to": law says "prior to the
+# appointed day" too.
+PRIOR = re.compile(r"\bprior to (?:its |the )?(?:substitution|omission|amendment)", re.I)
+ROUND_MARK = re.compile(r"(?<![\w.(])\d{1,3}\((?=[a-z]\)\s*\[)")  # "30(b) [..." (p.292): a typo
+
+
+def read_notes(pages: list[tuple[int, list[str], list[str]]]) -> tuple[list[dict], list[str]]:
+    """Footnote lines of all pages, in order -> footnotes. A line starting like "10 Inserted ..."
+    or "* Inserted ..." starts one; any other line continues the one before, also when it is the
+    first line of a page (a footnote carried over, p.198). Each footnote is split in two:
+      said: what changed ("Substituted vide Notification No. 19/2022 ... w.e.f. 01.10.2022.")
+      old:  from "Prior to ..." on, the old wording -> the unit's history, never its text."""
+    notes, warnings = [], []
+    for no, _, area in pages:
+        for line in (l.strip() for l in area):
+            if not line:
+                continue
+            if m := FOOTNOTE.match(line):
+                notes.append({"mark": m.group(1), "page": no,
+                              "text": line[len(m.group(1)):].strip(), "notes_on_old": []})
+            elif notes:
+                notes[-1]["text"] += " " + line
+            else:
+                warnings.append(f"p.{no}: footnote text with no footnote before it: {line[:50]!r}")
+    for n in notes:
+        m = PRIOR.search(n["text"])
+        n["said"], n["old"] = (n["text"][:m.start()].strip(), n["text"][m.start():].strip()) if m else (n["text"], "")
+    return notes, warnings
+
+
+SYMBOL_REACH = 3  # pages either side to look for a symbol footnote's mark (p.333's is on p.330)
+
+
+def symbol_mark(mark: str) -> re.Pattern:
+    """'@' -> the symbol on its own, not part of a longer run ('@@'). Only the symbol, not what
+    follows it: ICAI writes the same mark as '@[', '@ [', '[@', '@"' and '@(iv)' (p.290, 291, 407).
+    Stars also stand for deleted words, '33[***]' or '1***' (as in act.py): stars right after a
+    digit or '[', or right before ']', are not a mark."""
+    c = re.escape(mark[0])
+    return re.compile(rf"(?<![\d\[{c}]){re.escape(mark)}(?![\]{c}])")
+
+
+def attach_symbol_notes(notes: list[dict], law: dict[int, str]) -> tuple[list[dict], list[str]]:
+    """Each symbol footnote goes to the footnote whose text holds its mark: the nearest one before
+    it, else the nearest after it, within SYMBOL_REACH pages. That one can be another symbol footnote ("@@@" inside
+    "@@"'s old text, p.210). If the law itself (its text or a table, both in `law`) has the mark
+    on the page or a page next to it, it stays a normal footnote.
+    Guard against a loose match: two footnotes with the same symbol landing on the same parent
+    means one of them matched the wrong mark, so it is warned about.
+    Returns (the footnotes that belong to the law, warnings)."""
+    parent_of = {}
+    for i, n in enumerate(notes):
+        if not SYMBOL.match(n["mark"]):
+            continue
+        pat, page = symbol_mark(n["mark"]), n["page"]
+        if any(pat.search(law.get(p, "")) for p in (page - 1, page, page + 1)):
+            continue
+        # A footnote is printed after the one it belongs to (p.220: 8, then its "*"), so look
+        # back first, nearest first; only if none, look ahead.
+        holds = [j for j, p in enumerate(notes)
+                 if j != i and abs(p["page"] - page) <= SYMBOL_REACH and pat.search(p["text"])]
+        before, after = [j for j in holds if j < i], [j for j in holds if j > i]
+        parent_of[i] = before[-1] if before else (after[0] if after else None)
+    kept, warnings, taken = [], [], {}
+    for i, n in enumerate(notes):
+        if i not in parent_of:
+            kept.append(n)
+        elif parent_of[i] is None:
+            warnings.append(f"p.{n['page']}: footnote '{n['mark']}' has no mark in the law or in another footnote")
+            kept.append(n)
+        else:
+            parent = notes[parent_of[i]]
+            mark_count = len(symbol_mark(n["mark"]).findall(parent["text"]))
+            taken[(parent_of[i], n["mark"])] = taken.get((parent_of[i], n["mark"]), 0) + 1
+            if taken[(parent_of[i], n["mark"])] > mark_count:
+                warnings.append(f"p.{n['page']}: footnote '{n['mark']}' joins p.{parent['page']} footnote "
+                                f"'{parent['mark']}', which has fewer '{n['mark']}' marks than footnotes")
+            parent["notes_on_old"].append(n)  # the footnote itself, so its own notes come along
+    return kept, warnings
+
+
+def note_for(mark: str, page: int, index: dict) -> dict | None:
+    """The footnote for a law mark: on its page, else the next page (ICAI sometimes prints it
+    there, p.213 -> 214), else the page before."""
+    return next((index[(p, mark)] for p in (page, page + 1, page - 1) if (p, mark) in index), None)
+
+
+def words(text: str) -> Counter:
+    return Counter(re.findall(r"[A-Za-z]{2,}", text))
+
+
+def footnotes_part(doc: dict, pdf: pymupdf.Document, part: dict) -> dict:
+    """One part -> its footnotes, every law mark matched to one, and the self-check."""
+    r = split_footnotes_part(doc, pdf, part)
+    pages, warnings = r["pages"], list(r["warnings"])
+    law = {no: "\n".join(lines) for no, lines, _ in pages}
+    # Table text per page: a mark can sit in a table (p.190's "@", "#"), which the extractor
+    # keeps apart from the page text. Used only to find where a symbol footnote belongs.
+    tables = {}
+    for t in doc["tables"]:
+        for no in set(t["row_pages"]):
+            tables[no] = tables.get(no, "") + "\n" + json.dumps([t["headings"], t["rows"]], ensure_ascii=False)
+    notes, w = read_notes(pages)
+    warnings += w
+    kept, w = attach_symbol_notes(notes, {no: law[no] + tables.get(no, "") for no in law})
+    warnings += w
+    index = {(n["page"], n["mark"]): n for n in kept}
+
+    marks, missing, used = 0, [], set()
+    for no, text in law.items():
+        for mark in LAW_MARK.findall(text):
+            marks += 1
+            n = note_for(mark, no, index)
+            if n:
+                used.add(id(n))
+            else:
+                missing.append(f"p.{no}:{mark}")
+        for m in ROUND_MARK.finditer(text):
+            warnings.append(f"p.{no}: '{m.group()}' looks like a mark with '(' for '[': left as it is")
+    unused = [f"p.{n['page']}:{n['mark']}" for n in kept if id(n) not in used]
+
+    raw = "\n".join(law.values())
+    cleaned = clean(raw, OPEN_MARK)
+    all_notes = " ".join(n["text"] for n in notes)
+    checks = {
+        "marks_left_in_law": len(LAW_MARK.findall(cleaned)) + cleaned.count("*"),
+        "prior_to_in_law": len(PRIOR.findall(cleaned)),
+        "law_words_lost": sum((words(raw) - words(cleaned)).values()),
+        "footnote_words_lost": sum((words("\n".join(l for _, _, a in pages for l in a)) - words(all_notes)).values()),
+        "prior_to_without_old_text": sum(1 for n in notes if PRIOR.search(n["text"]) and not n["old"]),
+    }
+    return {"notes": kept, "all_notes": notes, "marks": marks, "missing": missing, "unused": unused,
+            "warnings": warnings, "checks": checks, "law": law, "cleaned": cleaned}
+
+
+# ---------- 4. Run it and show what happened ----------
+
+# ICAI's copy of the CGST Act: same style, never looked at while writing this file. We split the
+# India Code copy instead (act.py), so these pages serve only as a held-out test of the rules.
+HELD_OUT = {"name": "CGST Act, ICAI copy (held-out)", "pages": [20, 181]}
+
 
 def main() -> None:
     green, red, reset = ("\033[32m", "\033[31m", "\033[0m") if sys.stdout.isatty() else ("", "", "")
     doc = json.loads((INGESTED / f"{DOC_FILE}.json").read_text())
     pdf = pymupdf.open(ROOT / "docs" / DOC_FILE)
     all_ok = True
-    for part in known_parts(DOC_FILE):
-        r = split_footnotes_part(doc, pdf, part)
-        law_lines = [l for _, law, _ in r["pages"] for l in law]
-        note_lines = [l for _, _, notes in r["pages"] for l in notes]
-        # "Prior to substitution/omission, it read ..." is old law: it must sit in a footnote.
-        prior_in_law = [l for l in law_lines if re.search(r"\bprior to (its )?(substitution|omission|amendment)", l, re.I)]
-        print(f"\n== {part['name']} (p.{part['pages'][0]}-{part['pages'][1]}), body font {r['body_size']}pt")
-        print(f"   law lines {len(law_lines)}, footnote lines {len(note_lines)}, "
-              f"pages with footnotes {sum(1 for _, _, n in r['pages'] if n)}")
-        for w in r["warnings"]:
+    results = {}
+    for part in known_parts(DOC_FILE) + [HELD_OUT]:
+        r = results[part["name"]] = footnotes_part(doc, pdf, part)
+        notes = r["all_notes"]
+        print(f"\n== {part['name']} (p.{part['pages'][0]}-{part['pages'][1]})")
+        print(f"   footnotes {len(notes)} ({sum(1 for n in notes if n['old'])} with old text; "
+              f"{len(notes) - len(r['notes'])} are notes on an old text)")
+        print(f"   law marks {r['marks']}: {r['marks'] - len(r['missing'])} found their footnote, "
+              f"{len(r['missing'])} did not {r['missing'][:6]}")
+        print(f"   footnotes with no mark in the law text {len(r['unused'])} {r['unused'][:6]}  "
+              f"(expected: marks inside tables)")
+        for w in r["warnings"][:5]:
             print(f"   {red}warning{reset} {w}")
-        if prior_in_law:
-            all_ok = False
-            print(f"   {red}FAIL{reset} 'Prior to ...' in law text, {len(prior_in_law)} line(s): {prior_in_law[0][:80]!r}")
-    # The page that went wrong before: p.198, where an old footnote spills over from p.197.
-    rules = known_parts(DOC_FILE)[0]
-    r = split_footnotes_part(doc, pdf, rules)
-    no, law, notes = next(p for p in r["pages"] if p[0] == 198)
-    print(f"\n-- p.{no}, last 2 law lines:")
-    for l in law[-2:]:
-        print(f"   {l[:100]}")
-    print(f"-- p.{no}, footnote area:")
-    for l in notes:
-        print(f"   {l[:100]}")
+        if len(r["warnings"]) > 5:
+            print(f"   ... {len(r['warnings']) - 5} more warnings")
+        bad = {k: v for k, v in r["checks"].items() if v}
+        all_ok &= not bad
+        print(f"   checks: {green}all 0{reset}" if not bad else f"   checks: {red}{bad}{reset}")
+
+    # Look at p.220: footnote 8 with its '*' note, and footnote 9 split in two.
+    r = results[known_parts(DOC_FILE)[0]["name"]]
+    for n in r["notes"]:
+        if n["page"] == 220 and n["mark"] in ("8", "9"):
+            print(f"\n-- p.220, footnote {n['mark']}")
+            print(f"   said: {n['said'][:110]}")
+            print(f"   old:  {n['old'][:110]}")
+            for x in n["notes_on_old"]:
+                print(f"   note on the old text: {x['mark']} {x['text'][:100]}")
+    # And p.207: a mark inside a mark, cleaned.
+    line = next(l for l in r["law"][207].split("\n") if "69[" in l)
+    print(f"\n-- p.207 before: {line[:100]}")
+    print(f"   after:  {clean(line, OPEN_MARK)[:100]}")
     print(f"\n{green}all passed{reset}" if all_ok else f"\n{red}some checks failed{reset}")
 
 

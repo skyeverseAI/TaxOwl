@@ -112,14 +112,15 @@ def split_footnotes(page: str) -> tuple[list[str], dict[int, str]]:
 
 # ---------- 3. Cleaning: take the marks out, keep the words ----------
 
-def clean(text: str) -> str:
+def clean(text: str, open_mark: str = OPEN_MARK) -> str:
     """Drop amendment marks, keep the law's words.
       'the 3[Central Board of Indirect Taxes and Customs], the' -> 'the Central Board of ..., the'
       'outward 1*** supplies'                                  -> 'outward supplies'
     A "[" that isn't a mark (like "[See section 7]") keeps its "]". A stack pairs each "]" with
-    the "[" it closes, so brackets inside brackets work."""
+    the "[" it closes, so brackets inside brackets work. `open_mark`: another document's mark
+    pattern (icai.py's also takes a mark glued to a word, "Authority21[or"; a space replaces it)."""
     out, stack, pos = [], [], 0
-    for m in re.finditer(rf"{OPEN_MARK}|\[|\]", text):
+    for m in re.finditer(rf"{open_mark}|\[|\]", text):
         out.append(text[pos:m.start()])
         token = m.group()
         if token == "[":
@@ -128,8 +129,12 @@ def clean(text: str) -> str:
         elif token == "]":
             if not stack or stack.pop() == "plain":
                 out.append("]")  # closes a normal bracket (an unmatched one is kept too)
+            elif text[m.end():m.end() + 1].isalpha():
+                out.append(" ")  # "14[six]months" (ICAI p.326) -> "six months", not "sixmonths"
         else:
             stack.append("mark")  # "N[": dropped now, and its "]" when it comes
+            if m.start() and text[m.start() - 1].isalpha():
+                out.append(" ")  # "Authority21[or" -> "Authority or"
         pos = m.end()
     out.append(text[pos:])
     text = STARS.sub("", "".join(out))
