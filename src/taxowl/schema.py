@@ -1,9 +1,9 @@
 """The shapes of the data in ingestion. Every later file reads and writes these.
 
-    PDF ──extract.py──> ExtractedDoc ──parsers + chunker──> Chunk ──> embed ──> Chroma
-                        ├── text per page
-                        ├── Table (many)
-                        └── quality report
+    PDF ──extract──> ExtractedDoc ──split──> Unit ──chunk──> Chunk ──> embed ──> Chroma
+                     ├── text per page       one per section,
+                     ├── Table (many)        rule or paragraph
+                     └── quality report
 
 Kept simple on purpose (agreed 2026-10-27). Things left for v2 if ever needed: a row's
 position on the page, and keeping merged cells as spans instead of copying the value down.
@@ -16,6 +16,8 @@ from typing import Literal
 DocType = Literal["act", "rules", "circular", "instruction", "notification"]
 ChunkKind = Literal["text", "table", "table_row"]
 Status = Literal["in_force", "withdrawn", "partly_modified"]
+# What kind of piece a Unit is. The splitter sets it from whatever it cut on.
+UnitType = Literal["section", "definition", "schedule", "rule", "paragraph", "table", "other"]
 
 
 @dataclass
@@ -41,6 +43,26 @@ class ExtractedDoc:
     # The self-check (C3): each failed check with a short reason, e.g.
     # {"words_dropped": "page 4: 212 words missing"}. Empty means every check passed.
     quality: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass
+class Unit:
+    """One piece of the law as the law itself divides it: a section, a definition, a rule,
+    a circular paragraph or a table. Made by the splitters, read by the chunker.
+    It holds what the law says; the search decisions (size, context header) come later,
+    in Chunk (plans/stage2_splitchunk.md)."""
+    unit_type: UnitType
+    doc_file: str    # path under docs/, as in docs/manifest.jsonl: the way back to the document
+    location: str    # the citation: "section 16", "section 2(52)", "rule 36", "para 4"
+    heading: str     # "Eligibility and conditions for taking input tax credit"; "" if none
+    text: str        # the current law only, clean: no amendment markers, no old wording
+    page_start: int
+    page_end: int
+    parent: str = ""   # what it sits in: "Chapter V Input Tax Credit"; for a definition, "section 2"
+    term: str = ""     # definitions only: the word defined, e.g. "goods", for following one definition to another
+    amended_by: list[str] = field(default_factory=list)  # footnotes: "Ins. by Act 8 of 2023, s. 138 (w.e.f. 1-10-2023)"
+    history: list[str] = field(default_factory=list)     # old wording ("Prior to substitution, it read ..."), never in `text`
+    table_id: str = ""  # tables only: the way back to the whole Table
 
 
 @dataclass

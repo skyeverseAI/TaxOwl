@@ -227,6 +227,8 @@ PDF → read (PyMuPDF; Docling for scans, because it also gives table structure)
 
 ### D. Ingest into Chroma
 - [ ] Copy and adapt `store.py`, `embeddings/models.py` and `config.py` from LERAGS. Revise each together (code from LERAGS only, never data).
+- [ ] **Embedding experiment (added 2026-11-03):** compare the default bge-small with **InLegalBERT** (Law-AI, IIT Kharagpur; trained on Indian legal text), and any other strong default model, on the same evalset (recall@5, MRR). Keep whichever wins. Note: InLegalBERT is a plain BERT, not trained for search, so it may need pooling or fine-tuning to compete. That's itself a finding worth reporting.
+  - **Idea (noted 2026-11-03, not decided):** teach InLegalBERT to search. An LLM writes 2–3 questions per chunk (~10k question → passage pairs), then train with `sentence-transformers` (MultipleNegativesRankingLoss; under an hour on the Mac). Compare three: bge-small as is; InLegalBERT + training; **bge-small + the same training** (the control, which shows whether the legal knowledge or the training made the difference). Practice questions must never come from the test split. InLegalBERT is about 3× bigger (110M vs 33M), so measure speed too. Name: domain adaptation with synthetic queries.
 - [ ] Incremental ingest: `has_source(sha256)` skips documents already in the store.
 - [ ] `scripts/03_ingest.py` prints chunk counts per `doc_type`.
 

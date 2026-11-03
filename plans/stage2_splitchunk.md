@@ -17,9 +17,9 @@ Extraction is done. Each PDF becomes one `ExtractedDoc` JSON in `data/ingested/`
 ---
 
 ## Step 0: Before starting (½ hour)
-- [ ] Commit the restructure that's still pending (the `ingestion/` package move and the edited files).
-- [ ] Run the extractor over the **whole corpus**. Right now `data/ingested/` holds only 76 circulars of 267, so the splitter would be built on part of the data. (`pipeline.py --corpus`; the user runs it.)
-- [ ] Count the files flagged by the quality check, so we know which ones get `quality_ok = False`.
+- [x] Commit the restructure (already done: 0a37ad9).
+- [x] Run the extractor over the **whole corpus** (done 2026-11-03: 314/314, 0 errors).
+- [x] Count the files flagged by the quality check: **64**. They get `quality_ok = False`.
 
 ---
 
@@ -37,6 +37,14 @@ Each splitter is a small file of pattern rules. Rules suit this text: legal docu
 | `src/taxowl/splitting/act.py` | Section (`16. Eligibility…––`) | Inserted sections (11A, 74A, 128A); "Omitted" sections (42, 43); `1[ … ]` amendment markers and `*\n*` lines stripped; page footnotes ("1. Ins. by Act 8 of 2023…") moved into `amended_by`; Schedules I–III; chapter headings kept as `parent` |
 | `src/taxowl/splitting/rules.py` | Rule (`Rule 56. Maintenance of…`) | The ICAI PDF also holds the Acts and the IGST material: take the **CGST Rules part only** (find its page range once and write it down). "Prior to substitution, it read…" goes to `history`, never into `text`. Leave out the Part B forms. |
 | `src/taxowl/splitting/circulars.py` | Numbered paragraph (`2.`, `2.1`) | Subject line found once and kept for every unit; letterhead, addressee and signature dropped; instructions and notifications use the same splitter; tables become their own units, linked by `table_id` |
+
+**Found in the full-corpus run (2026-11-03: 314/314 files, 0 errors, 64 flagged, $0.14):**
+- [ ] **Rules page range.** The ICAI PDF also holds front matter (p.8, "Relevant extract of the Finance Act"), the Acts and the IGST/cess material (the cess table on p.434–435). Fix the CGST Rules pages once and write them down in `rules.py`.
+- [ ] **Old tables go to `history` too.** The e-way bill tables appear twice (p.331–334 and p.337–340, "Distance / Validity period"). One copy is probably the old wording inside a "Prior to substitution" footnote. Check which, then treat old tables like old text: kept out of `text`, so search can't return superseded validity rules as current.
+- [ ] **Extractor bug (not blocking):** a table split across pages isn't joined when the two pages used different readers (p.260 PyMuPDF + p.261 Gemini → table-4 and table-9; the second half has headings "Column 1…"). Fix in `src/taxowl/ingestion/tables.py` later. Until then the Rules splitter attaches table-9 to the rule that table-4 belongs to.
+
+**Act findings (looked at 2026-11-03, PDF pages):** contents = p.3–9 (same `16. Heading.` format, so skip them as text); body from p.10; a section starts `N. Heading.—` (heading can wrap); inserted ones carry the marker before the number (`4[74A.`, p.69); amendment markers `1[…]` (p.30) pair with the footnotes at the page bottom (p.31; numbering restarts each page); `3*` + `* * * *` = deleted text; omitted sections (s.42, p.50) kept as small units; s.2 definitions `(52) "goods"` (p.14) one unit each; schedules (p.125) one unit per item. **Traps:** footnotes (`1. Ins. by…`) and schedule items (`1. Permanent transfer…`) both look like section starts.
+- [ ] **Use the contents pages as a checklist** (user's idea): they list every section number and heading, grouped by chapter. The splitter accepts a section start only if its number is the next one on that list (which also defeats both traps), fills `parent` from the chapter, and the self-check reports any listed section not found.
 
 - [ ] Write `act.py`, then run it and look at the output with the user before moving on.
 - [ ] Write `rules.py`.
@@ -89,7 +97,8 @@ The same idea as the extractor's self-check: the code checks its own output, so 
 ---
 
 ## Not in this stage
-- Embedding and loading into Chroma (section D of `plan_ingestion.md`), which comes next.
+- Embedding and loading into Chroma (section D of `plan_ingestion.md`), which comes next. It includes an experiment comparing bge-small with InLegalBERT.
+- Legal-parsing libraries (Laws.Africa bluebell / Akoma Ntoso, LexNLP) were looked at and not used: our hard parts are PDF-specific (footnotes, `1[…]` markers, old wording). Akoma Ntoso's part → chapter → section → sub-section structure is the model for `parent`.
 - The withdrawal detector (day 3); `status` stays `in_force` until then.
 - Trying different chunk sizes. That's a later experiment, once the evalset exists to judge it.
 
