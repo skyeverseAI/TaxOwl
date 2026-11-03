@@ -47,6 +47,7 @@ PDF ─► Extractor (done, shared) ─► ExtractedDoc
 - [x] Scope (decided 2026-11-03): IGST Act + Rules, UTGST Act and the Compensation Act join v1, all from ICAI (simple: one source, one format, as of 31-03-2026)
 
 **A4. icai.py: one splitter for the five ICAI parts** (look at the real pages together first)
+- [x] **Step 1, footnotes:** done 2026-11-03. Pages whose footnote numbers match their marks: built-on parts 96.7–100%, held-out (ICAI's copy of the CGST Act, p.20–181, never looked at) 95.9%; "Prior to" in law text: 0 in both. The mismatches left are the check's own blind spots: marks inside tables, glued marks (`Authority21[`), `30(b)`, nested `6[7[`. For later steps: `clean()` must handle glued marks, and marks inside a table give that table unit its `amended_by`. The text rule finds the first numbered footnote ("10 Inserted vide …") and takes everything from there to the page end. Font size (read from the PDF inside `icai.py` only; the extractor is not changed) is checked only just above that line, where a long footnote carried over from the previous page sits with no number (23 pages, 335 lines; the text rule alone gets 96.9%). Small text elsewhere on the page is never used. Self-checks: a table inside the footnote area, "Prior to" left in the law text
 - [ ] Acts and Rules share ICAI's style: units start `Section 25.` / `Rule 56.`; same running headers ("Ch-X : Refund Rules 89-97A") and footnotes
 - [ ] One unit per section / rule; definitions (s.2, rule 2) split with `term`
 - [ ] Running headers and chapter titles out of the text; chapter into `parent`
@@ -86,6 +87,7 @@ PDF ─► Extractor (done, shared) ─► ExtractedDoc
 ## C. Upload pipeline, up to chunking (after v1)
 
 - [ ] **C1. Upload splitter:** headings (FACTS, GROUNDS, PRAYER, ANNEXURE P-1 …) + numbered paras; `location` = "para 12", `parent` = "Grounds", page; never a made-up section citation
+  - Footnotes in uploads (ChatGPT review, 2026-11-03): font size is one signal, not the decision. Add the separator line above footnotes, position near the page bottom, a footnote carried over from the previous page, and the number sequence. Classify blocks, not lines. When unsure, mark the block `uncertain_footnote` and keep it out of the current-law text. Test on 20–30 labelled upload-like PDFs (3–5 pages each): footnote precision/recall, carry-over accuracy. Scans have no font, so they use the text rule plus a warning
 - [ ] **C2. Law references:** find "section 16(2)(c)", "rule 36(4)", "Circular No. 183/15/2022" and link them to corpus units
 - [ ] **C3. Annexures** that are corpus documents (e.g. an annexed circular) → link to the corpus copy, don't split again
 - [ ] **C4. Self-checks + warnings** shown to the user (nobody reviews uploads by hand)
