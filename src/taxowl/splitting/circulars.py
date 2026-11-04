@@ -33,10 +33,9 @@ from dataclasses import asdict
 
 import pymupdf
 
-from taxowl.ingestion.extract import MANIFEST
+from taxowl.config import DOCS, INGESTED, MANIFEST, UNITS
 from taxowl.schema import Unit
 from taxowl.splitting import finish
-from taxowl.splitting.act import INGESTED, ROOT, UNITS
 from taxowl.splitting.icai import key, lines_with_y, table_top, words
 
 TYPES = ("circulars", "instructions", "notifications")
@@ -177,7 +176,7 @@ def link_tables(units: list[Unit], doc: dict) -> list[dict]:
     from an earlier page (as in icai.py). Scans have no text layer to measure: page only."""
     if not doc["tables"]:
         return []
-    pdf = pymupdf.open(ROOT / "docs" / doc["file"])
+    pdf = pymupdf.open(DOCS / doc["file"])
     out = []
     for t in doc["tables"]:
         if not t["row_pages"]:

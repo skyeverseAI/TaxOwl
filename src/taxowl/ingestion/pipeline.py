@@ -44,14 +44,12 @@ from pathlib import Path
 
 import pymupdf
 
+from taxowl.config import DOCS, INGESTED, MANIFEST, OCR_DIR, ROOT, VLM_CACHE
 from taxowl.ingestion import gate, ocr, vlm
-from taxowl.ingestion.extract import DOCS, MANIFEST, OCR_DIR, normalize, page_lines, self_check, strip_headers
+from taxowl.ingestion.extract import normalize, page_lines, self_check, strip_headers
 from taxowl.schema import ExtractedDoc, Table
 from taxowl.ingestion.tables import CONTINUE_BOTTOM, CONTINUE_TOP, join_tables, read_page_tables, to_tables
 
-ROOT = Path(__file__).resolve().parents[3]
-OUT = ROOT / "data" / "ingested"
-VLM_CACHE = ROOT / "data" / "cache" / "vlm"
 MODEL = "google/gemini-3.5-flash-lite"  # 95.9% on the held-out runs, ~$0.0012 a page
 WORKERS = 8           # model pages sent at the same time
 EMPTY_PAGE_CHARS = 100  # fewer letters than this: a scanned page (as in scripts/02_check_scans.py)
@@ -299,7 +297,7 @@ def main():
                 f"      OCR {done}/{total} pages, {secs:.0f}s", flush=True))
         except Exception as e:  # one bad PDF shouldn't stop the run
             doc = ExtractedDoc(path.name, "", [], quality={"error": repr(e)[:300]})
-        out = OUT / (doc.file + ".json")
+        out = INGESTED / (doc.file + ".json")
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(asdict(doc), ensure_ascii=False))
         m = stats.get("model", {})
@@ -313,7 +311,7 @@ def main():
         for check, reason in doc.quality.items():
             print(f"      {check}: {reason}")
     print(f"\n{len(paths)} document(s) in {time.time() - start:.0f}s, model cost ${total_cost:.4f}, "
-          f"{flagged} flagged. Output: {OUT.relative_to(ROOT)}/")
+          f"{flagged} flagged. Output: {INGESTED.relative_to(ROOT)}/")
 
 
 if __name__ == "__main__":

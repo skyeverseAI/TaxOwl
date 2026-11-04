@@ -10,7 +10,7 @@ from pathlib import Path
 
 from tokenizers import Tokenizer
 
-from taxowl.ingestion.extract import MANIFEST
+from taxowl.config import MANIFEST
 from taxowl.schema import Unit
 
 EMBEDDER = "BAAI/bge-small-en-v1.5"  # the tokenizer must be the embedder's own, or the counts are wrong

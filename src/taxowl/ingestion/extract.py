@@ -19,12 +19,6 @@ in archive/ (see archive/README.md). Only the shared pieces are left here.
 import re
 import unicodedata
 from collections import Counter
-from pathlib import Path
-
-ROOT = Path(__file__).resolve().parents[3]
-DOCS = ROOT / "docs"
-OCR_DIR = DOCS / "ocr"
-MANIFEST = DOCS / "manifest.jsonl"
 
 EDGE_LINES = 2       # how many lines at the top and bottom of a page can be a header or footer
 REPEAT_SHARE = 0.5   # ...if they repeat on at least this share of the pages

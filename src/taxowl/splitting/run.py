@@ -13,9 +13,9 @@ from dataclasses import asdict, dataclass, field
 
 import pymupdf
 
+from taxowl.config import DOCS, INGESTED, UNITS
 from taxowl.schema import Unit
 from taxowl.splitting import act, circulars, icai, known_parts
-from taxowl.splitting.act import INGESTED, ROOT, UNITS
 
 
 @dataclass
@@ -33,7 +33,7 @@ def split_file(doc_file: str, doc_type: str) -> Split:
         units, problems = act.split(doc)
         return Split(units, problems=problems, warnings=[f"{u.location}: {w}" for u in units for w in u.warnings])
     if doc_type == "rules":  # a compilation: one split per part listed in known_docs.json
-        pdf, out = pymupdf.open(ROOT / "docs" / doc_file), Split([])
+        pdf, out = pymupdf.open(DOCS / doc_file), Split([])
         for part in known_parts(doc_file):
             units, problems, warnings, info = icai.split_part(doc, pdf, part)
             out.units += units

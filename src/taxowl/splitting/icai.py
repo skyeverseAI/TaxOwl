@@ -38,9 +38,10 @@ from dataclasses import asdict
 
 import pymupdf
 
+from taxowl.config import DOCS, INGESTED, ROOT, UNITS
 from taxowl.schema import Unit
 from taxowl.splitting import finish, known_parts
-from taxowl.splitting.act import INGESTED, ROOT, clean, nice
+from taxowl.splitting.act import clean, nice
 
 DOC_FILE = "GST Act(s) and Rule(s)-Bare Law.pdf"
 SMALLER = 0.5   # a line counts as small if it is at least 0.5pt below the body size
@@ -659,7 +660,7 @@ TABLE_GOLD = {
 def main() -> None:
     green, red, reset = ("\033[32m", "\033[31m", "\033[0m") if sys.stdout.isatty() else ("", "", "")
     doc = json.loads((INGESTED / f"{DOC_FILE}.json").read_text())
-    pdf = pymupdf.open(ROOT / "docs" / DOC_FILE)
+    pdf = pymupdf.open(DOCS / DOC_FILE)
     all_ok, saved, saved_tables = True, [], []
     for part in known_parts(DOC_FILE) + [HELD_OUT]:
         units, problems, warnings, info = split_part(doc, pdf, part)
@@ -687,7 +688,7 @@ def main() -> None:
         if len(warnings) > 8:
             print(f"   ... {len(warnings) - 8} more warnings")
         if held_out:
-            india_code = {json.loads(l)["location"] for l in (ROOT / "data" / "units" / "GST_act.pdf.jsonl").open()
+            india_code = {json.loads(l)["location"] for l in (UNITS / "GST_act.pdf.jsonl").open()
                           if json.loads(l)["unit_type"] == "section"}
             icai = {u.location for u in units if u.unit_type == "section"}
             print(f"   sections vs India Code (act.py): {len(india_code & icai)} in both; "
@@ -699,12 +700,12 @@ def main() -> None:
         for check, reason in problems.items():
             print(f"     {red}{check}{reset}: {reason}")
 
-    out = ROOT / "data" / "units" / f"{DOC_FILE}.jsonl"
+    out = UNITS / f"{DOC_FILE}.jsonl"
     with out.open("w") as fh:
         for u in saved:
             fh.write(json.dumps(asdict(u), ensure_ascii=False) + "\n")
     print(f"\nSaved {len(saved)} units (the Rules; not the held-out): {out.relative_to(ROOT)}")
-    out_tables = ROOT / "data" / "units" / f"{DOC_FILE}.tables.jsonl"
+    out_tables = UNITS / f"{DOC_FILE}.tables.jsonl"
     with out_tables.open("w") as fh:
         for t in saved_tables:
             fh.write(json.dumps(t, ensure_ascii=False) + "\n")

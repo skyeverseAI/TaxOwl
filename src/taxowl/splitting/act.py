@@ -28,14 +28,11 @@ import re
 import sys
 from collections import Counter
 from dataclasses import asdict
-from pathlib import Path
 
+from taxowl.config import INGESTED, ROOT, UNITS
 from taxowl.schema import Unit
 from taxowl.splitting import finish
 
-ROOT = Path(__file__).resolve().parents[3]
-INGESTED = ROOT / "data" / "ingested"  # the extractor's output: <file>.json per PDF
-UNITS = ROOT / "data" / "units"        # ours: <file>.jsonl, one Unit per line
 DEFAULT = "GST_act.pdf"                # the CGST Act; another Act is passed on the command line
 
 # A section number: 16, 11A, 158A. An inserted section carries its mark first: "4[74A."

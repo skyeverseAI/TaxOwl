@@ -13,8 +13,7 @@ import json
 import sys
 from collections import Counter, defaultdict
 
-from taxowl.ingestion.extract import MANIFEST
-from taxowl.splitting.act import INGESTED
+from taxowl.config import INGESTED, MANIFEST
 from taxowl.splitting.run import save, split_file
 
 
