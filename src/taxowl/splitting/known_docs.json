@@ -1,9 +1,12 @@
 {
-  "_about": "Facts true of one specific file, kept out of the splitters' code (to-do-list.md, A3). The ICAI compilation holds several laws in one PDF; we take only its Rules from it (there is no official consolidated copy of the Rules). The Acts come from India Code instead (decided 2026-11-03): CGST, IGST, UTGST and Compensation Acts, split by act.py. Each part gets its own name, so its units get their own ids (CGST and IGST Rules both have a rule 2). Pages are the PDF's own, 1-based, inclusive; checked by the user in Preview 2026-11-03. Pages left out: 1-19 front matter and index, 20-181 the CGST Act (used only as icai.py's held-out test), 182-183 ICAI's notes, 364-391 IGST Act, 404-440 UTGST and Compensation Acts, 441-442 blank and ICAI's address.",
+  "_about": "Facts true of one specific file, kept out of the splitters' code (to-do-list.md, A3). The ICAI compilation holds several laws in one PDF. Each part gets its own name, so its units get their own ids (CGST and IGST Rules both have a rule 2). Pages are the PDF's own, 1-based, inclusive; Rules checked by the user in Preview 2026-11-03, Acts by their title pages 2026-11-04. The CGST Act comes from India Code (act.py). The IGST, UTGST and Compensation Acts come from here for now (decided 2026-11-04, so v1 needn't wait for the India Code downloads; ICAI is unofficial but as of 31-03-2026); swap them for India Code copies later if wanted. Pages left out: 1-19 front matter and index, 20-181 the CGST Act (used only as icai.py's held-out test), 182-183 ICAI's notes, 436-440 the Constitution (101st Amendment) Act, 2016 (not in v1's scope), 441-442 blank and ICAI's address.",
   "GST Act(s) and Rule(s)-Bare Law.pdf": {
     "parts": [
       {"name": "CGST Rules, 2017", "type": "rules", "pages": [184, 363], "starts_with": "Rule"},
-      {"name": "IGST Rules, 2017", "type": "rules", "pages": [392, 403], "starts_with": "Rule"}
+      {"name": "IGST Act, 2017", "type": "act", "pages": [364, 391], "starts_with": "Section"},
+      {"name": "IGST Rules, 2017", "type": "rules", "pages": [392, 403], "starts_with": "Rule"},
+      {"name": "UTGST Act, 2017", "type": "act", "pages": [404, 423], "starts_with": "Section"},
+      {"name": "GST (Compensation to States) Act, 2017", "type": "act", "pages": [424, 435], "starts_with": "Section"}
     ]
   }
 }

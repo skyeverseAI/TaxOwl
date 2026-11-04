@@ -297,6 +297,10 @@ def footnotes_part(doc: dict, pdf: pymupdf.Document, part: dict) -> dict:
 HEADER = re.compile(r"^(?:Ch-[IVXL]+[A-Z]?\s*:.*|(?:Rules?|Sec(?:tions?|s)?\.?)\s*\d+[A-Z]*\s*(?:-\s*\d+[A-Z]*)?"
                     r"|(?:CGST|IGST|UTGST)\s+(?:Rules|Act),?\s*\d{4})$")
 CHAPTER = re.compile(r"^CHAPTER\s+([IVXL]+[A-Z]?)\s*[:\-–—]\s*(.+)$")
+# An Act's schedule heading, a whole line: "THE SCHEDULE" (Compensation Act, p.434), "SCHEDULE I"
+# (ICAI's CGST Act, p.176), "SCHEDULES" (the heading above those). Each schedule is one unit;
+# without this, it ran on inside the last section (the Compensation Act's cess rates in s.14).
+SCHEDULE = re.compile(r"^(?:THE\s+)?SCHEDULE(S)?(?:\s+([IVXL]+))?$")
 HEAD_END = r"\.?\]?\s*(?:—|––|–|-)(?:\s|$)"  # what ends a heading: ".-", ". -", ".—"
 # Rule 2's definitions: (a) (b) ... (z) (za) (zb) ...
 LETTERS = list("abcdefghijklmnopqrstuvwxyz")
@@ -418,6 +422,15 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
         cl = clean(line, OPEN_MARK)
         if m := CHAPTER.match(cl):
             chapter = f"Chapter {m.group(1)} {nice(m.group(2).strip())}"
+            continue
+        if kind == "section" and (m := SCHEDULE.match(cl)):
+            name = f"Schedule {m.group(2)}" if m.group(2) else "Schedule"
+            # "SCHEDULES" then "SCHEDULE I": the first is only a heading; it joins Schedule I.
+            if not (current[0] == "schedule" and current[1] == "Schedule" and len(block) == 1):
+                close()
+                block = []
+            current = ("schedule", name, name, "")
+            block.append((page, line))
             continue
         if m := start.match(line):
             key = (int(m.group(1)), m.group(2))
