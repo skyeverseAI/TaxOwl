@@ -42,7 +42,7 @@ TYPES = ("circulars", "instructions", "notifications")
 SUBJECT = re.compile(r"^(?:Subject|Sub)\s*[:.\-–—]+\s*", re.I)
 SUBJECT_END = re.compile(r"(?:\.|\breg\.?|\bregarding)\s*[\-–—]?\s*$", re.I)
 SALUTATION = re.compile(r"^(?:Madam\s*/\s*Sir|Sir\s*/\s*Madam|Sir|Madam|Dear\s+[\w ]+)\s*,?$", re.I)
-PARA = re.compile(r"^(\d{1,2})\.(?:(\d{1,2})\.?)?(?:\s|$)")  # "2. ", "2.1 ", "2.1. "
+PARA = re.compile(r"^(\d{1,2})\.(?:(\d{1,2})\.?)?(?:\s|$|(?<=\d)(?=[A-Z]))")  # "2. ", "2.1 ", "2.1. ", "2.1Sanction"
 SIGN = re.compile(r"^(?:\(\s*[A-Z][A-Za-z .]{2,40}\)|Yours\s+(?:faithfully|sincerely),?)$", re.I)
 ANNEX = re.compile(r"^Annex(?:ure)?\b", re.I)
 

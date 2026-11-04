@@ -441,7 +441,14 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
                     gaps.append(f"{kind} {key[0]}{key[1]} comes after {last[0]}{last[1]}")
                 last = key
                 number = f"{key[0]}{key[1]}"
-                joined = clean(" ".join(l for _, l in lines[i:i + 3]), OPEN_MARK)
+                # A heading can wrap onto the next lines, but never runs into the next unit: an
+                # omitted rule is only "Rule 69.", so its next line is already "Rule 70."
+                own = [line]
+                for _, after in lines[i + 1:i + 3]:
+                    if start.match(after) or CHAPTER.match(clean(after, OPEN_MARK)):
+                        break
+                    own.append(after)
+                joined = clean(" ".join(own), OPEN_MARK)
                 rest = joined[start.match(joined).end():] if start.match(joined) else ""
                 hm = re.match(rf"(.{{3,250}}?){HEAD_END}", rest) or re.match(r"(.{3,200}?)\.(?:\s|$)", rest)
                 block = []
@@ -475,6 +482,12 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
         owner.warnings.append(f"footnote '{n['mark']}' (p.{n['page']}) has no mark in the text; "
                               f"given to this unit as it covers that page")
         used.add(id(n))
+
+    # A unit that is only its number, with an "Omitted" footnote, says so in its heading.
+    for u in units:
+        m = start.match(u.text)
+        if m and not u.heading and not u.text[m.end():].strip() and any(a.startswith("Omitted") for a in u.amended_by):
+            u.heading = "Omitted"
 
     tables, owners, w = link_tables(units, doc, pdf, part, start, kind)
     warnings += w
