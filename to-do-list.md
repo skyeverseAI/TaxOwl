@@ -101,6 +101,7 @@ Pending decision: the IGST, UTGST and Compensation Acts now come from India Code
 
 ## Later / not now
 - [ ] Extractor: join a table split across pages when the two pages used different readers (Rules p.260 + p.261)
+- [ ] Extractor: a merged cell that crosses a page break is not filled down (Rules p.358–359, table-15: rows 5–7 share "Amount equivalent to twenty-five per cent of tax evaded"; rows 6–7 came out empty). Gemini sees one page at a time. Likely fix, together with the 53 made-up headings: show Gemini both pages of a split table at once. Not "fill empty cells from above": some cells are really empty
 - [ ] Font as a signal (bold headings, small footnotes): try first in the upload splitter
 - [ ] Exact positions (bbox) per unit; structured citation fields; structured `amended_by`
 - [ ] Mixed upload documents (petition + annexed order + forms) split per region
