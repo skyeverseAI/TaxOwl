@@ -313,6 +313,34 @@ def unit_start(word: str) -> re.Pattern:
                       rf"(?:\s|$|(?=\d{{1,3}}\[))")
 
 
+def marked_words(text: str) -> dict[str, str]:
+    """The words inside each mark: '11[or reverse]' -> {'11': 'or reverse'}; '1[****]' ->
+    {'1': ''} (words deleted). Brackets paired with a stack, as in clean(), so a mark inside a
+    mark works ('69[70[Provided also] that ...]'). The first time a mark appears wins."""
+    found, stack, pos = {}, [], 0
+    for m in re.finditer(rf"{OPEN_MARK}|\[|\]", text):
+        token = m.group()
+        if token == "[":
+            stack.append(None)
+        elif token == "]":
+            if stack and (opened := stack.pop()) is not None:
+                mark, start = opened
+                words = " ".join(clean(text[start:m.start()], OPEN_MARK).split())
+                found.setdefault(mark, words)
+        else:
+            stack.append((re.match(r"\D*(\d+)", token).group(1), m.end()))
+        pos = m.end()
+    return found
+
+
+def change_line(n: dict, words: str | None) -> str:
+    """A footnote's 'what changed', with the words it touched:
+    'Inserted vide Notification No. 26/2022 ... Words: "or reverse"'."""
+    if words is None:
+        return n["said"]
+    return f'{n["said"]} Words: "{words}"' if words else f'{n["said"]} Words: (deleted)'
+
+
 def history_text(n: dict) -> str:
     """A footnote's old text, with the notes on that old text inside it, as one string."""
     out = f"{n['said']} {n['old']}".strip()
@@ -415,12 +443,13 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
     # mark is in a table) go to the unit covering their page, so none is lost.
     used = set()
     for u, piece in zip(units, pieces_of):
+        words_of = marked_words("\n".join(l for _, l in piece))
         for page, line in piece:
             for mark in LAW_MARK.findall(line):
                 n = note_for(mark, page, f["index"])
                 if n and id(n) not in used:
                     used.add(id(n))
-                    u.amended_by.append(n["said"])
+                    u.amended_by.append(change_line(n, words_of.get(mark)))
                     if n["old"] or n["notes_on_old"]:
                         u.history.append(history_text(n))
     for n in f["notes"]:
@@ -434,8 +463,8 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
                               f"given to this unit as it covers that page")
         used.add(id(n))
 
-    for u in units:
-        u.table_ids = re.findall(r"\[table ([^\]]+)\]", u.text)
+    tables, owners, w = link_tables(units, doc, pdf, part, start, kind)
+    warnings += w
     if gaps:
         warnings += [f"gap: {g}" for g in gaps]
     if rejected:
@@ -444,8 +473,107 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
     problems = self_check_units(units, lines, kind)
     problems.update({k: v for k, v in f["checks"].items() if v})  # the footnote step's own checks
     problems.update({"finish": p for p in finish(units, DOC_FILE, part=part["name"])})
-    info = {"headers_dropped": headers, "marks": f["marks"], "marks_missing": f["missing"]}
+    for t in tables:  # unit_id is known only now, after finish()
+        t["unit_id"] = t.pop("owner").unit_id
+    left = [t["table_id"] for t in tables
+            if any(LAW_MARK.search(c) for row in [t["headings"]] + t["rows"] for c in row)]
+    if left:
+        problems["marks_left_in_tables"] = f"{len(left)}: {left[:5]}"
+    info = {"headers_dropped": headers, "marks": f["marks"], "marks_missing": f["missing"],
+            "tables": tables, "owners": owners}
     return units, problems, warnings, info
+
+
+# ---------- 4b. Tables -> the rule they belong to ----------
+#
+# The extractor keeps tables apart from the page text and leaves no mark where they stood, so
+# a table is placed by its height on the page: it belongs to the rule that starts above it on
+# that page, else to the rule running on from an earlier page (Rules p.261's table: rule 61).
+# A table printed in the footnotes' small font is an OLD table, quoted under "Prior to its
+# substitution, it was read as:" (rule 138's e-way tables, p.331/332/334, all 8pt; the current
+# ones, p.337-340, are 9pt). It goes to the rule's history with a label, never to table_ids.
+
+def lines_with_y(page: pymupdf.Page) -> list[tuple[float, str]]:
+    """One PDF page -> [(top of the line, its text)], top to bottom."""
+    out = []
+    for block in page.get_text("dict")["blocks"]:
+        for line in block.get("lines", []):
+            text = "".join(s["text"] for s in line["spans"]).strip()
+            if text:
+                out.append((line["bbox"][1], text))
+    return sorted(out)
+
+
+def table_top(t: dict, page: pymupdf.Page) -> float | None:
+    """Where the table starts on its first page: the highest line holding its longest heading,
+    else a cell of its first row (Gemini's made-up "Column 1" headings aren't in the PDF)."""
+    heads = sorted((key(str(h)) for h in t["headings"] or []), key=len, reverse=True)
+    cells = sorted((key(str(c)) for c in (t["rows"][0] if t["rows"] else [])), key=len, reverse=True)
+    # Not the running header at the top: "Ch-XIX : Offences and Penalties" holds "offence" (p.358).
+    lines = [(y, key(text)) for i, (y, text) in enumerate(lines_with_y(page))
+             if not (i < 3 and HEADER.match(text))]
+    for target in [h for h in heads if len(h) >= 4] + [c for c in cells if len(c) >= 6]:
+        # A heading can wrap: "Compounding amount if" / "offence is punishable ..." (p.358), so a
+        # line that is the heading's start counts too.
+        ys = [y for y, k in lines if target[:20] in k or (len(k) >= 8 and target.startswith(k))]
+        if ys:
+            return min(ys)
+    return None
+
+
+def table_font(t: dict, pdf: pymupdf.Document) -> float | None:
+    """The size most of the table's text is printed in."""
+    cells = {" ".join(str(c).split()) for row in t["rows"] for c in row if len(str(c).strip()) > 8}
+    sizes = Counter()
+    for p in sorted(set(t["row_pages"])):
+        for text, size in pdf_lines(pdf[p - 1]):
+            if any(text[:15] in c for c in cells):
+                sizes[size] += len(text)
+    return sizes.most_common(1)[0][0] if sizes else None
+
+
+def clean_cell(cell) -> str:
+    return " ".join(clean(str(cell), OPEN_MARK).split())
+
+
+def link_tables(units: list[Unit], doc: dict, pdf: pymupdf.Document, part: dict,
+                start: re.Pattern, kind: str) -> tuple[list[dict], dict[str, str], list[str]]:
+    """Each table of the part -> its unit. Returns (current tables, cleaned, each with its owner
+    unit; {table: "rule 61" or "old, in rule 138's history"} for the check; warnings)."""
+    first, last = part["pages"]
+    body = body_size(pdf, first, last)
+    numbered = {u.location: u for u in units if u.unit_type == kind}
+    tables, owners, warnings = [], {}, []
+    for t in doc["tables"]:
+        if not t["row_pages"] or not first <= min(t["row_pages"]) <= last:
+            continue
+        p, name = min(t["row_pages"]), t["table_id"].rsplit(":", 1)[-1]
+        top = table_top(t, pdf[p - 1])
+        starts = [(y, f"{kind} {int(m.group(1))}{m.group(2)}")
+                  for y, text in lines_with_y(pdf[p - 1]) if (m := start.match(text))]
+        above = [loc for y, loc in starts if top is not None and y < top and loc in numbered]
+        if above:
+            owner = numbered[above[-1]]
+        else:
+            if top is None:
+                warnings.append(f"p.{p}: {name} not found on its page; given to the rule running there")
+            earlier = [u for u in units if u.page_start < p]
+            owner = earlier[-1] if earlier else units[0]
+        size = table_font(t, pdf)
+        rows = [[clean_cell(c) for c in row] for row in t["rows"]]
+        heads = [clean_cell(h) for h in t["headings"] or []]
+        pages = sorted(set(t["row_pages"]))
+        if size is not None and size <= body - SMALLER:
+            owner.history.append(f"Old table, printed in the footnotes (p.{pages[0]}), as it read before an "
+                                 f"amendment: " + " | ".join(heads) + " || "
+                                 + " || ".join(" | ".join(r) for r in rows))
+            owners[name] = f"old, in {owner.location}'s history"
+        else:
+            owner.table_ids.append(t["table_id"])
+            owners[name] = owner.location
+            tables.append({"table_id": t["table_id"], "owner": owner, "pages": pages,
+                           "headings": heads, "rows": rows})
+    return tables, owners, warnings
 
 
 # ---------- 5. Self-check ----------
@@ -501,23 +629,46 @@ def self_check_units(units: list[Unit], lines: list[tuple[int, str]], kind: str)
 # section numbers must match act.py's from the India Code PDF (two sources, one answer).
 HELD_OUT = {"name": "CGST Act, ICAI copy (held-out)", "pages": [20, 181], "starts_with": "Section"}
 SHOW = ["rule 2(a)", "rule 37", "rule 88C", "rule 113", "rule 138"]
+# Which rule each CGST Rules table belongs to, checked by the user in the PDF, 2026-11-04.
+# p.190's second table (table-2) is old rule 7's table, quoted in a footnote (8pt, symbol marks).
+# p.358's table belongs to rule 162 (sub-rule 3A).
+TABLE_GOLD = {
+    "table-1": "rule 7", "table-2": "old, in rule 7's history",
+    "table-3": "rule 10B", "table-8": "rule 31D",                # user
+    "table-4": "rule 61", "table-9": "rule 61",                  # user: one table, cut by footnotes
+    "table-10": "rule 83A", "table-11": "rule 83A",              # user
+    "table-12": "old, in rule 138's history", "table-13": "old, in rule 138's history",
+    "table-14": "old, in rule 138's history",
+    "table-5": "rule 138", "table-6": "rule 138", "table-15": "rule 162",
+}
 
 
 def main() -> None:
     green, red, reset = ("\033[32m", "\033[31m", "\033[0m") if sys.stdout.isatty() else ("", "", "")
     doc = json.loads((INGESTED / f"{DOC_FILE}.json").read_text())
     pdf = pymupdf.open(ROOT / "docs" / DOC_FILE)
-    all_ok, saved = True, []
+    all_ok, saved, saved_tables = True, [], []
     for part in known_parts(DOC_FILE) + [HELD_OUT]:
         units, problems, warnings, info = split_part(doc, pdf, part)
         held_out = part is HELD_OUT
         if not held_out:
             saved += units
+            saved_tables += info["tables"]
         kinds = Counter(u.unit_type for u in units)
         print(f"\n== {part['name']} (p.{part['pages'][0]}-{part['pages'][1]}): {len(units)} units ("
               + ", ".join(f"{k} {n}" for k, n in kinds.most_common()) + ")")
         print(f"   running header lines dropped {info['headers_dropped']}; law marks {info['marks']}, "
               f"without a footnote {len(info['marks_missing'])}")
+        owners = info["owners"]
+        print(f"   tables {len(owners)}: {len(info['tables'])} current, "
+              f"{sum(o.startswith('old') for o in owners.values())} old (into history)")
+        if part["name"] == "CGST Rules, 2017":
+            wrong = {t: (owners.get(t), want) for t, want in TABLE_GOLD.items() if owners.get(t) != want}
+            print(f"   tables vs the user's answers: {len(TABLE_GOLD) - len(wrong)}/{len(TABLE_GOLD)} right")
+            for t, (got, want) in wrong.items():
+                print(f"     {red}{t}{reset}: got {got}, should be {want}")
+            if wrong:
+                problems["tables_differ_from_gold"] = f"{len(wrong)} of {len(TABLE_GOLD)}"
         for w in warnings[:8]:
             print(f"   {red}warning{reset} {w}")
         if len(warnings) > 8:
@@ -540,14 +691,27 @@ def main() -> None:
         for u in saved:
             fh.write(json.dumps(asdict(u), ensure_ascii=False) + "\n")
     print(f"\nSaved {len(saved)} units (the Rules; not the held-out): {out.relative_to(ROOT)}")
+    out_tables = ROOT / "data" / "units" / f"{DOC_FILE}.tables.jsonl"
+    with out_tables.open("w") as fh:
+        for t in saved_tables:
+            fh.write(json.dumps(t, ensure_ascii=False) + "\n")
+    print(f"Saved {len(saved_tables)} current tables, marks cleaned, each with its unit_id: "
+          f"{out_tables.relative_to(ROOT)}")
+    t5 = next((t for t in saved_tables if t["table_id"].endswith(":table-5")), None)
+    if t5:
+        print(f"--- {t5['table_id']} -> {t5['unit_id']}: {t5['headings']}")
+        for r in t5["rows"][:2]:
+            print(f"    {[c[:50] for c in r]}")
     for loc in SHOW:
         u = next((u for u in saved if u.location == loc), None)
         if u:
             print(f"\n--- {u.location} | {u.heading} | {u.parent} | p.{u.page_start}-{u.page_end} | "
                   f"{u.unit_id} | {u.token_count} tokens")
             print("    " + u.text[:220].replace("\n", "\n    ") + (" ..." if len(u.text) > 220 else ""))
-            print(f"    amended_by {len(u.amended_by)}, history {len(u.history)}"
-                  + (f": {u.history[0][:120]} ..." if u.history else ""))
+            print(f"    amended_by {len(u.amended_by)}:")
+            for a in u.amended_by[:4]:
+                print(f"      - {a[:150]}")
+            print(f"    history {len(u.history)}" + (f": {u.history[0][:120]} ..." if u.history else ""))
     sizes = sorted((u.token_count for u in saved), reverse=True)
     print(f"\nTokens per unit: median {sizes[len(sizes) // 2]}, largest {sizes[:3]}, "
           f"over 512: {sum(s > 512 for s in sizes)} of {len(sizes)}")
