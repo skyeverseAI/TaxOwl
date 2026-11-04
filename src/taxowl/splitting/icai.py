@@ -1,8 +1,14 @@
-"""ICAI's compilation PDF ("GST Act(s) and Rule(s)-Bare Law.pdf") -> Units for its five parts
-(CGST Rules, IGST Act, IGST Rules, UTGST Act, Compensation Act; pages in known_docs.json).
+"""ICAI's compilation PDF ("GST Act(s) and Rule(s)-Bare Law.pdf") -> Units for the parts we take
+from it: the CGST Rules and the IGST Rules (pages in known_docs.json; the Acts come from India
+Code, act.py).
 
-Built one step at a time (to-do-list.md, A4). Step 1, this file so far: separate each page's
-footnotes from its law text.
+Built one step at a time (to-do-list.md, A4):
+  1. footnotes off each page (sections 1-2 below);
+  2. footnotes read, split into what changed and the old text, matched to their marks (3);
+  3. law lines -> one unit per rule, rule 2 per definition, footnotes attached (4), self-check (5).
+Held-out: ICAI's copy of the CGST Act, split by the same code; its sections must match act.py's.
+
+Step 1, footnotes:
 
 Why font size, and not text alone (measured 2026-11-03 on all 11,007 lines of the five parts):
   ICAI prints law text in 9pt and footnotes in 8pt. A text-only rule ("from the first
@@ -20,17 +26,21 @@ The extractor's page text is still what we split (headers, tables and joined lin
 else). The PDF is opened only to read sizes and to find where each page's footnote area starts.
 
 Run:  uv run python -m taxowl.splitting.icai
+Out:  data/units/GST Act(s) and Rule(s)-Bare Law.pdf.jsonl (the Rules' units), plus a summary and
+      a self-check per part, the held-out included.
 """
 
 import json
 import re
 import sys
 from collections import Counter
+from dataclasses import asdict
 
 import pymupdf
 
-from taxowl.splitting import known_parts
-from taxowl.splitting.act import INGESTED, ROOT, clean
+from taxowl.schema import Unit
+from taxowl.splitting import finish, known_parts
+from taxowl.splitting.act import INGESTED, ROOT, clean, nice
 
 DOC_FILE = "GST Act(s) and Rule(s)-Bare Law.pdf"
 SMALLER = 0.5   # a line counts as small if it is at least 0.5pt below the body size
@@ -225,7 +235,9 @@ def note_for(mark: str, page: int, index: dict) -> dict | None:
 
 
 def words(text: str) -> Counter:
-    return Counter(re.findall(r"[A-Za-z]{2,}", text))
+    """Words for the "nothing lost / nothing doubled" checks. Lower case: a chapter's
+    "INPUT TAX CREDIT" lives on in parent as "Input Tax Credit"."""
+    return Counter(re.findall(r"[a-z]{2,}", text.lower()))
 
 
 def footnotes_part(doc: dict, pdf: pymupdf.Document, part: dict) -> dict:
@@ -269,55 +281,279 @@ def footnotes_part(doc: dict, pdf: pymupdf.Document, part: dict) -> dict:
         "prior_to_without_old_text": sum(1 for n in notes if PRIOR.search(n["text"]) and not n["old"]),
     }
     return {"notes": kept, "all_notes": notes, "marks": marks, "missing": missing, "unused": unused,
-            "warnings": warnings, "checks": checks, "law": law, "cleaned": cleaned}
+            "warnings": warnings, "checks": checks, "law": law, "cleaned": cleaned, "index": index}
 
 
-# ---------- 4. Run it and show what happened ----------
+# ---------- 4. Law lines -> units (one per rule or section; rule 2 per definition) ----------
+#
+# What a page's law text looks like (p.221):
+#   "Ch-V : Input Tax Credit"   <- running header, top of every page: dropped
+#   "Rules 36-45"               <- running header: dropped
+#   "CHAPTER V - INPUT TAX CREDIT"                       <- chapter: into `parent`, not text
+#   "Rule 37. Reversal of input tax credit in the ... consideration.-"   <- a unit starts
+# ICAI typos in the starts: "Rule113." (p.318), "Rule131." (p.326), "Rule 88 C." (p.283).
 
-# ICAI's copy of the CGST Act: same style, never looked at while writing this file. We split the
-# India Code copy instead (act.py), so these pages serve only as a held-out test of the rules.
-HELD_OUT = {"name": "CGST Act, ICAI copy (held-out)", "pages": [20, 181]}
+# Running headers, matched only on a page's first 3 lines and only as a whole line.
+HEADER = re.compile(r"^(?:Ch-[IVXL]+[A-Z]?\s*:.*|(?:Rules?|Sec(?:tions?|s)?\.?)\s*\d+[A-Z]*\s*(?:-\s*\d+[A-Z]*)?"
+                    r"|(?:CGST|IGST|UTGST)\s+(?:Rules|Act),?\s*\d{4})$")
+CHAPTER = re.compile(r"^CHAPTER\s+([IVXL]+[A-Z]?)\s*[:\-–—]\s*(.+)$")
+HEAD_END = r"\.?\]?\s*(?:—|––|–|-)(?:\s|$)"  # what ends a heading: ".-", ". -", ".—"
+# Rule 2's definitions: (a) (b) ... (z) (za) (zb) ...
+LETTERS = list("abcdefghijklmnopqrstuvwxyz")
+DEF_ORDER = LETTERS + ["z" + c for c in LETTERS] + ["zz" + c for c in LETTERS]
+LETTER_DEF = re.compile(r"^(?:\d{1,3}\[)?\(([a-z]{1,3})\)\s")
+GAP = 5  # a start may skip at most this many numbers (omitted rules); more is prose, not a start
+
+
+def unit_start(word: str) -> re.Pattern:
+    """'Rule' -> 'Rule 37.', '27[Rule 88 C.', 'Rule113.'. A mark can sit in three places:
+    before the word, with or without its '[' ('15Section 51.', held-out p.84); between the word
+    and the number ('Section 13[168A.', p.172); right after the dot ('Rule 120A.12[Revision', p.322)."""
+    return re.compile(rf"^(?:\d{{1,3}}\[?)?{word}\s*(?:\d{{1,3}}\[)?(\d{{1,3}})\s?([A-Z]{{0,2}})\."
+                      rf"(?:\s|$|(?=\d{{1,3}}\[))")
+
+
+def history_text(n: dict) -> str:
+    """A footnote's old text, with the notes on that old text inside it, as one string."""
+    out = f"{n['said']} {n['old']}".strip()
+    for child in n["notes_on_old"]:
+        out += f" [note {child['mark']}: {history_text(child)}]"
+    return out
+
+
+def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit], dict, list[str]]:
+    """One part -> (units, self-check problems, warnings)."""
+    f = footnotes_part(doc, pdf, part)
+    warnings = list(f["warnings"])
+    start = unit_start(part.get("starts_with", "Rule"))
+    kind = "rule" if part.get("starts_with", "Rule") == "Rule" else "section"
+
+    # Every law line with its page; running headers off the top of each page.
+    lines, headers = [], 0
+    for no, text in f["law"].items():
+        for k, line in enumerate(l.strip() for l in text.split("\n")):
+            if not line:
+                continue
+            if k < 3 and HEADER.match(line):
+                headers += 1
+                continue
+            lines.append((no, line))
+
+    units: list[Unit] = []
+    block: list[tuple[int, str]] = []
+    current = ("other", "preamble", "Title and enacting words", "")  # type, location, heading, parent
+    chapter, last, gaps, rejected = "", (0, ""), [], []
+
+    def close():
+        if block:
+            unit_type, location, heading, parent = current
+            # Rule 2's definitions are lettered. An Act's s.2 is numbered "(1)" ... and has
+            # lettered lists inside its definitions, so letters must not split it.
+            if location == "rule 2" and "efinition" in heading:
+                units.extend(split_letter_definitions(block, location, parent))
+            else:
+                units.append(make_unit(unit_type, location, heading, parent, block))
+
+    pieces_of: list[list[tuple[int, str]]] = []  # each unit's own lines, with pages (for its marks)
+
+    def make_unit(unit_type, location, heading, parent, piece, term=""):
+        pieces_of.append(piece)
+        text = clean("\n".join(l for _, l in piece), OPEN_MARK)
+        text = re.sub(r"^\d{1,3}(?=[A-Z][a-z])", "", text)  # a mark that lost its "[": "15Section 51."
+        return Unit(unit_type, DOC_FILE, location, clean(heading, OPEN_MARK), text,
+                    piece[0][0], piece[-1][0], parent=parent, term=term)
+
+    def split_letter_definitions(piece, location, parent):
+        """Rule 2 -> its opening words, then one unit per (a), (b) ... A "(x)" line starts a
+        definition only if x comes next in the order (one may be skipped, for an omitted one),
+        so a "(i)" list inside a definition can't."""
+        pieces, pos = [("", [])], -1
+        for page, line in piece:
+            m = LETTER_DEF.match(line)
+            if m and m.group(1) in DEF_ORDER[pos + 1:pos + 3]:
+                pos = DEF_ORDER.index(m.group(1), pos + 1)
+                pieces.append((m.group(1), []))
+            pieces[-1][1].append((page, line))
+        out = []
+        for label, ls in pieces:
+            if not label:
+                out.append(make_unit(kind, location, "Definitions", parent, ls))
+                continue
+            text = clean(ls[0][1], OPEN_MARK)
+            term = re.search(r'["“]([^"”]+)["”]', text)
+            term = term.group(1) if term else ""
+            out.append(make_unit("definition", f"{location}({label})",
+                                 f'Definition of "{term}"' if term else "Definitions",
+                                 f"{location} Definitions", ls, term))
+        return out
+
+    for i, (page, line) in enumerate(lines):
+        cl = clean(line, OPEN_MARK)
+        if m := CHAPTER.match(cl):
+            chapter = f"Chapter {m.group(1)} {nice(m.group(2).strip())}"
+            continue
+        if m := start.match(line):
+            key = (int(m.group(1)), m.group(2))
+            if key > last and key[0] <= last[0] + GAP:
+                close()
+                if key[0] > last[0] + 1:
+                    gaps.append(f"{kind} {key[0]}{key[1]} comes after {last[0]}{last[1]}")
+                last = key
+                number = f"{key[0]}{key[1]}"
+                joined = clean(" ".join(l for _, l in lines[i:i + 3]), OPEN_MARK)
+                rest = joined[start.match(joined).end():] if start.match(joined) else ""
+                hm = re.match(rf"(.{{3,250}}?){HEAD_END}", rest) or re.match(r"(.{3,200}?)\.(?:\s|$)", rest)
+                block = []
+                current = (kind, f"{kind} {number}", hm.group(1).strip() if hm else "", chapter)
+            else:
+                rejected.append(f"p.{page}: {line[:50]!r}")
+        block.append((page, line))
+    close()
+
+    # Footnotes: each unit gets those whose marks are in its own lines: what changed into
+    # amended_by, the old wording into history. Footnotes with no mark in any unit's text (their
+    # mark is in a table) go to the unit covering their page, so none is lost.
+    used = set()
+    for u, piece in zip(units, pieces_of):
+        for page, line in piece:
+            for mark in LAW_MARK.findall(line):
+                n = note_for(mark, page, f["index"])
+                if n and id(n) not in used:
+                    used.add(id(n))
+                    u.amended_by.append(n["said"])
+                    if n["old"] or n["notes_on_old"]:
+                        u.history.append(history_text(n))
+    for n in f["notes"]:
+        if id(n) in used:
+            continue
+        owner = next((u for u in reversed(units) if u.page_start <= n["page"]), units[0])
+        owner.amended_by.append(n["said"])
+        if n["old"] or n["notes_on_old"]:
+            owner.history.append(history_text(n))
+        owner.warnings.append(f"footnote '{n['mark']}' (p.{n['page']}) has no mark in the text; "
+                              f"given to this unit as it covers that page")
+        used.add(id(n))
+
+    for u in units:
+        u.table_ids = re.findall(r"\[table ([^\]]+)\]", u.text)
+    if gaps:
+        warnings += [f"gap: {g}" for g in gaps]
+    if rejected:
+        warnings += [f"looks like a start but out of order (kept as text): {r}" for r in rejected]
+
+    problems = self_check_units(units, lines, kind)
+    problems.update({k: v for k, v in f["checks"].items() if v})  # the footnote step's own checks
+    problems.update({"finish": p for p in finish(units, DOC_FILE, part=part["name"])})
+    info = {"headers_dropped": headers, "marks": f["marks"], "marks_missing": f["missing"]}
+    return units, problems, warnings, info
+
+
+# ---------- 5. Self-check ----------
+
+def self_check_units(units: list[Unit], lines: list[tuple[int, str]], kind: str) -> dict[str, str]:
+    """Problems found, as {check: reason}. Empty means every check passed."""
+    problems = {}
+    body = clean("\n".join(l for _, l in lines), OPEN_MARK)
+    left = [u.location for u in units if LAW_MARK.search(u.text) or "*" in u.text]
+    if left:
+        problems["marks_left_in_text"] = f"{len(left)} units, e.g. {left[:5]}"
+    old = [u.location for u in units if PRIOR.search(u.text)]
+    if old:
+        problems["old_text_in_text"] = f"{len(old)} units, e.g. {old[:5]}"
+    headers = [u.location for u in units if any(HEADER.match(l) for l in u.text.split("\n"))]
+    if headers:
+        problems["running_header_in_text"] = f"{len(headers)} units, e.g. {headers[:5]}"
+    # Nothing lost: every word of the law lines is in some unit (text, heading or parent; the
+    # chapter lines live on as parents). Nothing doubled: text only, against the law lines.
+    kept, text_only = Counter(), Counter()
+    for u in units:
+        kept += words(" ".join([u.heading, u.parent, u.text]))
+        text_only += words(u.text)
+    lost = words(body) - kept
+    if lost:
+        problems["words_lost"] = f"{sum(lost.values())} words, e.g. {lost.most_common(8)}"
+    doubled = text_only - words(body)
+    if doubled:
+        problems["words_doubled"] = f"{sum(doubled.values())} words, e.g. {doubled.most_common(8)}"
+    # Every unit starts with its own number: "rule 88C" with "Rule 88 C." or "Rule88C.",
+    # "rule 2(a)" with "(a)". Catches a boundary that slipped by a line.
+    word = kind.capitalize()
+    wrong = []
+    for u in units:
+        if u.unit_type == "definition":
+            ok = u.text.startswith("(" + u.location.rsplit("(", 1)[-1])
+        elif u.unit_type == kind:
+            m = re.match(r"\w+ (\d+)([A-Z]*)$", u.location)
+            ok = bool(m) and re.match(rf"{word}\s*{m.group(1)}\s?{m.group(2)}\.", u.text)
+        else:
+            continue
+        if not ok:
+            wrong.append(f"{u.location}: {u.text[:30]!r}")
+    if wrong:
+        problems["wrong_start"] = f"{len(wrong)} units, e.g. {wrong[:3]}"
+    return problems
+
+
+# ---------- 6. Run it and show what happened ----------
+
+# ICAI's copy of the CGST Act: same style. We split the India Code copy instead (act.py), so
+# these pages serve only as a held-out test: the same code splits them into sections, and the
+# section numbers must match act.py's from the India Code PDF (two sources, one answer).
+HELD_OUT = {"name": "CGST Act, ICAI copy (held-out)", "pages": [20, 181], "starts_with": "Section"}
+SHOW = ["rule 2(a)", "rule 37", "rule 88C", "rule 113", "rule 138"]
 
 
 def main() -> None:
     green, red, reset = ("\033[32m", "\033[31m", "\033[0m") if sys.stdout.isatty() else ("", "", "")
     doc = json.loads((INGESTED / f"{DOC_FILE}.json").read_text())
     pdf = pymupdf.open(ROOT / "docs" / DOC_FILE)
-    all_ok = True
-    results = {}
+    all_ok, saved = True, []
     for part in known_parts(DOC_FILE) + [HELD_OUT]:
-        r = results[part["name"]] = footnotes_part(doc, pdf, part)
-        notes = r["all_notes"]
-        print(f"\n== {part['name']} (p.{part['pages'][0]}-{part['pages'][1]})")
-        print(f"   footnotes {len(notes)} ({sum(1 for n in notes if n['old'])} with old text; "
-              f"{len(notes) - len(r['notes'])} are notes on an old text)")
-        print(f"   law marks {r['marks']}: {r['marks'] - len(r['missing'])} found their footnote, "
-              f"{len(r['missing'])} did not {r['missing'][:6]}")
-        print(f"   footnotes with no mark in the law text {len(r['unused'])} {r['unused'][:6]}  "
-              f"(expected: marks inside tables)")
-        for w in r["warnings"][:5]:
+        units, problems, warnings, info = split_part(doc, pdf, part)
+        held_out = part is HELD_OUT
+        if not held_out:
+            saved += units
+        kinds = Counter(u.unit_type for u in units)
+        print(f"\n== {part['name']} (p.{part['pages'][0]}-{part['pages'][1]}): {len(units)} units ("
+              + ", ".join(f"{k} {n}" for k, n in kinds.most_common()) + ")")
+        print(f"   running header lines dropped {info['headers_dropped']}; law marks {info['marks']}, "
+              f"without a footnote {len(info['marks_missing'])}")
+        for w in warnings[:8]:
             print(f"   {red}warning{reset} {w}")
-        if len(r["warnings"]) > 5:
-            print(f"   ... {len(r['warnings']) - 5} more warnings")
-        bad = {k: v for k, v in r["checks"].items() if v}
-        all_ok &= not bad
-        print(f"   checks: {green}all 0{reset}" if not bad else f"   checks: {red}{bad}{reset}")
+        if len(warnings) > 8:
+            print(f"   ... {len(warnings) - 8} more warnings")
+        if held_out:
+            india_code = {json.loads(l)["location"] for l in (ROOT / "data" / "units" / "GST_act.pdf.jsonl").open()
+                          if json.loads(l)["unit_type"] == "section"}
+            icai = {u.location for u in units if u.unit_type == "section"}
+            print(f"   sections vs India Code (act.py): {len(india_code & icai)} in both; "
+                  f"only India Code {sorted(india_code - icai)[:8]}; only ICAI {sorted(icai - india_code)[:8]}")
+            if india_code != icai:
+                problems["sections_differ_from_india_code"] = f"{len(india_code ^ icai)} differ"
+        all_ok &= not problems
+        print(f"   self-check: {green}all passed{reset}" if not problems else "   self-check:")
+        for check, reason in problems.items():
+            print(f"     {red}{check}{reset}: {reason}")
 
-    # Look at p.220: footnote 8 with its '*' note, and footnote 9 split in two.
-    r = results[known_parts(DOC_FILE)[0]["name"]]
-    for n in r["notes"]:
-        if n["page"] == 220 and n["mark"] in ("8", "9"):
-            print(f"\n-- p.220, footnote {n['mark']}")
-            print(f"   said: {n['said'][:110]}")
-            print(f"   old:  {n['old'][:110]}")
-            for x in n["notes_on_old"]:
-                print(f"   note on the old text: {x['mark']} {x['text'][:100]}")
-    # And p.207: a mark inside a mark, cleaned.
-    line = next(l for l in r["law"][207].split("\n") if "69[" in l)
-    print(f"\n-- p.207 before: {line[:100]}")
-    print(f"   after:  {clean(line, OPEN_MARK)[:100]}")
+    out = ROOT / "data" / "units" / f"{DOC_FILE}.jsonl"
+    with out.open("w") as fh:
+        for u in saved:
+            fh.write(json.dumps(asdict(u), ensure_ascii=False) + "\n")
+    print(f"\nSaved {len(saved)} units (the Rules; not the held-out): {out.relative_to(ROOT)}")
+    for loc in SHOW:
+        u = next((u for u in saved if u.location == loc), None)
+        if u:
+            print(f"\n--- {u.location} | {u.heading} | {u.parent} | p.{u.page_start}-{u.page_end} | "
+                  f"{u.unit_id} | {u.token_count} tokens")
+            print("    " + u.text[:220].replace("\n", "\n    ") + (" ..." if len(u.text) > 220 else ""))
+            print(f"    amended_by {len(u.amended_by)}, history {len(u.history)}"
+                  + (f": {u.history[0][:120]} ..." if u.history else ""))
+    sizes = sorted((u.token_count for u in saved), reverse=True)
+    print(f"\nTokens per unit: median {sizes[len(sizes) // 2]}, largest {sizes[:3]}, "
+          f"over 512: {sum(s > 512 for s in sizes)} of {len(sizes)}")
     print(f"\n{green}all passed{reset}" if all_ok else f"\n{red}some checks failed{reset}")
 
 
 if __name__ == "__main__":
     main()
+
