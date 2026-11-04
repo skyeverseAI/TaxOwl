@@ -132,7 +132,7 @@ Detailed records: `plans/plan_ingestion.md` (sections A–C3), `eval_results/hel
 
 ## 11. Docling + OCR trial (2026-10-30)
 
-- **What:** `eval_results/docling_trial.py`. It throws away the hidden layer, re-reads every page with OCR (Docling + OcrMac, the setup LERAGS used), and lets Docling build the tables.
+- **What:** `archive/experiments/docling_trial.py`. It throws away the hidden layer, re-reads every page with OCR (Docling + OcrMac, the setup LERAGS used), and lets Docling build the tables.
 - **Why:** if the hidden layer is the problem, reading the page fresh should fix it.
 - **Result:**
   - **Petitions: 82.3%**, up from 73.1%. Reading the page again works.

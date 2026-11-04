@@ -12,6 +12,7 @@ Some of these scripts import code that has since been removed (the old `extract(
 | `find_nested.py`, `nested_report.csv` | Found tables nested inside table cells across the corpus |
 | `gate_test.py` | Tested the cheap gate that decides which table pages go to the vision model |
 | `vlm_tables.py`, `vlm_nested.py` | First vision-model table trials, before the grid-only + snap design in `vlm.py` |
+| `docling_trial.py` | Docling + OcrMac / RapidOCR on the petitions and scans (step 12); its RapidOCR settings now live in `src/taxowl/ingestion/ocr.py` |
 | `review_flagged.py`, `flagged_review/` | Checked flagged pages by eye; the verdicts (page images are git-ignored) |
 
 ## notes/

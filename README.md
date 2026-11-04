@@ -22,7 +22,7 @@ src/taxowl/        the product (one package; one subfolder per stage)
   ingestion/       PDF -> ExtractedDoc: pipeline.py runs it; ocr, tables, gate, vlm, extract help
 scripts/           steps run by hand, in order: 01_download.py, 02_check_scans.py
 eval_results/      grading: never changes the output, only scores it
-  check_ingestion.py, draw_heldout.py, docling_trial.py, heldout_runs.md
+  check_ingestion.py, draw_heldout.py, heldout_runs.md
   gold/            the gold set and the held-out sets (pages checked by hand)
   draws/           which pages were drawn for each held-out set, and the reports the draw uses
   pages/           page images for those sets (git-ignored)

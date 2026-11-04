@@ -138,11 +138,6 @@ def find_container(boxes, table_box):
     return None
 
 
-def is_nested(table):
-    """For a PyMuPDF table: does one of its cells hold another table? (Used by archive/experiments/find_nested.py.)"""
-    return find_container([row.cells for row in table.rows], table.bbox) is not None
-
-
 def split_nested(grid, boxes, container):
     """PyMuPDF merges the inner table's lines into the outer grid (133/03/2020: 10 columns
     instead of 3). Undo that. The container row's real cells define the outer columns; rows with

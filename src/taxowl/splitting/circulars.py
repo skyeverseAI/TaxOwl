@@ -165,7 +165,8 @@ def split(doc: dict) -> tuple[list[Unit], list[dict], dict, list[str]]:
 
     tables = link_tables(units, doc)
     problems = self_check(units, lines, tables)
-    problems.update({"finish": p for p in finish(units, f)})
+    if found := finish(units, f):
+        problems["finish"] = "; ".join(found)
     for t in tables:
         t["unit_id"] = t.pop("owner").unit_id
     return units, tables, problems, warnings

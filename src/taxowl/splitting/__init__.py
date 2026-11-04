@@ -1,6 +1,6 @@
 """ExtractedDoc -> list[Unit]: cut each document where the law itself divides it
 (plans/stage2_splitchunk.md, part A; checklist in to-do-list.md). One splitter per document
-family: act.py, rules.py, circulars.py. Every splitter ends with finish(), so the fields that
+family: act.py, icai.py (the ICAI Rules), circulars.py. Every splitter ends with finish(), so the fields that
 are the same for all of them are filled the same way."""
 
 import json

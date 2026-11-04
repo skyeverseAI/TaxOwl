@@ -317,7 +317,7 @@ def marked_words(text: str) -> dict[str, str]:
     """The words inside each mark: '11[or reverse]' -> {'11': 'or reverse'}; '1[****]' ->
     {'1': ''} (words deleted). Brackets paired with a stack, as in clean(), so a mark inside a
     mark works ('69[70[Provided also] that ...]'). The first time a mark appears wins."""
-    found, stack, pos = {}, [], 0
+    found, stack = {}, []
     for m in re.finditer(rf"{OPEN_MARK}|\[|\]", text):
         token = m.group()
         if token == "[":
@@ -329,7 +329,6 @@ def marked_words(text: str) -> dict[str, str]:
                 found.setdefault(mark, words)
         else:
             stack.append((re.match(r"\D*(\d+)", token).group(1), m.end()))
-        pos = m.end()
     return found
 
 
@@ -472,7 +471,8 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
 
     problems = self_check_units(units, lines, kind)
     problems.update({k: v for k, v in f["checks"].items() if v})  # the footnote step's own checks
-    problems.update({"finish": p for p in finish(units, DOC_FILE, part=part["name"])})
+    if found := finish(units, DOC_FILE, part=part["name"]):
+        problems["finish"] = "; ".join(found)
     for t in tables:  # unit_id is known only now, after finish()
         t["unit_id"] = t.pop("owner").unit_id
     left = [t["table_id"] for t in tables
