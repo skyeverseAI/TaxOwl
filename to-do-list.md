@@ -61,12 +61,12 @@ Pending decision: the IGST, UTGST and Compensation Acts now come from India Code
   - known extractor gap, not fixed now: 53 of 561 corpus tables (all Gemini) have made-up headings "Column 1 | Column 2"; 5 are surely a table split across pages (Rules p.260–261). The user is checking them by hand: `eval_results/tables_made_up_headings.md`
 - [x] The original checklist, all covered by steps 1–4: units start `Rule N.` (typos too); one unit per rule, rule 2 per definition with `term`; running headers and chapter titles out, chapter into `parent`; "Prior to …" into `history`; old tables into `history`; forms outside the page range; tables linked by `table_ids` (their row views are made by the chunker, B5); self-check per part, ids unique. The Acts left this file: they come from India Code (act.py)
 
-**A5. circulars.py** (covers instructions and notifications; look at real pages first)
-- [ ] Subject line found once and kept for every unit
-- [ ] Letterhead, addressee, signature, copy-to list → dropped or one "other" unit (never silently)
-- [ ] One unit per numbered paragraph (`2.`, `2.1`, `(i)`); tables as their own units
-- [ ] Scans (OCR) and the 64 flagged files → `quality_ok = False` carried through
-- [ ] Self-check on all 312 files; list the ones that fail
+**A5. circulars.py** (covers instructions and notifications) — DONE 2026-11-04
+- [x] Subject line found once (`Subject:`, `Sub.-`, `Sub–`, up to 4 lines) and kept as every paragraph's `parent`
+- [x] Letterhead + addressees + "Madam/Sir," → one "other" unit; signature → one "other" unit, copy-to list after it → another; one unit per annexure
+- [x] One unit per numbered paragraph (`2.`, `2.1`); the unnumbered first paragraph is "para 1"; `(i)` stays inside its paragraph. Starts chosen as the longest run of numbers in order, so a numbered list of issues at the top (177/09/2022, 164/20/2021) stays inside para 1. Tables linked to the paragraph above them (238 tables), saved in `<file>.tables.jsonl`
+- [ ] Scans (OCR) and the flagged files → `quality_ok = False`: carried through by the chunker (B6), from the ExtractedDoc
+- [x] Self-check on all 312 files: 311 passed (3,659 units). Left on purpose: 175/07/2022 (a stray "05." line on p.3). Warnings: 30 files with a gap in numbering (10 have the missing paragraph inside a table the extractor made from a two-column page; some are CBIC's own typos, e.g. 177/09/2022 prints 15.2 twice), 8 with no numbered paragraph (corrigenda), 3 with no subject line. Not fixed, kept as warnings: numbers glued to text (`2.1Sanction`, `11.Further`) and with no dot (`2 In this regard`), 3–5 files. For the answer step: show the para number only when the file has no warning; otherwise circular + page
 
 **A6. Runner**
 - [ ] `scripts/03_split_chunk.py`: manifest → the right splitter per `doc_type` → `data/units/*.jsonl`; prints counts per `doc_type` and every file with warnings
