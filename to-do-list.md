@@ -59,14 +59,7 @@ Pending decision: the IGST, UTGST and Compensation Acts now come from India Code
   - the three old e-way tables (8pt, p.331/332/334) → rule 138's history, never current
   - clean the marks in table cells (`Up to 4[200 km.]`)
   - known extractor gap, not fixed now: 53 of 561 corpus tables (all Gemini) have made-up headings "Column 1 | Column 2"; 5 are surely a table split across pages (Rules p.260–261). The user is checking them by hand: `eval_results/tables_made_up_headings.md`
-- [ ] Acts and Rules share ICAI's style: units start `Section 25.` / `Rule 56.`; same running headers ("Ch-X : Refund Rules 89-97A") and footnotes
-- [ ] One unit per section / rule; definitions (s.2, rule 2) split with `term`
-- [ ] Running headers and chapter titles out of the text; chapter into `parent`
-- [ ] "Prior to substitution, it read …" → `history`, never in `text`
-- [ ] Old tables (e-way bill copy on p.331–334?) → `history`; check which copy is old first
-- [ ] Forms left out (or titles only)
-- [ ] Tables become units, linked by `table_ids`
-- [ ] Self-check per part: numbers in order, nothing lost, nothing double, no "Prior to substitution" in any `text`, ids unique across all five parts
+- [x] The original checklist, all covered by steps 1–4: units start `Rule N.` (typos too); one unit per rule, rule 2 per definition with `term`; running headers and chapter titles out, chapter into `parent`; "Prior to …" into `history`; old tables into `history`; forms outside the page range; tables linked by `table_ids` (their row views are made by the chunker, B5); self-check per part, ids unique. The Acts left this file: they come from India Code (act.py)
 
 **A5. circulars.py** (covers instructions and notifications; look at real pages first)
 - [ ] Subject line found once and kept for every unit
