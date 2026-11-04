@@ -18,9 +18,11 @@ Each top-level folder has one job: code, steps, grading, docs, input, output.
 
 ```
 src/taxowl/        the product (one package; one subfolder per stage)
-  schema.py        the shapes every stage shares (ExtractedDoc, Table)
+  schema.py        the shapes every stage shares (ExtractedDoc, Table, Unit)
   ingestion/       PDF -> ExtractedDoc: pipeline.py runs it; ocr, tables, gate, vlm, extract help
-scripts/           steps run by hand, in order: 01_download.py, 02_check_scans.py
+  splitting/       ExtractedDoc -> Units (one per section, rule, paragraph): run.py picks the splitter
+                   by doc_type: act.py, icai.py (the ICAI Rules), circulars.py
+scripts/           steps run by hand, in order: 01_download.py, 02_check_scans.py, 03_split_chunk.py
 eval_results/      grading: never changes the output, only scores it
   check_ingestion.py, draw_heldout.py, heldout_runs.md
   gold/            the gold set and the held-out sets (pages checked by hand)
@@ -31,11 +33,12 @@ docs/              input: the law PDFs (git-ignored, we link to the official sou
 archive/           old experiments, kept as evidence for the journey doc; nothing live uses them
 data/              git-ignored, local only
   ingested/        the pipeline's output
+  units/           the splitters' output: <file>.jsonl (+ <file>.tables.jsonl)
   cache/           saved vision-model answers
   runs/            outputs of one-off trials
   private/         private writ petitions: petitions/, gold/, pages/, runs/. Never committed.
 ```
 
-Later stages (splitting, retrieval, answers) get their own subfolders next to `ingestion/`, all sharing `schema.py`.
+Later stages (chunking, retrieval, answers) get their own subfolders next to `ingestion/`, all sharing `schema.py`.
 
 Why it's split this way: `src/` is what the server runs and everything else depends on, so it stays stable and tested. Scripts and evals are tools around it. Private data sits in one place, so "never commit `data/`" covers all of it.

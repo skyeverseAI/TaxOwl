@@ -68,8 +68,8 @@ Pending decision: the IGST, UTGST and Compensation Acts now come from India Code
 - [ ] Scans (OCR) and the flagged files → `quality_ok = False`: carried through by the chunker (B6), from the ExtractedDoc
 - [x] Self-check on all 312 files: 311 passed (3,659 units). Left on purpose: 175/07/2022 (a stray "05." line on p.3). Warnings: 30 files with a gap in numbering (10 have the missing paragraph inside a table the extractor made from a two-column page; some are CBIC's own typos, e.g. 177/09/2022 prints 15.2 twice), 8 with no numbered paragraph (corrigenda), 3 with no subject line. Not fixed, kept as warnings: numbers glued to text (`2.1Sanction`, `11.Further`) and with no dot (`2 In this regard`), 3–5 files. For the answer step: show the para number only when the file has no warning; otherwise circular + page
 
-**A6. Runner**
-- [ ] `scripts/03_split_chunk.py`: manifest → the right splitter per `doc_type` → `data/units/*.jsonl`; prints counts per `doc_type` and every file with warnings
+**A6. Runner** — DONE 2026-11-04
+- [x] `scripts/03_split_chunk.py`: manifest → the right splitter per `doc_type` → `data/units/*.jsonl`; prints counts per `doc_type` and every file with warnings. The choice lives in `src/taxowl/splitting/run.py` (`split_file(file, doc_type)`), so the upload path and the server call the same function. First run: 314 files, 4,224 units, 248 tables; 38 files with warnings, 1 failed (175/07/2022); output identical to the splitters' own runs (diff 0)
 
 **A7. Splitter eval** (component eval, for the quality page)
 - [ ] Act and Rules: the contents lists are free gold for boundaries
