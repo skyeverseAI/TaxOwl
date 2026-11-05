@@ -171,6 +171,21 @@ def split(doc: dict) -> tuple[list[Unit], list[dict], dict, list[str]]:
     return units, tables, problems, warnings
 
 
+def headings_across_pages(tables: list[dict]) -> dict[str, list[str]]:
+    """A table whose header is alone at a page's foot and whose rows start the next page is read as
+    two tables: "table-3" with headings and no rows, "table-4" with rows and made-up "Column 1"
+    headings (254/11/2025). -> {table with the rows: the real headings}. Same width, next number."""
+    by_id = {t["table_id"]: t for t in tables}
+    out = {}
+    for t in tables:
+        m = re.search(r"^(.*table-)(\d+)$", t["table_id"])
+        after = by_id.get(f"{m.group(1)}{int(m.group(2)) + 1}") if m else None
+        if after and not t["rows"] and after["rows"] and len(t["headings"]) == len(after["headings"]) \
+                and any(re.fullmatch(r"Column \d+", str(h)) for h in after["headings"]):
+            out[after["table_id"]] = t["headings"]
+    return out
+
+
 def link_tables(units: list[Unit], doc: dict) -> list[dict]:
     """Each table -> the paragraph that starts above it on its page, else the one running on
     from an earlier page (as in icai.py). Scans have no text layer to measure: page only."""
@@ -178,6 +193,7 @@ def link_tables(units: list[Unit], doc: dict) -> list[dict]:
         return []
     pdf = pymupdf.open(DOCS / doc["file"])
     out = []
+    adopted = headings_across_pages(doc["tables"])
     for t in doc["tables"]:
         if not t["row_pages"]:
             continue
@@ -201,7 +217,7 @@ def link_tables(units: list[Unit], doc: dict) -> list[dict]:
                                          next((u for u in units if u.unit_type == "paragraph"), units[-1]))
         owner.table_ids.append(t["table_id"])
         out.append({"table_id": t["table_id"], "owner": owner, "pages": sorted(set(t["row_pages"])),
-                    "headings": [" ".join(str(h).split()) for h in t["headings"] or []],
+                    "headings": [" ".join(str(h).split()) for h in adopted.get(t["table_id"], t["headings"]) or []],
                     "rows": [[" ".join(str(c).split()) for c in row] for row in t["rows"]]})
     return out
 
