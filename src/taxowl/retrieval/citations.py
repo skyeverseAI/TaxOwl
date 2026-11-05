@@ -12,6 +12,7 @@ Check it: uv run experiments/try_citations.py
 
 import re
 from dataclasses import dataclass
+from itertools import product
 
 MAX_RANGE = 20  # "sections 16 to 18" is listed out; a longer span is more likely a misreading
 
@@ -37,8 +38,11 @@ KEYWORDS = {
     "rule": rf"{NOT_SUB}(?i:rules?|r\.)",
 }
 # "clause (g) of sub-section (5) of": the outer parts, written in front of the section
-LEAD_WORD = r"(?i:(?:sub[- ]?)?clause|sub[- ]?section|sub[- ]?rule)"
-LEAD = rf"{LEAD_WORD}\s*\(?\s*(?:{PART})\s*\)?\s+(?i:of)\s+(?:(?i:the)\s+)?"
+LEAD_WORD = r"(?i:(?:sub[- ]?)?clauses?|sub[- ]?sections?|sub[- ]?rules?)"
+LEAD_ONE = rf"\(?\s*(?:{PART})\s*\)?"
+LEAD_JOIN = r"\s*(?:,|&|(?i:and|or|aur)\b)\s*"
+LEAD_LIST = rf"{LEAD_ONE}(?:{LEAD_JOIN}{LEAD_ONE})*"                 # "(1) and (2)"
+LEAD = rf"{LEAD_WORD}\s*{LEAD_LIST}\s+(?i:of|under)\s+(?:(?i:the)\s+)?"
 REFERENCES = {
     kind: re.compile(
         rf"(?P<lead>(?:{LEAD})+)?{keyword}\s*"
@@ -48,7 +52,8 @@ REFERENCES = {
 }
 ITEM_RE = re.compile(rf"({NUMBER})({PATH})")
 PART_RE = re.compile(rf"\(\s*({PART})\s*\)")
-LEAD_RE = re.compile(rf"{LEAD_WORD}\s*\(?\s*({PART})\s*\)?")
+LEAD_RE = re.compile(rf"{LEAD_WORD}\s*({LEAD_LIST})")
+LEAD_SPLIT = re.compile(LEAD_JOIN)
 RANGE_WORD = re.compile(r"\bto\b|[-–—]")
 ONLY_JOINED = re.compile(r"\s*(?:,|&|and|or|aur)?\s*", re.I)
 
@@ -98,6 +103,12 @@ ONE_NUMBER = re.compile(CIRCULAR_NUMBER)
 def clean_part(part: str) -> str:
     """Numbers in capitals (3A), letters small (g, iii), as the chunk locations write them."""
     return part.upper() if part[0].isdigit() else part.lower()
+
+
+def lead_paths(lead: str) -> list[tuple[str, ...]]:
+    """'clauses (a) and (b) of sub-section (1) of' -> [("1", "a"), ("1", "b")]; no lead -> [()]."""
+    lists = [[clean_part(part.strip("() ")) for part in LEAD_SPLIT.split(found)] for found in LEAD_RE.findall(lead)]
+    return list(product(*reversed(lists)))
 
 
 def read_items(items: str, lead: tuple[str, ...]) -> list[tuple[str, tuple[str, ...]]]:
@@ -185,9 +196,9 @@ def find_law_refs(question: str) -> list[tuple[int, Citation]]:
         law = LAW_NAMES.get((family or "CGST", kind))
         if law is None:
             continue
-        lead = tuple(clean_part(p) for p in reversed(LEAD_RE.findall(match["lead"] or "")))
-        for number, path in read_items(match["items"], lead):
-            found.append((match.start(), Citation(kind, number, path, law, law_assumed=family is None)))
+        for lead in lead_paths(match["lead"] or ""):
+            for number, path in read_items(match["items"], lead):
+                found.append((match.start(), Citation(kind, number, path, law, law_assumed=family is None)))
     return found
 
 

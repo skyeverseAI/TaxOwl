@@ -29,15 +29,24 @@ def main() -> None:
 
     rows = [json.loads(line) for line in gold.read_text().splitlines() if line.strip()]
     failed = 0
+    levels: dict[str, list[int]] = {}  # level -> [passed, total]; older sets have no levels
     for row in rows:
         expected = [to_citation(c) for c in row["expected"]]
         got = read_citations(row["question"])
-        if got != expected:
+        level = row.get("level")
+        score = levels.setdefault(level, [0, 0]) if level else [0, 0]
+        score[1] += 1
+        if got == expected:
+            score[0] += 1
+        else:
             failed += 1
-            print(f"\nFAIL  {row['question']}")
+            print(f"\nFAIL{f' [{level}]' if level else ''}  {row['question']}")
             print(f"  expected: {expected}")
             print(f"  got:      {got}")
-    print(f"\n{len(rows) - failed} of {len(rows)} passed")
+    print()
+    for level, (passed, total) in levels.items():
+        print(f"{level}: {passed} of {total}")
+    print(f"{len(rows) - failed} of {len(rows)} passed")
 
 
 if __name__ == "__main__":
