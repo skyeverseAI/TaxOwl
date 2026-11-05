@@ -217,6 +217,7 @@ def link_tables(units: list[Unit], doc: dict) -> list[dict]:
                                          next((u for u in units if u.unit_type == "paragraph"), units[-1]))
         owner.table_ids.append(t["table_id"])
         out.append({"table_id": t["table_id"], "owner": owner, "pages": sorted(set(t["row_pages"])),
+                    "row_pages": t["row_pages"],
                     "headings": [" ".join(str(h).split()) for h in adopted.get(t["table_id"], t["headings"]) or []],
                     "rows": [[" ".join(str(c).split()) for c in row] for row in t["rows"]]})
     return out

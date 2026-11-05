@@ -2,8 +2,8 @@
 
     chunk_file(row, units, tables) -> (chunks, problems)
 
-chunker.py and tables.py only cut. This file decides what goes in: signatures stay out of search
-(the name is kept as a label), a tiny paragraph joins the next one, every chunk gets a context header
+chunker.py and tables.py only cut. This file decides what goes in: signatures and letterheads stay
+out of search (the signer's name is kept as a label), a tiny paragraph joins a neighbour, every chunk gets a context header
 and its labels. `amended_by` and `history` never enter a chunk; unit_id is the way back to them.
 """
 
@@ -11,6 +11,7 @@ import json
 import re
 from collections import Counter
 from dataclasses import asdict
+from functools import lru_cache
 
 from taxowl.chunking.chunker import MAX_TOKENS, SMALL, cut
 from taxowl.chunking.tables import cut_table
@@ -22,7 +23,9 @@ DOC_TYPE = {"act": "act", "rules": "rules", "circulars": "circular",
             "instructions": "instruction", "notifications": "notification"}
 LOCATION_ROOM = 12  # a piece's citation can be longer than its unit's: "section 110(4)(ii)-(iv)"
 FINISHED_WORDS = 4  # a tiny paragraph with this many words and a full stop is a sentence, not a title
-HEADER_ROOM = 120   # joining backwards keeps this free, so the longest header still fits
+HEADER_ROOM = 80    # joining backwards keeps this free, so the longest header still fits
+TITLE_MAX = 40      # tokens of a document's title or a heading in the context header
+OUT_OF_SEARCH = ("signature", "letterhead")  # no law in them: who signed and to whom, not what it says
 NOT_A_NAME = re.compile(r"^yours\b|@|^(?:tel|email|e-mail|fax|phone|copy)\b", re.I)
 
 
@@ -44,14 +47,26 @@ def header(doc: tuple[str, str, str], unit: Unit, location: str, table: bool = F
     doc_type, number, title = doc
     where = location + (", table" if table else "")
     if doc_type in ("act", "rules"):
-        return f"{title}, {where}" + (f": {unit.heading}" if unit.heading else "")
+        return f"{title}, {where}" + (f": {shorten(unit.heading)}" if unit.heading else "")
     word = doc_type.capitalize()
     if number == title:  # no number of its own: the subject below says which document
         label = word
     else:
         label = number if number.lower().startswith(word.lower()) else f"{word} {number}"
     # The portal's title, not the subject the splitter found: that can run on into the first para.
-    return f"{label} — {title} — {where}"
+    return f"{label} — {shorten(title)} — {where}"
+
+
+@lru_cache(maxsize=None)
+def shorten(text: str) -> str:
+    """A long title would fill every chunk of its document, so a header keeps only its start.
+    The full title stays in the chunk's `title` label."""
+    if count_tokens(text) <= TITLE_MAX:
+        return text
+    words = text.split()
+    while words and count_tokens(" ".join(words)) > TITLE_MAX:
+        words.pop()
+    return " ".join(words) + " ..."
 
 
 def signed_by(units: list[Unit]) -> str:
@@ -70,7 +85,7 @@ def text_groups(units: list[Unit]) -> list[list[Unit]]:
     if the two fit. Sections and rules never join."""
     groups, waiting = [], []
     for u in units:
-        if u.location == "signature":
+        if u.location in OUT_OF_SEARCH:
             continue
         is_para = u.unit_type == "paragraph" and u.location.startswith("para")
         if is_para and u.token_count < SMALL:
@@ -136,7 +151,7 @@ def chunk_file(row: dict, units: list[Unit], tables: list[dict]) -> tuple[list[C
         head = header(d, unit, unit.location, table=True)
         for k, p in enumerate(cut_table(t, count_tokens(head)), 1):
             chunks.append(make(unit, f"{slug(t['table_id'])}:{k}", f"{head}\n{p.text}", "table",
-                               unit.location, min(p.pages), max(p.pages), t["table_id"]))
+                               unit.location, p.page_start, p.page_end, t["table_id"]))
     return chunks, problems
 
 

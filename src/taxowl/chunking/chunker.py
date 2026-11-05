@@ -31,7 +31,7 @@ PARA = re.compile(r"^para (\d{1,2}(?:\.\d{1,2})?)$")
 CITABLE = re.compile(r"^(?:section|rule|para|schedule)\b", re.I)  # not annexures, letterheads ...
 REFERENCE = re.compile(r"\b(?:sub-sections?|sub-rules?|sub-clauses?|clauses?|sections?|rules?|items?|paras?|"
                        r"paragraphs?|of|in|under|to|with|by)\s*$", re.I)
-SENTENCE_END = re.compile(r"(?<=[.;:])\s+(?=[A-Z(])")
+SENTENCE_END = re.compile(r"(?<=[.;:])(?<!\b\d\.)(?<!\b\d\d\.)\s+(?=[A-Z(])")  # not after a list's "3."
 SENTENCE_STOP = re.compile(r"[.;:—–-]\s*$")  # a line that ends like this ends a sentence or an opening
 
 LETTERS = list("abcdefghijklmnopqrstuvwxyz")

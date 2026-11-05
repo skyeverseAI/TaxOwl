@@ -22,7 +22,8 @@ REPEAT_MAX = 120  # a row's cell is repeated in each of its parts only if it's t
 class TablePiece:
     table_id: str
     unit_id: str
-    pages: list[int]
+    page_start: int  # the pages of this piece's own rows, not of the whole table
+    page_end: int
     first_row: int  # counted from 1, among the rows kept
     last_row: int
     text: str
@@ -68,7 +69,8 @@ def split_long_row(row: list[str], head: str, room: int) -> list[list[str]]:
         if i in keep or not cell:
             continue
         for part in by_lines([cell], "", room - used, []):
-            out.append([part.text if j == i else (row[j] if j in keep else "") for j in range(len(row))])
+            text = " ".join(part.text.split())  # a Markdown row must stay on one line
+            out.append([text if j == i else (row[j] if j in keep else "") for j in range(len(row))])
     return out or [row]
 
 
@@ -76,8 +78,12 @@ def cut_table(table: dict, reserve: int = 0) -> list[TablePiece]:
     """One table from data/units/<file>.tables.jsonl -> its pieces, in order. [] if it has no data."""
     room = MAX_TOKENS - reserve
     head = "\n".join(header_lines(table["headings"]))
-    rows = [[clean_cell(c) for c in r] for r in table["rows"]]
-    rows = [r for r in rows if any(r) and not is_column_numbers(r)]
+    cleaned = [[clean_cell(c) for c in r] for r in table["rows"]]
+    row_pages = table.get("row_pages") or [min(table["pages"])] * len(cleaned)
+    kept = [(r, p) for r, p in zip(cleaned, row_pages) if any(r) and not is_column_numbers(r)]
+    rows = [r for r, _ in kept]
+    # row_pages says where a row starts. It can run on to the page where the next row starts.
+    ends = [p for _, p in kept[1:]] + [max(table["pages"])]
 
     pieces: list[TablePiece] = []
     now: list[str] = []
@@ -86,7 +92,8 @@ def cut_table(table: dict, reserve: int = 0) -> list[TablePiece]:
     def close(last: int) -> None:
         if now:
             text = "\n".join(([head] if head else []) + now)
-            pieces.append(TablePiece(table["table_id"], table["unit_id"], table["pages"], first, last, text))
+            pieces.append(TablePiece(table["table_id"], table["unit_id"], kept[first - 1][1], ends[last - 1],
+                                     first, last, text))
 
     for number, row in enumerate(rows, 1):
         line = md_row(row)

@@ -602,7 +602,7 @@ def link_tables(units: list[Unit], doc: dict, pdf: pymupdf.Document, part: dict,
             owner.table_ids.append(t["table_id"])
             owners[name] = owner.location
             tables.append({"table_id": t["table_id"], "owner": owner, "pages": pages,
-                           "headings": heads, "rows": rows})
+                           "row_pages": t["row_pages"], "headings": heads, "rows": rows})
     return tables, owners, warnings
 
 
