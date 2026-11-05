@@ -17,7 +17,8 @@ from taxowl.chunking.chunker import MAX_TOKENS, SMALL, cut
 from taxowl.chunking.tables import cut_table
 from taxowl.config import CHUNKS, INGESTED
 from taxowl.schema import Chunk, Unit
-from taxowl.splitting import count_tokens, known_parts, number_counts, slug
+from taxowl.splitting import known_parts, number_counts, slug
+from taxowl.tokens import count_tokens
 
 DOC_TYPE = {"act": "act", "rules": "rules", "circulars": "circular",
             "instructions": "instruction", "notifications": "notification"}

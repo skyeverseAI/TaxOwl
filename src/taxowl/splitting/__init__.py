@@ -9,12 +9,10 @@ from collections import Counter
 from functools import lru_cache
 from pathlib import Path
 
-from tokenizers import Tokenizer
-
 from taxowl.config import MANIFEST
 from taxowl.schema import Unit
+from taxowl.tokens import count_tokens
 
-EMBEDDER = "BAAI/bge-small-en-v1.5"  # the tokenizer must be the embedder's own, or the counts are wrong
 KNOWN_DOCS = Path(__file__).with_name("known_docs.json")  # facts about one specific file (A3)
 
 
@@ -22,17 +20,6 @@ def known_parts(doc_file: str) -> list[dict]:
     """The parts of a known multi-law PDF, from known_docs.json: name, type, pages [first, last],
     and the word its units start with ("Rule" / "Section"). [] for any other file."""
     return json.loads(KNOWN_DOCS.read_text()).get(doc_file, {}).get("parts", [])
-
-
-@lru_cache(maxsize=1)
-def tokenizer() -> Tokenizer:
-    """Loaded once (from the Hugging Face cache; downloaded the first time on a new machine)."""
-    return Tokenizer.from_pretrained(EMBEDDER)
-
-
-def count_tokens(text: str) -> int:
-    """Tokens as bge-small counts them, without its [CLS]/[SEP] markers. bge reads at most 512."""
-    return len(tokenizer().encode(text, add_special_tokens=False).ids)
 
 
 def manifest_row(doc_file: str) -> dict:

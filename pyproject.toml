@@ -11,13 +11,18 @@ requires-python = ">=3.14"
 # The same OCR scored 84% or 74% depending only on docling-core / docling-ibm-models versions
 # (2026-11-02), so those two are pinned here too, not just in uv.lock.
 dependencies = [
+    "chromadb==1.5.9",  # the store (src/taxowl/retrieval/store.py)
     "docling==2.99.0",  # scan pages: Docling + RapidOCR (src/taxowl/ingestion/ocr.py)
     "docling-core==2.105.0",
     "docling-ibm-models==3.15.0",
+    "langchain-chroma==1.1.0",  # the store (src/taxowl/retrieval/store.py)
+    "langchain-core==1.7.6",
+    "langchain-huggingface==1.2.3",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
     "onnxruntime==1.31.0",
     "pymupdf==2.0",
     "rapidocr==3.10.0",
-    "tokenizers==0.22.2",  # bge-small's token counts in the splitter and chunker (src/taxowl/splitting/__init__.py)
+    "sentence-transformers==6.2.0",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
+    "tokenizers==0.22.2",  # bge-small's token counts in the splitter and chunker (src/taxowl/tokens.py)
 ]
 
 [project.scripts]

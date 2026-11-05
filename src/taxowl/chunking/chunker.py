@@ -14,7 +14,7 @@ by sentence or line keep the citation of what they came from.
 import re
 from dataclasses import dataclass, field
 
-from taxowl.splitting import count_tokens
+from taxowl.tokens import count_tokens
 
 MAX_TOKENS = 400  # a whole chunk, heading included. bge reads 510; below that it's a choice, to test later
 OVERLAP = 80      # at most this much of the piece before is repeated, only in units that are cut

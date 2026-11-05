@@ -11,7 +11,7 @@ import re
 from dataclasses import dataclass
 
 from taxowl.chunking.chunker import MAX_TOKENS, by_lines
-from taxowl.splitting import count_tokens
+from taxowl.tokens import count_tokens
 
 MADE_UP = re.compile(r"^Column \d+$")  # Gemini's name for a column with no heading in the PDF
 COLUMN_NUMBER = re.compile(r"^\(?(\d{1,2})[A-Z]?\)?\.?$")
