@@ -1,0 +1,40 @@
+{"question": "What does section 16(4) of the CGST Act say about the time limit for claiming ITC?", "expected": [{"kind": "section", "number": "16", "path": ["4"], "law": "CGST Act", "law_assumed": false}]}
+{"question": "s. 16(4) ka ITC claim deadline abhi kya hai?", "expected": [{"kind": "section", "number": "16", "path": ["4"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Can I claim credit under sec 16 if the invoice is old?", "expected": [{"kind": "section", "number": "16", "path": [], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Does Section 17 (5) block ITC on a car bought for directors?", "expected": [{"kind": "section", "number": "17", "path": ["5"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Explain clause (g) of sub-section (5) of section 17 of the CGST Act.", "expected": [{"kind": "section", "number": "17", "path": ["5", "g"], "law": "CGST Act", "law_assumed": false}]}
+{"question": "Under section 34(2), by when should I issue a credit note?", "expected": [{"kind": "section", "number": "34", "path": ["2"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "GST Act section 54(3) mein inverted duty refund kab milta hai?", "expected": [{"kind": "section", "number": "54", "path": ["3"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Does section 50(1) charge interest on delayed tax payment?", "expected": [{"kind": "section", "number": "50", "path": ["1"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "What is covered by section 9(5) of the Act?", "expected": [{"kind": "section", "number": "9", "path": ["5"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Can the officer cancel my registration under section 29(2)(e)?", "expected": [{"kind": "section", "number": "29", "path": ["2", "e"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "Rule 36(4) kya kehta hai invoice matching ke baare mein?", "expected": [{"kind": "rule", "number": "36", "path": ["4"], "law": "CGST Rules", "law_assumed": true}]}
+{"question": "What details must be on an invoice under rule 46 of CGST Rules, 2017?", "expected": [{"kind": "rule", "number": "46", "path": [], "law": "CGST Rules", "law_assumed": false}]}
+{"question": "Is an e-way bill needed under rule 138(7) when the transporter has not generated it?", "expected": [{"kind": "rule", "number": "138", "path": ["7"], "law": "CGST Rules", "law_assumed": true}]}
+{"question": "What does sub-rule (3A) of rule 3 say in the IGST Rules?", "expected": [{"kind": "rule", "number": "3", "path": ["3A"], "law": "IGST Rules", "law_assumed": false}]}
+{"question": "Rule 110A of CGST Rules mein appeal restore karne ka provision kya hai?", "expected": [{"kind": "rule", "number": "110A", "path": [], "law": "CGST Rules", "law_assumed": false}]}
+{"question": "Under rule 89(1), can a supplier or recipient file a deemed-export refund claim?", "expected": [{"kind": "rule", "number": "89", "path": ["1"], "law": "CGST Rules", "law_assumed": true}]}
+{"question": "What does rule 96A(1) require before export without payment of tax?", "expected": [{"kind": "rule", "number": "96A", "path": ["1"], "law": "CGST Rules", "law_assumed": true}]}
+{"question": "Does section 13(8)(b) of the IGST Act apply to intermediary services?", "expected": [{"kind": "section", "number": "13", "path": ["8", "b"], "law": "IGST Act", "law_assumed": false}]}
+{"question": "Integrated GST Act section 16(3) mein zero-rated supply par refund kaise claim hota hai?", "expected": [{"kind": "section", "number": "16", "path": ["3"], "law": "IGST Act", "law_assumed": false}]}
+{"question": "Which provision of the IGST Act applies CGST provisions to inter-State supplies?", "expected": []}
+{"question": "Does section 7(1) of the UTGST Act define intra-State supply?", "expected": [{"kind": "section", "number": "7", "path": ["1"], "law": "UTGST Act", "law_assumed": false}]}
+{"question": "Under the Union Territory GST Act, what does section 21 say about applying CGST provisions?", "expected": [{"kind": "section", "number": "21", "path": [], "law": "UTGST Act", "law_assumed": false}]}
+{"question": "What is the settlement mechanism under section 10(1) of the Compensation Act?", "expected": [{"kind": "section", "number": "10", "path": ["1"], "law": "Compensation Act", "law_assumed": false}]}
+{"question": "Compensation to States Act section 8(1) ke under cess kaise lagta hai?", "expected": [{"kind": "section", "number": "8", "path": ["1"], "law": "Compensation Act", "law_assumed": false}]}
+{"question": "How does sub-section (4) of section 16 interact with section 39 of the CGST Act?", "expected": [{"kind": "section", "number": "16", "path": ["4"], "law": "CGST Act", "law_assumed": false}, {"kind": "section", "number": "39", "path": [], "law": "CGST Act", "law_assumed": false}]}
+{"question": "Can I claim ITC under section 16(1) if blocked by section 17(5) of the CGST Act?", "expected": [{"kind": "section", "number": "16", "path": ["1"], "law": "CGST Act", "law_assumed": false}, {"kind": "section", "number": "17", "path": ["5"], "law": "CGST Act", "law_assumed": false}]}
+{"question": "Compare section 12(2) of the IGST Act with section 12(3)(a) of that Act.", "expected": [{"kind": "section", "number": "12", "path": ["2"], "law": "IGST Act", "law_assumed": false}, {"kind": "section", "number": "12", "path": ["3", "a"], "law": "IGST Act", "law_assumed": false}]}
+{"question": "Does rule 36(4) of CGST Rules override section 16(2) of the CGST Act?", "expected": [{"kind": "rule", "number": "36", "path": ["4"], "law": "CGST Rules", "law_assumed": false}, {"kind": "section", "number": "16", "path": ["2"], "law": "CGST Act", "law_assumed": false}]}
+{"question": "In section 2(47), how is exempt supply defined, and what does section 2(52) say about goods?", "expected": [{"kind": "section", "number": "2", "path": ["47"], "law": "CGST Act", "law_assumed": true}, {"kind": "section", "number": "2", "path": ["52"], "law": "CGST Act", "law_assumed": true}]}
+{"question": "What does Circular No. 183/15/2022-GST clarify about ITC differences?", "expected": [{"kind": "circular", "number": "183/15/2022", "path": [], "law": null, "law_assumed": false}]}
+{"question": "Is circular 147/03/2021 about refund claims by deemed-export recipients?", "expected": [{"kind": "circular", "number": "147/03/2021", "path": [], "law": null, "law_assumed": false}]}
+{"question": "Does 162/18/2021-GST clarify tax paid under the wrong head?", "expected": [{"kind": "circular", "number": "162/18/2021", "path": [], "law": null, "law_assumed": false}]}
+{"question": "I paid GST twice on the same invoice—how can I get the extra amount back?", "expected": []}
+{"question": "What is the GST rate on restaurant food for takeaway orders?", "expected": []}
+{"question": "Which High Court judgment says that my detention was unlawful?", "expected": []}
+{"question": "Under section 80C of the Income-tax Act, can I deduct my insurance premium?", "expected": []}
+{"question": "Is customs duty payable under section 12 of the Customs Act on imported machinery?", "expected": []}
+{"question": "My company issued shares on 12/10/2024; what Companies Act filing is due within 30 days?", "expected": []}
+{"question": "What is the interest on a delayed GST payment?", "expected": []}
+{"question": "sub-section (4) mein filing deadline kya hai?", "expected": []}
