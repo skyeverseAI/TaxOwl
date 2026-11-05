@@ -308,6 +308,9 @@ LETTERS = list("abcdefghijklmnopqrstuvwxyz")
 DEF_ORDER = LETTERS + ["z" + c for c in LETTERS] + ["zz" + c for c in LETTERS]
 LETTER_DEF = re.compile(r"^(?:\d{1,3}\[)?\(([a-z]{1,3})\)\s")
 GAP = 5  # a start may skip at most this many numbers (omitted rules); more is prose, not a start
+# The word "Rule" left out by the printer: "19[110A. Procedure ... single Member Bench. –" (p.316).
+# Only a whole line that ends like a heading, and its number must still come next.
+BARE_START = re.compile(rf"^(?:\d{{1,3}}\[)?(\d{{1,3}})\s?([A-Z]{{0,2}})\.\s+(?=[A-Z].{{3,160}}(?:—|––|–|-)\s*$)")
 
 
 def unit_start(word: str) -> re.Pattern:
@@ -433,7 +436,7 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
             current = ("schedule", name, name, "")
             block.append((page, line))
             continue
-        if m := start.match(line):
+        if m := start.match(line) or BARE_START.match(line):
             key = (int(m.group(1)), m.group(2))
             if key > last and key[0] <= last[0] + GAP:
                 close()
@@ -449,7 +452,7 @@ def split_part(doc: dict, pdf: pymupdf.Document, part: dict) -> tuple[list[Unit]
                         break
                     own.append(after)
                 joined = clean(" ".join(own), OPEN_MARK)
-                rest = joined[start.match(joined).end():] if start.match(joined) else ""
+                rest = joined[start.match(joined).end():] if start.match(joined) else clean(line[m.end():], OPEN_MARK)
                 hm = re.match(rf"(.{{3,250}}?){HEAD_END}", rest) or re.match(r"(.{3,200}?)\.(?:\s|$)", rest)
                 block = []
                 current = (kind, f"{kind} {number}", hm.group(1).strip() if hm else "", chapter)
@@ -639,7 +642,7 @@ def self_check_units(units: list[Unit], lines: list[tuple[int, str]], kind: str)
             ok = u.text.startswith("(" + u.location.rsplit("(", 1)[-1])
         elif u.unit_type == kind:
             m = re.match(r"\w+ (\d+)([A-Z]*)$", u.location)
-            ok = bool(m) and re.match(rf"{word}\s*{m.group(1)}\s?{m.group(2)}\.", u.text)
+            ok = bool(m) and re.match(rf"(?:{word}\s*)?{m.group(1)}\s?{m.group(2)}\.", u.text)  # the word can be missing (BARE_START)
         else:
             continue
         if not ok:

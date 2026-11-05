@@ -5,6 +5,7 @@ are the same for all of them are filled the same way."""
 
 import json
 import re
+from collections import Counter
 from functools import lru_cache
 from pathlib import Path
 
@@ -42,6 +43,12 @@ def manifest_row(doc_file: str) -> dict:
     raise KeyError(f"{doc_file} is not in {MANIFEST.name}")
 
 
+@lru_cache(maxsize=1)
+def number_counts() -> Counter:
+    """How many files in the manifest carry each document number."""
+    return Counter(row["number"] for row in map(json.loads, MANIFEST.open()))
+
+
 def slug(text: str) -> str:
     """'Act 12 of 2017' -> 'act-12-of-2017'; 'section 2(52)' -> 'section-2-52'."""
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
@@ -54,7 +61,9 @@ def finish(units: list[Unit], doc_file: str, part: str = "") -> list[str]:
     2017"), so its ids differ from another part's ("igst-rules-2017:rule-2"). Otherwise the
     manifest's number names the document ("act-12-of-2017:section-16")."""
     row = manifest_row(doc_file)
-    doc_key = slug(part or row["number"])
+    # A blank or shared number ("Corrigendum" on 11 files) can't name a document: the path can.
+    shared = not row["number"] or number_counts()[row["number"]] > 1
+    doc_key = slug(part or (str(Path(doc_file).with_suffix("")) if shared else row["number"]))
     for u in units:
         u.unit_id = f"{doc_key}:{slug(u.location)}"
         u.source_sha256 = row["sha256"]
