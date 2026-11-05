@@ -32,6 +32,7 @@ CITABLE = re.compile(r"^(?:section|rule|para|schedule)\b", re.I)  # not annexure
 REFERENCE = re.compile(r"\b(?:sub-sections?|sub-rules?|sub-clauses?|clauses?|sections?|rules?|items?|paras?|"
                        r"paragraphs?|of|in|under|to|with|by)\s*$", re.I)
 SENTENCE_END = re.compile(r"(?<=[.;:])\s+(?=[A-Z(])")
+SENTENCE_STOP = re.compile(r"[.;:—–-]\s*$")  # a line that ends like this ends a sentence or an opening
 
 LETTERS = list("abcdefghijklmnopqrstuvwxyz")
 LETTER_ORDER = LETTERS + ["z" + c for c in LETTERS]
@@ -189,7 +190,8 @@ def cut_lines(lines: list[str], location: str, room: int, lead: list[str], level
 
 
 def add_overlap(pieces: list[Piece], room: int) -> None:
-    """Repeat the last whole lines of the piece before, up to OVERLAP, and only where there's space."""
+    """Repeat the end of the piece before, up to OVERLAP, only where there's space, and always from
+    a sentence's start: a repeated half-sentence reads like part of this piece's own law."""
     for before, piece in zip(pieces, pieces[1:]):
         space = min(OVERLAP, room - count_tokens(piece.text))
         tail: list[str] = []
@@ -197,6 +199,9 @@ def add_overlap(pieces: list[Piece], room: int) -> None:
             if tokens([line] + tail) > space:
                 break
             tail.insert(0, line)
+        if tail and len(tail) < len(before.lines) and not SENTENCE_STOP.search(before.lines[-len(tail) - 1]):
+            parts = SENTENCE_END.split("\n".join(tail), maxsplit=1)  # the first line starts mid-sentence
+            tail = [parts[1]] if len(parts) > 1 else []
         piece.repeated = piece.repeated + tail
 
 

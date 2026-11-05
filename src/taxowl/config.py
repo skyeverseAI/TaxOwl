@@ -16,4 +16,5 @@ OCR_DIR = DOCS / "ocr"                   # saved OCR text, tracked in git so it 
 # What each stage produces
 INGESTED = ROOT / "data" / "ingested"    # extractor: <file>.json per PDF
 UNITS = ROOT / "data" / "units"          # splitter: <file>.jsonl, one Unit per line
+CHUNKS = ROOT / "data" / "chunks.jsonl"  # chunker: one Chunk per line, what gets embedded
 VLM_CACHE = ROOT / "data" / "cache" / "vlm"  # saved Gemini table answers, so they aren't paid for twice

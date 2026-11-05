@@ -14,7 +14,7 @@ from typing import Literal
 
 # Fixed choices, so a typo like "circulr" is caught.
 DocType = Literal["act", "rules", "circular", "instruction", "notification"]
-ChunkKind = Literal["text", "table", "table_row"]
+ChunkKind = Literal["text", "table"]
 Status = Literal["in_force", "withdrawn", "partly_modified"]
 # What kind of piece a Unit is. The splitter sets it from whatever it cut on.
 UnitType = Literal["section", "definition", "schedule", "rule", "paragraph", "table", "other"]
@@ -96,10 +96,13 @@ class Chunk:
 
     # Links and trust
     tax_area: str = "gst"    # room for other tax areas later (plans/fde_plan.md); costs nothing now
-    table_id: str = ""       # for table rows: the way back to the whole Table ("search small, read big")
+    table_id: str = ""       # for a table's piece: the way back to the whole Table ("search small, read big")
+    unit_id: str = ""        # the way back to the Unit: its whole text, amended_by and history
+    signed_by: str = ""      # who signed the document, from its signature (which isn't searched)
     ocr: bool = False        # text came from OCR, so it's slightly less trustworthy
     quality_ok: bool = True  # False if the self-check flagged the document this chunk came from
     source_sha256: str = ""
+    token_count: int = 0     # bge-small tokens in `text`, header included
 
     def metadata(self) -> dict[str, str | int | bool]:
         """Every field except id and text, for Chroma, which only stores plain values
