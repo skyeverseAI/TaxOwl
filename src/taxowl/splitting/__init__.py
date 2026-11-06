@@ -22,6 +22,11 @@ def known_parts(doc_file: str) -> list[dict]:
     return json.loads(KNOWN_DOCS.read_text()).get(doc_file, {}).get("parts", [])
 
 
+def known_number(doc_file: str) -> str | None:
+    """A document number corrected by hand in known_docs.json, or None for any other file."""
+    return json.loads(KNOWN_DOCS.read_text()).get(doc_file, {}).get("number")
+
+
 def manifest_row(doc_file: str) -> dict:
     """This document's row in docs/manifest.jsonl (number, sha256, official_url, ...)."""
     for row in map(json.loads, MANIFEST.open()):

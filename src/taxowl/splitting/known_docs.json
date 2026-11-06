@@ -1,5 +1,16 @@
 {
   "_about": "Facts true of one specific file, kept out of the splitters' code (to-do-list.md, A3). The ICAI compilation holds several laws in one PDF. Each part gets its own name, so its units get their own ids (CGST and IGST Rules both have a rule 2). Pages are the PDF's own, 1-based, inclusive; Rules checked by the user in Preview 2026-11-03, Acts by their title pages 2026-11-04. The CGST Act comes from India Code (act.py). The IGST, UTGST and Compensation Acts come from here for now (decided 2026-11-04, so v1 needn't wait for the India Code downloads; ICAI is unofficial but as of 31-03-2026); swap them for India Code copies later if wanted. Pages left out: 1-19 front matter and index, 20-181 the CGST Act (used only as icai.py's held-out test), 182-183 ICAI's notes, 436-440 the Constitution (101st Amendment) Act, 2016 (not in v1's scope), 441-442 blank and ICAI's address.",
+  "circulars/2020/133-03-2020-GST.pdf": {
+    "number": "133/03/2020-GST",
+    "why": "The PDF and the portal print '133 03/2020-GST', with a space for the first slash."
+  },
+  "circulars/2017/18-1-8-2017-GST.pdf": {
+    "number": "18/18/2017-GST",
+    "why": "The portal writes '18/1 8 /2017-GST'; the user read '18/18 /2017-GST' in the PDF on 2026-11-06."
+  },
+  "circulars/2019/130-2019-GST.pdf": {
+    "why": "Number left as the portal has it, 130/2019-GST. The user checked the PDF on 2026-11-06: it prints only F. No. 354/189/2019-TRU and no date, so a full circular number would be invented."
+  },
   "GST Act(s) and Rule(s)-Bare Law.pdf": {
     "parts": [
       {"name": "CGST Rules, 2017", "type": "rules", "pages": [184, 363], "starts_with": "Rule"},

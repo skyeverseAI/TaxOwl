@@ -17,7 +17,7 @@ from taxowl.chunking.chunker import MAX_TOKENS, SMALL, cut
 from taxowl.chunking.tables import cut_table
 from taxowl.config import CHUNKS, INGESTED
 from taxowl.schema import Chunk, Unit
-from taxowl.splitting import known_parts, number_counts, slug
+from taxowl.splitting import known_number, known_parts, number_counts, slug
 from taxowl.tokens import count_tokens
 
 DOC_TYPE = {"act": "act", "rules": "rules", "circulars": "circular",
@@ -30,6 +30,16 @@ OUT_OF_SEARCH = ("signature", "letterhead")  # no law in them: who signed and to
 NOT_A_NAME = re.compile(r"^yours\b|@|^(?:tel|email|e-mail|fax|phone|copy)\b", re.I)
 
 
+def clean_number(number: str, doc_type: str) -> str:
+    """The portal's document number, tidied: '80/54 /2018-GST', '147/03//2021-GST', '239/33/2024--GST'.
+    A circular with no tag gets -GST, which all of those PDFs print: '165/21/2021'."""
+    number = re.sub(r"\s*([/-])\s*", r"\1", number)
+    number = re.sub(r"([/-])\1+", r"\1", number)
+    if doc_type == "circulars" and re.fullmatch(r"\d+/\d+/\d{4}", number):
+        number += "-GST"
+    return number
+
+
 def document_of(row: dict, unit: Unit) -> tuple[str, str, str]:
     """-> (doc_type, number, title). A compilation's unit belongs to its part: "IGST Act, 2017"."""
     for part in known_parts(row["file"]):
@@ -38,7 +48,7 @@ def document_of(row: dict, unit: Unit) -> tuple[str, str, str]:
     title = re.sub(r"\s*\(as amended\)\s*$", "", row["title"])
     # A blank or shared number ("Corrigendum" on 11 files) can't be cited: the title says which one.
     shared = not row["number"] or number_counts()[row["number"]] > 1
-    number = re.sub(r"\s*([/-])\s*", r"\1", row["number"])  # the portal writes "80/54 /2018-GST"
+    number = known_number(row["file"]) or clean_number(row["number"], row["doc_type"])
     return DOC_TYPE[row["doc_type"]], title if shared else number, title
 
 
