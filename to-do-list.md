@@ -104,6 +104,8 @@ Decided 2026-11-04 (user): the IGST, UTGST and Compensation Acts come from ICAI 
 
 ## G. Generator (answer step) + UI — built 2026-11-07
 
+Next (user, 2026-11-07): component evals, starting with the retriever, in a new chat. Validity status comes after (it was planned before evals; moved by the user's call). Note for the evalset: withdrawn-circular traps need the validity list, so write those questions after it
+
 Plan: `plans/stage7_generator.md`. Same shape as `evals_project` (generator + pipeline), differences explained in each file.
 
 - [x] **G1. `answer/generator.py`:** gpt-4o-mini (OpenRouter) and qwen2.5 7B (Ollama), temperature 0; faithfulness-first prompt, `[S#]` markers, one refusal sentence, Markdown, reply in the question's language; `generate()` and `generate_stream()`; cost from OpenRouter's own reply
@@ -111,9 +113,10 @@ Plan: `plans/stage7_generator.md`. Same shape as `evals_project` (generator + pi
 - [x] **G3. `answer/check.py`:** made_up_source, cites_or_refuses, no_new_citation (citation reader + lookup), mixed_refusal, says_assumed
 - [x] **G4. `app.py` (Streamlit):** one question, both models streamed one after the other, time / cost / checks, sources with links. `uv run streamlit run app.py`
 - [x] **G5. Trial** (`experiments/try_answer.py`): 10 try_search questions, both models, 0/10 failed checks after two fixes ("assumed" said everywhere; a guess followed by the refusal). Codex's 25 questions (`eval_results/gold/answer_trial_questions.jsonl`, sources and quotes checked against the chunks), cloud: easy 5/5, medium 5/5, source found 18/22, refusal right 20/25, ~3 s and ~₹0.04 per answer
-- [ ] **G6. Over-refusal:** hard-01 (54(3): the answer is "no"), hard-05, blunder-04 (should correct the premise) refused though the source was there. Prompt: "no" and a correction are answers; refuse only when the sources don't touch the topic
-- [ ] **G7. hard-03 no_new_citation FAIL** ("section 73" with only the circular cited): likely a false alarm in the check, look at the circular's text
+- [x] **G6. Over-refusal:** prompt now says "no" and a correction are answers; refuse only when no source deals with the topic. Codex set: refusal right 20/25 → 23/25 (hard-01, hard-05 fixed; blunder-04 still refuses instead of correcting). Old 10: Q3, Q4 still refuse. Cost of the change: Q10 (court ruling) now answers from rule 115 instead of refusing, and super_hard-01 answers from rule 60(7) though 16(2)/36(4) were not retrieved. Proposed, not added: a scope line "court judgments and the outcome of one case are not in the documents: refuse". Per-question prompt tuning stops here; the judge and evalset decide the rest
+- [x] **G7. hard-03 no_new_citation FAIL:** the circular cited never says "section 73"; the answer only repeated the question. check() now takes the question and skips citations the question itself names
 - [ ] For the judge at eval time (rules can't catch these): an added line not in any source (Q1 "ensuring registered persons are aware"); local answers that miss items (Q8: 3 of 4 rates); local over-refusal (Q6)
+- [ ] Reranker (cross-encoder, as in evals_project): the retriever always returns 5 chunks, relevant or not, so today only the model decides "none of these fit". A reranker score may separate them where bge distance can't (0.220 vs 0.248). Measure at eval time
 - [ ] Small: instruction labels with no number are cut mid-word ("…under Rule 86A of t"); both models side by side in the UI (threads)
 
 ## C. Upload pipeline, up to chunking (after v1)

@@ -117,7 +117,7 @@ def answer(question: str, which: str = "cloud") -> dict:
     reply = generate(question, as_text(sources), which, assumed(sources))
 
     # 4. CHECK: no made-up source, no citation that isn't in a cited source
-    checks = check(reply["text"], sources)
+    checks = check(reply["text"], sources, question)
 
     return {
         "question": question,

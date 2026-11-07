@@ -45,6 +45,7 @@ Rules:
 - If the sources do not answer the question, reply with exactly this sentence and nothing else:
 "{refusal}"
 Either answer the question, or give only that sentence. Never both: never add it after an answer, and never guess an answer before it.
+"No" is an answer: if the sources show something is not allowed, say so with the source. Correcting the question is an answer too: if its premise is wrong (a wrong date, rate, or a document about a different topic), say what the sources actually say. Use the refusal sentence only when no source deals with the question's topic.
 
 - {assumption}
 

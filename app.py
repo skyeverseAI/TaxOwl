@@ -53,7 +53,7 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
                f"{stats.get('input_tokens', 0)} in / {stats.get('output_tokens', 0)} out tokens · "
                f"₹{stats.get('cost_inr', 0):.4f}")
 
-    failed = [c for c in check(stats.get("text", ""), sources) if not c["passed"]]
+    failed = [c for c in check(stats.get("text", ""), sources, question) if not c["passed"]]
     if failed:
         for c in failed:
             st.warning(f"Check failed, **{c['name']}**: {c['why']}")

@@ -1,12 +1,13 @@
 """Checks on an answer, by plain rules (no second model call).
 
-    check(answer_text, sources) -> [{"name": ..., "passed": True/False, "why": ...}, ...]
+    check(answer_text, sources, question) -> [{"name": ..., "passed": True/False, "why": ...}, ...]
 
   made_up_source   every [S#] in the answer is in the source list
   cites_or_refuses an answer with no [S#] must be the refusal sentence
   no_new_citation  every section, rule or circular the answer names is in a cited source:
                    the "never invent a legal citation" rule, checked with the same reader and
-                   lookup the retriever uses
+                   lookup the retriever uses. A citation the question itself names is skipped:
+                   repeating the user's words isn't inventing one (hard-03, 2026-11-07)
   mixed_refusal    the refusal sentence never comes after an answer
   says_assumed     if a law was assumed, the answer says which; if none was, it doesn't claim one
 
@@ -45,7 +46,7 @@ def supported(citation, cited_sources: list[dict]) -> bool:
     return any(mention.search(s["text"]) for s in cited_sources)
 
 
-def check(text: str, sources: list[dict]) -> list[dict]:
+def check(text: str, sources: list[dict], question: str = "") -> list[dict]:
     """`sources` is pipeline.py's list: {"number", "label", "url", "chunk_id", "law_assumed", "text"}.
     `law_assumed` is the assumed law's name ("CGST Rules") or ""."""
     numbers = {s["number"] for s in sources}
@@ -61,7 +62,9 @@ def check(text: str, sources: list[dict]) -> list[dict]:
                          "" if cited or refused else "no [S#] marker and not the refusal sentence"))
 
     cited_sources = [s for s in sources if s["number"] in cited]
-    missing = [c for c in read_citations(text) if not supported(c, cited_sources)]
+    asked = {(c.kind, c.number) for c in read_citations(question)}
+    missing = [c for c in read_citations(text)
+               if (c.kind, c.number) not in asked and not supported(c, cited_sources)]
     checks.append(result("no_new_citation", not missing,
                          "not in a cited source: " + "; ".join(describe(c) for c in missing) if missing else ""))
 
