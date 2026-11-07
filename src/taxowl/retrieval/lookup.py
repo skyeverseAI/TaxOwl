@@ -5,9 +5,9 @@
     section 17(5)     -> section 17(5), 17(5)(b)-(c) and the rest under it
     section 16(2)(a)  -> section 16(2), as (a) has no label of its own but is in that chunk's text
     IGST rule 3(3A)   -> nothing: better no exact hit than some other rule's text
+    circular 6/6/2017 -> 06/06/2017-CGST, then any corrigendum to it
 
-Chroma's filters only match whole values, so reading a range is our own code.
-Circular numbers come next; for now a circular citation finds nothing.
+Chroma's filters only match whole values, so reading a range or a number is our own code.
 
 Check it: uv run experiments/try_lookup.py
 """
@@ -36,6 +36,8 @@ PART = re.compile(r"\(([^()]+)\)")
 DIGIT_PART = re.compile(r"(\d+)([A-Za-z]*)")
 ROMAN_PART = re.compile(r"[ivxlc]+")
 ROMAN = {"i": 1, "v": 5, "x": 10, "l": 50, "c": 100}
+DOC_NUMBER = re.compile(r"\d+(?:/\d+)+")  # the first in "Corrigendum to Circular No. 76/50/2018-GST"
+DIGITS = re.compile(r"(\d+)")
 
 
 @dataclass(frozen=True)
@@ -125,10 +127,46 @@ def load_index() -> dict[tuple[str, str, str], list[Entry]]:
     return index
 
 
+def number_parts(text: str) -> tuple[int, ...]:
+    """'06/06/2017-CGST' and '6/6/2017' -> (6, 6, 2017); no number -> ()."""
+    match = DOC_NUMBER.search(text)
+    return tuple(int(part) for part in match.group().split("/")) if match else ()
+
+
+def reading_order(document: Document) -> tuple:
+    """By page, then by id with its numbers read as numbers, so para-2 comes before para-10."""
+    pieces = DIGITS.split(document.id)
+    return document.metadata["page_start"], [int(p) if p.isdigit() else p for p in pieces]
+
+
+@lru_cache(maxsize=1)
+def load_circulars() -> dict[tuple[int, ...], list[Document]]:
+    """Every circular chunk by its number's parts, in reading order. A corrigendum sits under the
+    number of the circular it corrects. Read once."""
+    data = get_store().get(where={"doc_type": "circular"})
+    documents = [Document(page_content=text, metadata=metadata, id=chunk_id) for chunk_id, text, metadata
+                 in zip(data["ids"], data["documents"], data["metadatas"])]
+    index: dict[tuple[int, ...], list[Document]] = {}
+    for document in sorted(documents, key=reading_order):
+        parts = number_parts(document.metadata["doc_number"])
+        if parts:
+            index.setdefault(parts, []).append(document)
+    return index
+
+
+def lookup_circular(citation: Citation, limit: int | None) -> list[Document]:
+    """The circular up to `limit`, then its corrigenda whole: a long circular mustn't cut its correction."""
+    documents = load_circulars().get(number_parts(citation.number), [])
+    is_correction = lambda d: "corrigendum" in d.metadata["doc_number"].lower()
+    original = [d for d in documents if not is_correction(d)]
+    corrections = [d for d in documents if is_correction(d)]
+    return original[:limit] + corrections
+
+
 def lookup(citation: Citation, limit: int | None = MAX_CHUNKS) -> list[Document]:
     """The chunks holding this citation, in order, up to `limit`. None found -> an empty list."""
     if citation.kind == "circular":
-        return []
+        return lookup_circular(citation, limit)
     entries = load_index().get((LAW_DOCS.get(citation.law), citation.kind, citation.number), [])
     path = citation.path
     hits = [e.document for e in entries if holds(e.label, path)]

@@ -1,14 +1,17 @@
 """Check the lookup two ways.
 
 1. Every section and rule chunk must be found by its own label, and by the far end of a range.
+   Every circular must be found from its own number, read from a sentence by the citation reader.
 2. The cases from the design, printed with what we want, so they can be read by eye.
 
 Usage:
     uv run experiments/try_lookup.py
 """
 
-from taxowl.retrieval.citations import Citation
-from taxowl.retrieval.lookup import LAW_DOCS, MAX_CHUNKS, load_index, lookup
+from collections import Counter
+
+from taxowl.retrieval.citations import Citation, read_citations
+from taxowl.retrieval.lookup import LAW_DOCS, MAX_CHUNKS, get_store, load_index, lookup
 
 MAX_SHOWN = 20  # failures printed by the first check
 
@@ -48,6 +51,29 @@ def check_every_chunk() -> None:
     print(f"Found by own label: {tried - failed} of {tried}\n")
 
 
+def check_every_circular() -> None:
+    """Each document in the store, asked for by its printed number: its chunks must come back."""
+    numbers = {m["doc_number"] for m in get_store().get(where={"doc_type": "circular"}, include=["metadatas"])["metadatas"]}
+    missed = []
+    for number in sorted(numbers):
+        found = [d for c in read_citations(f"What does Circular {number} say?") for d in lookup(c, limit=None)]
+        if number not in {d.metadata["doc_number"] for d in found}:
+            missed.append(number)
+    print(f"Circulars found by their own number: {len(numbers) - len(missed)} of {len(numbers)}")
+    for number in missed:
+        print(f"  NOT FOUND  {number}")
+    print()
+
+
+def show_circulars() -> None:
+    """Different ways of writing a number; each line shows which documents came back."""
+    for question in ["Circular 6/6/2017", "Circular 147/3/2021", "Circular No. 76/50/2018-GST", "Circular 130/2019",
+                     "138/08/2020-GST", "dated 12/10/2024", "Instruction 03/2022-GST", "Circular 999/1/2024"]:
+        found = [d for c in read_citations(question) for d in lookup(c)]
+        print(f"{question}: {dict(Counter(d.metadata['doc_number'][:50] for d in found))}")
+    print()
+
+
 def show_cases() -> None:
     """The design's cases: OK when the labels are exactly the ones we want."""
     for law, kind, number, path, wanted in CASES:
@@ -63,6 +89,8 @@ def show_cases() -> None:
 
 def main() -> None:
     check_every_chunk()
+    check_every_circular()
+    show_circulars()
     show_cases()
 
 

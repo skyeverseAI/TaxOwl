@@ -92,12 +92,14 @@ LAW_NAMES = {
 # ---- how a circular number is written
 
 CIRCULAR_NUMBER = r"\d{1,3}\s*/\s*\d{1,3}\s*/\s*\d{4}(?![\d/])"
+# Two parts only after the word "circular" (130/2019-GST): alone, 03/2022-GST is an instruction's number.
+ANY_NUMBER = r"\d{1,3}\s*/\s*(?:\d{1,3}\s*/\s*)?\d{4}(?![\d/])"
 AFTER_WORD = re.compile(
     rf"(?<![A-Za-z])(?i:circulars?)(?:\s+(?i:nos?\.?|number))?\s*[:#.-]?\s*"
-    rf"(?P<numbers>{CIRCULAR_NUMBER}(?:\s*(?:,|&|and|aur)\s*{CIRCULAR_NUMBER})*)"
+    rf"(?P<numbers>{ANY_NUMBER}(?:\s*(?:,|&|and|aur)\s*{ANY_NUMBER})*)"
 )
 WITH_TAG = re.compile(rf"(?<![\d/])(?P<numbers>{CIRCULAR_NUMBER})\s*-+\s*(?i:[ci]?gst)\b")
-ONE_NUMBER = re.compile(CIRCULAR_NUMBER)
+ONE_NUMBER = re.compile(ANY_NUMBER)
 
 
 def clean_part(part: str) -> str:
