@@ -18,10 +18,13 @@ dependencies = [
     "langchain-chroma==1.1.0",  # the store (src/taxowl/retrieval/store.py)
     "langchain-core==1.7.6",
     "langchain-huggingface==1.2.3",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
+    "langchain-ollama==1.1.0",  # local answer model (src/taxowl/answer/generator.py)
+    "langchain-openrouter==0.2.9",  # cloud answer model (src/taxowl/answer/generator.py)
     "onnxruntime==1.31.0",
     "pymupdf==2.0",
     "rapidocr==3.10.0",
     "sentence-transformers==6.2.0",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
+    "streamlit==1.66.0",  # the UI (app.py); same version as evals_project
     "tokenizers==0.22.2",  # bge-small's token counts in the splitter and chunker (src/taxowl/tokens.py)
 ]
 
