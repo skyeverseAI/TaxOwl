@@ -1,14 +1,14 @@
-"""Quick check by eye: search the store with a few questions and print the top chunks.
+"""Quick check by eye: ask the retriever a few questions and print every chunk it returns.
 
 Not the eval: these questions were drafted with ChatGPT, so they never join the test split.
+Each line shows how the chunk was found: "exact" (the question named it) or "meaning" (with its
+distance, lower is closer).
 
 Usage:
     uv run experiments/try_search.py
 """
 
-from taxowl.retrieval.store import get_store
-
-TOP = 3
+from taxowl.retrieval.retriever import make_retriever
 
 # (question, the source we expect; "none" means the answer isn't in our documents)
 QUESTIONS = [
@@ -35,14 +35,22 @@ QUESTIONS = [
 ]
 
 
+def show(document) -> str:
+    """One line per chunk: how it was found, then where it comes from."""
+    m = document.metadata
+    if m["found_by"] == "exact":
+        how = f"exact    [{m['citation']}{', law assumed' if m['law_assumed'] else ''}]"
+    else:
+        how = f"meaning  {m['distance']:.3f}"
+    return f"{how}  {m['doc_number']}, {m['location']}, p.{m['page_start']}-{m['page_end']} ({m['kind']})"
+
+
 def main() -> None:
-    store = get_store()
+    retriever = make_retriever()
     for number, (question, expected) in enumerate(QUESTIONS, 1):
         print(f"\n{number}. {question}\n   expected: {expected}")
-        # Lower distance = closer in meaning. Out-of-scope questions still get results.
-        for doc, distance in store.similarity_search_with_score(question, k=TOP):
-            m = doc.metadata
-            print(f"   {distance:.3f}  {m['doc_number']}, {m['location']}, p.{m['page_start']}-{m['page_end']} ({m['kind']})")
+        for document in retriever.invoke(question):
+            print(f"   {show(document)}")
 
 
 if __name__ == "__main__":
