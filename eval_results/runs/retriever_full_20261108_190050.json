@@ -1,0 +1,392 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "collection": "corpus-bge-small",
+    "chunks_in_store": 4717,
+    "ef_search": 500,
+    "meaning_chunks": 5,
+    "exact_chunks": 20,
+    "per_citation": 10,
+    "gold_file": "eval_results/gold/retriever_dev.jsonl",
+    "gold_sha256": "93d4afe1628d6adb06eb809e9b844a2af227428e14fa3b3e44d4ff33fb7f6f70",
+    "only_ids": [
+      "cgst-rules-2017:rule-147:8",
+      "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+      "cgst-rules-2017:rule-147:9",
+      "cgst-rules-2017:rule-147:2",
+      "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+    ],
+    "judge_model": null,
+    "eval_mode": "system_one",
+    "jev_model": "typesafe/jev-1.14",
+    "git_commit": "e67d5de",
+    "time": "2026-11-08 19:00:50"
+  },
+  "summary": {
+    "exact": {
+      "n": 2,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.75,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Precision": 0.752,
+      "Contextual Recall": 0.917
+    },
+    "ALL": {
+      "n": 8,
+      "hit@5": 0.75,
+      "hit@all": 0.75,
+      "recall@5": 0.542,
+      "mrr": 0.604,
+      "section_hit@5": 0.75,
+      "section_mrr": 0.688,
+      "Contextual Precision": 0.643,
+      "Contextual Recall": 0.653
+    },
+    "hinglish": {
+      "n": 2,
+      "hit@5": 0.5,
+      "hit@all": 0.5,
+      "recall@5": 0.5,
+      "mrr": 0.5,
+      "section_hit@5": 0.5,
+      "section_mrr": 0.5,
+      "Contextual Precision": 0.61,
+      "Contextual Recall": 0.564
+    },
+    "multi": {
+      "n": 1,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Precision": 0.748,
+      "Contextual Recall": 0.521
+    },
+    "scenario": {
+      "n": 3,
+      "hit@5": 0.667,
+      "hit@all": 0.667,
+      "recall@5": 0.444,
+      "mrr": 0.278,
+      "section_hit@5": 0.667,
+      "section_mrr": 0.5,
+      "Contextual Precision": 0.557,
+      "Contextual Recall": 0.581
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "gold": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-2",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-4-5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-3",
+        "231-25-2024-gst:para-5-1"
+      ],
+      "returned": 15,
+      "seconds": 0.707,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.8808333333333334,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.60.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> likely holds (P(yes)=0.80, confidence=0.60, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.95, confidence=0.90)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"All of it\" (expected level=0.97 of 1.00, confidence=0.93)\nScore: 0.88 (weighted mean of 3 applicable questions).",
+          "cost": 9.105600000000002e-05
+        },
+        "Contextual Precision": {
+          "score": 0.7958333333333334,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.53.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely holds (P(yes)=0.79, confidence=0.58, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> clearly holds (P(yes)=0.95, confidence=0.90)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mostly first\" (expected level=0.65 of 1.00, confidence=0.53)\nScore: 0.80 (weighted mean of 3 applicable questions).",
+          "cost": 9.105600000000002e-05
+        }
+      }
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "gold": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "top": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-1:1",
+        "160-16-2021-gst-table-2:1",
+        "160-16-2021-gst-table-3:1",
+        "160-16-2021-gst-table-2:2",
+        "160-16-2021-gst:para-3",
+        "160-16-2021-gst-table-3:3",
+        "circulars-2021-corrigendum:para-1",
+        "160-16-2021-gst-table-3:4",
+        "91-10-2019-gst:para-2"
+      ],
+      "returned": 14,
+      "seconds": 0.236,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.9541666666666667,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.84.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> clearly holds (P(yes)=0.92, confidence=0.84, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.98, confidence=0.96)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"All of it\" (expected level=1.00 of 1.00, confidence=0.99)\nScore: 0.95 (weighted mean of 3 applicable questions).",
+          "cost": 9.552900000000001e-05
+        },
+        "Contextual Precision": {
+          "score": 0.7075,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.36.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely holds (P(yes)=0.68, confidence=0.36, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> clearly holds (P(yes)=0.97, confidence=0.94)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mixed with irrelevant ones\" (expected level=0.50 of 1.00, confidence=0.50)\nScore: 0.71 (weighted mean of 3 applicable questions).",
+          "cost": 9.552900000000001e-05
+        }
+      }
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "gold": [
+        "act-12-of-2017:section-50"
+      ],
+      "top": [
+        "7-7-2017-gst:para-12",
+        "136-06-2020-gst-table-3:1",
+        "136-06-2020-gst-table-3:3",
+        "26-26-2017-gst:para-2-1",
+        "141-11-2020-gst-table-1:1"
+      ],
+      "returned": 5,
+      "seconds": 0.009,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.1991666666666667,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.32.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> clearly fails (P(yes)=0.05, confidence=0.90, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> likely fails (P(yes)=0.34, confidence=0.32)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"Less than half\" (expected level=0.36 of 1.00, confidence=0.68)\nScore: 0.20 (weighted mean of 3 applicable questions).",
+          "cost": 4.0950000000000006e-05
+        },
+        "Contextual Precision": {
+          "score": 0.39083333333333337,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.14.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely fails (P(yes)=0.28, confidence=0.44, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> unclear (P(yes)=0.57, confidence=0.14)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mixed with irrelevant ones\" (expected level=0.43 of 1.00, confidence=0.59)\nScore: 0.39 (weighted mean of 3 applicable questions).",
+          "cost": 4.0950000000000006e-05
+        }
+      }
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "gold": [
+        "act-12-of-2017:section-9:1"
+      ],
+      "top": [
+        "act-12-of-2017:section-9:1",
+        "35-9-2018-gst:para-3:1",
+        "igst-act-2017:section-2:4",
+        "90-09-2019-gst:para-6",
+        "igst-act-2017:section-2:13"
+      ],
+      "returned": 5,
+      "seconds": 0.009,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.9291666666666667,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.78.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> clearly holds (P(yes)=0.89, confidence=0.78, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.96, confidence=0.92)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"All of it\" (expected level=0.98 of 1.00, confidence=0.95)\nScore: 0.93 (weighted mean of 3 applicable questions).",
+          "cost": 4.032000000000001e-05
+        },
+        "Contextual Precision": {
+          "score": 0.8291666666666666,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.42.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> clearly holds (P(yes)=0.87, confidence=0.74, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> clearly holds (P(yes)=0.98, confidence=0.96)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mostly first\", leaning \"Useful documents are mixed with irrelevant ones\" (expected level=0.60 of 1.00, confidence=0.42)\nScore: 0.83 (weighted mean of 3 applicable questions).",
+          "cost": 4.032000000000001e-05
+        }
+      }
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "gold": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "act-12-of-2017:section-16:6"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-5"
+      ],
+      "returned": 5,
+      "seconds": 0.008,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.5208333333333334,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.50.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> likely fails (P(yes)=0.25, confidence=0.50, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.85, confidence=0.70)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"Most of it\" (expected level=0.73 of 1.00, confidence=0.63)\nScore: 0.52 (weighted mean of 3 applicable questions).",
+          "cost": 4.3953000000000004e-05
+        },
+        "Contextual Precision": {
+          "score": 0.7475,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.47.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely holds (P(yes)=0.79, confidence=0.58, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> clearly holds (P(yes)=0.93, confidence=0.86)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mixed with irrelevant ones\" (expected level=0.48 of 1.00, confidence=0.47)\nScore: 0.75 (weighted mean of 3 applicable questions).",
+          "cost": 4.3953000000000004e-05
+        }
+      }
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "gold": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "241-35-2024-gst:para-3-5"
+      ],
+      "top": [
+        "241-35-2024-gst:para-1-2",
+        "241-35-2024-gst:para-3-3",
+        "41-15-2018-gst:annexure-1:2",
+        "61-35-2018-gst:para-1",
+        "195-07-2023-gst:para-1"
+      ],
+      "returned": 5,
+      "seconds": 0.008,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.3333333333333333,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.65,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.10.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> unclear (P(yes)=0.45, confidence=0.10, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.96, confidence=0.92)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"Most of it\" (expected level=0.74 of 1.00, confidence=0.74)\nScore: 0.65 (weighted mean of 3 applicable questions).",
+          "cost": 4.5780000000000006e-05
+        },
+        "Contextual Precision": {
+          "score": 0.8258333333333333,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.53.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely holds (P(yes)=0.84, confidence=0.68, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> clearly holds (P(yes)=0.96, confidence=0.92)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mostly first\" (expected level=0.66 of 1.00, confidence=0.53)\nScore: 0.83 (weighted mean of 3 applicable questions).",
+          "cost": 4.5780000000000006e-05
+        }
+      }
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "gold": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "top": [
+        "igst-rules-2017:rule-4:4",
+        "igst-rules-2017:rule-7:3",
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-3:15",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "returned": 5,
+      "seconds": 0.008,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 3,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.8641666666666667,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.60.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> likely holds (P(yes)=0.80, confidence=0.60, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> clearly holds (P(yes)=0.91, confidence=0.82)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"All of it\" (expected level=0.95 of 1.00, confidence=0.85)\nScore: 0.86 (weighted mean of 3 applicable questions).",
+          "cost": 5.3907000000000004e-05
+        },
+        "Contextual Precision": {
+          "score": 0.5866666666666667,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.18.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> unclear (P(yes)=0.59, confidence=0.18, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> likely holds (P(yes)=0.73, confidence=0.46)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mixed with irrelevant ones\" (expected level=0.44 of 1.00, confidence=0.65)\nScore: 0.59 (weighted mean of 3 applicable questions).",
+          "cost": 5.3907000000000004e-05
+        }
+      }
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "gold": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-147:8",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+        "cgst-rules-2017:rule-147:9",
+        "cgst-rules-2017:rule-147:2",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "returned": 5,
+      "seconds": 0.007,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.22833333333333333,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.08.\n1. Every sentence in `expected_output` can be attributed to the facts in `retrieval_context`. -> clearly fails (P(yes)=0.11, confidence=0.78, weight=2)\n2. `retrieval_context` contains the key facts needed to write `expected_output`. -> unclear (P(yes)=0.46, confidence=0.08)\n3. How much of `expected_output` can be attributed to the facts in `retrieval_context`? -> \"None of it\", leaning \"Less than half\" (expected level=0.23 of 1.00, confidence=0.28)\nScore: 0.23 (weighted mean of 3 applicable questions).",
+          "cost": 3.2781000000000003e-05
+        },
+        "Contextual Precision": {
+          "score": 0.2583333333333333,
+          "reason": "Decided by typesafe/jev-1.14 (TypeSafe AI), minimum confidence 0.46.\n1. In `retrieval_context`, every document useful for arriving at `expected_output` for `input` is listed before every document that is not useful. -> likely fails (P(yes)=0.27, confidence=0.46, weight=2)\n2. The first document in `retrieval_context` is useful for arriving at `expected_output` for `input`. -> likely fails (P(yes)=0.18, confidence=0.64)\n3. How well are the documents in `retrieval_context` ordered, with the ones useful for arriving at `expected_output` for `input` first? -> \"Useful documents are mixed with irrelevant ones\" (expected level=0.31 of 1.00, confidence=0.70)\nScore: 0.26 (weighted mean of 3 applicable questions).",
+          "cost": 3.2781000000000003e-05
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,1280 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "collection": "corpus-bge-small",
+    "chunks_in_store": 4717,
+    "ef_search": 500,
+    "meaning_chunks": 5,
+    "exact_chunks": 20,
+    "per_citation": 10,
+    "gold_file": "eval_results/gold/retriever_dev.jsonl",
+    "gold_sha256": "93d4afe1628d6adb06eb809e9b844a2af227428e14fa3b3e44d4ff33fb7f6f70",
+    "only_ids": [
+      "cgst-rules-2017:rule-138:13",
+      "cgst-rules-2017:rule-138f:4",
+      "cgst-rules-2017:rule-138f:3",
+      "cgst-rules-2017:rule-138:16",
+      "cgst-rules-2017:rule-138:14"
+    ],
+    "judge_model": "openai/gpt-4.1-mini",
+    "eval_mode": "hybrid",
+    "jev_model": "typesafe/jev-1.14",
+    "git_commit": "e67d5de",
+    "time": "2026-11-08 19:08:52"
+  },
+  "summary": {
+    "exact": {
+      "n": 9,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.944,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Recall": 1.0,
+      "Contextual Precision": 0.92
+    },
+    "ALL": {
+      "n": 32,
+      "hit@5": 0.844,
+      "hit@all": 0.844,
+      "recall@5": 0.745,
+      "mrr": 0.685,
+      "section_hit@5": 0.844,
+      "section_mrr": 0.753,
+      "Contextual Recall": 0.891,
+      "Contextual Precision": 0.877
+    },
+    "hinglish": {
+      "n": 6,
+      "hit@5": 0.333,
+      "hit@all": 0.333,
+      "recall@5": 0.333,
+      "mrr": 0.208,
+      "section_hit@5": 0.333,
+      "section_mrr": 0.208,
+      "Contextual Recall": 0.597,
+      "Contextual Precision": 0.84
+    },
+    "multi": {
+      "n": 4,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.625,
+      "mrr": 0.875,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Recall": 0.854,
+      "Contextual Precision": 0.973
+    },
+    "scenario": {
+      "n": 13,
+      "hit@5": 0.923,
+      "hit@all": 0.923,
+      "recall@5": 0.833,
+      "mrr": 0.628,
+      "section_hit@5": 0.923,
+      "section_mrr": 0.756,
+      "Contextual Recall": 0.962,
+      "Contextual Precision": 0.834
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-003",
+      "category": "exact",
+      "question": "By when must a supplier report a credit note under section 34(2), and in which cases is the output tax not reduced?",
+      "gold": [
+        "act-12-of-2017:section-34:2"
+      ],
+      "top": [
+        "act-12-of-2017:section-34:2",
+        "act-12-of-2017:section-34:3",
+        "act-12-of-2017:section-34:1",
+        "cgst-rules-2017:rule-53:2",
+        "92-11-2019-gst:para-2:5",
+        "act-12-of-2017:section-16:2"
+      ],
+      "returned": 6,
+      "seconds": 0.406,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, with high confidence scores ranging from 0.95 to 0.98, and there are no unsupported statements. This indicates a complete and accurate alignment with the source information.",
+          "cost": 0.00039108200000000006
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all relevant nodes in the retrieval contexts are ranked higher than the irrelevant nodes. Specifically, the first and second nodes, which are relevant with high confidence scores of 0.93 and 0.83 respectively, appear before any irrelevant nodes. The irrelevant nodes, with much lower confidence scores such as 0.28, 0.24, 0.14, and 0.13, are correctly placed after the relevant ones, ensuring perfect contextual precision.",
+          "cost": 0.0005572
+        }
+      }
+    },
+    {
+      "id": "claude-004",
+      "category": "exact",
+      "question": "As per Circular 192/04/2023-GST, when does interest under section 50(3) arise if IGST credit was wrongly availed and later reversed?",
+      "gold": [
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst:para-2:2"
+      ],
+      "top": [
+        "192-04-2023-gst:para-2:2",
+        "192-04-2023-gst:para-1",
+        "192-04-2023-gst-table-1:1",
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst:para-4",
+        "192-04-2023-gst-table-2:1",
+        "act-12-of-2017:section-50",
+        "94-13-2019-gst-table-1:4",
+        "193-05-2023-gst:para-4:5",
+        "193-05-2023-gst:para-4:6"
+      ],
+      "returned": 12,
+      "seconds": 0.358,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence levels (P(yes) values of 0.97 and above), and there are no unsupported statements, indicating complete alignment and accurate recall.",
+          "cost": 0.000488452
+        },
+        "Contextual Precision": {
+          "score": 0.8766233766233767,
+          "reason": "The score is 0.88 because most relevant nodes in the retrieval contexts are ranked near the top, such as the first node with a high relevance probability of 0.95 and other relevant nodes ranked within the first four positions. However, the score is not higher because some irrelevant nodes, like the fifth node with a relevance probability of 0.08 and the sixth node with 0.44, appear relatively early in the ranking, slightly lowering the precision. Overall, the ranking effectively prioritizes relevant information but is slightly impacted by a few early irrelevant nodes.",
+          "cost": 0.0008337500000000001
+        }
+      }
+    },
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "gold": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-2",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-4-5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-3",
+        "231-25-2024-gst:para-5-1"
+      ],
+      "returned": 15,
+      "seconds": 0.318,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, with high confidence scores (0.85 to 0.96). There are no unsupported statements, indicating complete alignment and accurate attribution to the source material.",
+          "cost": 0.00046829200000000004
+        },
+        "Contextual Precision": {
+          "score": 0.9888888888888889,
+          "reason": "The score is 0.99 because the nodes in retrieval contexts that are relevant have high probabilities (e.g., 0.94, 0.88, 0.96) and are ranked at the top positions (ranks 1 to 8), ensuring relevant information is prioritized. However, the score is not perfect because a few irrelevant nodes with low probabilities (e.g., 0.18 at rank 9) appear before some relevant nodes with slightly lower probabilities (e.g., 0.59 at rank 10), causing a minor dip in precision.",
+          "cost": 0.00086991
+        }
+      }
+    },
+    {
+      "id": "claude-007",
+      "category": "exact",
+      "question": "What amount must be deposited before filing a first appeal under section 107(6) of the CGST Act?",
+      "gold": [
+        "act-12-of-2017:section-107:5"
+      ],
+      "top": [
+        "act-12-of-2017:section-107:5",
+        "238-32-2024-gst:para-3-4:1",
+        "132-2-2020-gst:para-4",
+        "224-18-2024-gst:para-4",
+        "238-32-2024-gst:para-3-1:6",
+        "224-18-2024-gst:para-3:1"
+      ],
+      "returned": 6,
+      "seconds": 0.011,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence scores (0.97 to 0.98) for each sentence, and there are no unsupported sentences. This complete alignment justifies the perfect recall score.",
+          "cost": 0.000402998
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the nodes in retrieval contexts that are relevant have been ranked higher (first and second nodes) than the irrelevant nodes, which appear only from the third node onward. This clear separation ensures perfect contextual precision.",
+          "cost": 0.0005058700000000001
+        }
+      }
+    },
+    {
+      "id": "claude-008",
+      "category": "exact",
+      "question": "Under Circular 204/16/2023-GST, is a director's personal guarantee to a bank for the company's loan taxable, and at what value?",
+      "gold": [
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst-table-2:1"
+      ],
+      "top": [
+        "204-16-2023-gst-table-2:1",
+        "204-16-2023-gst-table-1:2",
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst:para-2:3",
+        "204-16-2023-gst:para-1",
+        "204-16-2023-gst:para-2:1",
+        "204-16-2023-gst-table-2:2",
+        "204-16-2023-gst:para-2:2",
+        "204-16-2023-gst:para-4",
+        "225-19-2024-gst-table-1:7"
+      ],
+      "returned": 14,
+      "seconds": 0.254,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, with high confidence scores (around 0.95 to 0.97). There are no unsupported sentences, indicating complete alignment and accurate attribution of information.",
+          "cost": 0.00050626
+        },
+        "Contextual Precision": {
+          "score": 0.9379251700680271,
+          "reason": "The score is 0.94 because most relevant nodes are ranked near the top, such as the first node with a high relevance probability of 0.97 and other relevant nodes appearing before less relevant ones. However, the score is not higher because some irrelevant nodes, like the fifth node with a relevance probability of 0.39, are ranked above several relevant nodes with lower probabilities, slightly lowering the precision.",
+          "cost": 0.000858158
+        }
+      }
+    },
+    {
+      "id": "codex-003",
+      "category": "exact",
+      "question": "For a transaction wrongly treated as intra-State and later held to be inter-State, what does CGST rule 89(1A) say about the refund deadline?",
+      "gold": [
+        "cgst-rules-2017:rule-89:3"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-89:3",
+        "cgst-rules-2017:rule-89:4",
+        "162-18-2021-gst:para-4-1:2",
+        "cgst-rules-2017:rule-89:1",
+        "cgst-rules-2017:rule-89:8",
+        "cgst-rules-2017:rule-89:7"
+      ],
+      "returned": 6,
+      "seconds": 0.009,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant nodes in the retrieval context, with high confidence scores (0.95, 0.97, 0.97), and there are no unsupported statements, indicating complete alignment and accurate recall.",
+          "cost": 0.00036735
+        },
+        "Contextual Precision": {
+          "score": 0.8333333333333333,
+          "reason": "The score is 0.83 because the first node in retrieval contexts is highly relevant with a strong confidence of 'P(yes)=0.96', appropriately ranked at the top. However, the second node, which is irrelevant with a low confidence of 'P(yes)=0.22', is ranked too high (second position), lowering the score. Subsequent relevant nodes appear after some irrelevant ones, indicating some mixing in ranking. Overall, relevant nodes are generally prioritized but not perfectly, resulting in a good but not perfect contextual precision.",
+          "cost": 0.000585966
+        }
+      }
+    },
+    {
+      "id": "codex-004",
+      "category": "exact",
+      "question": "What place of supply does section 12(8) of the IGST Act set for goods transport to an unregistered customer?",
+      "gold": [
+        "igst-act-2017:section-12:7"
+      ],
+      "top": [
+        "igst-act-2017:section-12:7",
+        "igst-act-2017:section-12:8",
+        "184-16-2022-gst:para-1",
+        "igst-act-2017:section-12:1",
+        "242-36-2024-gst:para-4-1",
+        "igst-act-2017:section-12:2"
+      ],
+      "returned": 6,
+      "seconds": 0.008,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because both sentences in the expected output are fully supported by the relevant nodes in the retrieval context, with high confidence scores of 0.96 and 0.95, and there are no unsupported elements.",
+          "cost": 0.000312438
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts that are relevant have higher probabilities (e.g., 0.94, 0.93, 0.52) and are ranked above the irrelevant nodes, which have lower probabilities (e.g., 0.40, 0.34, 0.31). This clear separation ensures that irrelevant nodes are correctly ranked lower, resulting in perfect contextual precision.",
+          "cost": 0.000510968
+        }
+      }
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "gold": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "top": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-1:1",
+        "160-16-2021-gst-table-2:1",
+        "160-16-2021-gst-table-3:1",
+        "160-16-2021-gst-table-2:2",
+        "160-16-2021-gst:para-3",
+        "160-16-2021-gst-table-3:3",
+        "circulars-2021-corrigendum:para-1",
+        "160-16-2021-gst-table-3:4",
+        "91-10-2019-gst:para-2"
+      ],
+      "returned": 14,
+      "seconds": 0.252,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence (P=0.97), and there are no unsupported statements, indicating complete alignment and accurate recall.",
+          "cost": 0.000438826
+        },
+        "Contextual Precision": {
+          "score": 0.6428571428571428,
+          "reason": "The score is 0.64 because the first node in retrieval contexts is relevant with a high confidence of 'P(yes)=0.97', appropriately ranked at the top, and the seventh node, also relevant with 'P(yes)=0.98', appears after several irrelevant nodes. However, multiple irrelevant nodes with low confidence scores such as 'P(yes)=0.09' and 'P(yes)=0.10' are ranked above the second relevant node at rank 7, which lowers the precision. Thus, while the top relevant node is well placed, the presence of irrelevant nodes ranked higher than some relevant ones prevents a higher score.",
+          "cost": 0.0009023900000000001
+        }
+      }
+    },
+    {
+      "id": "codex-008",
+      "category": "exact",
+      "question": "Under section 17(5)(g), can I claim ITC for GST on a laptop bought for my family to use, even though the invoice has my business GSTIN?",
+      "gold": [
+        "act-12-of-2017:section-17:8"
+      ],
+      "top": [
+        "act-12-of-2017:section-17:8",
+        "125-44-2019-gst:para-36:2",
+        "125-44-2019-gst:para-36:1",
+        "125-44-2019-gst:para-61:1",
+        "171-03-2022-gst-table-1:3",
+        "16-16-2017-gst-table-1:4"
+      ],
+      "returned": 6,
+      "seconds": 0.013,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node(s) in the retrieval context, specifically nodes that confirm Section 17(5) lists categories where ITC is unavailable, including goods or services for personal consumption. This complete alignment justifies the perfect score.",
+          "cost": 0.000354716
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in the retrieval contexts, which is highly relevant with a probability of 0.97, is ranked at the top, while all subsequent nodes with low relevance probabilities (around 0.08 to 0.11) are ranked lower. This clear separation ensures that relevant information is prioritized above irrelevant nodes, resulting in a perfect contextual precision score.",
+          "cost": 0.000550216
+        }
+      }
+    },
+    {
+      "id": "claude-029",
+      "category": "hinglish",
+      "question": "Main doosre state mein ek mahine ki exhibition mein stall laga raha hoon. Wahan ka temporary registration kitne din chalega, aur kya pehle se tax jama karna padega?",
+      "gold": [
+        "act-12-of-2017:section-27"
+      ],
+      "top": [
+        "71-45-2018-gst-table-1:2",
+        "88-07-2019-gst:para-4-5",
+        "75-49-2018-gst:annexure-4:2",
+        "75-49-2018-gst-table-16:4",
+        "75-49-2018-gst-table-16:6"
+      ],
+      "returned": 5,
+      "seconds": 0.012,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.25,
+          "reason": "The score is 0.25 because only one sentence in the expected output is well supported by node(s) in the retrieval context, while the other sentences lack sufficient backing, leading to a low overall contextual recall.",
+          "cost": 0.00035932400000000006
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in the retrieval contexts, which has a high relevance probability of 0.71, is correctly ranked above all other nodes that have much lower relevance probabilities (0.06 and below). This clear separation ensures that relevant information is prioritized, resulting in perfect contextual precision.",
+          "cost": 0.00050202
+        }
+      }
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "gold": [
+        "act-12-of-2017:section-50"
+      ],
+      "top": [
+        "7-7-2017-gst:para-12",
+        "136-06-2020-gst-table-3:1",
+        "136-06-2020-gst-table-3:3",
+        "26-26-2017-gst:para-2-1",
+        "141-11-2020-gst-table-1:1"
+      ],
+      "returned": 5,
+      "seconds": 0.01,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.3333333333333333,
+          "reason": "The score is 0.33 because only the first sentence of the expected output is supported by node 1 in the retrieval context, while the subsequent sentences about interest on late returns and exceptions lack direct support from any nodes, leading to partial alignment with the retrieval context.",
+          "cost": 0.00035700600000000004
+        },
+        "Contextual Precision": {
+          "score": 0.95,
+          "reason": "The score is 0.95 because the relevant nodes in the retrieval contexts are predominantly ranked higher, with the first three nodes all being relevant and having high probabilities like 'P(yes)=0.69' at rank 1, 'P(yes)=0.59' at rank 2, and 'P(yes)=0.63' at rank 3. However, the score is not perfect because there is one irrelevant node at rank 4 with a relatively high probability of 'P(yes)=0.23', which slightly lowers the precision by appearing before the last relevant node at rank 5 with 'P(yes)=0.64'. Overall, the ranking effectively prioritizes relevant information, justifying the high score of 0.95.",
+          "cost": 0.000613672
+        }
+      }
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "gold": [
+        "act-12-of-2017:section-9:1"
+      ],
+      "top": [
+        "act-12-of-2017:section-9:1",
+        "35-9-2018-gst:para-3:1",
+        "igst-act-2017:section-2:4",
+        "90-09-2019-gst:para-6",
+        "igst-act-2017:section-2:13"
+      ],
+      "returned": 5,
+      "seconds": 0.011,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because both sentences in the expected output are fully supported by node(s) in the retrieval context with high confidence (P=0.97), and there are no unsupported sentences, indicating complete alignment and accurate recall.",
+          "cost": 0.00032064
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the relevant node in the retrieval contexts is ranked first, with a high confidence of 'P(yes)=0.95', while all irrelevant nodes follow with significantly lower confidence scores such as 'P(yes)=0.32' and below. This perfect ordering ensures that relevant information is prioritized, resulting in an excellent contextual precision score.",
+          "cost": 0.000485378
+        }
+      }
+    },
+    {
+      "id": "codex-026",
+      "category": "hinglish",
+      "question": "Tax ko credit note se adjust kar diya hai. Kya same transaction ke liye alag refund bhi le sakta hoon?",
+      "gold": [
+        "162-18-2021-gst:para-6"
+      ],
+      "top": [
+        "act-12-of-2017:section-34:2",
+        "cgst-rules-2017:rule-53:3",
+        "137-07-2020-gst-table-1:3",
+        "act-12-of-2017:section-34:4",
+        "137-07-2020-gst-table-1:1"
+      ],
+      "returned": 5,
+      "seconds": 0.01,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output is fully supported by the information in node(s) in retrieval context, as indicated by the high probabilities (0.72 and 0.89) confirming the unavailability of a refund when tax has been adjusted through a section 34 credit note, with no contradictory information present.",
+          "cost": 0.00035098400000000004
+        },
+        "Contextual Precision": {
+          "score": 0.7555555555555555,
+          "reason": "The score is 0.76 because the relevant nodes in the retrieval contexts generally have higher probabilities of relevance, such as the first node with 'P(yes)=0.73' and the third node with 'P(yes)=0.89', which are ranked above some irrelevant nodes like the second node with 'P(yes)=0.20' and the fourth node with 'P(yes)=0.29'. However, the presence of irrelevant nodes ranked relatively high, such as the fourth node at rank 4 with a 'P(yes)=0.29', prevents the score from being higher. Overall, the ranking mostly prioritizes relevant nodes but is slightly affected by some misplaced irrelevant nodes.",
+          "cost": 0.00058626
+        }
+      }
+    },
+    {
+      "id": "codex-028",
+      "category": "hinglish",
+      "question": "Company ka CIRP shuru ho gaya hai aur purane GST dues pending hain. Officer seedha recovery kar sakta hai?",
+      "gold": [
+        "134-04-2020-gst-table-1:1"
+      ],
+      "top": [
+        "instruction-no-01-2022-23-gst-inv:para-3",
+        "42-16-2018-gst:para-6",
+        "187-19-2022-gst:para-7",
+        "174-06-2022-gst:annexure-1:1",
+        "42-16-2018-gst:para-1"
+      ],
+      "returned": 5,
+      "seconds": 0.015,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.0,
+          "reason": "The score is 0.00 because none of the sentences in the expected output are supported by any nodes in the retrieval context, indicating no relevant information was found to substantiate the claims made.",
+          "cost": 0.00030544000000000003
+        },
+        "Contextual Precision": {
+          "score": 0.3333333333333333,
+          "reason": "The score is 0.33 because the first two nodes in the retrieval contexts are irrelevant, with reasons indicating low relevance probabilities ('P(yes)=0.25' and 'P(yes)=0.12'), while the first relevant node appears only at rank 3 with a higher relevance probability ('P(yes)=0.53'). This lowers the score since irrelevant nodes are ranked above the relevant one. However, the presence of a relevant node at rank 3 prevents the score from being lower, reflecting some correct prioritization.",
+          "cost": 0.0005367900000000001
+        }
+      }
+    },
+    {
+      "id": "codex-031",
+      "category": "hinglish",
+      "question": "Online gaming ya OIDAR service unregistered customer ko doon toh invoice par State ka naam likhna zaroori hai, amount chhota ho tab bhi?",
+      "gold": [
+        "242-36-2024-gst:para-4-4"
+      ],
+      "top": [
+        "242-36-2024-gst:para-3-6",
+        "242-36-2024-gst:para-4-5:1",
+        "cgst-rules-2017:rule-46:4",
+        "242-36-2024-gst:para-4-4",
+        "cgst-rules-2017:rule-64"
+      ],
+      "returned": 5,
+      "seconds": 0.021,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.25,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.25,
+      "rank": 4,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, specifically nodes with high confidence scores (0.96 and 0.97), with no conflicting or unsupported content present.",
+          "cost": 0.00034117200000000005
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all highly ranked nodes in the retrieval contexts are relevant, with strong confidence scores such as 'P(yes)=0.98' at rank 1 and similarly high scores at ranks 2 to 4, ensuring relevant information is prioritized. The irrelevant node appears only at rank 5 with a low confidence of 'P(yes)=0.13', correctly placed below all relevant nodes, which justifies the perfect contextual precision score.",
+          "cost": 0.000548022
+        }
+      }
+    },
+    {
+      "id": "claude-024",
+      "category": "multi",
+      "question": "The department provisionally attached a client's bank account during proceedings. How long can the attachment last, and can he get the account freed by offering property instead?",
+      "gold": [
+        "act-12-of-2017:section-83",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "top": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:1",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-7",
+        "cgst-rules-2017:rule-159:5",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:5"
+      ],
+      "returned": 5,
+      "seconds": 0.012,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because sentences 1 and 2 of the expected output are well supported by node(s) in retrieval context with high confidence (P=0.97), indicating accurate attribution of the provisional attachment duration and conditions for releasing attached movable property. However, sentence 3 lacks sufficient support (P=0.15), as details about the requirements for the immovable property such as being free of charges, having property tax paid, and original title deeds are not clearly found in the retrieval context. This partial alignment explains the moderate recall score.",
+          "cost": 0.000442216
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in the retrieval contexts, which is relevant, is ranked highest with a strong confidence of 'P(yes)=0.90', while all subsequent nodes are irrelevant and ranked lower despite some having moderate confidence scores like 'P(yes)=0.37' at rank 4. This clear separation ensures that relevant information is prioritized effectively, resulting in a perfect contextual precision score.",
+          "cost": 0.000479062
+        }
+      }
+    },
+    {
+      "id": "claude-025",
+      "category": "multi",
+      "question": "An officer blocked our credit ledger under rule 86A, and we've since shown the invoices are genuine. Can he release it before the year is over, and what must he do first?",
+      "gold": [
+        "cgst-rules-2017:rule-86a:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-86a:2",
+        "cgst-rules-2017:rule-86a:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:2"
+      ],
+      "returned": 7,
+      "seconds": 0.128,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, with high confidence scores ranging from 0.96 to 0.98, and there are no unsupported sentences, indicating complete alignment and thorough coverage.",
+          "cost": 0.000395906
+        },
+        "Contextual Precision": {
+          "score": 0.8928571428571428,
+          "reason": "The score is 0.89 because most relevant nodes are ranked near the top, such as the first node with a high relevance probability of 0.92 and the third node at 0.96, ensuring useful information is prioritized. However, the score is not higher because some irrelevant nodes appear before the last relevant node, for example, the fourth node (rank 4) with a relevance probability of 0.39 is ranked above the seventh node (rank 7) which has a higher relevance probability of 0.96, indicating some misordering of less relevant information.",
+          "cost": 0.000633282
+        }
+      }
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "gold": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "act-12-of-2017:section-16:6"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-5"
+      ],
+      "returned": 5,
+      "seconds": 0.017,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because every sentence in the expected output is fully supported by the relevant node(s) in the retrieval context, with high confidence scores ranging from 0.63 to 0.98. There are no unsupported sentences, indicating complete alignment and thorough coverage of the information from the retrieval context.",
+          "cost": 0.000417524
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant and ranked at the top positions, with high confidence levels such as 'P(yes)=0.95' in the first node. There are no irrelevant nodes ranked above any relevant ones, ensuring perfect contextual precision.",
+          "cost": 0.000472008
+        }
+      }
+    },
+    {
+      "id": "claude-028",
+      "category": "multi",
+      "question": "After my father's death I'm continuing his business under my own GSTIN. How do I move the unused credit in his ledger to me, and am I responsible for his old tax dues?",
+      "gold": [
+        "96-15-2019-gst:para-3:2",
+        "cgst-rules-2017:rule-41"
+      ],
+      "top": [
+        "96-15-2019-gst:para-3:1",
+        "96-15-2019-gst:para-3:2",
+        "96-15-2019-gst:para-3:3",
+        "96-15-2019-gst:para-2",
+        "133-03-2020-gst:para-2"
+      ],
+      "returned": 5,
+      "seconds": 0.019,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.75,
+          "reason": "The score is 0.75 because sentences 1, 2, and 4 in the expected output are well supported by node(s) in retrieval context with high confidence (P(yes) around 0.82 to 0.97), indicating strong alignment with the source. However, sentence 3 has lower support (P(yes)=0.33), reflecting some missing or unclear information regarding the certificate requirement, which lowers the overall recall score.",
+          "cost": 0.00045959
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant and ranked at the top positions, with no irrelevant nodes interspersed. This perfect ordering ensures maximum contextual precision, reflecting an ideal alignment between the input and the retrieved information.",
+          "cost": 0.000479894
+        }
+      }
+    },
+    {
+      "id": "claude-015",
+      "category": "scenario",
+      "question": "I sent raw material to a job worker for processing. How long can it stay with him before it's treated as if I sold it to him?",
+      "gold": [
+        "act-12-of-2017:section-143:1",
+        "act-12-of-2017:section-143:2"
+      ],
+      "top": [
+        "utgst-act-2017:section-19:4",
+        "38-12-2018-gst:para-3",
+        "act-12-of-2017:section-143:1",
+        "utgst-act-2017:section-19:3",
+        "act-12-of-2017:section-143:2"
+      ],
+      "returned": 5,
+      "seconds": 0.015,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.3333333333333333,
+      "rank": 3,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node(s) in the retrieval context, specifically node(s) that detail the timelines for returning inputs to a job worker and the Commissioner's authority to extend these periods. There are no unsupported sentences, indicating complete alignment and accurate recall from the retrieval context.",
+          "cost": 0.00038779000000000005
+        },
+        "Contextual Precision": {
+          "score": 0.5888888888888889,
+          "reason": "The score is 0.59 because although relevant nodes with high confidence scores (0.95, 0.96, 0.96) appear in the retrieval contexts, some irrelevant nodes with low confidence scores (0.13, 0.14) are ranked higher or intermixed among them, such as the first node ranked 1 and the fourth node ranked 4. This mixing of irrelevant nodes among relevant ones lowers the precision score, but the presence of multiple highly relevant nodes still keeps the score above average.",
+          "cost": 0.000548272
+        }
+      }
+    },
+    {
+      "id": "claude-016",
+      "category": "scenario",
+      "question": "In a reimbursement-mode motor claim, the garage bills the insurer for the full repair, but the insurer reimburses the car owner only the approved claim cost. How much ITC can the insurer take, and what if the repair invoice is in the owner's name?",
+      "gold": [
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst-table-1:5"
+      ],
+      "top": [
+        "217-11-2024-gst:para-1-2",
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst:para-1-4",
+        "217-11-2024-gst-table-1:1",
+        "217-11-2024-gst-table-1:3"
+      ],
+      "returned": 5,
+      "seconds": 0.017,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant nodes in the retrieval context, with high confidence scores (0.94, 0.97, and 0.51) confirming the insurer's ITC eligibility conditions based on invoice issuance and naming. There are no unsupported statements, indicating complete alignment with the provided context.",
+          "cost": 0.000415122
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant and ranked at the top positions, with no irrelevant nodes preceding them. This perfect ordering ensures maximum contextual precision, reflecting an ideal retrieval scenario.",
+          "cost": 0.000468184
+        }
+      }
+    },
+    {
+      "id": "claude-017",
+      "category": "scenario",
+      "question": "My father ran a sole proprietorship and has passed away; I'm continuing the business. What do we do about his GST registration?",
+      "gold": [
+        "96-15-2019-gst:para-3:1"
+      ],
+      "top": [
+        "96-15-2019-gst:para-3:1",
+        "96-15-2019-gst:para-3:3",
+        "96-15-2019-gst:para-2",
+        "96-15-2019-gst:para-3:2",
+        "69-43-2018-gst:para-2"
+      ],
+      "returned": 5,
+      "seconds": 0.018,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence scores (0.97, 0.95, 0.98). There are no unsupported sentences, indicating complete alignment and accurate recall from the context.",
+          "cost": 0.000374572
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant and ranked at the top positions, with no irrelevant nodes present to lower the precision. This perfect ordering ensures maximum contextual precision, reflecting an excellent match to the input query.",
+          "cost": 0.00045566599999999997
+        }
+      }
+    },
+    {
+      "id": "claude-019",
+      "category": "scenario",
+      "question": "A client took an advance for an event, issued the invoice and paid GST, and then the event was cancelled. Should he file a refund claim?",
+      "gold": [
+        "137-07-2020-gst-table-1:1"
+      ],
+      "top": [
+        "137-07-2020-gst-table-1:2",
+        "137-07-2020-gst-table-1:1",
+        "cgst-rules-2017:rule-89:13",
+        "188-20-2022-gst:para-1",
+        "178-10-2022-gst:para-11"
+      ],
+      "returned": 5,
+      "seconds": 0.018,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the nodes in the retrieval context, with high confidence scores (0.94, 0.95, 0.96). Each part of the explanation about issuing a credit note, adjusting tax liability, and claiming a refund is directly attributable to the relevant nodes, resulting in a complete and accurate summary.",
+          "cost": 0.000396978
+        },
+        "Contextual Precision": {
+          "score": 0.5,
+          "reason": "The score is 0.50 because the second node in the retrieval contexts, which is relevant, is ranked higher than some irrelevant nodes, as indicated by its high confidence 'P(yes)=0.97'. However, the first node, which is irrelevant with 'P(yes)=0.48', is ranked above this relevant node, lowering the score. Additionally, other irrelevant nodes with lower confidence scores are ranked below, which helps maintain the score at 0.50 rather than lower.",
+          "cost": 0.000533108
+        }
+      }
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "gold": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "241-35-2024-gst:para-3-5"
+      ],
+      "top": [
+        "241-35-2024-gst:para-1-2",
+        "241-35-2024-gst:para-3-3",
+        "41-15-2018-gst:annexure-1:2",
+        "61-35-2018-gst:para-1",
+        "195-07-2023-gst:para-1"
+      ],
+      "returned": 5,
+      "seconds": 0.019,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.3333333333333333,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, specifically nodes with high confidence scores (0.95, 0.92, 0.72), and there are no unsupported statements, indicating complete alignment and accurate recall.",
+          "cost": 0.000395906
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all relevant nodes in the retrieval contexts are ranked higher than the irrelevant ones, with the first and second nodes having high relevance probabilities of 0.96 and 0.97 respectively, while the irrelevant nodes appear only after these with much lower probabilities such as 0.06, 0.11, and 0.04. This clear separation ensures perfect contextual precision.",
+          "cost": 0.000521692
+        }
+      }
+    },
+    {
+      "id": "claude-022",
+      "category": "scenario",
+      "question": "A customer returned goods after I had issued the tax invoice. Do I claim a refund of the GST or adjust it?",
+      "gold": [
+        "137-07-2020-gst-table-1:3"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-89:13",
+        "137-07-2020-gst-table-1:3",
+        "cgst-rules-2017:rule-89:8",
+        "226-20-2024-gst:para-6",
+        "cgst-rules-2017:rule-89:7"
+      ],
+      "returned": 5,
+      "seconds": 0.015,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence scores around 0.96 to 0.97, and there are no unsupported statements, indicating complete alignment and accurate recall.",
+          "cost": 0.000370426
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the nodes in retrieval contexts that are relevant are ranked higher (first and second nodes) than the irrelevant nodes (third, fourth, and fifth nodes). The relevant nodes have higher probabilities of relevance ('P(yes)=0.51' and 'P(yes)=0.95') compared to the irrelevant nodes with lower probabilities ('P(yes)=0.12', 'P(yes)=0.09', and 'P(yes)=0.12'), ensuring perfect contextual precision.",
+          "cost": 0.000561056
+        }
+      }
+    },
+    {
+      "id": "codex-010",
+      "category": "scenario",
+      "question": "Can I use the money sitting in my cash ledger to pay interest and penalties too?",
+      "gold": [
+        "act-12-of-2017:section-49:2"
+      ],
+      "top": [
+        "act-12-of-2017:section-49:3",
+        "act-12-of-2017:section-49:2",
+        "172-04-2022-gst-table-2:3",
+        "cgst-rules-2017:rule-87:1",
+        "cgst-rules-2017:rule-87:9"
+      ],
+      "returned": 5,
+      "seconds": 0.014,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the relevant node(s) in the retrieval context, specifically nodes with high confidence scores (0.96 and 0.97), ensuring complete alignment with the source information.",
+          "cost": 0.00030358
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant, with no irrelevant nodes ranked above any relevant ones. This perfect ranking ensures maximum contextual precision, reflecting an excellent alignment between the input and the retrieved information.",
+          "cost": 0.00039107
+        }
+      }
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "gold": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "top": [
+        "igst-rules-2017:rule-4:4",
+        "igst-rules-2017:rule-7:3",
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-3:15",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "returned": 5,
+      "seconds": 0.017,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 3,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node(s) in the retrieval context, specifically those with high confidence (P(yes)=0.93), and there are no unsupported sentences, indicating complete alignment and accurate attribution of service value across States.",
+          "cost": 0.00037124399999999996
+        },
+        "Contextual Precision": {
+          "score": 0.7555555555555555,
+          "reason": "The score is 0.76 because the relevant nodes in retrieval contexts are generally ranked higher, such as the first node with a relevance probability of 0.71 and the third node with 0.94, indicating good prioritization. However, the score is not higher because some irrelevant nodes, like the second node with a probability of 0.18 and the fourth node with 0.09, appear interspersed among relevant ones, lowering the overall precision.",
+          "cost": 0.0005716440000000001
+        }
+      }
+    },
+    {
+      "id": "codex-015",
+      "category": "scenario",
+      "question": "If a customer gives me a UIN, should that invoice be treated as B2C for QR-code compliance where the QR requirement otherwise applies?",
+      "gold": [
+        "156-12-2021-gst-table-1:1"
+      ],
+      "top": [
+        "156-12-2021-gst-table-1:1",
+        "156-12-2021-gst-table-1:4",
+        "146-02-2021-gst-table-1:3",
+        "146-02-2021-gst-table-1:4",
+        "43-17-2018-gst:para-3-1"
+      ],
+      "returned": 5,
+      "seconds": 0.016,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output is fully supported by the retrieval context nodes, which clearly confirm that a UIN holder is not treated as a registered person and that the invoice is treated as B2C with the dynamic QR-code requirement. There are no contradictions or missing information, making the recall complete and accurate.",
+          "cost": 0.00035395
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in the retrieval contexts, which is relevant, is ranked highest with a strong confidence of 'P(yes)=0.98', while all subsequent nodes are irrelevant with much lower confidence scores such as 'P(yes)=0.07' and 'P(yes)=0.10'. This perfect ordering ensures that relevant information is prioritized above irrelevant nodes, resulting in an excellent contextual precision score.",
+          "cost": 0.0005234700000000001
+        }
+      }
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "gold": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-147:8",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+        "cgst-rules-2017:rule-147:9",
+        "cgst-rules-2017:rule-147:2",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "returned": 5,
+      "seconds": 0.015,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.5,
+          "reason": "The score is 0.50 because sentence 1 about provisional attachment not being exercised routinely is somewhat supported by node 0.56 in the retrieval context, but there is also significant lack of support from node 0.43, leading to a balanced but moderate confidence in the attribution.",
+          "cost": 0.00031798199999999997
+        },
+        "Contextual Precision": {
+          "score": 0.0,
+          "reason": "The score is 0.00 because all nodes in the retrieval contexts are irrelevant to the input, as indicated by their reasons showing probabilities like 'P(yes)=0.35' and similar values, which do not support the input query. Since no relevant nodes are present, none can be ranked higher than irrelevant ones, resulting in the lowest possible score.",
+          "cost": 0.000445578
+        }
+      }
+    },
+    {
+      "id": "codex-022",
+      "category": "scenario",
+      "question": "An Indian company provides services to its foreign parent. Are the two companies treated as the same legal person for the export condition?",
+      "gold": [
+        "161-17-2021-gst:para-5-1"
+      ],
+      "top": [
+        "161-17-2021-gst:para-5-1",
+        "161-17-2021-gst:para-4-1",
+        "161-17-2021-gst:para-4-4",
+        "161-17-2021-gst:para-4-3",
+        "161-17-2021-gst:para-7"
+      ],
+      "returned": 5,
+      "seconds": 0.018,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence scores (0.98 and 0.96), and there are no contradictions or unsupported statements.",
+          "cost": 0.000316612
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes in the retrieval contexts are relevant and ranked at the top positions, with high confidence scores such as 'P(yes)=0.96' in the first node and similarly strong scores in subsequent nodes. There are no irrelevant nodes ranked above any relevant ones, ensuring perfect contextual precision. This excellent ordering justifies the perfect score.",
+          "cost": 0.000473048
+        }
+      }
+    },
+    {
+      "id": "codex-023",
+      "category": "scenario",
+      "question": "Our business has several GST registrations under one PAN. Do they all have to use the quarterly return option together?",
+      "gold": [
+        "143-13-2020-gst:para-5-1"
+      ],
+      "top": [
+        "143-13-2020-gst:para-5-1",
+        "143-13-2020-gst:para-4-5",
+        "143-13-2020-gst:para-7",
+        "143-13-2020-gst:para-6-4",
+        "26-26-2017-gst:para-1-5"
+      ],
+      "returned": 5,
+      "seconds": 0.018,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output is fully supported by the information in nodes 1 and 2 of the retrieval context, which confirm that registrations under the same PAN can opt independently, allowing some to opt in while others do not.",
+          "cost": 0.00030242800000000004
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in the retrieval contexts, which is relevant, is ranked highest with a strong confidence of 'P(yes)=0.96', while all subsequent nodes are irrelevant and ranked lower with significantly lower confidence scores such as 'P(yes)=0.26' and below. This clear separation ensures perfect contextual precision.",
+          "cost": 0.00044861399999999996
+        }
+      }
+    },
+    {
+      "id": "codex-025",
+      "category": "scenario",
+      "question": "The e-way bill was generated, but the goods never left. How long do I have to cancel it on the portal?",
+      "gold": [
+        "cgst-rules-2017:rule-138:13"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-138:13",
+        "cgst-rules-2017:rule-138f:4",
+        "cgst-rules-2017:rule-138f:3",
+        "cgst-rules-2017:rule-138:16",
+        "cgst-rules-2017:rule-138:14"
+      ],
+      "returned": 5,
+      "seconds": 0.016,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node(s) in retrieval context, with high confidence scores (P(yes)=0.97 and 0.98), and there are no unsupported statements.",
+          "cost": 0.000323596
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all nodes relevant to the input are ranked higher than the irrelevant nodes in the retrieval contexts. For example, the first three nodes, ranked 1 to 3, have high relevance probabilities ('P(yes)=0.97', 'P(yes)=0.63', 'P(yes)=0.92'), while the irrelevant nodes appear only at ranks 4 and 5 with much lower probabilities ('P(yes)=0.12', 'P(yes)=0.14'). This perfect ordering ensures the highest possible contextual precision score.",
+          "cost": 0.000545922
+        }
+      }
+    }
+  ]
+}

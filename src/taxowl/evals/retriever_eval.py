@@ -55,6 +55,13 @@ K = 5                                # the cut-off for hit@k and recall@k
 TOP = 10                             # meaning mode fetches this many; runs save this many ids per question
 JUDGE_MODEL = "openai/gpt-4.1-mini"  # OpenRouter's name; the same judge as evals_project
 THRESHOLD = 0.7                      # DeepEval's pass mark, kept from evals_project
+# Jev (TypeSafe's "System One" model) answers typed yes/no questions with a probability, not text.
+# Reached through OpenRouter with the same key: DeepEval's TypeSafeModel -> typesafe_sdk -> /api/v1/systemone.
+# eval_mode: llm = the LLM does everything; hybrid = Jev decides, the LLM extracts and writes reasons;
+# system_one = Jev alone, no reasons. Checked 2026-11-08 (Evaluations/Retriever_Evals/).
+JEV_MODEL = "typesafe/jev-1.14"      # pinned version; OpenRouter answers as jev-1.14-20261014
+JEV_PRICE = 0.042 / 1e6              # $ per input token (output is free); DeepEval doesn't know 1.14's price
+OPENROUTER_API = "https://openrouter.ai/api"
 
 
 # ---------------------------------------------------------------- the golden set
@@ -119,17 +126,21 @@ def score(row: dict, ids: list[str], units: dict[str, str]) -> dict:
 
 # ---------------------------------------------------------------- the judge (optional)
 
-def judge(cases: list[tuple[dict, list[Document]]]) -> dict[str, dict]:
+def judge(cases: list[tuple[dict, list[Document]]], judge_model: str = JUDGE_MODEL,
+          eval_mode: str = "llm") -> dict[str, dict]:
     """DeepEval's ContextualRecall + ContextualPrecision for each question -> {row id: {metric: score}}.
     The claims, joined, are the expected answer. The judge sees what the answer step would see."""
     from deepeval import evaluate  # imported here: the id scores must run even without deepeval
     from deepeval.metrics import ContextualPrecisionMetric, ContextualRecallMetric
-    from deepeval.models import OpenRouterModel
+    from deepeval.models import OpenRouterModel, TypeSafeModel
     from deepeval.test_case import LLMTestCase
 
     from taxowl.ingestion.vlm import load_key  # taxowl's one way to read the OpenRouter key
 
-    model = OpenRouterModel(model=JUDGE_MODEL, api_key=load_key(), temperature=0)
+    key = load_key()
+    model = None if eval_mode == "system_one" else OpenRouterModel(model=judge_model, api_key=key, temperature=0)
+    jev = None if eval_mode == "llm" else TypeSafeModel(model=JEV_MODEL, api_key=key, base_url=OPENROUTER_API,
+                                                         cost_per_input_token=JEV_PRICE)
     test_cases = [
         LLMTestCase(input=row["question"],
                     actual_output="(generator not evaluated in this run)",
@@ -137,25 +148,33 @@ def judge(cases: list[tuple[dict, list[Document]]]) -> dict[str, dict]:
                     retrieval_context=[document.page_content for document in documents])
         for row, documents in cases
     ]
-    metrics = [ContextualRecallMetric(threshold=THRESHOLD, model=model, include_reason=True),
-               ContextualPrecisionMetric(threshold=THRESHOLD, model=model, include_reason=True)]
+    options = dict(threshold=THRESHOLD, model=model, system_one_model=jev, eval_mode=eval_mode, include_reason=True)
+    metrics = [ContextualRecallMetric(**options), ContextualPrecisionMetric(**options)]
     result = evaluate(test_cases=test_cases, metrics=metrics)
 
     by_question = {row["question"]: row["id"] for row, _ in cases}
     scores: dict[str, dict] = {}
     for test in result.test_results:  # DeepEval may reorder them, so match by the question text
-        scores[by_question[test.input]] = {m.name: {"score": m.score, "reason": m.reason}
+        scores[by_question[test.input]] = {m.name: {"score": m.score, "reason": m.reason,
+                                                    "cost": m.evaluation_cost}
                                            for m in test.metrics_data}
     return scores
 
 
 # ---------------------------------------------------------------- the run
 
-def run(retriever, gold_path: Path, mode: str, use_judge: bool = False) -> dict:
-    """Ask every question with gold, score it, and return the whole run (config, rows, summary)."""
+def run(retriever, gold_path: Path, mode: str, use_judge: bool = False,
+        judge_model: str = JUDGE_MODEL, ids: list[str] | None = None, eval_mode: str = "llm") -> dict:
+    """Ask every question with gold, score it, and return the whole run (config, rows, summary).
+    ids: only these rows (a small set, e.g. to compare two judges cheaply)."""
     rows = load_gold(gold_path)
     units = load_units()
     check_gold(rows, units)
+    if ids:
+        unknown = set(ids) - {row["id"] for row in rows}
+        if unknown:
+            raise SystemExit(f"ids not in {gold_path}: {sorted(unknown)}")
+        rows = [row for row in rows if row["id"] in ids]
 
     results, cases = [], []
     for row in rows:
@@ -172,11 +191,11 @@ def run(retriever, gold_path: Path, mode: str, use_judge: bool = False) -> dict:
         cases.append((row, documents if mode == "full" else documents[:MEANING_CHUNKS]))
 
     if use_judge:
-        judged = judge(cases)
+        judged = judge(cases, judge_model, eval_mode)
         for result in results:
             result["judge"] = judged.get(result["id"], {})
 
-    return {"config": config(gold_path, mode, use_judge), "summary": summarise(results), "rows": results}
+    return {"config": config(gold_path, mode, use_judge, judge_model, ids, eval_mode), "summary": summarise(results), "rows": results}
 
 
 def summarise(results: list[dict]) -> dict:
@@ -198,7 +217,8 @@ def summarise(results: list[dict]) -> dict:
     return summary
 
 
-def config(gold_path: Path, mode: str, use_judge: bool) -> dict:
+def config(gold_path: Path, mode: str, use_judge: bool, judge_model: str = JUDGE_MODEL,
+           ids: list[str] | None = None, eval_mode: str = "llm") -> dict:
     """What was measured, saved with the scores: two runs are comparable only if these match."""
     store = get_store()
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
@@ -209,7 +229,10 @@ def config(gold_path: Path, mode: str, use_judge: bool) -> dict:
             "meaning_chunks": MEANING_CHUNKS,
             "exact_chunks": EXACT_CHUNKS, "per_citation": PER_CITATION,
             "gold_file": str(gold_path), "gold_sha256": file_hash(gold_path),
-            "judge_model": JUDGE_MODEL if use_judge else None, "git_commit": commit,
+            "only_ids": ids,
+            "judge_model": (None if not use_judge or eval_mode == "system_one" else judge_model),
+            "eval_mode": eval_mode if use_judge else None,
+            "jev_model": JEV_MODEL if use_judge and eval_mode != "llm" else None, "git_commit": commit,
             "time": time.strftime("%Y-%m-%d %H:%M:%S")}
 
 
@@ -240,6 +263,10 @@ def main() -> None:
     parser.add_argument("--gold", type=Path, required=True, help="golden set, e.g. eval_results/gold/retriever_dev.jsonl")
     parser.add_argument("--mode", choices=["full", "meaning"], default="full")
     parser.add_argument("--judge", action="store_true", help="also run DeepEval's judge (costs money)")
+    parser.add_argument("--judge-model", default=JUDGE_MODEL, help="OpenRouter model name for the judge")
+    parser.add_argument("--eval-mode", choices=["llm", "hybrid", "system_one"], default="llm",
+                        help="who decides: the LLM, Jev with the LLM writing reasons, or Jev alone")
+    parser.add_argument("--ids", help="comma-separated row ids to run only those, e.g. claude-005,codex-020")
     args = parser.parse_args()
 
     if args.mode == "full":
@@ -247,7 +274,8 @@ def main() -> None:
     else:  # LangChain's plain vector-store retriever: no exact lookup
         retriever = get_store().as_retriever(search_kwargs={"k": TOP})
 
-    result = run(retriever, args.gold, args.mode, args.judge)
+    ids = [i.strip() for i in args.ids.split(",")] if args.ids else None
+    result = run(retriever, args.gold, args.mode, args.judge, args.judge_model, ids, args.eval_mode)
     show(result)
 
     RUNS.mkdir(parents=True, exist_ok=True)

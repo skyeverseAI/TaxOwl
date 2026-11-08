@@ -1,0 +1,390 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "collection": "corpus-bge-small",
+    "chunks_in_store": 4717,
+    "ef_search": 500,
+    "meaning_chunks": 5,
+    "exact_chunks": 20,
+    "per_citation": 10,
+    "gold_file": "eval_results/gold/retriever_dev.jsonl",
+    "gold_sha256": "93d4afe1628d6adb06eb809e9b844a2af227428e14fa3b3e44d4ff33fb7f6f70",
+    "only_ids": [
+      "cgst-rules-2017:rule-147:8",
+      "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+      "cgst-rules-2017:rule-147:9",
+      "cgst-rules-2017:rule-147:2",
+      "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+    ],
+    "judge_model": "openai/gpt-4.1-mini",
+    "git_commit": "e67d5de",
+    "time": "2026-11-08 18:44:17"
+  },
+  "summary": {
+    "exact": {
+      "n": 2,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.75,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Recall": 1.0,
+      "Contextual Precision": 0.769
+    },
+    "ALL": {
+      "n": 8,
+      "hit@5": 0.75,
+      "hit@all": 0.75,
+      "recall@5": 0.542,
+      "mrr": 0.604,
+      "section_hit@5": 0.75,
+      "section_mrr": 0.688,
+      "Contextual Recall": 0.812,
+      "Contextual Precision": 0.812
+    },
+    "hinglish": {
+      "n": 2,
+      "hit@5": 0.5,
+      "hit@all": 0.5,
+      "recall@5": 0.5,
+      "mrr": 0.5,
+      "section_hit@5": 0.5,
+      "section_mrr": 0.5,
+      "Contextual Recall": 0.5,
+      "Contextual Precision": 1.0
+    },
+    "multi": {
+      "n": 1,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "Contextual Recall": 1.0,
+      "Contextual Precision": 1.0
+    },
+    "scenario": {
+      "n": 3,
+      "hit@5": 0.667,
+      "hit@all": 0.667,
+      "recall@5": 0.444,
+      "mrr": 0.278,
+      "section_hit@5": 0.667,
+      "section_mrr": 0.5,
+      "Contextual Recall": 0.833,
+      "Contextual Precision": 0.652
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "gold": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-2",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-4-5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-3",
+        "231-25-2024-gst:para-5-1"
+      ],
+      "returned": 15,
+      "seconds": 0.791,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by specific nodes in the retrieval context: sentence 1 and 2 are backed by node 3, while sentences 3 and 4 are corroborated by node 1. There are no unsupported statements, indicating complete alignment between the expected output and the retrieval context.",
+          "cost": 0.0023352
+        },
+        "Contextual Precision": {
+          "score": 0.8956845238095237,
+          "reason": "The score is 0.90 because the top-ranked nodes in the retrieval contexts mostly provide relevant explanations about ITC on demo vehicles, such as conditions when ITC is blocked or allowed, with the first node clearly explaining the blocking scenario. However, some irrelevant nodes appear relatively high, such as the fourth node discussing capitalization and the ninth node about procedural notes, which slightly lowers the score. Overall, the relevant nodes are well prioritized near the top, justifying the high but not perfect contextual precision.",
+          "cost": 0.0034424
+        }
+      }
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "gold": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "top": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-1:1",
+        "160-16-2021-gst-table-2:1",
+        "160-16-2021-gst-table-3:1",
+        "160-16-2021-gst-table-2:2",
+        "160-16-2021-gst:para-3",
+        "160-16-2021-gst-table-3:3",
+        "circulars-2021-corrigendum:para-1",
+        "160-16-2021-gst-table-3:4",
+        "91-10-2019-gst:para-2"
+      ],
+      "returned": 14,
+      "seconds": 0.238,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, which explicitly states that carrying a physical copy of the tax invoice is unnecessary when an e-invoice is generated and that producing the QR code with the embedded Invoice Reference Number electronically suffices for verification. This direct correspondence ensures complete contextual recall.",
+          "cost": 0.0020924
+        },
+        "Contextual Precision": {
+          "score": 0.6428571428571428,
+          "reason": "The score is 0.64 because the first node in the retrieval contexts, which is relevant, is ranked at the top (rank 1), and another relevant node appears at rank 7, but several irrelevant nodes are interspersed between them, such as the second node at rank 2 and others up to rank 6, which discuss unrelated topics like input tax credit and debit notes. This lowers the precision since irrelevant nodes are ranked higher than some relevant ones. However, the score is not lower because the most relevant node is correctly placed at the highest rank, ensuring some prioritization of relevant information.",
+          "cost": 0.0033171999999999997
+        }
+      }
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "gold": [
+        "act-12-of-2017:section-50"
+      ],
+      "top": [
+        "7-7-2017-gst:para-12",
+        "136-06-2020-gst-table-3:1",
+        "136-06-2020-gst-table-3:3",
+        "26-26-2017-gst:para-2-1",
+        "141-11-2020-gst-table-1:1"
+      ],
+      "returned": 5,
+      "seconds": 0.009,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.0,
+          "reason": "The score is 0.00 because none of the sentences in the expected output are supported by any nodes in the retrieval context. Sentence 1 lacks mention of the interest rate cap and calculation specifics found in node 1. Sentence 2's condition about interest payable only on tax paid through the electronic cash ledger after the due date is not present in node 1. Sentence 3's exclusion of relief when proceedings under sections 73, 74, or 74A have started is also absent from all nodes. Therefore, the retrieval context does not provide any relevant information to support the expected output.",
+          "cost": 0.0014096
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in retrieval contexts, which is relevant, is ranked highest and clearly explains the interest liability on delayed tax payment. The subsequent nodes, which are irrelevant, discuss specific COVID-19 related interest rates and reliefs that do not apply to the general case, justifying their lower ranking. This perfect ordering ensures maximum contextual precision.",
+          "cost": 0.0014872
+        }
+      }
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "gold": [
+        "act-12-of-2017:section-9:1"
+      ],
+      "top": [
+        "act-12-of-2017:section-9:1",
+        "35-9-2018-gst:para-3:1",
+        "igst-act-2017:section-2:4",
+        "90-09-2019-gst:para-6",
+        "igst-act-2017:section-2:13"
+      ],
+      "returned": 5,
+      "seconds": 0.01,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is directly supported by node 1 in the retrieval context, which explicitly states the central tax on intra-State supplies and the specific exclusions mentioned. There are no unsupported sentences, making the recall complete and accurate.",
+          "cost": 0.0010868
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first node in retrieval contexts clearly addresses the question by stating the applicability of CGST on intra-State supplies and the exception for alcoholic liquor, which is highly relevant and ranked first. The subsequent nodes, ranked lower, do not specifically address CGST or alcohol supply, ensuring that irrelevant nodes are correctly placed below the relevant one, resulting in perfect contextual precision.",
+          "cost": 0.001502
+        }
+      }
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "gold": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "act-12-of-2017:section-16:6"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-5"
+      ],
+      "returned": 5,
+      "seconds": 0.008,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because every sentence in the expected output is directly supported by specific nodes in the retrieval context. For example, sentences about demo vehicles not being excluded under section 17(5)(a) and their use in promoting sales are backed by nodes 1, 4, and 5. The classification of demo vehicles as capital goods and the entitlement to input tax credit under section 16(1) are supported by node 1. The restriction on ITC when depreciation is claimed under the Income-tax Act is confirmed by node 3. Since all parts of the output align perfectly with the retrieval context nodes, the recall is complete and accurate.",
+          "cost": 0.0019276
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all relevant nodes in the retrieval contexts are ranked higher than the irrelevant node. The first four nodes clearly explain the capitalisation of demo vehicles as capital goods and the conditions under which ITC is available, directly addressing the input question. The fifth node, which is irrelevant, discusses a different scenario about dealers acting as agents, and is correctly ranked last. This perfect ordering ensures the highest contextual precision score.",
+          "cost": 0.0017748
+        }
+      }
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "gold": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "241-35-2024-gst:para-3-5"
+      ],
+      "top": [
+        "241-35-2024-gst:para-1-2",
+        "241-35-2024-gst:para-3-3",
+        "41-15-2018-gst:annexure-1:2",
+        "61-35-2018-gst:para-1",
+        "195-07-2023-gst:para-1"
+      ],
+      "returned": 5,
+      "seconds": 0.009,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.3333333333333333,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are directly supported by information from nodes 1 and 2 in the retrieval context. Sentence 1 is backed by node 1's explanation of property passing at the factory gate and ITC availability, sentence 2 is supported by node 2's clarification on receipt under section 16(2)(b), and the mention of conditions under sections 16 and 17 aligns with details from both nodes. There are no unsupported elements, making the recall complete and accurate.",
+          "cost": 0.0016596
+        },
+        "Contextual Precision": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the nodes in retrieval contexts that are relevant are correctly ranked at the top (nodes 1 and 2), both directly addressing the EXW contract and ITC receipt timing. The irrelevant nodes (nodes 3, 4, and 5) are ranked lower, as they discuss unrelated topics such as inspection, storage, and warranty services. This perfect ordering ensures maximum contextual precision.",
+          "cost": 0.0016208
+        }
+      }
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "gold": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "top": [
+        "igst-rules-2017:rule-4:4",
+        "igst-rules-2017:rule-7:3",
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-3:15",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "returned": 5,
+      "seconds": 0.009,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 3,
+      "judge": {
+        "Contextual Recall": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 3 of the retrieval context, which clearly explains the attribution of service value for hotel accommodation across States, including the exception for properties spanning contiguous States or Union territories. There are no unsupported elements in the output, making the recall complete and accurate.",
+          "cost": 0.0013871999999999999
+        },
+        "Contextual Precision": {
+          "score": 0.7555555555555555,
+          "reason": "The score is 0.76 because the first, third, and fifth nodes in retrieval contexts are correctly ranked higher as they directly address apportioning service value for hotel stays across states, with clear explanations and relevant illustrations. However, the presence of the second and fourth nodes, which are irrelevant and ranked above some relevant nodes, lowers the score. These irrelevant nodes discuss unrelated topics like invoice values and advertisement services, which do not pertain to hotel stays, thus preventing a perfect ranking.",
+          "cost": 0.0019048
+        }
+      }
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "gold": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-147:8",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+        "cgst-rules-2017:rule-147:9",
+        "cgst-rules-2017:rule-147:2",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "returned": 5,
+      "seconds": 0.007,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "judge": {
+        "Contextual Recall": {
+          "score": 0.5,
+          "reason": "The score is 0.50 because while the 2nd node in the retrieval context supports the careful use of attachment power mentioned in sentence 2 of the expected output, there is no explicit information in any node about provisional attachment not being exercised routinely or mechanically as stated in sentence 1. This partial alignment leads to a moderate recall score.",
+          "cost": 0.0009515999999999999
+        },
+        "Contextual Precision": {
+          "score": 0.2,
+          "reason": "The score is 0.20 because the relevant node is ranked fifth in the retrieval contexts, while the first four nodes are irrelevant. These irrelevant nodes discuss related procedural or evidentiary matters but do not address automatic attachment upon opening an investigation, as highlighted by their reasons such as 'does not address whether attachment can be automatic' and 'does not indicate that attachment happens automatically.' The relevant node, ranked lower, clearly states that attachment 'should not be exercised routinely or mechanically,' supporting careful use rather than automatic action. This ranking lowers the score, but the presence of the relevant node within the top five contexts prevents the score from being lower.",
+          "cost": 0.001362
+        }
+      }
+    }
+  ]
+}

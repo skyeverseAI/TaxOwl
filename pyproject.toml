@@ -27,6 +27,7 @@ dependencies = [
     "sentence-transformers==6.2.0",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
     "streamlit==1.66.0",  # the UI (app.py); same version as evals_project
     "tokenizers==0.22.2",  # bge-small's token counts in the splitter and chunker (src/taxowl/tokens.py)
+    "typesafe-sdk>=0.7.5",
 ]
 
 [project.scripts]
