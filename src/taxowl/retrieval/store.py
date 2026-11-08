@@ -13,12 +13,19 @@ from taxowl.schema import Chunk
 
 COLLECTION = "corpus-bge-small"  # model in the name: two models' vectors can't be compared
 BATCH = 512                      # chunks embedded and saved at one time
+# HNSW is Chroma's approximate search index; ef_search = how many candidates it keeps while searching.
+# At Chroma's 100, 2 of 40 dev questions changed between runs and 3 missed a chunk exact search found.
+# At 500, all 40 matched exact search in 6 of 6 runs (2026-11-08, Evaluations/Retriever_Evals/).
+EF_SEARCH = 500
 
 
 def get_store() -> Chroma:
-    """The store, created empty if it isn't there. Cosine: the same score as embedder.similarity."""
+    """The store, created empty if it isn't there. Cosine: the same score as embedder.similarity.
+    collection_configuration applies when the collection is created; the existing store was set to
+    ef_search 500 once with collection.modify()."""
     return Chroma(collection_name=COLLECTION, embedding_function=get_embedder(),
-                  persist_directory=str(CHROMA), collection_metadata={"hnsw:space": "cosine"})
+                  persist_directory=str(CHROMA), collection_metadata={"hnsw:space": "cosine"},
+                  collection_configuration={"hnsw": {"ef_search": EF_SEARCH}})
 
 
 def count(store: Chroma) -> int:

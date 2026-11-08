@@ -47,8 +47,7 @@ from langchain_core.documents import Document
 
 from taxowl.config import CHUNKS, ROOT, RUNS
 from taxowl.evals.metrics import hit_at_k, recall_at_k, reciprocal_rank
-from taxowl.retrieval.lookup import MAX_CHUNKS
-from taxowl.retrieval.retriever import EXACT_CHUNKS, MEANING_CHUNKS, make_retriever
+from taxowl.retrieval.retriever import EXACT_CHUNKS, MEANING_CHUNKS, PER_CITATION, make_retriever
 from taxowl.retrieval.store import COLLECTION, count, get_store
 from taxowl.tokens import EMBEDDER
 
@@ -201,11 +200,14 @@ def summarise(results: list[dict]) -> dict:
 
 def config(gold_path: Path, mode: str, use_judge: bool) -> dict:
     """What was measured, saved with the scores: two runs are comparable only if these match."""
+    store = get_store()
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
                             capture_output=True, text=True).stdout.strip()
     return {"mode": mode, "k": K, "embedding_model": EMBEDDER, "collection": COLLECTION,
-            "chunks_in_store": count(get_store()), "meaning_chunks": MEANING_CHUNKS,
-            "exact_chunks": EXACT_CHUNKS, "lookup_max_chunks": MAX_CHUNKS,
+            "chunks_in_store": count(store),
+            "ef_search": store._collection.configuration_json["hnsw"]["ef_search"],
+            "meaning_chunks": MEANING_CHUNKS,
+            "exact_chunks": EXACT_CHUNKS, "per_citation": PER_CITATION,
             "gold_file": str(gold_path), "gold_sha256": file_hash(gold_path),
             "judge_model": JUDGE_MODEL if use_judge else None, "git_commit": commit,
             "time": time.strftime("%Y-%m-%d %H:%M:%S")}

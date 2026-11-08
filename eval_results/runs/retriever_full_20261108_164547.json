@@ -1,0 +1,89 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-small-en-v1.5",
+    "collection": "corpus-bge-small",
+    "chunks_in_store": 4717,
+    "meaning_chunks": 5,
+    "exact_chunks": 20,
+    "lookup_max_chunks": 10,
+    "gold_file": "data/smoke.jsonl",
+    "gold_sha256": "55f7765b4011f328bbc30795f6928cef7e2ed1e68bd9bd867bd5f7d3cbc9b502",
+    "judge_model": null,
+    "git_commit": "5580b47",
+    "time": "2026-11-08 16:45:47"
+  },
+  "summary": {
+    "exact": {
+      "n": 2,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0
+    },
+    "ALL": {
+      "n": 2,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0
+    }
+  },
+  "rows": [
+    {
+      "id": "smoke-1",
+      "category": "exact",
+      "question": "What does section 16(4) of the CGST Act say about the time limit for claiming input tax credit?",
+      "gold": [
+        "act-12-of-2017:section-16:6"
+      ],
+      "top": [
+        "act-12-of-2017:section-16:6",
+        "211-05-2024-gst:para-2-4",
+        "211-05-2024-gst:para-2-1",
+        "211-05-2024-gst:para-2-2",
+        "211-05-2024-gst:para-1-2",
+        "211-05-2024-gst:para-1"
+      ],
+      "returned": 6,
+      "seconds": 0.572,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1
+    },
+    {
+      "id": "smoke-2",
+      "category": "exact",
+      "question": "What does rule 36(4) of the CGST Rules require before a buyer can claim input tax credit on supplier invoices?",
+      "gold": [
+        "cgst-rules-2017:rule-36:4"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-36:4",
+        "cgst-rules-2017:rule-36:1",
+        "cgst-rules-2017:rule-36:3",
+        "cgst-rules-2017:rule-36:2",
+        "211-05-2024-gst:para-2-2",
+        "cgst-rules-2017:rule-40:6"
+      ],
+      "returned": 6,
+      "seconds": 0.01,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1
+    }
+  ]
+}

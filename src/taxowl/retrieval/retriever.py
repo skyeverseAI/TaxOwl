@@ -9,6 +9,11 @@ Each returned chunk is a copy, labelled in its metadata:
     law_assumed   True when the question named no law and the CGST Act was taken (exact only)
     distance      how far in meaning, lower is closer (meaning only)
 
+A named citation's chunks are ordered by closeness to the question, not by page: "Circular 231/25/2024"
+has 15 chunks, and the para that answers (4.4) came 8th in page order (Baseline 1, 2026-11-08). All of a
+citation's chunks are compared first, then the closest PER_CITATION are kept, so the answer can't be cut
+off by a page-order limit.
+
 The retriever knows nothing about GST. It is given two functions: one reads citations from a
 question, the other finds a citation's chunks. `make_retriever()` gives it taxowl's GST pair. Merging
 the two lists is our own code, not LangChain's EnsembleRetriever: that one mixes lists by rank
@@ -25,11 +30,15 @@ from langchain_core.retrievers import BaseRetriever
 from langchain_core.vectorstores import VectorStore
 
 from taxowl.retrieval.citations import Citation, read_citations
+from taxowl.retrieval.embedder import similarity
 from taxowl.retrieval.lookup import lookup
 from taxowl.retrieval.store import get_store
 
 MEANING_CHUNKS = 5   # always added, even after exact hits: the question may ask more than the citation holds
-EXACT_CHUNKS = 20    # all citations together; each citation's own limit is in lookup (MAX_CHUNKS)
+EXACT_CHUNKS = 20    # all citations together
+PER_CITATION = 10    # one citation's closest chunks (was lookup's MAX_CHUNKS, taken in page order)
+
+_VECTORS: dict[str, list[float]] = {}  # chunk id -> its vector, so a chunk is embedded once per run
 
 
 def describe(citation: Citation) -> str:
@@ -46,7 +55,7 @@ def labelled(document: Document, **labels) -> Document:
 
 def share(found: list[list[Document]], cap: int) -> list[list[Document]]:
     """Cut each citation's chunks so all together fit in `cap`, taking one from each in turn.
-    Three citations with 10 chunks each and a cap of 20 -> 7, 7 and 6, each still in reading order;
+    Three citations with 10 chunks each and a cap of 20 -> 7, 7 and 6, each keeping its closest ones;
     a citation with only 2 chunks leaves its unused room to the others."""
     taken = [0] * len(found)
     left = cap
@@ -67,14 +76,29 @@ class LawRetriever(BaseRetriever):
 
     store: VectorStore
     read: Callable[[str], list[Citation]]                # question -> citations
-    find: Callable[[Citation], list[Document]]           # citation -> its chunks, in order
+    find: Callable[[Citation], list[Document]]           # citation -> all its chunks (the retriever orders them)
     meaning_chunks: int = MEANING_CHUNKS
     exact_chunks: int = EXACT_CHUNKS
+    per_citation: int = PER_CITATION
+
+    def closest(self, question: str, documents: list[Document]) -> list[Document]:
+        """A citation's chunks, closest to the question first. The vectors are made with the store's
+        own embedder, so the order matches what meaning search would give."""
+        if len(documents) < 2:
+            return documents
+        embedder = self.store.embeddings
+        new = [d for d in documents if d.id not in _VECTORS]
+        if new:
+            for document, vector in zip(new, embedder.embed_documents([d.page_content for d in new])):
+                _VECTORS[document.id] = vector
+        query = embedder.embed_query(question)
+        return sorted(documents, key=lambda d: similarity(query, _VECTORS[d.id]), reverse=True)
 
     def exact(self, question: str) -> list[Document]:
         """Chunks for each citation, the room shared out, each chunk listed once."""
         citations = self.read(question)
-        kept = share([self.find(citation) for citation in citations], self.exact_chunks)
+        found = [self.closest(question, self.find(citation))[:self.per_citation] for citation in citations]
+        kept = share(found, self.exact_chunks)
         seen, results = set(), []
         for citation, documents in zip(citations, kept):
             for document in documents:
@@ -98,5 +122,7 @@ class LawRetriever(BaseRetriever):
 
 
 def make_retriever() -> LawRetriever:
-    """taxowl's retriever: the GST citation reader and lookup, over the Chroma store."""
-    return LawRetriever(store=get_store(), read=read_citations, find=lookup)
+    """taxowl's retriever: the GST citation reader and lookup, over the Chroma store. Lookup gives all
+    of a citation's chunks (no limit); the retriever orders them and keeps PER_CITATION."""
+    return LawRetriever(store=get_store(), read=read_citations,
+                        find=lambda citation: lookup(citation, limit=None))
