@@ -3,6 +3,13 @@
     uv run python -m taxowl.evals.retriever_eval --gold eval_results/gold/retriever_dev.jsonl --mode full
     uv run python -m taxowl.evals.retriever_eval --gold eval_results/gold/retriever_dev.jsonl --mode meaning
     ... add --judge for DeepEval's scores too (costs money, a few rupees per run)
+    ... add --meaning-chunks 15 to fetch more by meaning and see recall at 5/8/10/15 from one run
+
+How many meaning chunks? (--meaning-chunks, full mode only)
+    The answer step gets every chunk the retriever returns: exact ones + MEANING_CHUNKS by meaning.
+    A right chunk at meaning rank 7 never reaches it when MEANING_CHUNKS is 5. recall@5 can't show this
+    (it only looks at the top 5), so for each cut N we score "exact chunks + the first N by meaning":
+    meaning_recall@N. Where it stops rising, more chunks only add tokens. One run with 15 gives every cut.
 
 Two kinds of score, kept side by side so we can study how they differ:
 
@@ -49,9 +56,11 @@ from taxowl.config import CHUNKS, ROOT, RUNS
 from taxowl.evals.metrics import hit_at_k, recall_at_k, reciprocal_rank
 from taxowl.retrieval.retriever import EXACT_CHUNKS, MEANING_CHUNKS, PER_CITATION, make_retriever
 from taxowl.retrieval.store import COLLECTION, count, get_store
-from taxowl.tokens import EMBEDDER
+from taxowl.retrieval.embedder import EMBEDDER
+from taxowl.tokens import count_tokens
 
 K = 5                                # the cut-off for hit@k and recall@k
+CUTS = (5, 8, 10, 15)               # meaning-chunk counts to compare (see "How many meaning chunks?")
 TOP = 10                             # meaning mode fetches this many; runs save this many ids per question
 JUDGE_MODEL = "openai/gpt-4.1-mini"  # OpenRouter's name; the same judge as evals_project
 THRESHOLD = 0.7                      # DeepEval's pass mark, kept from evals_project
@@ -117,11 +126,28 @@ def score(row: dict, ids: list[str], units: dict[str, str]) -> dict:
         "hit@5": hit_at_k(ids, gold, K),
         "hit@all": hit_at_k(ids, gold, len(ids)),
         "recall@5": recall_at_k(ids, gold, K),
+        "recall@all": recall_at_k(ids, gold, len(ids)),
         "mrr": reciprocal_rank(ids, gold),
         "section_hit@5": hit_at_k(sections, gold_sections, K),
         "section_mrr": reciprocal_rank(sections, gold_sections),
         "rank": rank,
     }
+
+
+def by_cut(row: dict, documents: list[Document]) -> dict:
+    """For each cut N in CUTS: the recall of exact chunks + the first N meaning chunks, and the tokens
+    those N meaning chunks add. Full mode only (needs found_by); cuts above what was fetched are skipped."""
+    gold = set(row["gold_chunks"])
+    exact = [d.id for d in documents if d.metadata.get("found_by") == "exact"]
+    meaning = [d for d in documents if d.metadata.get("found_by") == "meaning"]
+    out = {}
+    for n in CUTS:
+        if n > len(meaning):
+            break
+        kept = exact + [d.id for d in meaning[:n]]
+        out[n] = {"recall": recall_at_k(kept, gold, len(kept)),
+                  "tokens": sum(count_tokens(d.page_content) for d in meaning[:n])}
+    return out
 
 
 # ---------------------------------------------------------------- the judge (optional)
@@ -187,6 +213,8 @@ def run(retriever, gold_path: Path, mode: str, use_judge: bool = False,
         results.append({"id": row["id"], "category": row["category"], "question": row["question"],
                         "gold": row["gold_chunks"], "top": ids[:TOP], "returned": len(ids),
                         "seconds": round(seconds, 3), **score(row, ids, units)})
+        if mode == "full":
+            results[-1]["by_cut"] = by_cut(row, documents)
         # the judge sees what the answer step would get: everything in full mode, the top 5 by meaning
         cases.append((row, documents if mode == "full" else documents[:MEANING_CHUNKS]))
 
@@ -195,7 +223,9 @@ def run(retriever, gold_path: Path, mode: str, use_judge: bool = False,
         for result in results:
             result["judge"] = judged.get(result["id"], {})
 
-    return {"config": config(gold_path, mode, use_judge, judge_model, ids, eval_mode), "summary": summarise(results), "rows": results}
+    meaning_chunks = getattr(retriever, "meaning_chunks", None)
+    return {"config": config(gold_path, mode, use_judge, judge_model, ids, eval_mode, meaning_chunks),
+            "summary": summarise(results), "rows": results}
 
 
 def summarise(results: list[dict]) -> dict:
@@ -204,10 +234,15 @@ def summarise(results: list[dict]) -> dict:
     for result in results:
         groups[result["category"]].append(result)
         groups["ALL"].append(result)
-    keys = ["hit@5", "hit@all", "recall@5", "mrr", "section_hit@5", "section_mrr"]
+    keys = ["hit@5", "hit@all", "recall@5", "recall@all", "mrr", "section_hit@5", "section_mrr"]
     summary = {}
     for name, members in groups.items():
         line = {"n": len(members), **{key: round(mean(m[key] for m in members), 3) for key in keys}}
+        for n in CUTS:
+            cut = [m["by_cut"][n] for m in members if n in m.get("by_cut", {})]
+            if cut:
+                line[f"meaning_recall@{n}"] = round(mean(c["recall"] for c in cut), 3)
+                line[f"meaning_tokens@{n}"] = round(mean(c["tokens"] for c in cut))
         for metric in {metric for m in members for metric in m.get("judge", {})}:
             values = [m["judge"][metric]["score"] for m in members
                       if m.get("judge", {}).get(metric, {}).get("score") is not None]
@@ -218,7 +253,7 @@ def summarise(results: list[dict]) -> dict:
 
 
 def config(gold_path: Path, mode: str, use_judge: bool, judge_model: str = JUDGE_MODEL,
-           ids: list[str] | None = None, eval_mode: str = "llm") -> dict:
+           ids: list[str] | None = None, eval_mode: str = "llm", meaning_chunks: int | None = None) -> dict:
     """What was measured, saved with the scores: two runs are comparable only if these match."""
     store = get_store()
     commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT,
@@ -226,7 +261,7 @@ def config(gold_path: Path, mode: str, use_judge: bool, judge_model: str = JUDGE
     return {"mode": mode, "k": K, "embedding_model": EMBEDDER, "collection": COLLECTION,
             "chunks_in_store": count(store),
             "ef_search": store._collection.configuration_json["hnsw"]["ef_search"],
-            "meaning_chunks": MEANING_CHUNKS,
+            "meaning_chunks": meaning_chunks if mode == "full" else None,
             "exact_chunks": EXACT_CHUNKS, "per_citation": PER_CITATION,
             "gold_file": str(gold_path), "gold_sha256": file_hash(gold_path),
             "only_ids": ids,
@@ -239,8 +274,9 @@ def config(gold_path: Path, mode: str, use_judge: bool, judge_model: str = JUDGE
 def show(run_result: dict) -> None:
     """A table per category, then every miss with what came back instead."""
     summary = run_result["summary"]
-    judge_cols = sorted({k for line in summary.values() for k in line} -
-                        {"n", "hit@5", "hit@all", "recall@5", "mrr", "section_hit@5", "section_mrr"})
+    judge_cols = sorted({k for line in summary.values() for k in line
+                         if not k.startswith(("meaning_recall@", "meaning_tokens@"))} -
+                        {"n", "hit@5", "hit@all", "recall@5", "recall@all", "mrr", "section_hit@5", "section_mrr"})
     head = f"{'category':<10}{'n':>4}{'hit@5':>8}{'hit@all':>9}{'rec@5':>8}{'MRR':>7}{'sec hit@5':>11}{'sec MRR':>9}"
     print("\n" + head + "".join(f"{c[:18]:>20}" for c in judge_cols))
     for name in sorted(summary, key=lambda n: (n == "ALL", n)):
@@ -248,6 +284,15 @@ def show(run_result: dict) -> None:
         print(f"{name:<10}{line['n']:>4}{line['hit@5']:>8.2f}{line['hit@all']:>9.2f}{line['recall@5']:>8.2f}{line['mrr']:>7.2f}"
               f"{line['section_hit@5']:>11.2f}{line['section_mrr']:>9.2f}"
               + "".join(f"{line.get(c, float('nan')):>20.2f}" for c in judge_cols))
+
+    cuts = [n for n in CUTS if f"meaning_recall@{n}" in summary.get("ALL", {})]
+    if cuts:
+        print("\nRecall with exact chunks + N by meaning (tokens = what the N meaning chunks add, per question)")
+        print(f"{'category':<10}" + "".join(f"{'N=' + str(n):>16}" for n in cuts))
+        for name in sorted(summary, key=lambda n: (n == "ALL", n)):
+            line = summary[name]
+            print(f"{name:<10}" + "".join(
+                f"{line[f'meaning_recall@{n}']:>9.2f} ({line[f'meaning_tokens@{n}']:>4})" for n in cuts))
 
     misses = [r for r in run_result["rows"] if not r["hit@5"]]
     print(f"\nMisses at 5: {len(misses)}")
@@ -266,11 +311,15 @@ def main() -> None:
     parser.add_argument("--judge-model", default=JUDGE_MODEL, help="OpenRouter model name for the judge")
     parser.add_argument("--eval-mode", choices=["llm", "hybrid", "system_one"], default="llm",
                         help="who decides: the LLM, Jev with the LLM writing reasons, or Jev alone")
+    parser.add_argument("--meaning-chunks", type=int, default=MEANING_CHUNKS,
+                        help="full mode: how many chunks by meaning (default %(default)s); use 15 to compare cuts. "
+                             "Don't add --judge with a big number: the judge reads every chunk")
     parser.add_argument("--ids", help="comma-separated row ids to run only those, e.g. claude-005,codex-020")
     args = parser.parse_args()
 
     if args.mode == "full":
         retriever = make_retriever()
+        retriever.meaning_chunks = args.meaning_chunks
     else:  # LangChain's plain vector-store retriever: no exact lookup
         retriever = get_store().as_retriever(search_kwargs={"k": TOP})
 

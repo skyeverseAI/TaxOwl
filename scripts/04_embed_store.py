@@ -3,20 +3,21 @@
 The store must be empty. To rebuild it, delete data/chroma/ by hand first.
 
 Usage:
-    uv run scripts/04_embed_store.py
+    uv run scripts/04_embed_store.py                             # bge-m3 (default), collection corpus-bge-m3
+    TAXOWL_EMBEDDER=bge-small uv run scripts/04_embed_store.py   # bge-small into its own collection
 """
 
 import json
 import time
 
 from taxowl.config import CHROMA, CHUNKS, ROOT
-from taxowl.retrieval.store import build
+from taxowl.retrieval.store import COLLECTION, build
 from taxowl.schema import Chunk
 
 
 def main() -> None:
     chunks = [Chunk(**json.loads(line)) for line in CHUNKS.open()]
-    print(f"{len(chunks)} chunks read from {CHUNKS.relative_to(ROOT)}")
+    print(f"{len(chunks)} chunks read from {CHUNKS.relative_to(ROOT)}, into collection {COLLECTION}")
 
     start = time.perf_counter()
     stored = build(chunks)

@@ -8,10 +8,10 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
 from taxowl.config import CHROMA
-from taxowl.retrieval.embedder import get_embedder
+from taxowl.retrieval.embedder import MODEL, get_embedder
 from taxowl.schema import Chunk
 
-COLLECTION = "corpus-bge-small"  # model in the name: two models' vectors can't be compared
+COLLECTION = f"corpus-{MODEL}"   # model in the name: two models' vectors can't be compared
 BATCH = 512                      # chunks embedded and saved at one time
 # HNSW is Chroma's approximate search index; ef_search = how many candidates it keeps while searching.
 # At Chroma's 100, 2 of 40 dev questions changed between runs and 3 missed a chunk exact search found.
@@ -37,7 +37,8 @@ def build(chunks: list[Chunk]) -> int:
     """Embed the chunks and save them in an empty store. Returns how many the store now holds."""
     store = get_store()
     if count(store):
-        raise RuntimeError(f"{CHROMA} already holds {count(store)} chunks. Delete that folder first.")
+        raise RuntimeError(f"{COLLECTION} in {CHROMA} already holds {count(store)} chunks. "
+                           "Delete that folder first (it holds every model's collection).")
     for start in range(0, len(chunks), BATCH):
         batch = chunks[start:start + BATCH]
         docs = [Document(page_content=c.text, metadata=c.metadata()) for c in batch]

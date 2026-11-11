@@ -1,4 +1,10 @@
-"""Text -> vectors: lists of 384 numbers, close together when two texts mean similar things.
+"""Text -> vectors: lists of numbers, close together when two texts mean similar things.
+
+Which model: the TAXOWL_EMBEDDER environment variable, one of MODELS (default bge-m3: it beat
+bge-small on the test set, 0.81 vs 0.69 hit@5; Evaluations/Retriever_Evals/Final.md). An env var,
+not a flag, because the store is opened deep inside lookup, the retriever, the evals and the app.
+    TAXOWL_EMBEDDER=bge-m3 uv run python -m taxowl.retrieval.embedder
+Each model has its own collection in the store (store.py), so switching never mixes vectors.
 
 LangChain's HuggingFaceEmbeddings does the work. bge treats the two sides differently:
     get_embedder().embed_documents(texts)   what we store: the text as it is
@@ -9,15 +15,25 @@ Check it (needs data/chunks.jsonl):
 """
 
 import json
+import os
 from functools import lru_cache
 
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from taxowl.config import CHUNKS
-from taxowl.tokens import EMBEDDER
-
-DIMENSIONS = 384
-QUERY_PREFIX = "Represent this sentence for searching relevant passages: "  # from BAAI's model card
+# name on Hugging Face, vector length, and what goes in front of a question (from each model card)
+MODELS = {
+    "bge-small": {"name": "BAAI/bge-small-en-v1.5", "dimensions": 384,
+                  "query_prefix": "Represent this sentence for searching relevant passages: "},
+    # multilingual (100+ languages), reads up to 8192 tokens, needs no question prefix; ~2.3 GB
+    "bge-m3": {"name": "BAAI/bge-m3", "dimensions": 1024, "query_prefix": ""},
+}
+MODEL = os.environ.get("TAXOWL_EMBEDDER", "bge-m3")
+if MODEL not in MODELS:
+    raise SystemExit(f"TAXOWL_EMBEDDER={MODEL!r}: choose one of {sorted(MODELS)}")
+EMBEDDER = MODELS[MODEL]["name"]
+DIMENSIONS = MODELS[MODEL]["dimensions"]
+QUERY_PREFIX = MODELS[MODEL]["query_prefix"]
 BATCH = 32        # texts turned into vectors at one time
 DEVICE = "cpu"    # the server may have no GPU, so the Mac runs the same way
 
@@ -59,7 +75,8 @@ def main() -> None:
     for chunk_id, label, score in zip(wanted, wanted.values(), (near, far)):
         print(f"  {score:.3f}  {label}  [{chunk_id}]")
     passed = len(query) == DIMENSIONS and near > far
-    print("PASS" if passed else "FAIL: want 384 numbers, and the related chunk scoring higher")
+    print(f"model: {EMBEDDER}")
+    print("PASS" if passed else f"FAIL: want {DIMENSIONS} numbers, and the related chunk scoring higher")
 
 
 if __name__ == "__main__":

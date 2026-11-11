@@ -8,7 +8,9 @@ from functools import lru_cache
 
 from tokenizers import Tokenizer
 
-EMBEDDER = "BAAI/bge-small-en-v1.5"  # the tokenizer must be the embedder's own, or the counts are wrong
+# Chunk sizes are counted with bge-small's tokenizer (512 max). The store now uses bge-m3 (reads 8192),
+# so every chunk still fits; this stays so chunk ids and sizes don't move. Not the store's embedder.
+EMBEDDER = "BAAI/bge-small-en-v1.5"
 
 
 @lru_cache(maxsize=1)

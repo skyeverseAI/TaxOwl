@@ -1,0 +1,726 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-m3",
+    "collection": "corpus-bge-m3",
+    "chunks_in_store": 4717,
+    "ef_search": 500,
+    "meaning_chunks": 8,
+    "exact_chunks": 20,
+    "per_citation": 10,
+    "gold_file": "eval_results/gold/retriever_test.jsonl",
+    "gold_sha256": "af496fa9fe314179806c64bb247eabf48197138b32d4d08d71f25dada4877248",
+    "only_ids": [
+      "133-03-2020-gst-table-1:1",
+      "133-03-2020-gst-table-1:2",
+      "133-03-2020-gst:para-2",
+      "133-03-2020-gst-table-2:1",
+      "133-03-2020-gst-table-3:1",
+      "cgst-rules-2017:rule-41",
+      "cgst-rules-2017:rule-41a",
+      "133-03-2020-gst:para-1"
+    ],
+    "judge_model": null,
+    "eval_mode": null,
+    "jev_model": null,
+    "git_commit": "60bdaac",
+    "time": "2026-11-11 13:14:58"
+  },
+  "summary": {
+    "exact": {
+      "n": 4,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "meaning_recall@5": 1.0,
+      "meaning_tokens@5": 1473,
+      "meaning_recall@8": 1.0,
+      "meaning_tokens@8": 2432
+    },
+    "ALL": {
+      "n": 16,
+      "hit@5": 0.812,
+      "hit@all": 0.812,
+      "recall@5": 0.677,
+      "recall@all": 0.708,
+      "mrr": 0.651,
+      "section_hit@5": 0.812,
+      "section_mrr": 0.677,
+      "meaning_recall@5": 0.677,
+      "meaning_tokens@5": 1310,
+      "meaning_recall@8": 0.708,
+      "meaning_tokens@8": 2100
+    },
+    "hinglish": {
+      "n": 3,
+      "hit@5": 0.333,
+      "hit@all": 0.333,
+      "recall@5": 0.333,
+      "recall@all": 0.333,
+      "mrr": 0.111,
+      "section_hit@5": 0.333,
+      "section_mrr": 0.167,
+      "meaning_recall@5": 0.333,
+      "meaning_tokens@5": 1313,
+      "meaning_recall@8": 0.333,
+      "meaning_tokens@8": 1980
+    },
+    "multi": {
+      "n": 2,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 0.75,
+      "mrr": 0.375,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "meaning_recall@5": 0.5,
+      "meaning_tokens@5": 1311,
+      "meaning_recall@8": 0.75,
+      "meaning_tokens@8": 2130
+    },
+    "scenario": {
+      "n": 7,
+      "hit@5": 0.857,
+      "hit@all": 0.857,
+      "recall@5": 0.69,
+      "recall@all": 0.69,
+      "mrr": 0.762,
+      "section_hit@5": 0.857,
+      "section_mrr": 0.762,
+      "meaning_recall@5": 0.69,
+      "meaning_tokens@5": 1215,
+      "meaning_recall@8": 0.69,
+      "meaning_tokens@8": 1954
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-002",
+      "category": "exact",
+      "question": "Under rule 86B, what is the general cap on paying output tax through the electronic credit ledger, and above what monthly turnover does it start to apply?",
+      "gold": [
+        "cgst-rules-2017:rule-86b:1"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-86b:1",
+        "cgst-rules-2017:rule-86b:5",
+        "cgst-rules-2017:rule-86b:4",
+        "cgst-rules-2017:rule-86b:2",
+        "cgst-rules-2017:rule-86b:3",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-1",
+        "cgst-rules-2017:rule-86:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:2",
+        "act-12-of-2017:section-49:4",
+        "172-04-2022-gst-table-2:2"
+      ],
+      "returned": 13,
+      "seconds": 4.327,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1462
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2450
+        }
+      }
+    },
+    {
+      "id": "claude-006",
+      "category": "exact",
+      "question": "In the ordinary case of goods moved for a supply, what must a registered person do under rule 138(1) before moving goods worth more than fifty thousand rupees, and can the transporter do it for him?",
+      "gold": [
+        "cgst-rules-2017:rule-138:1",
+        "cgst-rules-2017:rule-138:2"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-138:1",
+        "cgst-rules-2017:rule-138:3",
+        "cgst-rules-2017:rule-138:2",
+        "64-38-2018-gst:para-3",
+        "cgst-rules-2017:rule-138:6",
+        "act-12-of-2017:section-22:1",
+        "cgst-rules-2017:rule-138:7",
+        "38-12-2018-gst:para-8-3:1",
+        "cgst-rules-2017:rule-138:11",
+        "act-12-of-2017:section-129:1"
+      ],
+      "returned": 11,
+      "seconds": 0.838,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1734
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2505
+        }
+      }
+    },
+    {
+      "id": "claude-009",
+      "category": "exact",
+      "question": "Within what time must the proper officer pass the order under section 73(10) of the CGST Act?",
+      "gold": [
+        "act-12-of-2017:section-73:9"
+      ],
+      "top": [
+        "act-12-of-2017:section-73:9",
+        "02-2021-22-gst-inv-dr:para-2-2",
+        "02-2021-22-gst-inv-dr:para-2-3",
+        "185-17-2022-gst:para-3:1",
+        "31-05-2018-gst:para-5",
+        "31-05-2018-gst:para-4",
+        "77-51-2018-gst:para-4",
+        "185-17-2022-gst:para-3:2",
+        "cgst-rules-2017:rule-164:13"
+      ],
+      "returned": 9,
+      "seconds": 0.049,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 990
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1926
+        }
+      }
+    },
+    {
+      "id": "codex-005",
+      "category": "exact",
+      "question": "Under rule 3(h) of the IGST Rules, how is online advertising apportioned among States?",
+      "gold": [
+        "igst-rules-2017:rule-3:16"
+      ],
+      "top": [
+        "igst-rules-2017:rule-3:16",
+        "igst-rules-2017:rule-3:17",
+        "igst-rules-2017:rule-3:4",
+        "igst-rules-2017:rule-3:19",
+        "igst-rules-2017:rule-3:8",
+        "igst-rules-2017:rule-3:3",
+        "igst-rules-2017:rule-3:18",
+        "igst-rules-2017:rule-3:7",
+        "igst-rules-2017:rule-3:11"
+      ],
+      "returned": 9,
+      "seconds": 0.048,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1706
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2846
+        }
+      }
+    },
+    {
+      "id": "claude-031",
+      "category": "hinglish",
+      "question": "E-way bill mein truck number ka ek digit galat chala gaya, baaki sab sahi hai. Kya raste mein maal detain ho jayega?",
+      "gold": [
+        "64-38-2018-gst:para-5",
+        "64-38-2018-gst:para-7"
+      ],
+      "top": [
+        "61-35-2018-gst:para-3",
+        "cgst-rules-2017:rule-138:8",
+        "61-35-2018-gst:para-5",
+        "47-21-2018-gst-table-1:6",
+        "61-35-2018-gst:para-6",
+        "cgst-rules-2017:rule-138:10",
+        "cgst-rules-2017:rule-138:22",
+        "cgst-rules-2017:rule-138:7"
+      ],
+      "returned": 8,
+      "seconds": 0.065,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 949
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 1736
+        }
+      }
+    },
+    {
+      "id": "codex-027",
+      "category": "hinglish",
+      "question": "GSTR-1 aur 3B mein mismatch typo ki wajah se ho gaya, par tax bhar diya tha. Recovery se pehle officer ko kya karna chahiye?",
+      "gold": [
+        "instruction-no-01-2022-gst:para-3-2"
+      ],
+      "top": [
+        "26-26-2017-gst-table-6:2",
+        "26-26-2017-gst-table-5:2",
+        "instruction-no-01-2022-gst:para-3-2",
+        "26-26-2017-gst-table-6:3",
+        "26-26-2017-gst-table-4:2",
+        "7-7-2017-gst:para-11",
+        "7-7-2017-gst:para-15",
+        "26-26-2017-gst:para-3-1"
+      ],
+      "returned": 8,
+      "seconds": 0.067,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 3,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1692
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2365
+        }
+      }
+    },
+    {
+      "id": "codex-030",
+      "category": "hinglish",
+      "question": "Supplier ne commercial credit note diya hai aur maine payment kam ki; kya mujhe discount ke proportion mein ITC reverse karna hoga?",
+      "gold": [
+        "251-08-2025-gst:para-3:1"
+      ],
+      "top": [
+        "212-06-2024-gst:para-2-7",
+        "105-24-2019-gst:para-5",
+        "173-05-2022-gst:para-4:2",
+        "92-11-2019-gst:para-2:4",
+        "212-06-2024-gst:para-1",
+        "135-05-2020-gst:para-4-4",
+        "212-06-2024-gst:para-2-5",
+        "212-06-2024-gst:para-2-4"
+      ],
+      "returned": 8,
+      "seconds": 0.051,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 1298
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 1839
+        }
+      }
+    },
+    {
+      "id": "claude-023",
+      "category": "multi",
+      "question": "A telecom company lays underground ducts and manholes for its optical fibre network. Is ITC on them blocked as construction of immovable property?",
+      "gold": [
+        "act-12-of-2017:section-17:7",
+        "219-13-2024-gst:para-4"
+      ],
+      "top": [
+        "219-13-2024-gst:para-1",
+        "219-13-2024-gst-table-1:2",
+        "219-13-2024-gst-table-1:3",
+        "219-13-2024-gst:para-4",
+        "219-13-2024-gst-table-1:1",
+        "56-30-2018-gst:para-10:3",
+        "act-12-of-2017:section-17:7",
+        "203-15-2023-gst-table-3:1"
+      ],
+      "returned": 8,
+      "seconds": 0.066,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 1.0,
+      "mrr": 0.25,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 4,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1208
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2237
+        }
+      }
+    },
+    {
+      "id": "claude-027",
+      "category": "multi",
+      "question": "We wrongly took IGST credit and reversed it later. What is the maximum interest rate the Act allows on wrongly availed and utilised credit, and how do we tell whether the wrong credit was actually 'utilised'?",
+      "gold": [
+        "act-12-of-2017:section-50",
+        "192-04-2023-gst:para-2:2"
+      ],
+      "top": [
+        "192-04-2023-gst:para-1",
+        "192-04-2023-gst:para-2:2",
+        "192-04-2023-gst-table-1:1",
+        "cgst-rules-2017:rule-88b:3",
+        "192-04-2023-gst:para-2:1",
+        "cgst-rules-2017:rule-121",
+        "192-04-2023-gst-table-2:1",
+        "71-45-2018-gst-table-1:3"
+      ],
+      "returned": 8,
+      "seconds": 0.066,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 0.5,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1414
+        },
+        "8": {
+          "recall": 0.5,
+          "tokens": 2023
+        }
+      }
+    },
+    {
+      "id": "claude-011",
+      "category": "scenario",
+      "question": "I took credit on a supplier's bill but still haven't paid him six months later. Do I lose the credit, and what happens when I finally pay?",
+      "gold": [
+        "cgst-rules-2017:rule-37:1",
+        "cgst-rules-2017:rule-37:2",
+        "cgst-rules-2017:rule-37:3"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-37:1",
+        "178-10-2022-gst:para-9",
+        "act-12-of-2017:section-140:6",
+        "act-12-of-2017:section-34:2",
+        "act-12-of-2017:section-34:3",
+        "182-14-2022-gst-table-3:1",
+        "178-10-2022-gst:para-7-1:7",
+        "178-10-2022-gst:para-7-1:6"
+      ],
+      "returned": 8,
+      "seconds": 0.061,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.3333333333333333,
+      "recall@all": 0.3333333333333333,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 0.3333333333333333,
+          "tokens": 1156
+        },
+        "8": {
+          "recall": 0.3333333333333333,
+          "tokens": 2118
+        }
+      }
+    },
+    {
+      "id": "claude-013",
+      "category": "scenario",
+      "question": "An OEM replaces defective parts free of cost during the warranty period. Does it pay GST on the replacement, and does it have to reverse ITC on those parts?",
+      "gold": [
+        "195-07-2023-gst-table-1:1",
+        "195-07-2023-gst-table-1:2"
+      ],
+      "top": [
+        "195-07-2023-gst-table-1:1",
+        "195-07-2023-gst:para-1",
+        "195-07-2023-gst-table-1:4",
+        "195-07-2023-gst-table-1:2",
+        "195-07-2023-gst-table-1:5",
+        "195-07-2023-gst-table-1:6",
+        "216-10-2024-gst:para-3-1",
+        "216-10-2024-gst:para-3-2"
+      ],
+      "returned": 8,
+      "seconds": 0.06,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1351
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1971
+        }
+      }
+    },
+    {
+      "id": "claude-014",
+      "category": "scenario",
+      "question": "A company pays its whole-time director a salary and, separately, a professional fee. How is each part treated under GST?",
+      "gold": [
+        "140-10-2020-gst:para-5-3",
+        "140-10-2020-gst:para-7"
+      ],
+      "top": [
+        "140-10-2020-gst:para-2",
+        "140-10-2020-gst:para-4-1",
+        "140-10-2020-gst:para-7",
+        "140-10-2020-gst:para-4-3",
+        "140-10-2020-gst:para-1",
+        "140-10-2020-gst:para-5-1",
+        "140-10-2020-gst:para-4-2",
+        "140-10-2020-gst:para-5-2"
+      ],
+      "returned": 8,
+      "seconds": 0.046,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 0.5,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.3333333333333333,
+      "rank": 3,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 853
+        },
+        "8": {
+          "recall": 0.5,
+          "tokens": 1349
+        }
+      }
+    },
+    {
+      "id": "claude-018",
+      "category": "scenario",
+      "question": "My goods sit in my transporter's godown before they reach my shop. Do I have to keep extending the e-way bill?",
+      "gold": [
+        "61-35-2018-gst:para-5"
+      ],
+      "top": [
+        "61-35-2018-gst:para-5",
+        "61-35-2018-gst:para-6",
+        "61-35-2018-gst:para-1",
+        "61-35-2018-gst:para-3",
+        "61-35-2018-gst:para-9",
+        "61-35-2018-gst:para-4",
+        "cgst-rules-2017:rule-138:9",
+        "cgst-rules-2017:rule-138:6"
+      ],
+      "returned": 8,
+      "seconds": 0.044,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 902
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1548
+        }
+      }
+    },
+    {
+      "id": "claude-020",
+      "category": "scenario",
+      "question": "Can a registered buyer take ITC on a purchase invoice that the supplier has not reported in his outward supply statement?",
+      "gold": [
+        "cgst-rules-2017:rule-36:4"
+      ],
+      "top": [
+        "211-05-2024-gst:para-2-5",
+        "123-42-2019-gst-table-1:3",
+        "211-05-2024-gst:para-2-6",
+        "act-12-of-2017:section-31:9",
+        "instruction-no-02-2022-gst:annexure-2:6",
+        "242-36-2024-gst:para-1",
+        "171-03-2022-gst-table-1:2",
+        "123-42-2019-gst-table-3:1"
+      ],
+      "returned": 8,
+      "seconds": 0.049,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 1247
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 2194
+        }
+      }
+    },
+    {
+      "id": "codex-011",
+      "category": "scenario",
+      "question": "What basic supplier details need to appear on my GST tax invoice?",
+      "gold": [
+        "cgst-rules-2017:rule-46:1"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-46:1",
+        "cgst-rules-2017:rule-60:7",
+        "cgst-rules-2017:rule-60:9",
+        "cgst-rules-2017:rule-49:3",
+        "cgst-rules-2017:rule-46:4",
+        "cgst-rules-2017:rule-54:4",
+        "90-09-2019-gst:para-1",
+        "14-14-2017-gst-table-1:1"
+      ],
+      "returned": 8,
+      "seconds": 0.042,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1302
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1953
+        }
+      }
+    },
+    {
+      "id": "codex-017",
+      "category": "scenario",
+      "question": "After a demerger, should we split transferred ITC using the new units’ assets across India or within each State?",
+      "gold": [
+        "133-03-2020-gst-table-1:1"
+      ],
+      "top": [
+        "133-03-2020-gst-table-1:1",
+        "133-03-2020-gst-table-1:2",
+        "133-03-2020-gst:para-2",
+        "133-03-2020-gst-table-2:1",
+        "133-03-2020-gst-table-3:1",
+        "cgst-rules-2017:rule-41",
+        "cgst-rules-2017:rule-41a",
+        "133-03-2020-gst:para-1"
+      ],
+      "returned": 8,
+      "seconds": 0.043,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1692
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2543
+        }
+      }
+    }
+  ]
+}

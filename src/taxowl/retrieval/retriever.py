@@ -34,7 +34,7 @@ from taxowl.retrieval.embedder import similarity
 from taxowl.retrieval.lookup import lookup
 from taxowl.retrieval.store import get_store
 
-MEANING_CHUNKS = 5   # always added, even after exact hits: the question may ask more than the citation holds
+MEANING_CHUNKS = 8   # always added, even after exact hits: the question may ask more than the citation holds
 EXACT_CHUNKS = 20    # all citations together
 PER_CITATION = 10    # one citation's closest chunks (was lookup's MAX_CHUNKS, taken in page order)
 
