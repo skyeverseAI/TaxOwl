@@ -53,6 +53,7 @@ from statistics import mean
 from langchain_core.documents import Document
 
 from taxowl.config import CHUNKS, ROOT, RUNS
+from taxowl.jev import JEV_MODEL, make_jev
 from taxowl.evals.metrics import hit_at_k, recall_at_k, reciprocal_rank
 from taxowl.retrieval.retriever import EXACT_CHUNKS, MEANING_CHUNKS, PER_CITATION, make_retriever
 from taxowl.retrieval.store import COLLECTION, count, get_store
@@ -64,13 +65,8 @@ CUTS = (5, 8, 10, 15)               # meaning-chunk counts to compare (see "How 
 TOP = 10                             # meaning mode fetches this many; runs save this many ids per question
 JUDGE_MODEL = "openai/gpt-4.1-mini"  # OpenRouter's name; the same judge as evals_project
 THRESHOLD = 0.7                      # DeepEval's pass mark, kept from evals_project
-# Jev (TypeSafe's "System One" model) answers typed yes/no questions with a probability, not text.
-# Reached through OpenRouter with the same key: DeepEval's TypeSafeModel -> typesafe_sdk -> /api/v1/systemone.
-# eval_mode: llm = the LLM does everything; hybrid = Jev decides, the LLM extracts and writes reasons;
-# system_one = Jev alone, no reasons. Checked 2026-11-08 (Evaluations/Retriever_Evals/).
-JEV_MODEL = "typesafe/jev-1.14"      # pinned version; OpenRouter answers as jev-1.14-20261014
-JEV_PRICE = 0.042 / 1e6              # $ per input token (output is free); DeepEval doesn't know 1.14's price
-OPENROUTER_API = "https://openrouter.ai/api"
+# eval_mode: llm = the LLM does everything; hybrid = Jev (taxowl/jev.py) decides, the LLM extracts and
+# writes reasons; system_one = Jev alone, no reasons. Checked 2026-11-08 (Evaluations/Retriever_Evals/).
 
 
 # ---------------------------------------------------------------- the golden set
@@ -158,15 +154,14 @@ def judge(cases: list[tuple[dict, list[Document]]], judge_model: str = JUDGE_MOD
     The claims, joined, are the expected answer. The judge sees what the answer step would see."""
     from deepeval import evaluate  # imported here: the id scores must run even without deepeval
     from deepeval.metrics import ContextualPrecisionMetric, ContextualRecallMetric
-    from deepeval.models import OpenRouterModel, TypeSafeModel
+    from deepeval.models import OpenRouterModel
     from deepeval.test_case import LLMTestCase
 
     from taxowl.ingestion.vlm import load_key  # taxowl's one way to read the OpenRouter key
 
     key = load_key()
     model = None if eval_mode == "system_one" else OpenRouterModel(model=judge_model, api_key=key, temperature=0)
-    jev = None if eval_mode == "llm" else TypeSafeModel(model=JEV_MODEL, api_key=key, base_url=OPENROUTER_API,
-                                                         cost_per_input_token=JEV_PRICE)
+    jev = None if eval_mode == "llm" else make_jev()
     test_cases = [
         LLMTestCase(input=row["question"],
                     actual_output="(generator not evaluated in this run)",
