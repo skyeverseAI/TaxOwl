@@ -91,15 +91,15 @@ DASHES = str.maketrans({c: "-" for c in "‐‑‒–—―−"})
 
 # ---------- asking the model ----------
 
-def load_key():
-    """The OpenRouter key: from the environment (a server), else from .env (this machine), else
-    None, and then the pipeline keeps PyMuPDF's tables and flags them. Never print the key."""
-    if os.environ.get("OPENROUTER_API_KEY"):
-        return os.environ["OPENROUTER_API_KEY"]
+def load_key(name: str = "OPENROUTER_API_KEY"):
+    """A key (OpenRouter by default): from the environment (a server), else from .env (this machine),
+    else None, and then the pipeline keeps PyMuPDF's tables and flags them. Never print the key."""
+    if os.environ.get(name):
+        return os.environ[name]
     env = ROOT / ".env"
     for line in (env.read_text().splitlines() if env.exists() else []):
-        name, _, value = line.partition("=")
-        if name.strip() == "OPENROUTER_API_KEY":
+        key, _, value = line.partition("=")
+        if key.strip() == name:
             return value.strip().strip("\"'")
     return None
 

@@ -21,6 +21,7 @@ dependencies = [
     "langchain-huggingface==1.2.3",  # bge-small vectors (src/taxowl/retrieval/embedder.py)
     "langchain-ollama==1.1.0",  # local answer model (src/taxowl/answer/generator.py)
     "langchain-openrouter==0.2.9",  # cloud answer model (src/taxowl/answer/generator.py)
+    "langchain-tavily>=0.2.18",
     "onnxruntime==1.31.0",
     "pymupdf==2.0",
     "rapidocr==3.10.0",

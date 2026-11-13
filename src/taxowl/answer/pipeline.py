@@ -23,6 +23,7 @@ from langchain_core.documents import Document
 
 from taxowl.answer.check import check
 from taxowl.answer.generator import generate
+from taxowl.answer.web import rate_note, web_sources
 from taxowl.retrieval.retriever import make_retriever
 
 # Sources are added in the retriever's order (exact first) until this many bge tokens. None = all.
@@ -38,7 +39,7 @@ def get_retriever():
 
 def label(doc: Document) -> str:
     """'The Central Goods and Services Tax Act, 2017, section 16(4), p.23 (law assumed)'
-       'Circular 238/32/2024-GST, para 4, p.2-3'
+       'Circular 238/32/2024-GST, dated 2024-10-15, para 4, p.2-3'
     'Circular 37/11/2018-GST, para 2, p.1 (WITHDRAWN by Circular 125/44/2019 - GST)'
     A flagged circular (its file had splitter warnings) shows only the page: its para numbers may be
     off (decided 2026-11-04). OCR isn't shown: the flag is per document, so every Act and Rules chunk
@@ -57,7 +58,8 @@ def label(doc: Document) -> str:
     if where.startswith("para") and not m["quality_ok"]:
         where = ""
     pages = f"p.{m['page_start']}" + (f"-{m['page_end']}" if m["page_end"] != m["page_start"] else "")
-    text = ", ".join(part for part in (name, where, pages) if part)
+    dated = f"dated {m['doc_date']}" if m.get("doc_date") else ""   # so an old rate can be seen as old
+    text = ", ".join(part for part in (name, dated, where, pages) if part)
     text += " (law assumed)" if m.get("law_assumed") else ""
     # validity/status.py: the model must see it to say it, and the reader to trust the citation
     if m.get("status") == "withdrawn":
@@ -102,11 +104,18 @@ def get_sources(question: str, budget: int | None = None) -> list[dict]:
     docs = pick(get_retriever().invoke(question), budget)
 
     # 2. LABEL: number each chunk and put its label above its text
-    return [{"number": n, "label": label(doc), "url": doc.metadata["official_url"],
+    sources = [{"number": n, "label": label(doc), "url": doc.metadata["official_url"],
              "chunk_id": doc.id, "law_assumed": assumed_law(doc),
              "doc_number": doc.metadata["doc_number"], "location": doc.metadata["location"],  # for evals
              "text": doc.page_content}
-            for n, doc in enumerate(docs, 1)]
+               for n, doc in enumerate(docs, 1)]
+
+    # 2b. WEB: a rate question also gets the top web results (answer/web.py), numbered on
+    return sources + web_sources(question, len(sources) + 1)
+
+
+def has_web(sources: list[dict]) -> bool:
+    return any(s.get("web") for s in sources)
 
 
 def as_text(sources: list[dict]) -> str:
@@ -121,7 +130,10 @@ def answer(question: str, which: str = "cloud") -> dict:
     sources = get_sources(question, BUDGET[which])
 
     # 3. GENERATE: the answer, from these sources only
-    reply = generate(question, as_text(sources), which, assumed(sources))
+    reply = generate(question, as_text(sources), which, assumed(sources), has_web(sources))
+    note = rate_note(question, sources)   # a rate question the web couldn't help with: say the rate may be old
+    if note:
+        reply["text"] += f"\n\n{note}"
 
     # 4. CHECK: no made-up source, no citation that isn't in a cited source
     checks = check(reply["text"], sources, question)

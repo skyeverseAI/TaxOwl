@@ -45,11 +45,13 @@ Rules:
 - If the sources do not answer the question, reply with exactly this sentence and nothing else:
 "{refusal}"
 Either answer the question, or give only that sentence. Never both: never add it after an answer, and never guess an answer before it.
-"No" is an answer: if the sources show something is not allowed, say so with the source. Correcting the question is an answer too: if its premise is wrong (a wrong date, rate, or a document about a different topic), say what the sources actually say. Use the refusal sentence only when no source deals with the question's topic.
+"No" is an answer: if the sources show something is not allowed, say so with the source. Correcting the question is an answer too: if its premise is wrong (a wrong date, rate, or a document about a different topic), say what the sources actually say. Use the refusal sentence only when no source, official or WEB, deals with the question's topic.
 
 - {assumption}
-
+{rate_rule}
 - A source marked "(WITHDRAWN by Circular X)" is no longer in force: if you use it, say it was withdrawn by Circular X, and never present it as the current law. A source marked "(partly modified by Circular X)" is in force, but say that Circular X changed parts of it.
+
+- A source labelled "WEB" is a web page, not an official document, but it IS one of your sources: if WEB sources answer the question, answer from them; never refuse because the answer is only on the web. Use WEB sources for what the official sources can't give, such as today's rate or a change after them. Rates change: when a WEB source dated later than an official source gives a different rate, say what the official source said (with its date) and what the WEB sources say applies now. Say which site it is from, quote its words. If web sources disagree, say so, and give the answer that most of them and the most recent date support. Still say what the official sources say, with their dates.
 
 - When you quote the law, copy its words exactly, in English.
 
@@ -105,7 +107,13 @@ def summary(reply) -> dict:
     }
 
 
-def inputs(question: str, sources: str, assumed: str) -> dict:
+RATE_RULE = ("\n- This question asks for a rate, and WEB sources are given. Answer in this order: first the rate "
+             "that applies now according to the WEB sources, naming the sites and citing them; then, if the "
+             "official sources give a different rate, what they said and their dates. If the WEB sources "
+             "disagree with each other, say so. This is an answer: never add the refusal sentence to it.\n")
+
+
+def inputs(question: str, sources: str, assumed: str, web: bool = False) -> dict:
     """What goes into the prompt. The assumption line is chosen here, by our code: when the rule was
     always in the prompt, the cloud model said "I've assumed the CGST Act" on almost every answer."""
     if assumed:
@@ -113,17 +121,20 @@ def inputs(question: str, sources: str, assumed: str) -> dict:
                       f'as the question named no law."')
     else:
         assumption = "Do not say that you assumed any law."
-    return {"question": question, "sources": sources, "refusal": REFUSAL, "assumption": assumption}
+    # Chosen by our code too: in the prompt's general rules alone, the model kept the circular's old rate
+    rate_rule = RATE_RULE if web else ""
+    return {"question": question, "sources": sources, "refusal": REFUSAL, "assumption": assumption,
+            "rate_rule": rate_rule}
 
 
-def generate(question: str, sources: str, which: str = "cloud", assumed: str = "") -> dict:
+def generate(question: str, sources: str, which: str = "cloud", assumed: str = "", web: bool = False) -> dict:
     """The answer and what it cost. `sources` is the labelled text made by pipeline.py; `assumed`
     is the law taken when the question named none ("CGST Rules"), or ""."""
-    reply = get_chain(which).invoke(inputs(question, sources, assumed))
+    reply = get_chain(which).invoke(inputs(question, sources, assumed, web))
     return summary(reply)
 
 
-def generate_stream(question: str, sources: str, which: str, stats: dict, assumed: str = ""):
+def generate_stream(question: str, sources: str, which: str, stats: dict, assumed: str = "", web: bool = False):
     """The same answer, yielded piece by piece as the model writes it (for the UI).
 
     Same prompt and chain as generate(), with .stream() in place of .invoke(), as in evals_project.
@@ -131,7 +142,7 @@ def generate_stream(question: str, sources: str, which: str, stats: dict, assume
     generate() returns (text, tokens, cost). The token counts and cost arrive in the last piece.
     """
     whole = None
-    for piece in get_chain(which).stream(inputs(question, sources, assumed)):
+    for piece in get_chain(which).stream(inputs(question, sources, assumed, web)):
         whole = piece if whole is None else whole + piece  # adding pieces also adds their usage
         if piece.content:  # skip empty pieces, so the first one shown is real text
             yield piece.content

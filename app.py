@@ -18,7 +18,8 @@ import streamlit as st
 
 from taxowl.answer.check import check, cited_numbers
 from taxowl.answer.generator import CLOUD_MODEL, LOCAL_MODEL, generate_stream
-from taxowl.answer.pipeline import BUDGET, as_text, assumed, get_retriever, get_sources
+from taxowl.answer.pipeline import BUDGET, as_text, assumed, get_retriever, get_sources, has_web
+from taxowl.answer.web import rate_note
 
 MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}", "local": f"💻 Local · {LOCAL_MODEL}"}
 
@@ -38,7 +39,7 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
     start = time.perf_counter()
 
     def timed_stream():
-        for piece in generate_stream(question, as_text(sources), which, stats, assumed(sources)):
+        for piece in generate_stream(question, as_text(sources), which, stats, assumed(sources), has_web(sources)):
             timing.setdefault("first", time.perf_counter() - start)  # time to the first word
             yield piece
 
@@ -47,6 +48,11 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
     except Exception as error:  # noqa: BLE001 - any failure (Ollama off, no internet) shows, not crashes
         st.error(f"{which} model failed: {error}")
         return set()
+
+    note = rate_note(question, sources)
+    if note:
+        st.info(note)
+        stats["text"] = stats.get("text", "") + f"\n\n{note}"
 
     total = time.perf_counter() - start
     st.caption(f"⏱ {total:.1f} s (first word {timing.get('first', total):.1f} s) · "
@@ -69,7 +75,7 @@ def show_sources(sources: list[dict], cited_by: dict[str, set[int]]) -> None:
         who = [which for which, numbers in cited_by.items() if s["number"] in numbers]
         tag = f" · cited by {', '.join(who)}" if who else ""
         with st.expander(f"[S{s['number']}] {s['label']}{tag}"):
-            st.markdown(f"[Official PDF]({s['url']})")
+            st.markdown(f"[{'Web page' if s.get('web') else 'Official PDF'}]({s['url']})")
             st.text(s["text"])
 
 
