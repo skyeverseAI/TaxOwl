@@ -1,0 +1,1350 @@
+{
+  "config": {
+    "mode": "full",
+    "k": 5,
+    "embedding_model": "BAAI/bge-m3",
+    "collection": "corpus-bge-m3",
+    "chunks_in_store": 4717,
+    "ef_search": 500,
+    "meaning_chunks": 8,
+    "exact_chunks": 20,
+    "per_citation": 10,
+    "gold_file": "eval_results/gold/retriever_dev.jsonl",
+    "gold_sha256": "93d4afe1628d6adb06eb809e9b844a2af227428e14fa3b3e44d4ff33fb7f6f70",
+    "only_ids": [
+      "cgst-rules-2017:rule-138:13",
+      "cgst-rules-2017:rule-138f:3",
+      "cgst-rules-2017:rule-138f:4",
+      "cgst-rules-2017:rule-138:14",
+      "cgst-rules-2017:rule-138:22",
+      "61-35-2018-gst:para-5",
+      "cgst-rules-2017:rule-138:6",
+      "cgst-rules-2017:rule-138:8"
+    ],
+    "judge_model": null,
+    "eval_mode": null,
+    "jev_model": null,
+    "git_commit": "0042cd5",
+    "time": "2026-11-13 12:20:10"
+  },
+  "summary": {
+    "exact": {
+      "n": 9,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.944,
+      "recall@all": 1.0,
+      "mrr": 0.944,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "meaning_recall@5": 1.0,
+      "meaning_tokens@5": 1270,
+      "meaning_recall@8": 1.0,
+      "meaning_tokens@8": 2025
+    },
+    "ALL": {
+      "n": 32,
+      "hit@5": 0.875,
+      "hit@all": 0.875,
+      "recall@5": 0.786,
+      "recall@all": 0.833,
+      "mrr": 0.649,
+      "section_hit@5": 0.906,
+      "section_mrr": 0.76,
+      "meaning_recall@5": 0.802,
+      "meaning_tokens@5": 1271,
+      "meaning_recall@8": 0.833,
+      "meaning_tokens@8": 1986
+    },
+    "hinglish": {
+      "n": 6,
+      "hit@5": 0.5,
+      "hit@all": 0.5,
+      "recall@5": 0.5,
+      "recall@all": 0.5,
+      "mrr": 0.264,
+      "section_hit@5": 0.5,
+      "section_mrr": 0.292,
+      "meaning_recall@5": 0.5,
+      "meaning_tokens@5": 1304,
+      "meaning_recall@8": 0.5,
+      "meaning_tokens@8": 2045
+    },
+    "multi": {
+      "n": 4,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.75,
+      "recall@all": 0.75,
+      "mrr": 0.688,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.833,
+      "meaning_recall@5": 0.75,
+      "meaning_tokens@5": 1173,
+      "meaning_recall@8": 0.75,
+      "meaning_tokens@8": 1831
+    },
+    "scenario": {
+      "n": 13,
+      "hit@5": 0.923,
+      "hit@all": 0.923,
+      "recall@5": 0.821,
+      "recall@all": 0.897,
+      "mrr": 0.612,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.788,
+      "meaning_recall@5": 0.821,
+      "meaning_tokens@5": 1286,
+      "meaning_recall@8": 0.897,
+      "meaning_tokens@8": 1980
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-003",
+      "category": "exact",
+      "question": "By when must a supplier report a credit note under section 34(2), and in which cases is the output tax not reduced?",
+      "gold": [
+        "act-12-of-2017:section-34:2"
+      ],
+      "top": [
+        "act-12-of-2017:section-34:2",
+        "act-12-of-2017:section-34:3",
+        "237-31-2024-gst:para-1-2:1",
+        "act-12-of-2017:section-34:4",
+        "act-12-of-2017:section-38:2",
+        "92-11-2019-gst:para-2:5",
+        "act-12-of-2017:section-34:1",
+        "act-12-of-2017:section-16:2",
+        "act-12-of-2017:section-37:3"
+      ],
+      "returned": 9,
+      "seconds": 3.795,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1333
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1841
+        }
+      }
+    },
+    {
+      "id": "claude-004",
+      "category": "exact",
+      "question": "As per Circular 192/04/2023-GST, when does interest under section 50(3) arise if IGST credit was wrongly availed and later reversed?",
+      "gold": [
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst:para-2:2"
+      ],
+      "top": [
+        "192-04-2023-gst:para-2:2",
+        "192-04-2023-gst:para-1",
+        "192-04-2023-gst-table-1:1",
+        "192-04-2023-gst:para-4",
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst-table-2:1",
+        "act-12-of-2017:section-50",
+        "cgst-rules-2017:rule-88b:3",
+        "125-44-2019-gst-table-1:5",
+        "125-44-2019-gst-table-1:4"
+      ],
+      "returned": 15,
+      "seconds": 1.502,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1248
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1970
+        }
+      }
+    },
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "gold": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-4-5",
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-2",
+        "231-25-2024-gst:para-4",
+        "231-25-2024-gst:para-4-2"
+      ],
+      "returned": 18,
+      "seconds": 2.569,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 931
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1850
+        }
+      }
+    },
+    {
+      "id": "claude-007",
+      "category": "exact",
+      "question": "What amount must be deposited before filing a first appeal under section 107(6) of the CGST Act?",
+      "gold": [
+        "act-12-of-2017:section-107:5"
+      ],
+      "top": [
+        "act-12-of-2017:section-107:5",
+        "cgst-rules-2017:rule-110:3",
+        "25-25-2017-gst:para-6",
+        "224-18-2024-gst:para-4",
+        "224-18-2024-gst:para-3:1",
+        "224-18-2024-gst:para-6",
+        "224-18-2024-gst:para-3:2",
+        "224-18-2024-gst:para-1",
+        "224-18-2024-gst:para-5"
+      ],
+      "returned": 9,
+      "seconds": 0.05,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1208
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1773
+        }
+      }
+    },
+    {
+      "id": "claude-008",
+      "category": "exact",
+      "question": "Under Circular 204/16/2023-GST, is a director's personal guarantee to a bank for the company's loan taxable, and at what value?",
+      "gold": [
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst-table-2:1"
+      ],
+      "top": [
+        "204-16-2023-gst-table-1:2",
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst-table-2:1",
+        "204-16-2023-gst:para-1",
+        "204-16-2023-gst:para-2:1",
+        "204-16-2023-gst:para-2:3",
+        "204-16-2023-gst-table-2:2",
+        "204-16-2023-gst:para-2:2",
+        "204-16-2023-gst:para-4",
+        "225-19-2024-gst-table-1:7"
+      ],
+      "returned": 17,
+      "seconds": 2.275,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1662
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2247
+        }
+      }
+    },
+    {
+      "id": "codex-003",
+      "category": "exact",
+      "question": "For a transaction wrongly treated as intra-State and later held to be inter-State, what does CGST rule 89(1A) say about the refund deadline?",
+      "gold": [
+        "cgst-rules-2017:rule-89:3"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-89:3",
+        "162-18-2021-gst:para-4-3",
+        "162-18-2021-gst:para-4-1:2",
+        "162-18-2021-gst:para-4-1:1",
+        "162-18-2021-gst-table-1:1",
+        "162-18-2021-gst:para-2-1:1",
+        "162-18-2021-gst:para-4-2",
+        "162-18-2021-gst-table-1:2",
+        "cgst-rules-2017:rule-89:4"
+      ],
+      "returned": 9,
+      "seconds": 0.064,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1297
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2174
+        }
+      }
+    },
+    {
+      "id": "codex-004",
+      "category": "exact",
+      "question": "What place of supply does section 12(8) of the IGST Act set for goods transport to an unregistered customer?",
+      "gold": [
+        "igst-act-2017:section-12:7"
+      ],
+      "top": [
+        "igst-act-2017:section-12:7",
+        "242-36-2024-gst:para-4-1",
+        "242-36-2024-gst:para-3-4",
+        "igst-act-2017:section-2:9",
+        "242-36-2024-gst:para-1",
+        "igst-act-2017:section-12:8",
+        "184-16-2022-gst:para-1",
+        "209-03-2024-gst-table-1:2",
+        "242-36-2024-gst:para-4-4"
+      ],
+      "returned": 9,
+      "seconds": 0.052,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1123
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2134
+        }
+      }
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "gold": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "top": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3",
+        "160-16-2021-gst-table-1:1",
+        "160-16-2021-gst-table-3:1",
+        "160-16-2021-gst-table-2:2",
+        "160-16-2021-gst-table-2:1",
+        "160-16-2021-gst:para-3",
+        "160-16-2021-gst-table-3:4",
+        "circulars-2021-corrigendum:para-1",
+        "198-10-2023-gst:para-1"
+      ],
+      "returned": 17,
+      "seconds": 1.832,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1234
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1753
+        }
+      }
+    },
+    {
+      "id": "codex-008",
+      "category": "exact",
+      "question": "Under section 17(5)(g), can I claim ITC for GST on a laptop bought for my family to use, even though the invoice has my business GSTIN?",
+      "gold": [
+        "act-12-of-2017:section-17:8"
+      ],
+      "top": [
+        "act-12-of-2017:section-17:8",
+        "134-04-2020-gst-table-1:5",
+        "16-16-2017-gst-table-1:4",
+        "123-42-2019-gst-table-3:1",
+        "171-03-2022-gst-table-1:3",
+        "171-03-2022-gst-table-1:2",
+        "241-35-2024-gst:para-3",
+        "172-04-2022-gst:para-4",
+        "172-04-2022-gst-table-2:1"
+      ],
+      "returned": 9,
+      "seconds": 0.062,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1398
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2483
+        }
+      }
+    },
+    {
+      "id": "claude-029",
+      "category": "hinglish",
+      "question": "Main doosre state mein ek mahine ki exhibition mein stall laga raha hoon. Wahan ka temporary registration kitne din chalega, aur kya pehle se tax jama karna padega?",
+      "gold": [
+        "act-12-of-2017:section-27"
+      ],
+      "top": [
+        "71-45-2018-gst-table-1:2",
+        "cgst-rules-2017:rule-16",
+        "231-25-2024-gst:para-1",
+        "act-12-of-2017:section-122a",
+        "act-12-of-2017:section-139",
+        "cgst-rules-2017:rule-24:2",
+        "utgst-act-2017:section-17",
+        "act-12-of-2017:section-29:2"
+      ],
+      "returned": 8,
+      "seconds": 0.066,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 1202
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 1924
+        }
+      }
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "gold": [
+        "act-12-of-2017:section-50"
+      ],
+      "top": [
+        "136-06-2020-gst-table-3:3",
+        "136-06-2020-gst-table-3:2",
+        "136-06-2020-gst-table-3:1",
+        "141-11-2020-gst-table-3:2",
+        "141-11-2020-gst-table-3:1",
+        "141-11-2020-gst-table-1:1",
+        "26-26-2017-gst:para-2-1",
+        "7-7-2017-gst:para-12"
+      ],
+      "returned": 8,
+      "seconds": 0.053,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 1320
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 1870
+        }
+      }
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "gold": [
+        "act-12-of-2017:section-9:1"
+      ],
+      "top": [
+        "igst-act-2017:section-5:1",
+        "210-04-2024-gst:para-3-2",
+        "35-9-2018-gst:para-3:1",
+        "igst-act-2017:section-8",
+        "cgst-rules-2017:rule-28:1",
+        "184-16-2022-gst:para-4",
+        "igst-act-2017:section-7",
+        "igst-rules-2017:rule-4:2"
+      ],
+      "returned": 8,
+      "seconds": 0.05,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 0.0,
+      "section_mrr": 0.0,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 1590
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 2475
+        }
+      }
+    },
+    {
+      "id": "codex-026",
+      "category": "hinglish",
+      "question": "Tax ko credit note se adjust kar diya hai. Kya same transaction ke liye alag refund bhi le sakta hoon?",
+      "gold": [
+        "162-18-2021-gst:para-6"
+      ],
+      "top": [
+        "135-05-2020-gst:para-4-4",
+        "utgst-act-2017:section-20:3",
+        "137-07-2020-gst-table-1:3",
+        "162-18-2021-gst:para-6",
+        "135-05-2020-gst:para-4-2:2",
+        "135-05-2020-gst:para-4-2:1",
+        "137-07-2020-gst-table-1:1",
+        "cgst-rules-2017:rule-92:2"
+      ],
+      "returned": 8,
+      "seconds": 0.048,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.25,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.25,
+      "rank": 4,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1090
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1948
+        }
+      }
+    },
+    {
+      "id": "codex-028",
+      "category": "hinglish",
+      "question": "Company ka CIRP shuru ho gaya hai aur purane GST dues pending hain. Officer seedha recovery kar sakta hai?",
+      "gold": [
+        "134-04-2020-gst-table-1:1"
+      ],
+      "top": [
+        "134-04-2020-gst:para-2",
+        "134-04-2020-gst-table-1:6",
+        "134-04-2020-gst-table-1:1",
+        "58-32-2018-gst:para-2",
+        "224-18-2024-gst:para-1",
+        "187-19-2022-gst:para-1",
+        "224-18-2024-gst:para-8-1",
+        "cgst-rules-2017:rule-144:5"
+      ],
+      "returned": 8,
+      "seconds": 0.049,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.3333333333333333,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 3,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1197
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1741
+        }
+      }
+    },
+    {
+      "id": "codex-031",
+      "category": "hinglish",
+      "question": "Online gaming ya OIDAR service unregistered customer ko doon toh invoice par State ka naam likhna zaroori hai, amount chhota ho tab bhi?",
+      "gold": [
+        "242-36-2024-gst:para-4-4"
+      ],
+      "top": [
+        "242-36-2024-gst:para-4-4",
+        "242-36-2024-gst:para-3-6",
+        "242-36-2024-gst:para-4-5:1",
+        "242-36-2024-gst:para-4-3",
+        "igst-act-2017:section-2:10",
+        "igst-act-2017:section-14a",
+        "cgst-rules-2017:rule-46:4",
+        "act-12-of-2017:section-2-80b"
+      ],
+      "returned": 8,
+      "seconds": 0.061,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1425
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2314
+        }
+      }
+    },
+    {
+      "id": "claude-024",
+      "category": "multi",
+      "question": "The department provisionally attached a client's bank account during proceedings. How long can the attachment last, and can he get the account freed by offering property instead?",
+      "gold": [
+        "act-12-of-2017:section-83",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "top": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:1",
+        "cgst-rules-2017:rule-159:2",
+        "cgst-rules-2017:rule-159:1",
+        "act-12-of-2017:section-83",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:1",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:2"
+      ],
+      "returned": 8,
+      "seconds": 0.066,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.25,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.3333333333333333,
+      "rank": 4,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 863
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1367
+        }
+      }
+    },
+    {
+      "id": "claude-025",
+      "category": "multi",
+      "question": "An officer blocked our credit ledger under rule 86A, and we've since shown the invoices are genuine. Can he release it before the year is over, and what must he do first?",
+      "gold": [
+        "cgst-rules-2017:rule-86a:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-86a:1",
+        "cgst-rules-2017:rule-86a:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:3",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-1:3",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-1",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-1:2"
+      ],
+      "returned": 10,
+      "seconds": 0.52,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1242
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2117
+        }
+      }
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "gold": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "act-12-of-2017:section-16:6"
+      ],
+      "top": [
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "231-25-2024-gst:para-5",
+        "231-25-2024-gst:para-1",
+        "231-25-2024-gst:para-4-5",
+        "231-25-2024-gst:para-4-3",
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-2"
+      ],
+      "returned": 8,
+      "seconds": 0.062,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1158
+        },
+        "8": {
+          "recall": 0.5,
+          "tokens": 1814
+        }
+      }
+    },
+    {
+      "id": "claude-028",
+      "category": "multi",
+      "question": "After my father's death I'm continuing his business under my own GSTIN. How do I move the unused credit in his ledger to me, and am I responsible for his old tax dues?",
+      "gold": [
+        "96-15-2019-gst:para-3:2",
+        "cgst-rules-2017:rule-41"
+      ],
+      "top": [
+        "96-15-2019-gst:para-3:2",
+        "96-15-2019-gst:para-3:1",
+        "96-15-2019-gst:para-3:3",
+        "42-16-2018-gst:para-4-1",
+        "96-15-2019-gst:para-1",
+        "58-32-2018-gst:para-2",
+        "133-03-2020-gst-table-5:1",
+        "174-06-2022-gst:para-4-1"
+      ],
+      "returned": 8,
+      "seconds": 0.066,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 0.5,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1429
+        },
+        "8": {
+          "recall": 0.5,
+          "tokens": 2027
+        }
+      }
+    },
+    {
+      "id": "claude-015",
+      "category": "scenario",
+      "question": "I sent raw material to a job worker for processing. How long can it stay with him before it's treated as if I sold it to him?",
+      "gold": [
+        "act-12-of-2017:section-143:1",
+        "act-12-of-2017:section-143:2"
+      ],
+      "top": [
+        "38-12-2018-gst:para-3",
+        "act-12-of-2017:section-143:3",
+        "act-12-of-2017:section-19:6",
+        "38-12-2018-gst:para-9-4:5",
+        "act-12-of-2017:section-143:1",
+        "38-12-2018-gst:para-8-4:3",
+        "act-12-of-2017:section-143:2",
+        "act-12-of-2017:section-143:4"
+      ],
+      "returned": 8,
+      "seconds": 0.061,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 1.0,
+      "mrr": 0.2,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 5,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1071
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1742
+        }
+      }
+    },
+    {
+      "id": "claude-016",
+      "category": "scenario",
+      "question": "In a reimbursement-mode motor claim, the garage bills the insurer for the full repair, but the insurer reimburses the car owner only the approved claim cost. How much ITC can the insurer take, and what if the repair invoice is in the owner's name?",
+      "gold": [
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst-table-1:5"
+      ],
+      "top": [
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst:para-1-2",
+        "217-11-2024-gst-table-1:3",
+        "217-11-2024-gst-table-1:1",
+        "217-11-2024-gst-table-1:2",
+        "217-11-2024-gst:para-1",
+        "217-11-2024-gst:para-1-4",
+        "217-11-2024-gst-table-1:5"
+      ],
+      "returned": 8,
+      "seconds": 0.079,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.5,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 0.5,
+          "tokens": 1690
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2182
+        }
+      }
+    },
+    {
+      "id": "claude-017",
+      "category": "scenario",
+      "question": "My father ran a sole proprietorship and has passed away; I'm continuing the business. What do we do about his GST registration?",
+      "gold": [
+        "96-15-2019-gst:para-3:1"
+      ],
+      "top": [
+        "96-15-2019-gst:para-3:1",
+        "96-15-2019-gst:para-3:2",
+        "96-15-2019-gst:para-3:3",
+        "96-15-2019-gst:para-1",
+        "95-14-2019-gst:para-1",
+        "cgst-rules-2017:rule-58:1",
+        "95-14-2019-gst:para-4",
+        "act-12-of-2017:section-93:1"
+      ],
+      "returned": 8,
+      "seconds": 0.051,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1498
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2219
+        }
+      }
+    },
+    {
+      "id": "claude-019",
+      "category": "scenario",
+      "question": "A client took an advance for an event, issued the invoice and paid GST, and then the event was cancelled. Should he file a refund claim?",
+      "gold": [
+        "137-07-2020-gst-table-1:1"
+      ],
+      "top": [
+        "137-07-2020-gst-table-1:2",
+        "137-07-2020-gst-table-1:1",
+        "178-10-2022-gst:para-11",
+        "111-30-2019-gst:para-3",
+        "cgst-rules-2017:rule-89:13",
+        "137-07-2020-gst-table-1:3",
+        "178-10-2022-gst:para-11-1",
+        "cgst-rules-2017:rule-89:15"
+      ],
+      "returned": 8,
+      "seconds": 0.06,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1366
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2142
+        }
+      }
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "gold": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "241-35-2024-gst:para-3-5"
+      ],
+      "top": [
+        "241-35-2024-gst:para-1-2",
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "38-12-2018-gst:para-12",
+        "172-04-2022-gst-table-1:1",
+        "241-35-2024-gst:para-1",
+        "241-35-2024-gst:para-3-2",
+        "61-35-2018-gst:para-5"
+      ],
+      "returned": 8,
+      "seconds": 0.065,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 0.6666666666666666,
+      "recall@all": 0.6666666666666666,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 0.6666666666666666,
+          "tokens": 1555
+        },
+        "8": {
+          "recall": 0.6666666666666666,
+          "tokens": 2233
+        }
+      }
+    },
+    {
+      "id": "claude-022",
+      "category": "scenario",
+      "question": "A customer returned goods after I had issued the tax invoice. Do I claim a refund of the GST or adjust it?",
+      "gold": [
+        "137-07-2020-gst-table-1:3"
+      ],
+      "top": [
+        "137-07-2020-gst-table-1:3",
+        "137-07-2020-gst-table-1:1",
+        "137-07-2020-gst-table-1:2",
+        "226-20-2024-gst:para-3-1",
+        "147-03-2021-gst:para-2-2",
+        "226-20-2024-gst:para-10",
+        "226-20-2024-gst:para-8",
+        "125-44-2019-gst:para-47"
+      ],
+      "returned": 8,
+      "seconds": 0.05,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1238
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1915
+        }
+      }
+    },
+    {
+      "id": "codex-010",
+      "category": "scenario",
+      "question": "Can I use the money sitting in my cash ledger to pay interest and penalties too?",
+      "gold": [
+        "act-12-of-2017:section-49:2"
+      ],
+      "top": [
+        "act-12-of-2017:section-49:3",
+        "act-12-of-2017:section-49:8",
+        "172-04-2022-gst-table-2:3",
+        "act-12-of-2017:section-49:2",
+        "act-12-of-2017:section-49:1",
+        "act-12-of-2017:section-49:5",
+        "cgst-rules-2017:rule-87:10",
+        "act-12-of-2017:section-49:9"
+      ],
+      "returned": 8,
+      "seconds": 0.046,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.25,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 4,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 982
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1581
+        }
+      }
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "gold": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "top": [
+        "igst-rules-2017:rule-4:4",
+        "igst-rules-2017:rule-4:3",
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-3:9",
+        "igst-rules-2017:rule-3:4",
+        "igst-rules-2017:rule-5:2",
+        "igst-rules-2017:rule-3:7",
+        "igst-rules-2017:rule-7:3"
+      ],
+      "returned": 8,
+      "seconds": 0.058,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1503
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2607
+        }
+      }
+    },
+    {
+      "id": "codex-015",
+      "category": "scenario",
+      "question": "If a customer gives me a UIN, should that invoice be treated as B2C for QR-code compliance where the QR requirement otherwise applies?",
+      "gold": [
+        "156-12-2021-gst-table-1:1"
+      ],
+      "top": [
+        "156-12-2021-gst-table-1:1",
+        "146-02-2021-gst-table-1:5",
+        "146-02-2021-gst-table-1:4",
+        "146-02-2021-gst-table-1:3",
+        "156-12-2021-gst-table-1:2",
+        "156-12-2021-gst-table-1:3",
+        "165-21-2021:para-1",
+        "156-12-2021-gst-table-1:4"
+      ],
+      "returned": 8,
+      "seconds": 0.062,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1712
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 2622
+        }
+      }
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "gold": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+      ],
+      "top": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+        "cgst-rules-2017:rule-159:2",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:1",
+        "cgst-rules-2017:rule-159:1",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:1",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:3",
+        "cgst-rules-2017:rule-152",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:2"
+      ],
+      "returned": 8,
+      "seconds": 0.05,
+      "hit@5": 0.0,
+      "hit@all": 0.0,
+      "recall@5": 0.0,
+      "recall@all": 0.0,
+      "mrr": 0.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.25,
+      "rank": null,
+      "by_cut": {
+        "5": {
+          "recall": 0.0,
+          "tokens": 725
+        },
+        "8": {
+          "recall": 0.0,
+          "tokens": 1218
+        }
+      }
+    },
+    {
+      "id": "codex-022",
+      "category": "scenario",
+      "question": "An Indian company provides services to its foreign parent. Are the two companies treated as the same legal person for the export condition?",
+      "gold": [
+        "161-17-2021-gst:para-5-1"
+      ],
+      "top": [
+        "161-17-2021-gst:para-4-4",
+        "161-17-2021-gst:para-5-1",
+        "161-17-2021-gst:para-4-3",
+        "161-17-2021-gst:para-7",
+        "161-17-2021-gst:para-4-1",
+        "161-17-2021-gst:para-3-5",
+        "161-17-2021-gst:para-4-2",
+        "78-52-2018-gst-table-1:1"
+      ],
+      "returned": 8,
+      "seconds": 0.046,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 998
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1542
+        }
+      }
+    },
+    {
+      "id": "codex-023",
+      "category": "scenario",
+      "question": "Our business has several GST registrations under one PAN. Do they all have to use the quarterly return option together?",
+      "gold": [
+        "143-13-2020-gst:para-5-1"
+      ],
+      "top": [
+        "143-13-2020-gst:para-1",
+        "143-13-2020-gst:para-5-1",
+        "143-13-2020-gst:para-4-2",
+        "143-13-2020-gst:para-6-1:2",
+        "143-13-2020-gst:para-4-4",
+        "143-13-2020-gst:para-6-1:1",
+        "143-13-2020-gst-table-2:1",
+        "143-13-2020-gst:para-4-6"
+      ],
+      "returned": 8,
+      "seconds": 0.045,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 0.5,
+      "section_hit@5": 1.0,
+      "section_mrr": 0.5,
+      "rank": 2,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1215
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1823
+        }
+      }
+    },
+    {
+      "id": "codex-025",
+      "category": "scenario",
+      "question": "The e-way bill was generated, but the goods never left. How long do I have to cancel it on the portal?",
+      "gold": [
+        "cgst-rules-2017:rule-138:13"
+      ],
+      "top": [
+        "cgst-rules-2017:rule-138:13",
+        "cgst-rules-2017:rule-138f:3",
+        "cgst-rules-2017:rule-138f:4",
+        "cgst-rules-2017:rule-138:14",
+        "cgst-rules-2017:rule-138:22",
+        "61-35-2018-gst:para-5",
+        "cgst-rules-2017:rule-138:6",
+        "cgst-rules-2017:rule-138:8"
+      ],
+      "returned": 8,
+      "seconds": 0.047,
+      "hit@5": 1.0,
+      "hit@all": 1.0,
+      "recall@5": 1.0,
+      "recall@all": 1.0,
+      "mrr": 1.0,
+      "section_hit@5": 1.0,
+      "section_mrr": 1.0,
+      "rank": 1,
+      "by_cut": {
+        "5": {
+          "recall": 1.0,
+          "tokens": 1166
+        },
+        "8": {
+          "recall": 1.0,
+          "tokens": 1920
+        }
+      }
+    }
+  ]
+}

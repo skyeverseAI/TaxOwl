@@ -49,6 +49,8 @@ Either answer the question, or give only that sentence. Never both: never add it
 
 - {assumption}
 
+- A source marked "(WITHDRAWN by Circular X)" is no longer in force: if you use it, say it was withdrawn by Circular X, and never present it as the current law. A source marked "(partly modified by Circular X)" is in force, but say that Circular X changed parts of it.
+
 - When you quote the law, copy its words exactly, in English.
 
 - Reply in the language of the question (English, Hindi or Hinglish).

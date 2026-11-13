@@ -39,6 +39,7 @@ def get_retriever():
 def label(doc: Document) -> str:
     """'The Central Goods and Services Tax Act, 2017, section 16(4), p.23 (law assumed)'
        'Circular 238/32/2024-GST, para 4, p.2-3'
+    'Circular 37/11/2018-GST, para 2, p.1 (WITHDRAWN by Circular 125/44/2019 - GST)'
     A flagged circular (its file had splitter warnings) shows only the page: its para numbers may be
     off (decided 2026-11-04). OCR isn't shown: the flag is per document, so every Act and Rules chunk
     has it, which would say nothing."""
@@ -57,7 +58,13 @@ def label(doc: Document) -> str:
         where = ""
     pages = f"p.{m['page_start']}" + (f"-{m['page_end']}" if m["page_end"] != m["page_start"] else "")
     text = ", ".join(part for part in (name, where, pages) if part)
-    return text + (" (law assumed)" if m.get("law_assumed") else "")
+    text += " (law assumed)" if m.get("law_assumed") else ""
+    # validity/status.py: the model must see it to say it, and the reader to trust the citation
+    if m.get("status") == "withdrawn":
+        text += f" (WITHDRAWN by Circular {m['changed_by']})"
+    elif m.get("status") == "partly_modified":
+        text += f" (partly modified by Circular {m['changed_by']})"
+    return text
 
 
 def pick(docs: list[Document], budget: int | None) -> list[Document]:

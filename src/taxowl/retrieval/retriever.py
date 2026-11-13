@@ -19,6 +19,11 @@ question, the other finds a citation's chunks. `make_retriever()` gives it taxow
 the two lists is our own code, not LangChain's EnsembleRetriever: that one mixes lists by rank
 score, and an exact hit must never be pushed below a merely similar chunk.
 
+Withdrawn circulars are left out of the meaning search (`meaning_filter`): an old rule must not answer a
+question it no longer governs. A circular the question NAMES is still returned, withdrawn or not: "what
+does 37/11/2018 say?" is answered with "withdrawn by 125/44/2019", not with a refusal. Partly modified
+circulars stay everywhere; their label says what changed them (answer/pipeline.py).
+
 Check it by eye: uv run experiments/try_search.py
 """
 
@@ -80,6 +85,7 @@ class LawRetriever(BaseRetriever):
     meaning_chunks: int = MEANING_CHUNKS
     exact_chunks: int = EXACT_CHUNKS
     per_citation: int = PER_CITATION
+    meaning_filter: dict | None = None                   # a Chroma `where` for the meaning search only
 
     def closest(self, question: str, documents: list[Document]) -> list[Document]:
         """A citation's chunks, closest to the question first. The vectors are made with the store's
@@ -110,7 +116,8 @@ class LawRetriever(BaseRetriever):
 
     def meaning(self, question: str, skip: set[str]) -> list[Document]:
         """The closest chunks by meaning, leaving out ones the exact list already has."""
-        found = self.store.similarity_search_with_score(question, k=self.meaning_chunks + len(skip))
+        found = self.store.similarity_search_with_score(question, k=self.meaning_chunks + len(skip),
+                                                        filter=self.meaning_filter)
         new = [(document, distance) for document, distance in found if document.id not in skip]
         return [labelled(document, found_by="meaning", distance=round(distance, 3))
                 for document, distance in new[:self.meaning_chunks]]
@@ -121,8 +128,11 @@ class LawRetriever(BaseRetriever):
         return exact + self.meaning(query, {document.id for document in exact})
 
 
+NOT_WITHDRAWN = {"status": {"$ne": "withdrawn"}}   # labels from validity/status.py
+
+
 def make_retriever() -> LawRetriever:
     """taxowl's retriever: the GST citation reader and lookup, over the Chroma store. Lookup gives all
     of a citation's chunks (no limit); the retriever orders them and keeps PER_CITATION."""
     return LawRetriever(store=get_store(), read=read_citations,
-                        find=lambda citation: lookup(citation, limit=None))
+                        find=lambda citation: lookup(citation, limit=None), meaning_filter=NOT_WITHDRAWN)
