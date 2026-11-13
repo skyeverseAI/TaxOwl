@@ -24,9 +24,18 @@ question it no longer governs. A circular the question NAMES is still returned, 
 does 37/11/2018 say?" is answered with "withdrawn by 125/44/2019", not with a refusal. Partly modified
 circulars stay everywhere; their label says what changed them (answer/pipeline.py).
 
+Cited provisions (`cited_from`): a circular explains a rule as it stood on the circular's date. Circular
+123/42/2019 explains rule 36(4)'s 2019 limit; the rule was changed in 2022. The rule's current text is
+in the store, but meaning search can't find it: "ITC limit" and "No input tax credit shall be availed...
+unless" are far apart (not in the top 300 for trap dev-018, 2026-11-13). The circulars name it, though:
+every returned circular chunk is read with the same citation reader, the CITED_PROVISIONS cited by the
+most chunks are looked up, and their closest CITED_CHUNKS are added last, labelled found_by "cited".
+The model then sees the old explanation AND the law as it stands now.
+
 Check it by eye: uv run experiments/try_search.py
 """
 
+from dataclasses import replace
 from typing import Callable
 
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
@@ -42,6 +51,8 @@ from taxowl.retrieval.store import get_store
 MEANING_CHUNKS = 8   # always added, even after exact hits: the question may ask more than the citation holds
 EXACT_CHUNKS = 20    # all citations together
 PER_CITATION = 10    # one citation's closest chunks (was lookup's MAX_CHUNKS, taken in page order)
+CITED_PROVISIONS = 3  # sections/rules the returned circulars cite most, followed to their current text
+CITED_CHUNKS = 4      # all followed provisions together
 
 _VECTORS: dict[str, list[float]] = {}  # chunk id -> its vector, so a chunk is embedded once per run
 
@@ -86,6 +97,9 @@ class LawRetriever(BaseRetriever):
     exact_chunks: int = EXACT_CHUNKS
     per_citation: int = PER_CITATION
     meaning_filter: dict | None = None                   # a Chroma `where` for the meaning search only
+    cited_from: tuple[str, ...] = ()                     # doc types whose citations are followed; () = off
+    cited_provisions: int = CITED_PROVISIONS
+    cited_chunks: int = CITED_CHUNKS
 
     def closest(self, question: str, documents: list[Document]) -> list[Document]:
         """A citation's chunks, closest to the question first. The vectors are made with the store's
@@ -122,10 +136,39 @@ class LawRetriever(BaseRetriever):
         return [labelled(document, found_by="meaning", distance=round(distance, 3))
                 for document, distance in new[:self.meaning_chunks]]
 
+    def cited(self, question: str, documents: list[Document]) -> list[Document]:
+        """The current text of the sections/rules the returned circulars cite most.
+        Counted once per chunk; ties go to the one cited first (higher up the list)."""
+        counts: dict[Citation, int] = {}
+        cited_by: dict[Citation, list[str]] = {}
+        for document in documents:
+            if document.metadata.get("doc_type") not in self.cited_from:
+                continue
+            for citation in self.read(document.page_content):
+                if citation.kind == "circular":
+                    continue
+                # "rule 36(4)" and "rule 36(4) of the CGST Rules" are the same provision
+                citation = replace(citation, law_assumed=False)
+                counts[citation] = counts.get(citation, 0) + 1
+                cited_by.setdefault(citation, []).append(document.metadata["doc_number"])
+        top = sorted(counts, key=lambda c: -counts[c])[:self.cited_provisions]   # stable: ties keep first-seen
+        have = {document.id for document in documents}
+        found = [[d for d in self.closest(question, self.find(c)) if d.id not in have] for c in top]
+        results, seen = [], set()
+        for citation, kept in zip(top, share(found, self.cited_chunks)):
+            for document in kept:
+                if document.id not in seen:
+                    seen.add(document.id)
+                    results.append(labelled(document, found_by="cited", citation=describe(citation),
+                                            law_assumed=False,
+                                            cited_by=", ".join(dict.fromkeys(cited_by[citation]))))
+        return results
+
     def _get_relevant_documents(self, query: str, *, run_manager: CallbackManagerForRetrieverRun
                                 ) -> list[Document]:
         exact = self.exact(query)
-        return exact + self.meaning(query, {document.id for document in exact})
+        found = exact + self.meaning(query, {document.id for document in exact})
+        return found + (self.cited(query, found) if self.cited_from else [])
 
 
 NOT_WITHDRAWN = {"status": {"$ne": "withdrawn"}}   # labels from validity/status.py
@@ -135,4 +178,5 @@ def make_retriever() -> LawRetriever:
     """taxowl's retriever: the GST citation reader and lookup, over the Chroma store. Lookup gives all
     of a citation's chunks (no limit); the retriever orders them and keeps PER_CITATION."""
     return LawRetriever(store=get_store(), read=read_citations,
-                        find=lambda citation: lookup(citation, limit=None), meaning_filter=NOT_WITHDRAWN)
+                        find=lambda citation: lookup(citation, limit=None), meaning_filter=NOT_WITHDRAWN,
+                        cited_from=("circular", "instruction"))   # the Act and Rules ARE the current text

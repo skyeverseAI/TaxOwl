@@ -66,6 +66,9 @@ def label(doc: Document) -> str:
         text += f" (WITHDRAWN by Circular {m['changed_by']})"
     elif m.get("status") == "partly_modified":
         text += f" (partly modified by Circular {m['changed_by']})"
+    # retrieval/retriever.py cited(): a provision a circular explains, as the law reads now
+    if m.get("found_by") == "cited":
+        text += f" (CURRENT TEXT of the provision explained by Circular {m['cited_by']})"
     return text
 
 

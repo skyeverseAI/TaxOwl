@@ -1,0 +1,341 @@
+[
+ {
+  "id": "dev-006",
+  "question": "In Circular 142/12/2020-GST, what does the example say about the March 2020 ITC reversal?",
+  "note": "142/12/2020-GST, para 4, page 2",
+  "trap_note": "",
+  "answer": "In Circular 142/12/2020-GST, the example regarding the March 2020 ITC reversal states that the taxpayer had availed ITC of **400**, but the maximum eligible ITC as per rule 36(4) was **2695**. Therefore, since the taxpayer availed more ITC than eligible, an ITC reversal of **55** was required. This is detailed as follows:\n\n> \"Taxpayer had availed ITC of 2750. Therefore, ITC of 55 [2750-2695] would be required to be reversed as mentioned in para 3.4.\" [S3][S4]",
+  "sources": [
+   {
+    "number": 1,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2",
+    "chunk_id": "142-12-2020-gst-table-1:2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 2,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2",
+    "chunk_id": "142-12-2020-gst-table-1:3",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 3,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2",
+    "chunk_id": "142-12-2020-gst-table-1:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 4,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2",
+    "chunk_id": "142-12-2020-gst:para-3-4",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 5,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2",
+    "chunk_id": "142-12-2020-gst-table-1:4",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 6,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.1-2",
+    "chunk_id": "142-12-2020-gst:para-3-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 7,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.2-3",
+    "chunk_id": "142-12-2020-gst:para-6",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 8,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.1",
+    "chunk_id": "142-12-2020-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 9,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.1",
+    "chunk_id": "142-12-2020-gst:para-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 10,
+    "label": "Circular 142/12/2020-GST, dated 2020-10-09, p.1",
+    "chunk_id": "142-12-2020-gst:para-3",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002924/ENG"
+   },
+   {
+    "number": 11,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 2, p.1-2 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   },
+   {
+    "number": 12,
+    "label": "Circular 193/05/2023-GST, dated 2023-07-17, para 6-7, p.3-4",
+    "chunk_id": "193-05-2023-gst:para-7",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003167/ENG"
+   },
+   {
+    "number": 13,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 1, p.1 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   },
+   {
+    "number": 14,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 4-6, p.2 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-6",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   },
+   {
+    "number": 15,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 3.2, p.2 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-3-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   },
+   {
+    "number": 16,
+    "label": "Circular 170/02/2022-GST, dated 2022-07-06, p.4",
+    "chunk_id": "170-02-2022-gst:para-6",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003102/ENG"
+   },
+   {
+    "number": 17,
+    "label": "Circular 173/05/2022-GST, dated 2022-07-06, para 2, p.1",
+    "chunk_id": "173-05-2022-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003105/ENG"
+   },
+   {
+    "number": 18,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 3.1, p.2 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-3-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   }
+  ],
+  "gold_found": [
+   "142-12-2020-gst-table-1:1"
+  ],
+  "failed_checks": [],
+  "cost_inr": 0.0813,
+  "ok": "",
+  "why": ""
+ },
+ {
+  "id": "dev-014",
+  "question": "I earned commission for connecting an Indian seller with an Indian buyer. Will GST treat my service as if it were provided from abroad?",
+  "note": "159/15/2021-GST, para 3.6, page 3",
+  "trap_note": "",
+  "answer": "The documents I have don't answer this.",
+  "sources": [
+   {
+    "number": 1,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 2, p.2",
+    "chunk_id": "78-52-2018-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 2,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 3, p.2-4",
+    "chunk_id": "78-52-2018-gst:para-3:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 3,
+    "label": "Circular 218/12/2024-GST, dated 2024-06-26, p.2",
+    "chunk_id": "218-12-2024-gst-table-2:2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003203/ENG"
+   },
+   {
+    "number": 4,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 3(ii), p.2-4",
+    "chunk_id": "78-52-2018-gst:para-3:3",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 5,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 1, p.1",
+    "chunk_id": "78-52-2018-gst-table-1:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 6,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 3(ii), p.2-4",
+    "chunk_id": "78-52-2018-gst:para-3:2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 7,
+    "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 1, p.1-2",
+    "chunk_id": "78-52-2018-gst:para-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002988/ENG"
+   },
+   {
+    "number": 8,
+    "label": "Circular 218/12/2024-GST, dated 2024-06-26, p.2",
+    "chunk_id": "218-12-2024-gst-table-2:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003203/ENG"
+   }
+  ],
+  "gold_found": [],
+  "failed_checks": [],
+  "cost_inr": 0.0386,
+  "ok": "",
+  "why": ""
+ },
+ {
+  "id": "dev-018",
+  "question": "Does the ITC limit also restrict import GST, reverse-charge documents, and ISD credits?",
+  "note": "123/42/2019-GST, para 3, page 2",
+  "trap_note": "",
+  "answer": "No, the ITC limit does not restrict import GST, reverse-charge documents, and ISD credits. According to Circular 123/42/2019-GST, the restriction under rule 36(4) applies only to invoices or debit notes that are required to be uploaded by suppliers and have not been uploaded. Therefore, taxpayers can avail full ITC for:\n\n- **IGST paid on imports**\n- **Documents issued under Reverse Charge Mechanism (RCM)**\n- **Credit received from Input Service Distributors (ISD)**\n\nThese are outside the scope of the restriction imposed by rule 36(4) as long as the eligibility conditions for availing ITC are met [S3].",
+  "sources": [
+   {
+    "number": 1,
+    "label": "Circular 197/09/2023-GST, dated 2023-07-17, para 1.1, p.1-2",
+    "chunk_id": "197-09-2023-gst:para-1-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003171/ENG"
+   },
+   {
+    "number": 2,
+    "label": "Circular 170/02/2022-GST, dated 2022-07-06, annexure 1, p.6-7",
+    "chunk_id": "170-02-2022-gst-table-2:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003102/ENG"
+   },
+   {
+    "number": 3,
+    "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.1-2",
+    "chunk_id": "123-42-2019-gst-table-1:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002943/ENG"
+   },
+   {
+    "number": 4,
+    "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.3",
+    "chunk_id": "56-30-2018-gst:para-6",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003010/ENG"
+   },
+   {
+    "number": 5,
+    "label": "Circular 193/05/2023-GST, dated 2023-07-17, para 2, p.1",
+    "chunk_id": "193-05-2023-gst:para-2:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003167/ENG"
+   },
+   {
+    "number": 6,
+    "label": "Circular 139/09/2020-GST, dated 2020-06-10, para 4-6, p.2 (partly modified by Circular 197/09/2023-GST)",
+    "chunk_id": "139-09-2020-gst:para-6",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002927/ENG"
+   },
+   {
+    "number": 7,
+    "label": "Circular 147/03/2021-GST, dated 2021-03-12, para 2.4, p.2",
+    "chunk_id": "147-03-2021-gst:para-2-4",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002918/ENG"
+   },
+   {
+    "number": 8,
+    "label": "Circular 170/02/2022-GST, dated 2022-07-06, annexure 1, p.7",
+    "chunk_id": "170-02-2022-gst-table-2:2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003102/ENG"
+   }
+  ],
+  "gold_found": [
+   "123-42-2019-gst-table-1:1"
+  ],
+  "failed_checks": [],
+  "cost_inr": 0.0517,
+  "ok": "",
+  "why": ""
+ },
+ {
+  "id": "dev-029",
+  "question": "Mere khet ki drip-wali sinchai line ke side-pipes par CGST kitna lagega?",
+  "note": "155/11/2021-GST, para 2 table, page 1; para 3, page 2",
+  "trap_note": "asks today's rate from Circular 155/11/2021; GST rates were revised in 2025",
+  "answer": "**Current GST Rate:**\n\nAccording to the WEB sources, the current GST rate for drip irrigation systems, including side pipes (laterals), is **5%**. This is supported by multiple sources:\n\n- **Bajaj Finserv Markets** states that the GST rate for \"sprinklers/drip irrigation system\" is **5%** [S11].\n- **Gimbooks** also confirms that the GST rate for \"drip irrigation systems\" is **5%** [S12].\n\n**Official Sources:**\n\nThe official source, Circular 155/11/2021-GST, dated **June 17, 2021**, states that laterals/parts used solely or principally with sprinklers or drip irrigation systems attract a GST of **12%** [S1][S2]. \n\nIn summary, while the official source indicates a **12%** rate, the most recent WEB sources indicate a **5%** rate currently applicable.",
+  "sources": [
+   {
+    "number": 1,
+    "label": "Circular 155/11/2021-GST, dated 2021-06-17, para 3-4, p.1-2",
+    "chunk_id": "155-11-2021-gst:para-4",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002910/ENG"
+   },
+   {
+    "number": 2,
+    "label": "Circular 155/11/2021-GST, dated 2021-06-17, para 2, p.1",
+    "chunk_id": "155-11-2021-gst-table-1:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002910/ENG"
+   },
+   {
+    "number": 3,
+    "label": "Circular 155/11/2021-GST, dated 2021-06-17, para 1, p.1",
+    "chunk_id": "155-11-2021-gst:para-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002910/ENG"
+   },
+   {
+    "number": 4,
+    "label": "Circular 81/55/2018-GST, dated 2018-12-31, para 1, p.1",
+    "chunk_id": "81-55-2018-gst-table-1:1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002985/ENG"
+   },
+   {
+    "number": 5,
+    "label": "Circular 81/55/2018-GST, dated 2018-12-31, para 2, p.1",
+    "chunk_id": "81-55-2018-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002985/ENG"
+   },
+   {
+    "number": 6,
+    "label": "Circular 81/55/2018-GST, dated 2018-12-31, para 3.1, p.2",
+    "chunk_id": "81-55-2018-gst:para-3-1",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002985/ENG"
+   },
+   {
+    "number": 7,
+    "label": "Circular 47/21/2018-GST, dated 2018-06-08, para 1-3, p.1-4",
+    "chunk_id": "47-21-2018-gst:para-3",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1003019/ENG"
+   },
+   {
+    "number": 8,
+    "label": "Circular 155/11/2021-GST, dated 2021-06-17, para 2, p.1",
+    "chunk_id": "155-11-2021-gst:para-2",
+    "url": "https://taxinformation.cbic.gov.in/api/cbic-circular-msts/download/1002910/ENG"
+   },
+   {
+    "number": 9,
+    "label": "WEB: helpwale.com, searched 2026-11-13, past year only (a web page, not an official document)",
+    "chunk_id": "",
+    "url": "https://www.helpwale.com/gst-calculator"
+   },
+   {
+    "number": 10,
+    "label": "WEB: legal500.com, searched 2026-11-13, past year only (a web page, not an official document)",
+    "chunk_id": "",
+    "url": "https://www.legal500.com/intelligence/india/tax/important-decisions-on-the-filing-procedure-rcm-and-gst-rates-taken-in-gst-council's-25th-meeting"
+   },
+   {
+    "number": 11,
+    "label": "WEB: bajajfinservmarkets.in, searched 2026-11-13, past year only (a web page, not an official document)",
+    "chunk_id": "",
+    "url": "https://www.bajajfinservmarkets.in/discover/gst-rates"
+   },
+   {
+    "number": 12,
+    "label": "WEB: gimbooks.com, searched 2026-11-13, past year only (a web page, not an official document)",
+    "chunk_id": "",
+    "url": "https://www.gimbooks.com/blog/gst-rates-in-india"
+   }
+  ],
+  "gold_found": [
+   "155-11-2021-gst-table-1:1",
+   "155-11-2021-gst:para-4"
+  ],
+  "failed_checks": [],
+  "cost_inr": 0.0355,
+  "ok": "",
+  "why": ""
+ }
+]
