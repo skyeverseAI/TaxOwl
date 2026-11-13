@@ -90,9 +90,9 @@ class Chunk:
     page_start: int
     page_end: int
 
-    # Validity: filled in by the withdrawal detector (day 3); until then every circular is in force
+    # Validity: from data/validity/status.json (src/taxowl/validity/status.py); in force unless found changed
     status: Status = "in_force"
-    withdrawn_by: str = ""
+    changed_by: str = ""     # the circular(s) that withdrew or changed it: "125/44/2019-GST" or "134/4/2020-GST, ..."
 
     # Links and trust
     tax_area: str = "gst"    # room for other tax areas later (plans/fde_plan.md); costs nothing now
