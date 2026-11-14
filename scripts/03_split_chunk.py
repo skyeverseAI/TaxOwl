@@ -17,6 +17,7 @@ from collections import Counter, defaultdict
 from taxowl.chunking import run as chunking
 from taxowl.config import CHUNKS, INGESTED, MANIFEST, ROOT
 from taxowl.splitting.run import save, split_file
+from taxowl.validity import amended
 from taxowl.validity import status as validity
 
 
@@ -42,6 +43,7 @@ def main() -> None:
             failed[f] = result.problems
 
     relabelled = validity.apply(chunks)  # status.json, so a rebuild doesn't reset every circular to in_force
+    dated = amended.apply(chunks)        # Act/Rules amendment dates from the units' footnotes
     chunking.save(chunks)
 
     print(f"{'doc_type':<15}{'files':>7}{'units':>8}{'tables':>8}{'chunks':>8}")
@@ -64,6 +66,7 @@ def main() -> None:
     print(f"\n{len(chunks)} chunks ({kinds['text']} text, {kinds['table']} table): median {sizes[len(sizes) // 2]} "
           f"tokens, p90 {sizes[int(.9 * len(sizes))]}, longest {sizes[-1]}. Saved: {CHUNKS.relative_to(ROOT)}")
     print(f"validity: {relabelled} chunks marked withdrawn or partly modified (data/validity/status.json)")
+    print(f"amended: {dated} Act/Rules chunks given amendment dates (validity/amended.py)")
     checks = chunking.check_chunks(chunks)
     if lost:
         checks["text_lost"] = f"{len(lost)}: {lost[:3]}"

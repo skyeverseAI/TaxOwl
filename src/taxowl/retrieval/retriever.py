@@ -141,6 +141,7 @@ class LawRetriever(BaseRetriever):
         Counted once per chunk; ties go to the one cited first (higher up the list)."""
         counts: dict[Citation, int] = {}
         cited_by: dict[Citation, list[str]] = {}
+        oldest: dict[Citation, tuple[str, str]] = {}   # (date, number) of the oldest circular citing it
         for document in documents:
             if document.metadata.get("doc_type") not in self.cited_from:
                 continue
@@ -151,6 +152,8 @@ class LawRetriever(BaseRetriever):
                 citation = replace(citation, law_assumed=False)
                 counts[citation] = counts.get(citation, 0) + 1
                 cited_by.setdefault(citation, []).append(document.metadata["doc_number"])
+                when = (document.metadata.get("doc_date") or "9999", document.metadata["doc_number"])
+                oldest[citation] = min(oldest.get(citation, when), when)
         top = sorted(counts, key=lambda c: -counts[c])[:self.cited_provisions]   # stable: ties keep first-seen
         have = {document.id for document in documents}
         found = [[d for d in self.closest(question, self.find(c)) if d.id not in have] for c in top]
@@ -161,7 +164,8 @@ class LawRetriever(BaseRetriever):
                     seen.add(document.id)
                     results.append(labelled(document, found_by="cited", citation=describe(citation),
                                             law_assumed=False,
-                                            cited_by=", ".join(dict.fromkeys(cited_by[citation]))))
+                                            cited_by=", ".join(dict.fromkeys(cited_by[citation])),
+                                            cited_since=oldest[citation][0], cited_oldest=oldest[citation][1]))
         return results
 
     def _get_relevant_documents(self, query: str, *, run_manager: CallbackManagerForRetrieverRun

@@ -93,6 +93,9 @@ class Chunk:
     # Validity: from data/validity/status.json (src/taxowl/validity/status.py); in force unless found changed
     status: Status = "in_force"
     changed_by: str = ""     # the circular(s) that withdrew or changed it: "125/44/2019-GST" or "134/4/2020-GST, ..."
+    # Act/Rules only, from the footnotes (src/taxowl/validity/amended.py): when this text was amended
+    amended_on: str = ""     # "2022-01-01, 2024-10-08", oldest first
+    amended_scope: str = ""  # "text" (this chunk's own words) or "section" (somewhere in its section)
 
     # Links and trust
     tax_area: str = "gst"    # room for other tax areas later (plans/fde_plan.md); costs nothing now

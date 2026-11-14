@@ -18,7 +18,7 @@ import streamlit as st
 
 from taxowl.answer.check import check, cited_numbers
 from taxowl.answer.generator import CLOUD_MODEL, LOCAL_MODEL, generate_stream
-from taxowl.answer.pipeline import BUDGET, as_text, assumed, get_retriever, get_sources, has_web
+from taxowl.answer.pipeline import BUDGET, amended_note, as_text, assumed, get_retriever, get_sources, has_web
 from taxowl.answer.web import rate_note
 
 MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}", "local": f"💻 Local · {LOCAL_MODEL}"}
@@ -52,6 +52,10 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
     note = rate_note(question, sources)
     if note:
         st.info(note)
+        stats["text"] = stats.get("text", "") + f"\n\n{note}"
+    note = amended_note(stats.get("text", ""), sources)   # same as pipeline.answer()
+    if note:
+        st.warning(note)
         stats["text"] = stats.get("text", "") + f"\n\n{note}"
 
     total = time.perf_counter() - start

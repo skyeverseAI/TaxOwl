@@ -21,7 +21,7 @@ from functools import lru_cache
 
 from langchain_core.documents import Document
 
-from taxowl.answer.check import check
+from taxowl.answer.check import check, cited_numbers
 from taxowl.answer.generator import generate
 from taxowl.answer.web import rate_note, web_sources
 from taxowl.retrieval.retriever import make_retriever
@@ -69,7 +69,56 @@ def label(doc: Document) -> str:
     # retrieval/retriever.py cited(): a provision a circular explains, as the law reads now
     if m.get("found_by") == "cited":
         text += f" (CURRENT TEXT of the provision explained by Circular {m['cited_by']})"
+        text += amended_after(m)
     return text
+
+
+def amended_after(m: dict) -> str:
+    """' (AMENDED on 2022-01-01, AFTER Circular 123/42/2019-GST dated 2019-11-11 ...)', or "".
+    Our code compares the dates (validity/amended.py), not the model: given both texts, the model
+    answered from the old circular and never said the rule had changed (trap dev-018, 2026-11-13)."""
+    since = m.get("cited_since", "")
+    # Only dates found in this chunk's own words: the CGST Act's dates are per section, and "section 17(5)
+    # amended 2025" next to a circular on rule 36(4) was noise (trap dev-018, 2026-11-14)
+    if m.get("amended_scope") != "text":
+        return ""
+    later = [d for d in m.get("amended_on", "").split(", ") if d and since and d > since]
+    if not later:
+        return ""
+    return (f" (AMENDED on {', '.join(later)}, AFTER Circular {m['cited_oldest']} dated {since}:"
+            f" what that circular says may be out of date)")
+
+
+def amended_note(text: str, sources: list[dict]) -> str:
+    """'⚠ Note: CGST Rules rule 36(4) was amended after Circular 123/42/2019-GST (dated 2019-11-11), which
+    this answer uses: on 2022-01-01, ... Check its current text [S11].', one line per provision, or "".
+
+    Added by our code, like rate_note: given the AMENDED label and a prompt rule that said "you must",
+    the model still answered from the old circular and said nothing (traps dev-006, dev-018, 2026-11-13).
+    Three filters keep it from warning about changes that don't matter (2026-11-14):
+      1. only dates found in the provision's own words (amended_scope "text"), not a whole Act section
+      2. only circulars the ANSWER cites, and only dates after that circular's date: a 2023 circular
+         already explains the 2022 rule, so the 2022 change is not news to it
+      3. never a withdrawn circular: its label already says it is not the law
+    A whole rule in one chunk (rule 21) still gets every date, even if the clause the circular explains
+    didn't change; so the note says "may be out of date", not "is wrong"."""
+    used = cited_numbers(text)
+    circulars = [s for s in sources if s["number"] in used and s.get("doc_type") in ("circular", "instruction")
+                 and s.get("status") != "withdrawn" and s.get("doc_date")]
+    lines = []
+    for p in sources:
+        if p.get("amended_scope") != "text" or not p.get("cited_by"):
+            continue
+        explains = [c for c in circulars if c["doc_number"] in p["cited_by"].split(", ")]
+        if not explains:
+            continue
+        oldest = min(explains, key=lambda c: c["doc_date"])
+        later = [d for d in p["amended_on"].split(", ") if d > oldest["doc_date"]]
+        if later:
+            lines.append(f"⚠ Note: {p['provision']} was amended after Circular {oldest['doc_number']} "
+                         f"(dated {oldest['doc_date']}), which this answer uses: on {', '.join(later)}. "
+                         f"What the circular says may be out of date; check its current text [S{p['number']}].")
+    return "\n\n".join(lines)
 
 
 def pick(docs: list[Document], budget: int | None) -> list[Document]:
@@ -110,6 +159,11 @@ def get_sources(question: str, budget: int | None = None) -> list[dict]:
     sources = [{"number": n, "label": label(doc), "url": doc.metadata["official_url"],
              "chunk_id": doc.id, "law_assumed": assumed_law(doc),
              "doc_number": doc.metadata["doc_number"], "location": doc.metadata["location"],  # for evals
+             # for amended_note(): which circulars, and which provisions changed after them
+             "doc_type": doc.metadata["doc_type"], "doc_date": doc.metadata.get("doc_date", ""),
+             "status": doc.metadata.get("status", ""), "provision": doc.metadata.get("citation", ""),
+             "cited_by": doc.metadata.get("cited_by", ""), "amended_on": doc.metadata.get("amended_on", ""),
+             "amended_scope": doc.metadata.get("amended_scope", ""),
              "text": doc.page_content}
                for n, doc in enumerate(docs, 1)]
 
@@ -135,6 +189,9 @@ def answer(question: str, which: str = "cloud") -> dict:
     # 3. GENERATE: the answer, from these sources only
     reply = generate(question, as_text(sources), which, assumed(sources), has_web(sources))
     note = rate_note(question, sources)   # a rate question the web couldn't help with: say the rate may be old
+    if note:
+        reply["text"] += f"\n\n{note}"
+    note = amended_note(reply["text"], sources)   # a cited circular explains a rule changed since
     if note:
         reply["text"] += f"\n\n{note}"
 
