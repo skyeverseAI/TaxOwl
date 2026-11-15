@@ -138,8 +138,8 @@
   ],
   "failed_checks": [],
   "cost_inr": 0.0965,
-  "ok": "",
-  "why": ""
+  "ok": "y",
+  "why": "Quote matches [S3] word for word (\"ITC of 55 [2750-2695]\"); gold claims 2695/55 present; ⚠ note points to current rule 36(4) [S19]."
  },
  {
   "id": "dev-014",
@@ -212,8 +212,8 @@
   "gold_found": [],
   "failed_checks": [],
   "cost_inr": 0.0501,
-  "ok": "",
-  "why": ""
+  "ok": "n",
+  "why": "Refused honestly (Codex: y on that), but the gold 159/15/2021 para 3.6 was not retrieved: retrieval miss, user gets no answer."
  },
  {
   "id": "dev-018",
@@ -300,8 +300,8 @@
   ],
   "failed_checks": [],
   "cost_inr": 0.0716,
-  "ok": "",
-  "why": ""
+  "ok": "n",
+  "why": "Matches [S3], but leads with present-tense \"No, the ITC limit does not restrict\" from a 2019 circular; the ⚠ note warns but the headline stays the old law (Codex caught this; Claude had y)."
  },
  {
   "id": "dev-029",
@@ -395,7 +395,7 @@
   ],
   "failed_checks": [],
   "cost_inr": 0.0523,
-  "ok": "",
-  "why": ""
+  "ok": "n",
+  "why": "Says circular 12% (2021) vs web 5% now, but the question asks CGST and the answer never gives the CGST half; web 5% has no [S#]; Hinglish question answered in English."
  }
 ]

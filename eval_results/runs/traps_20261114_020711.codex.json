@@ -1,0 +1,22 @@
+[
+  {
+    "id": "dev-006",
+    "ok": "y",
+    "why": "S3 reproduces the table exactly: “Taxpayer had availed ITC of 2750. Therefore, ITC of 55 [2750-2695] would be required to be reversed”; S4 says it is reversed “for the month of September, 2020.” The answer gives the gold ₹2,695/₹55/₹2,750 claims accurately, cites [S3][S4], and its ⚠ Note expressly says the circular “may be out of date” and directs the reader to current rule 36(4) [S19]."
+  },
+  {
+    "id": "dev-014",
+    "ok": "y",
+    "why": "The answer refuses, and its available sources do not establish the gold intermediary rule: [S4] discusses “a part of the consideration for such exports” retained outside India, while [S9] defines “export of services” and [S10] gives “Intra-State supply”; none says when the intermediary place-of-supply provision applies. The refusal is therefore honest under rule 1."
+  },
+  {
+    "id": "dev-018",
+    "ok": "n",
+    "why": "[S3] says the restriction applies to invoices/details “required to be uploaded by the suppliers” and excludes “IGST paid on import, documents issued under RCM, credit received from ISD”; that supports the stated historical claim. But the answer leads with an unqualified present-tense “No, the ITC limit does not restrict” and then only says the circular “may be out of date,” so it still presents the old circular’s rule as today’s answer, failing rule 3 despite the warning."
+  },
+  {
+    "id": "dev-029",
+    "ok": "n",
+    "why": "[S1] says the covered laterals “would attract a GST of 12%, even if supplied separately,” and [S8] lists “CGST rate | 6%”; the official-rate statement matches those chunks. But the claimed current 5% web rate has no [S10]–[S13] citation marker, and the answer never flags Circular 155/11/2021 as potentially stale despite the trap that rates changed in 2025, failing rules 3 and 4."
+  }
+]
