@@ -1,0 +1,152 @@
+{
+  "config": {
+    "which": "cloud",
+    "generator_model": "openai/gpt-4o-mini",
+    "budget_tokens": null,
+    "gold_file": "eval_results/gold/retriever_dev.jsonl",
+    "gold_sha256": "93d4afe1628d6adb06eb809e9b844a2af227428e14fa3b3e44d4ff33fb7f6f70",
+    "only_ids": [
+      "claude-003",
+      "codex-034"
+    ],
+    "judge_model": "openai/gpt-4.1-mini",
+    "threshold": 0.7,
+    "git_commit": "2a47624",
+    "time": "2026-11-17 10:33:44"
+  },
+  "summary": {
+    "exact": {
+      "n": 1,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 4.3,
+      "cost_inr": 0.02,
+      "Answer Relevancy": 1.0,
+      "Completeness": 1.0,
+      "Faithfulness": 1.0,
+      "judge_cost_usd": 0.0034
+    },
+    "ALL": {
+      "n": 2,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 3.2,
+      "cost_inr": 0.06,
+      "Answer Relevancy": 1.0,
+      "Completeness": 1.0,
+      "Faithfulness": 1.0,
+      "judge_cost_usd": 0.0034
+    },
+    "none": {
+      "n": 1,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 2.1,
+      "cost_inr": 0.04,
+      "judge_cost_usd": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-003",
+      "category": "exact",
+      "question": "By when must a supplier report a credit note under section 34(2), and in which cases is the output tax not reduced?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "A supplier must report a credit note under section 34(2) in the return for the month during which the credit note was issued, but not later than **the thirtieth day of November** following the end of the financial year in which the supply was made, or the date of furnishing the relevant annual return, whichever is earlier [S1].\n\nThe output tax liability shall not be reduced in the following cases:\n\n1. If the **input tax credit** attributable to the credit note has not been reversed by the recipient, where the recipient is a registered person.\n2. If the **incidence of tax** on such supply has been passed on to any other person in other cases [S1].",
+      "claims": [
+        "A credit note must be declared in the return for the month in which it is issued.",
+        "It cannot be declared later than 30 November following the end of the financial year of the supply, or the date of furnishing the relevant annual return, whichever is earlier.",
+        "No reduction of the supplier's output tax is allowed if a registered recipient has not reversed the ITC attributable to the credit note.",
+        "In other cases, no reduction is allowed if the incidence of tax has been passed on to any other person."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(2), p.44-45",
+          "chunk_id": "act-12-of-2017:section-34:2"
+        }
+      ],
+      "seconds": 4.3,
+      "input_tokens": 1022,
+      "output_tokens": 143,
+      "cost_inr": 0.021,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0016563999999999997
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the question about the timing for reporting a credit note under section 34(2) and clearly explains the cases where output tax is not reduced, with no irrelevant information included.",
+          "cost": 0.0008964
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information in node 1 of the retrieval context, which clearly states the timing for declaring a credit note and the conditions under which output tax liability cannot be reduced. There are no unsupported statements, making the recall complete and accurate.",
+          "cost": 0.0008496
+        }
+      }
+    },
+    {
+      "id": "codex-034",
+      "category": "none",
+      "question": "What is the current GST rate on wireless earbuds sold in India?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2"
+        },
+        {
+          "number": 2,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6-6.2, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-2"
+        },
+        {
+          "number": 3,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6.3, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-3"
+        },
+        {
+          "number": 4,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14-14.1, p.9",
+          "chunk_id": "163-19-2021-gst:para-14-1"
+        },
+        {
+          "number": 5,
+          "label": "Circular 200/12/2023-GST, dated 2023-08-01, para 9.2, p.4",
+          "chunk_id": "200-12-2023-gst:para-9-2"
+        },
+        {
+          "number": 6,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 9-9.2, p.6",
+          "chunk_id": "113-32-2019-gst:para-9-2"
+        },
+        {
+          "number": 7,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 1.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-1-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14.2-15, p.9",
+          "chunk_id": "163-19-2021-gst:para-15"
+        }
+      ],
+      "seconds": 2.1,
+      "input_tokens": 2981,
+      "output_tokens": 8,
+      "cost_inr": 0.0398
+    }
+  ]
+}

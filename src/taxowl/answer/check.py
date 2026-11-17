@@ -46,12 +46,18 @@ def supported(citation, cited_sources: list[dict]) -> bool:
     return any(mention.search(s["text"]) for s in cited_sources)
 
 
+def is_refusal(text: str) -> bool:
+    """The answer is the refusal sentence and nothing else. Markdown may bold or quote it.
+    Shared with the generator eval, so "refused" means the same thing in the app and in the eval."""
+    return text.strip().strip("*_\"' ") == REFUSAL
+
+
 def check(text: str, sources: list[dict], question: str = "") -> list[dict]:
     """`sources` is pipeline.py's list: {"number", "label", "url", "chunk_id", "law_assumed", "text"}.
     `law_assumed` is the assumed law's name ("CGST Rules") or ""."""
     numbers = {s["number"] for s in sources}
     cited = cited_numbers(text)
-    refused = text.strip().strip("*_\"' ") == REFUSAL  # Markdown may bold or quote it
+    refused = is_refusal(text)
     checks = []
 
     unknown = sorted(cited - numbers)

@@ -1,0 +1,2026 @@
+{
+  "config": {
+    "which": "local",
+    "generator_model": "qwen2.5:7b-instruct",
+    "budget_tokens": 6000,
+    "gold_file": "eval_results/gold/generator_dev.jsonl",
+    "gold_sha256": "4ad4cba050256be66a84b01f7f45bb02bdd1e889a1b8ad7fc88bdd0fdeddce20",
+    "only_ids": null,
+    "judge_model": "openai/gpt-4.1-mini",
+    "threshold": 0.7,
+    "git_commit": "2a47624",
+    "time": "2026-11-17 20:57:20"
+  },
+  "summary": {
+    "exact": {
+      "n": 9,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 8.4,
+      "cost_inr": 0.0,
+      "Answer Relevancy": 0.984,
+      "Completeness": 0.963,
+      "Faithfulness": 0.926,
+      "judge_cost_usd": 0.0326
+    },
+    "ALL": {
+      "n": 40,
+      "refusal_correct": 0.925,
+      "checks_failed": 2,
+      "seconds": 8.3,
+      "cost_inr": 0.0,
+      "Answer Relevancy": 0.977,
+      "Completeness": 0.902,
+      "Faithfulness": 0.978,
+      "judge_cost_usd": 0.106
+    },
+    "hinglish": {
+      "n": 6,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 6.0,
+      "cost_inr": 0.0,
+      "Answer Relevancy": 1.0,
+      "Completeness": 0.933,
+      "Faithfulness": 1.0,
+      "judge_cost_usd": 0.0184
+    },
+    "multi": {
+      "n": 4,
+      "refusal_correct": 0.75,
+      "checks_failed": 0,
+      "seconds": 11.4,
+      "cost_inr": 0.0,
+      "Answer Relevancy": 0.917,
+      "Completeness": 0.688,
+      "Faithfulness": 1.0,
+      "judge_cost_usd": 0.0124
+    },
+    "none": {
+      "n": 8,
+      "refusal_correct": 0.75,
+      "checks_failed": 2,
+      "seconds": 9.4,
+      "cost_inr": 0.0,
+      "judge_cost_usd": 0
+    },
+    "scenario": {
+      "n": 13,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 7.7,
+      "cost_inr": 0.0,
+      "Answer Relevancy": 0.974,
+      "Completeness": 0.91,
+      "Faithfulness": 1.0,
+      "judge_cost_usd": 0.0426
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-003",
+      "category": "exact",
+      "question": "By when must a supplier report a credit note under section 34(2), and in which cases is the output tax not reduced?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "A supplier must report a credit note in the return for the month during which the credit note has been issued but not later than the thirtieth day of November following the end of the financial year in which the supply was made, or the date of furnishing of the relevant annual return, whichever is earlier. [S1]\n\nThe output tax liability is not reduced in two cases:\n- If the input tax credit attributable to such a credit note, if availed, has not been reversed by the recipient, where such recipient is a registered person. [S1]\n- If the incidence of tax on such supply has been passed on to any other person. [S1]",
+      "claims": [
+        "A credit note must be declared in the return for the month it is issued.",
+        "The latest deadline is 30 November after the supply financial year or the date the relevant annual return is furnished, whichever is earlier.",
+        "The supplier cannot reduce output tax if a registered recipient has not reversed attributable ITC.",
+        "In other cases, the supplier cannot reduce output tax if the tax incidence was passed on to another person."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(2), p.44-45",
+          "chunk_id": "act-12-of-2017:section-34:2"
+        }
+      ],
+      "seconds": 11.8,
+      "input_tokens": 1155,
+      "output_tokens": 138,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because the actual output ambiguously states that the credit note must be reported in the return for the month it was issued, while the context clarifies it can be declared by the thirtieth of November following the financial year or by the date of the annual return, whichever is earlier, indicating a partial misalignment.",
+          "cost": 0.0017419999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the timing for reporting a credit note under section 34(2) and clearly explains the cases where output tax is not reduced, with no irrelevant information included.",
+          "cost": 0.0009111999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because every sentence in the expected output is directly supported by detailed information from node 1 in the retrieval context, with no contradictions or missing links, demonstrating a perfect alignment and comprehensive coverage.",
+          "cost": 0.0010404000000000001
+        }
+      }
+    },
+    {
+      "id": "claude-004",
+      "category": "exact",
+      "question": "As per Circular 192/04/2023-GST, when does interest under section 50(3) arise if IGST credit was wrongly availed and later reversed?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to Circular 192/04/2023-GST, dated 2023-07-17 [S1][S2], interest under section 50(3) of the CGST Act, 2017, arises if the balance of input tax credit (ITC) in the electronic credit ledger, under the heads of IGST, CGST, and SGST taken together, falls below the amount of wrongly availed IGST credit. Specifically, interest will be charged when the total balance in the electronic credit ledger under heads of IGST, CGST, and SGST taken together falls below the amount of wrongly availed IGST credit, even after the reversal of the wrongly availed credit. Interest is calculated as per sub-section (3) of section 50 of CGST Act, read with section 20 of Integrated Goods and Services Tax Act, 2017, and sub-rule (3) of rule 88B of CGST Rules. Interest does not arise if, during the period from the wrong availment to the reversal, the total ITC balance never falls below the wrongly availed amount.",
+      "claims": [
+        "Interest calculation considers the combined IGST, CGST and SGST balance in the electronic credit ledger.",
+        "No interest is payable if that combined balance never fell below the wrongly availed IGST credit before reversal, even if the IGST balance alone did.",
+        "If the combined balance fell below the wrongly availed amount, interest applies to the shortfall."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 2, p.1-2",
+          "chunk_id": "192-04-2023-gst:para-2:1"
+        },
+        {
+          "number": 2,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 2, p.1-2",
+          "chunk_id": "192-04-2023-gst:para-2:2"
+        }
+      ],
+      "seconds": 11.6,
+      "input_tokens": 1686,
+      "output_tokens": 246,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions; the actual output fully aligns with the retrieval context, demonstrating complete faithfulness.",
+          "cost": 0.0023788
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly and accurately addresses the timing of interest under section 50(3) as per Circular 192/04/2023-GST without including any irrelevant information.",
+          "cost": 0.0012351999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly explains the interest calculation based on the combined IGST, CGST, and SGST balances and the conditions under which interest applies or does not apply. There are no unsupported statements, making the recall complete and accurate.",
+          "cost": 0.0009040000000000001
+        }
+      }
+    },
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to Circular 231/25/2024-GST, an authorized car dealer can take input tax credit (ITC) on demo vehicles under certain conditions. **[S1][S2]**\n\n- **When ITC is not blocked:** If the authorized dealer uses demo vehicles to provide trial runs and demonstrate features to potential buyers, promoting the sale of similar types of motor vehicles, the ITC in respect of these demo vehicles is **not** blocked under sub-clause (A) of clause (a) of section 17(5) of the CGST Act. **[S1]**\n\n- **When ITC is blocked:** If the authorized dealer merely acts as an agent or service provider for the vehicle manufacturer, providing marketing services including test drives, and the sale invoice is issued directly by the manufacturer, the demo vehicle is not considered used by the dealer for making further supply. In such cases, the ITC on the demo vehicle **would not** be available to the dealer. **[S2]**\n\nThe key distinction lies in the dealer's role and the nature of the transaction. If the dealer is directly involved in the sale of the demo vehicle, ITC can be claimed. Otherwise, it is blocked. **[S1][S2]**",
+      "claims": [
+        "Demo vehicles used to demonstrate vehicles to potential buyers promote sales of similar vehicles and count as used for further supply of such vehicles.",
+        "ITC on those demo vehicles is not blocked.",
+        "If the dealer only provides marketing or test-drive services for the manufacturer and the manufacturer invoices the customer directly, ITC on the demo vehicle is unavailable to the dealer."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.4, p.2-3",
+          "chunk_id": "231-25-2024-gst:para-4-4"
+        },
+        {
+          "number": 2,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.6-5, p.3",
+          "chunk_id": "231-25-2024-gst:para-5"
+        }
+      ],
+      "seconds": 12.6,
+      "input_tokens": 1670,
+      "output_tokens": 266,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions; the actual output fully aligns with the retrieval context, demonstrating complete faithfulness.",
+          "cost": 0.0023867999999999997
+        },
+        "Answer Relevancy": {
+          "score": 0.8571428571428571,
+          "reason": "The score is 0.86 because the answer addresses the main question about ITC on demo vehicles under Circular 231/25/2024-GST but includes a vague statement that lacks specific details, preventing a higher score.",
+          "cost": 0.001314
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in nodes 1 and 2 of the retrieval context. Sentence 1 is directly matched by node 1, and sentence 2 is corroborated by both nodes 1 and 2, with no conflicting or missing information.",
+          "cost": 0.0009448
+        }
+      }
+    },
+    {
+      "id": "claude-007",
+      "category": "exact",
+      "question": "What amount must be deposited before filing a first appeal under section 107(6) of the CGST Act?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "Before filing a first appeal under section 107(6) of the CGST Act, the appellant must deposit the following amounts:\n\n- The part of the amount of tax, interest, fine, fee, and penalty arising from the impugned order that is admitted by the appellant.\n- A sum equal to ten per cent. of the remaining amount of tax in dispute arising from the said order, subject to a maximum of twenty crore rupees.\n\n> Section 107(6) of the Central Goods and Services Tax Act, 2017 [S1] states that no appeal shall be filed unless the appellant has paid (a) in full, such part of the amount of tax, interest, fine, fee and penalty arising from the impugned order, as is admitted by him; and (b) a sum equal to ten per cent. of the remaining amount of tax in dispute arising from the said order, subject to a maximum of twenty crore rupees.",
+      "claims": [
+        "Before filing, the appellant must pay in full the amounts from the order that they admit.",
+        "The appellant must also pay 10% of the remaining tax in dispute, capped at ₹20 crore.",
+        "If the order demands only a penalty and no tax, 10% of the penalty must be paid."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 107(6)-(8), p.85-86",
+          "chunk_id": "act-12-of-2017:section-107:5"
+        }
+      ],
+      "seconds": 8.8,
+      "input_tokens": 1207,
+      "output_tokens": 203,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0016971999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the required deposit amount for filing a first appeal under section 107(6) of the CGST Act without including any irrelevant information.",
+          "cost": 0.0010404
+        },
+        "Completeness": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because sentences 1 and 2 of the expected output are well supported by node 1 in the retrieval context, which clearly states the appellant must pay the admitted tax amount and 10% of the remaining disputed tax capped at ₹20 crore. However, sentence 3 about paying 10% of the penalty if only a penalty is demanded is not supported by any node in the retrieval context, lowering the overall recall score.",
+          "cost": 0.000812
+        }
+      }
+    },
+    {
+      "id": "claude-008",
+      "category": "exact",
+      "question": "Under Circular 204/16/2023-GST, is a director's personal guarantee to a bank for the company's loan taxable, and at what value?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes**, a director's personal guarantee to a bank for the company's loan is taxable under Circular 204/16/2023-GST. According to the circular, the activity of providing a personal guarantee by the director to the bank for securing credit facilities for their company is treated as a supply of service, even when made without consideration. [S1]\n\nHowever, if no consideration can be paid to the director by the company, directly or indirectly, in lieu of providing the personal guarantee, the open market value of such supply may be treated as zero, and therefore, no tax is payable on such supply of service by the director to the company. [S2] \n\nIn cases where the director is no longer connected with the management but the guarantee is still considered essential, or where remuneration/consideration is provided to the director, the taxable value of such supply of service shall be the remuneration/consideration provided. [S2]",
+      "claims": [
+        "The director and company are treated as related persons, so the personal guarantee is a supply of service even without consideration.",
+        "The taxable value of the guarantee is its open market value.",
+        "If RBI rules prohibit any consideration for the guarantee, its open market value may be treated as zero.",
+        "In that no-consideration case, the taxable value may be treated as zero and no tax is payable.",
+        "If the director is paid consideration for the guarantee, the taxable value is that consideration."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.2",
+          "chunk_id": "204-16-2023-gst-table-1:1"
+        },
+        {
+          "number": 2,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.4",
+          "chunk_id": "204-16-2023-gst-table-2:1"
+        }
+      ],
+      "seconds": 10.3,
+      "input_tokens": 1787,
+      "output_tokens": 200,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0022779999999999996
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the taxability of a director's personal guarantee under Circular 204/16/2023-GST and specifies the applicable value, with no irrelevant information included.",
+          "cost": 0.0011596
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because every sentence in the expected output is directly supported by specific information from nodes 1 and 2 in the retrieval context. Sentence 1 aligns with node 1's explanation of personal guarantees as supplies of service without consideration. Sentences 2 to 5 correspond closely to node 2's details on taxable value, open market value treatment when no consideration is given, and tax implications when consideration is provided. There are no unsupported statements, making the recall complete and accurate.",
+          "cost": 0.0009683999999999999
+        }
+      }
+    },
+    {
+      "id": "codex-003",
+      "category": "exact",
+      "question": "For a transaction wrongly treated as intra-State and later held to be inter-State, what does CGST rule 89(1A) say about the refund deadline?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to CGST Rule 89(1A) [S1], for a transaction wrongly treated as intra-State and later held to be inter-State, the deadline for filing an application for refund is **before the expiry of a period of two years from the date of payment of the tax on the inter-State supply**. This rule applies to applications filed after it comes into force. For applications filed before the sub-rule came into force, the deadline is **before the expiry of a period of two years from the date on which this sub-rule comes into force**.",
+      "claims": [
+        "The refund application may be filed within two years from the date tax was paid on the inter-State supply.",
+        "For inter-State tax paid before this sub-rule came into force, the two-year period runs from its commencement date."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(1A), p.285-292",
+          "chunk_id": "cgst-rules-2017:rule-89:3"
+        }
+      ],
+      "seconds": 5.4,
+      "input_tokens": 1195,
+      "output_tokens": 116,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because the actual output incorrectly refers to 'applications filed before the sub-rule came into force' instead of 'payments made before the sub-rule came into force,' which misrepresents the timing condition specified in the retrieval context.",
+          "cost": 0.0016848
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the refund deadline specified in CGST rule 89(1A) for transactions reclassified from intra-State to inter-State, with no irrelevant information included.",
+          "cost": 0.0009164
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly states the two-year filing period from the date of tax payment and the adjusted deadline for taxes paid before the sub-rule's commencement. This complete alignment justifies the perfect recall score.",
+          "cost": 0.0007932
+        }
+      }
+    },
+    {
+      "id": "codex-004",
+      "category": "exact",
+      "question": "What place of supply does section 12(8) of the IGST Act set for goods transport to an unregistered customer?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to section 12(8) of the IGST Act, 2017 [S1], the place of supply of services by way of transportation of goods to an unregistered person is the location at which such goods are handed over for their transportation. > The Act specifies that if the recipient is not a registered person, the place of supply is determined based on where the goods are handed over for transportation.",
+      "claims": [
+        "For an unregistered recipient, the place of supply is where the goods are handed over for transportation."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(8), p.375-378",
+          "chunk_id": "igst-act-2017:section-12:7"
+        }
+      ],
+      "seconds": 3.9,
+      "input_tokens": 1042,
+      "output_tokens": 87,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0011135999999999997
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the place of supply as set by section 12(8) of the IGST Act for goods transport to an unregistered customer, with no irrelevant information included.",
+          "cost": 0.0007144
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the sentence in the expected output directly matches the information in the 1st node in retrieval context, which clearly states the place of supply for transportation of goods to an unregistered person is where the goods are handed over. There are no conflicting or missing details, making the recall complete and accurate.",
+          "cost": 0.000584
+        }
+      }
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to Circular 160/16/2021-GST, dated 2021-09-20, there is no requirement to carry the physical copy of a tax invoice when the supplier has generated an e-invoice in the manner prescribed under rule 48(4) of the CGST Rules, 2017. The circular clarifies that after the amendment on 30.09.2020, rule 138A (2) of the CGST Rules states that the Quick Reference (QR) code, having an embedded Invoice Reference Number (IRN), may be produced electronically for verification by the proper officer in lieu of the physical copy of such tax invoice. > [S1][S2]",
+      "claims": [
+        "When the supplier generates an e-invoice, a physical copy of the tax invoice need not be carried.",
+        "The QR code containing the embedded IRN may instead be produced electronically for verification."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.3-4",
+          "chunk_id": "160-16-2021-gst-table-3:2"
+        },
+        {
+          "number": 2,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.4",
+          "chunk_id": "160-16-2021-gst-table-3:3"
+        }
+      ],
+      "seconds": 8.0,
+      "input_tokens": 1550,
+      "output_tokens": 162,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0018016
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer fully addresses the query about Circular 160/16/2021-GST and the requirement regarding carrying a paper invoice when an e-invoice is generated, with no irrelevant information included.",
+          "cost": 0.0010184
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output directly matches the information in node 1 of the retrieval context, which clearly states that no physical copy of the tax invoice is required when an e-invoice is generated, and that the QR code with the embedded IRN can be produced electronically for verification. There are no unsupported sentences, making the recall complete and accurate.",
+          "cost": 0.0006483999999999999
+        }
+      }
+    },
+    {
+      "id": "codex-008",
+      "category": "exact",
+      "question": "Under section 17(5)(g), can I claim ITC for GST on a laptop bought for my family to use, even though the invoice has my business GSTIN?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, you cannot claim Input Tax Credit (ITC) for GST on a laptop bought for personal consumption, even if the invoice has your business GSTIN. According to [S1], goods or services used for personal consumption are not eligible for ITC [S1][S1](g).",
+      "claims": [
+        "ITC is not available for goods or services used for personal consumption."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5)(f)-(i), p.31-34",
+          "chunk_id": "act-12-of-2017:section-17:8"
+        }
+      ],
+      "seconds": 3.2,
+      "input_tokens": 1216,
+      "output_tokens": 61,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0012460000000000001
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the question about claiming ITC for GST on a laptop purchased for family use with a business GSTIN invoice. There are no irrelevant statements, making the response fully relevant and clear.",
+          "cost": 0.0007576000000000001
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by node 1 in the retrieval context, which explicitly states that goods or services used for personal consumption are not eligible for ITC. There are no conflicting or unsupported statements, making the recall complete and accurate.",
+          "cost": 0.0005188
+        }
+      }
+    },
+    {
+      "id": "claude-029",
+      "category": "hinglish",
+      "question": "Main doosre state mein ek mahine ki exhibition mein stall laga raha hoon. Wahan ka temporary registration kitne din chalega, aur kya pehle se tax jama karna padega?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Main doosre state mein ek mahine ki exhibition mein stall laga raha hoon. Wahan ka temporary registration kitne din chalega, aur kya pehle se tax jama karna padega?**\n\nAccording to [S1], the temporary registration for a casual taxable person, such as yourself, will be valid for the period specified in the application or ninety days from the effective date of registration, whichever is earlier. Additionally, you need to make an advance deposit of tax equivalent to the estimated tax liability for the period for which the registration is sought. If you apply for an extension, you will need to deposit an additional amount of tax for the extended period.\n\n> The Central Goods and Services Tax Act, 2017, section 27, states that the certificate of registration for a casual taxable person or a non-resident taxable person shall be valid for the period specified in the application for registration or ninety days from the effective date of registration, whichever is earlier. [S1][S1]\n\n> A casual taxable person or a non-resident taxable person shall, at the time of submission of application for registration, make an advance deposit of tax in an amount equivalent to the estimated tax liability of such person for the period for which the registration is sought. [S1]",
+      "claims": [
+        "Registration is valid for the period stated in the application or 90 days from its effective date, whichever is earlier; it may be extended by up to 90 days.",
+        "At application, the casual taxable person must deposit estimated tax for the registration period and deposit additional estimated tax for any extension."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 27, p.40",
+          "chunk_id": "act-12-of-2017:section-27"
+        }
+      ],
+      "seconds": 11.3,
+      "input_tokens": 1267,
+      "output_tokens": 269,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0016288000000000001
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the query about the duration of temporary registration and tax payment requirements for a stall in an exhibition in another state, with no irrelevant information included.",
+          "cost": 0.0010320000000000001
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, which clearly states the validity period of the registration and the requirement for the casual taxable person to deposit estimated tax at application and for any extension. There are no discrepancies or unsupported statements.",
+          "cost": 0.0007528000000000001
+        }
+      }
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Interest Rate and Calculation:**\n\nAccording to [S1], if GSTR-3B is filed late along with the tax, interest will be levied at a rate not exceeding 18% per annum on the unpaid tax. The interest is calculated from the day after the tax was due to be paid. [S1][S1]",
+      "claims": [
+        "Interest on unpaid tax is charged at the notified rate, capped at 18%.",
+        "Interest applies for the period the tax remains unpaid.",
+        "For a return filed after its due date, interest is payable only on the portion paid through the electronic cash ledger.",
+        "This cash-ledger-only treatment does not apply if the late return is furnished after proceedings for that period have commenced.",
+        "Interest is calculated from the day after the tax was due."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 50, p.53-54",
+          "chunk_id": "act-12-of-2017:section-50"
+        }
+      ],
+      "seconds": 3.9,
+      "input_tokens": 1296,
+      "output_tokens": 72,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating perfect alignment and faithfulness.",
+          "cost": 0.0014244
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the query about the interest rate and applicable amount for late filing and payment of GSTR-3B tax, with no irrelevant information included.",
+          "cost": 0.0007472
+        },
+        "Completeness": {
+          "score": 0.6,
+          "reason": "The score is 0.60 because sentences 1, 2, and 5 in the expected output are well supported by node 1 in the retrieval context, which details the interest rate cap, calculation from the due date, and applicability on unpaid tax. However, sentences 3 and 4 regarding interest payable only on the portion paid through the electronic cash ledger for late returns and exceptions when proceedings have commenced are not supported by any node in the retrieval context, limiting the overall recall.",
+          "cost": 0.0008848
+        }
+      }
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes, CGST (Central Goods and Services Tax) applies to the sale of goods to a customer in the same state.** [S1] According to the Central Goods and Services Tax Act, 2017, section 9(1), a tax called CGST is levied on all intra-State supplies of goods or services, except for the supply of alcoholic liquor for human consumption and un-denatured extra neutral alcohol or rectified spirit used for the manufacture of alcoholic liquor for human consumption. Therefore, CGST would apply to the sale of goods to a customer in the same state, but not to the supply of alcoholic beverages.",
+      "claims": [
+        "Central tax is levied on intra-State supplies of goods or services.",
+        "The levy excludes alcoholic liquor for human consumption and un-denatured extra neutral alcohol or rectified spirit used to manufacture alcoholic liquor for human consumption."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 9(1), p.23",
+          "chunk_id": "act-12-of-2017:section-9:1"
+        }
+      ],
+      "seconds": 5.8,
+      "input_tokens": 1106,
+      "output_tokens": 133,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions; the actual output fully aligns with the retrieval context, demonstrating complete faithfulness.",
+          "cost": 0.0015524
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the query about CGST applicability on sales to customers within the same state and the specifics regarding alcohol supply, providing clear and relevant information without any irrelevant content.",
+          "cost": 0.0009563999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the single sentence in the expected output is fully supported by node 1 in the retrieval context, which explicitly states the same information about the central tax levy and its exclusions, resulting in a perfect match.",
+          "cost": 0.0006188
+        }
+      }
+    },
+    {
+      "id": "codex-026",
+      "category": "hinglish",
+      "question": "Tax ko credit note se adjust kar diya hai. Kya same transaction ke liye alag refund bhi le sakta hoon?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, you cannot claim a refund for the same transaction where you have already adjusted the tax through a credit note. According to [S1], para 4.4, refund under section 77 of the CGST Act or section 19 of the IGST Act is not available if the taxpayer has made a tax adjustment through the issuance of a credit note for the same transaction.",
+      "claims": [
+        "A separate refund under the specified refund provisions is unavailable for a transaction whose tax was adjusted through a credit note."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.4-6, p.4",
+          "chunk_id": "162-18-2021-gst:para-6"
+        }
+      ],
+      "seconds": 4.1,
+      "input_tokens": 1120,
+      "output_tokens": 80,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0012775999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about adjusting tax with a credit note and the possibility of taking a separate refund for the same transaction. There are no irrelevant statements, making the answer fully relevant and clear.",
+          "cost": 0.0007096000000000001
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by node 1 in the retrieval context, which clearly states that a refund cannot be claimed for a transaction where tax was already adjusted through a credit note. There are no conflicting or unsupported statements, making the recall complete and accurate.",
+          "cost": 0.0005784
+        }
+      }
+    },
+    {
+      "id": "codex-028",
+      "category": "hinglish",
+      "question": "Company ka CIRP shuru ho gaya hai aur purane GST dues pending hain. Officer seedha recovery kar sakta hai?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, the officer cannot take coercive action against the corporate debtor with respect to the dues for the period prior to the insolvency commencement date. According to Circular 134/04/2020-GST, the dues of the period prior to the commencement of CIRP will be treated as 'operational debt' and claims may be filed by the proper officer before the NCLT in accordance with the provisions of the IBC. [S1]",
+      "claims": [
+        "No coercive action may be taken for the company’s GST dues from before the insolvency commencement date.",
+        "The proper officer may file claims for those pre-CIRP dues as operational debt before the NCLT under the IBC."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 134/04/2020-GST, dated 2020-03-23, para 3, p.2-3",
+          "chunk_id": "134-04-2020-gst-table-1:1"
+        }
+      ],
+      "seconds": 5.1,
+      "input_tokens": 1310,
+      "output_tokens": 98,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0015544
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the query about GST dues recovery during CIRP without any irrelevant information, making it fully relevant and concise.",
+          "cost": 0.0008888
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, which explicitly states that no coercive action can be taken for GST dues before the insolvency commencement date and that such dues can be claimed as operational debt before the NCLT under the IBC. There are no contradictions or missing attributions, making the recall complete and accurate.",
+          "cost": 0.0007011999999999999
+        }
+      }
+    },
+    {
+      "id": "codex-031",
+      "category": "hinglish",
+      "question": "Online gaming ya OIDAR service unregistered customer ko doon toh invoice par State ka naam likhna zaroori hai, amount chhota ho tab bhi?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes, the supplier is required to record the name of the State of the unregistered recipient on the tax invoice, even if the amount is small.** [S1] According to Circular 242/36/2024-GST, this requirement applies to the supply of online money gaming, OIDAR services, and taxable services by or through an electronic commerce operator to unregistered persons. The place of supply of such services is considered the location of the recipient as per the provisions of clause (i) of section 12(2)(b) of the IGST Act.",
+      "claims": [
+        "For online money gaming, taxable services supplied by or through an e-commerce operator, or OIDAR services to an unregistered recipient, the supplier must record the recipient’s State on the invoice regardless of value.",
+        "That State is treated as the recipient’s address on record for determining place of supply."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4.4, p.4",
+          "chunk_id": "242-36-2024-gst:para-4-4"
+        }
+      ],
+      "seconds": 6.1,
+      "input_tokens": 1260,
+      "output_tokens": 124,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.001598
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the question about whether the state name must be mentioned on the invoice for an unregistered customer receiving online gaming or OIDAR services, even if the amount is small. There are no irrelevant statements, making the answer perfectly relevant and concise.",
+          "cost": 0.0008135999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by node 1 in the retrieval context, which explicitly states the requirement for suppliers to record the State of unregistered recipients on the invoice for online money gaming, OIDAR services, and taxable services through e-commerce operators. There are no unsupported elements, making the recall complete and accurate.",
+          "cost": 0.0006676
+        }
+      }
+    },
+    {
+      "id": "claude-024",
+      "category": "multi",
+      "question": "The department provisionally attached a client's bank account during proceedings. How long can the attachment last, and can he get the account freed by offering property instead?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The provisional attachment of a client's bank account by the department can last for a period of one year from the date of the order made under section 83 of the CGST Act, 2017 [S1].\n\nYes, the client can get the account freed by offering property instead. According to the guidelines, if the client offers any other immovable property sufficient to protect the interest of the revenue, the movable property, including the bank account, may be released. The immovable property offered should be of value not less than the tax amount in dispute and should be free from any subsisting charges, liens, mortgages, or encumbrances. It should also have fully paid property tax and not be involved in any legal dispute. The client must produce the original title deeds and other necessary information relating to the property for the satisfaction of the concerned officer [S2].",
+      "claims": [
+        "A provisional attachment ceases to have effect one year after the order.",
+        "An attached bank account may be released if the taxpayer offers other immovable property sufficient to protect revenue.",
+        "The replacement property must be worth at least the tax in dispute, free of charges and legal disputes, have property tax paid up to date, and the original title deeds must be produced."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 83, p.75",
+          "chunk_id": "act-12-of-2017:section-83"
+        },
+        {
+          "number": 2,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.4.6, p.4-5",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+        }
+      ],
+      "seconds": 8.7,
+      "input_tokens": 1406,
+      "output_tokens": 180,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0019652
+        },
+        "Answer Relevancy": {
+          "score": 0.75,
+          "reason": "The score is 0.75 because the response addresses the duration of the attachment and the possibility of freeing the account by offering property, which are the main points asked. However, it includes irrelevant details about the requirement for fully paid property tax and the property not being involved in legal disputes, which do not directly answer the question and prevent a higher score.",
+          "cost": 0.0012164
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by specific details from nodes 1 and 2 in the retrieval context, with no contradictions or missing information, reflecting a complete and accurate recall.",
+          "cost": 0.0007784000000000001
+        }
+      }
+    },
+    {
+      "id": "claude-025",
+      "category": "multi",
+      "question": "An officer blocked our credit ledger under rule 86A, and we've since shown the invoices are genuine. Can he release it before the year is over, and what must he do first?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes, the officer can release the credit ledger before the year is over. According to [S1][S2], the restriction on the debit of the electronic credit ledger can be lifted by the Commissioner or an authorized officer if they are satisfied that the conditions for disallowing the debit no longer exist.**\n\nThe officer must first examine the matter afresh and be satisfied that the input tax credit, initially considered to be fraudulently availed or ineligible, is now eligible or wrongly availed only partially. If satisfied, the officer can allow the use of the credit up to the extent of its eligibility. The reasons for allowing the debit of the electronic credit ledger must be recorded in writing before such a release is made. [S2]",
+      "claims": [
+        "The Commissioner or authorised officer may allow use of the credit once satisfied that the conditions for restricting debit no longer exist.",
+        "The officer may review the matter on their own or based on taxpayer evidence and allow eligible credit fully or partly.",
+        "Reasons for allowing debit must be recorded in writing before it is allowed.",
+        "The restriction ceases after one year from the date it was imposed."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86A(2)-(3), p.278-279",
+          "chunk_id": "cgst-rules-2017:rule-86a:2"
+        },
+        {
+          "number": 2,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1"
+        }
+      ],
+      "seconds": 7.2,
+      "input_tokens": 1347,
+      "output_tokens": 151,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0016576
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the query about the officer's ability to release the credit ledger and the necessary steps, with no irrelevant information included.",
+          "cost": 0.0009696
+        },
+        "Completeness": {
+          "score": 0.75,
+          "reason": "The score is 0.75 because sentences 1 to 3 in the expected output are well supported by node 1 in the retrieval context, which details the conditions under which the Commissioner or authorized officer may allow the use of credit and the requirement to record reasons in writing. However, sentence 4 about the restriction ceasing after one year is not supported by any node in the retrieval context, leading to a slightly reduced recall score.",
+          "cost": 0.0008748
+        }
+      }
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "answerable": true,
+      "refused": true,
+      "refusal_correct": false,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [
+        "Capitalising demo vehicles does not by itself affect ITC availability, subject to the other provisions of the Act.",
+        "If depreciation is claimed on the tax component of the capitalised vehicle, ITC on that tax component is not allowed."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5), p.31-34",
+          "chunk_id": "act-12-of-2017:section-17:5"
+        },
+        {
+          "number": 2,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.4, p.4",
+          "chunk_id": "231-25-2024-gst:para-5-4"
+        },
+        {
+          "number": 3,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.5-7, p.4",
+          "chunk_id": "231-25-2024-gst:para-7"
+        },
+        {
+          "number": 4,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(4), p.30-31",
+          "chunk_id": "act-12-of-2017:section-16:6"
+        }
+      ],
+      "seconds": 4.3,
+      "input_tokens": 2322,
+      "output_tokens": 10,
+      "cost_inr": 0.0,
+      "judge": {
+        "Completeness": {
+          "score": 0.0,
+          "reason": "refused (scored by code)",
+          "cost": 0.0
+        }
+      }
+    },
+    {
+      "id": "claude-028",
+      "category": "multi",
+      "question": "After my father's death I'm continuing his business under my own GSTIN. How do I move the unused credit in his ledger to me, and am I responsible for his old tax dues?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**After your father's death, you can move the unused credit in his ledger to yours by following these steps:**\n\n1. **Filing FORM GST ITC-02:** As per [S1][S2], you need to file FORM GST ITC-02 electronically on the common portal. This form should include details of the transfer of business due to your father's death.\n\n2. **Providing a Certificate:** You must also submit a copy of a certificate issued by a practicing chartered accountant or cost accountant, certifying that the business transfer has been done with a specific provision for the transfer of liabilities.\n\n3. **Acceptance by Transferee:** Upon acceptance of the details by you (as the transferee), the unutilized credit will be credited to your electronic credit ledger.\n\n**Regarding your responsibility for your father's old tax dues:**\n\n- According to [S1], you, as the transferee, will be jointly and severally liable to pay any tax, interest, or penalty due from your father in cases of the transfer of business due to his death.\n\n- [S2] further clarifies that you will be liable to pay any tax, interest, or penalty due from your father under the CGST Act.\n\nTherefore, you are responsible for any outstanding tax dues of your father's business.",
+      "claims": [
+        "FORM GST ITC-02 must be filed electronically on the common portal to request transfer of unused credit to the successor.",
+        "A practising chartered accountant or cost accountant must certify that the business transfer specifically provides for transfer of liabilities.",
+        "After the successor accepts the details on the portal, the transferred credit is credited to the successor’s electronic credit ledger.",
+        "The successor continuing the business is liable for tax, interest or penalties due from the deceased proprietor."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:2"
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 41, p.226-227",
+          "chunk_id": "cgst-rules-2017:rule-41"
+        }
+      ],
+      "seconds": 25.5,
+      "input_tokens": 1788,
+      "output_tokens": 272,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0027448
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the user's query about transferring unused credit and responsibility for old tax dues under GST. There are no irrelevant statements, making the answer completely relevant and helpful.",
+          "cost": 0.0012
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are directly supported by node 1 in the retrieval context, which clearly details the electronic filing of FORM GST ITC-02, certification requirements, credit transfer process, and successor's liabilities, resulting in a complete and accurate match.",
+          "cost": 0.0009896
+        }
+      }
+    },
+    {
+      "id": "claude-037",
+      "category": "none",
+      "question": "What is the current RoDTEP rate for exports of cotton yarn?",
+      "answerable": false,
+      "refused": false,
+      "refusal_correct": false,
+      "checks_failed": [
+        "cites_or_refuses"
+      ],
+      "answer": "The documents I have don't answer.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5.3, p.4",
+          "chunk_id": "177-09-2022-gst:para-5-3"
+        },
+        {
+          "number": 2,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5.2, p.3-4",
+          "chunk_id": "177-09-2022-gst:para-5-2"
+        },
+        {
+          "number": 3,
+          "label": "Circular 200/12/2023-GST, dated 2023-08-01, para 6-6.2, p.3",
+          "chunk_id": "200-12-2023-gst:para-6-2"
+        },
+        {
+          "number": 4,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5-5.1, p.3",
+          "chunk_id": "177-09-2022-gst:para-5-1"
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 147, p.115",
+          "chunk_id": "act-12-of-2017:section-147"
+        },
+        {
+          "number": 6,
+          "label": "Circular 8/8/2017-GST, dated 2017-10-04, para 2, p.1-5 (partly modified by Circular 40/14/2018-GST, 88/07/2019-GST)",
+          "chunk_id": "8-8-2017-gst:para-2:5"
+        },
+        {
+          "number": 7,
+          "label": "Circular 52/26/2018-GST, dated 2018-08-09, para 11.2, p.5",
+          "chunk_id": "52-26-2018-gst:para-11-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 205/17/2023-GST, dated 2023-10-31, para 1, p.1",
+          "chunk_id": "205-17-2023-gst:para-1"
+        }
+      ],
+      "seconds": 6.2,
+      "input_tokens": 2966,
+      "output_tokens": 9,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "claude-038",
+      "category": "none",
+      "question": "What did the Supreme Court hold in Bharti Airtel about rectifying GSTR-3B using GSTR-2A data?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 182/14/2022-GST, dated 2022-11-10, p.2",
+          "chunk_id": "182-14-2022-gst:para-2-2"
+        },
+        {
+          "number": 2,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2-3",
+          "chunk_id": "26-26-2017-gst:para-3-1"
+        },
+        {
+          "number": 3,
+          "label": "Circular 7/7/2017-GST, dated 2017-09-01, para 5, p.1-2",
+          "chunk_id": "7-7-2017-gst:para-5:2"
+        },
+        {
+          "number": 4,
+          "label": "Circular 248/05/2025-GST, dated 2025-03-27, para 2, p.1",
+          "chunk_id": "248-05-2025-gst:para-2"
+        },
+        {
+          "number": 5,
+          "label": "Circular 7/7/2017-GST, dated 2017-09-01, para 13-15, p.4",
+          "chunk_id": "7-7-2017-gst:para-15"
+        },
+        {
+          "number": 6,
+          "label": "Instruction No. 05/2023-GST, dated 2023-12-13, para 1, p.1",
+          "chunk_id": "instruction-no-05-2023-gst:para-1"
+        },
+        {
+          "number": 7,
+          "label": "Instruction No. 01/2022-GST, dated 2022-01-07, para 3.2, p.2-3",
+          "chunk_id": "instruction-no-01-2022-gst:para-3-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.7",
+          "chunk_id": "26-26-2017-gst-table-4:2"
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(2)-(3), p.101 (CURRENT TEXT of the provision explained by Circular 248/05/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:4"
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1)(c), p.101 (CURRENT TEXT of the provision explained by Circular 248/05/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:2"
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 37(3), p.46-47 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST, Instruction No. 01/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-37:2"
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 37(1), p.220-221 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST) (AMENDED on 2022-10-01, 2022-12-26, AFTER Circular 7/7/2017-GST dated 2017-09-01: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-37:1"
+        }
+      ],
+      "seconds": 12.2,
+      "input_tokens": 4948,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "claude-039",
+      "category": "none",
+      "question": "What late fee applies under section 234F for filing the income-tax return after the due date?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 4-5, p.3-4",
+          "chunk_id": "246-03-2025-gst:para-5"
+        },
+        {
+          "number": 2,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2",
+          "chunk_id": "26-26-2017-gst:para-2-2"
+        },
+        {
+          "number": 3,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 47, p.51",
+          "chunk_id": "act-12-of-2017:section-47"
+        },
+        {
+          "number": 4,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 3.3, p.3",
+          "chunk_id": "246-03-2025-gst:para-3-3"
+        },
+        {
+          "number": 5,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 1, p.1",
+          "chunk_id": "246-03-2025-gst:para-1"
+        },
+        {
+          "number": 6,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2",
+          "chunk_id": "26-26-2017-gst:para-2-1"
+        },
+        {
+          "number": 7,
+          "label": "Circular 141/11/2020-GST, dated 2020-06-24, p.3",
+          "chunk_id": "141-11-2020-gst:para-4-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 3.2, p.2-3",
+          "chunk_id": "246-03-2025-gst:para-3-2"
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 44, p.50 (CURRENT TEXT of the provision explained by Circular 246/03/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-44"
+        }
+      ],
+      "seconds": 8.2,
+      "input_tokens": 3617,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "codex-034",
+      "category": "none",
+      "question": "What is the current GST rate on wireless earbuds sold in India?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2"
+        },
+        {
+          "number": 2,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6-6.2, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-2"
+        },
+        {
+          "number": 3,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6.3, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-3"
+        },
+        {
+          "number": 4,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14-14.1, p.9",
+          "chunk_id": "163-19-2021-gst:para-14-1"
+        },
+        {
+          "number": 5,
+          "label": "Circular 200/12/2023-GST, dated 2023-08-01, para 9.2, p.4",
+          "chunk_id": "200-12-2023-gst:para-9-2"
+        },
+        {
+          "number": 6,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 9-9.2, p.6",
+          "chunk_id": "113-32-2019-gst:para-9-2"
+        },
+        {
+          "number": 7,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 1.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-1-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14.2-15, p.9",
+          "chunk_id": "163-19-2021-gst:para-15"
+        }
+      ],
+      "seconds": 7.3,
+      "input_tokens": 3438,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "codex-035",
+      "category": "none",
+      "question": "Can I claim an Income-tax Act section 80G deduction for my GST payment?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 238/32/2024-GST, dated 2024-10-15, para 4, p.13-14 (partly modified by Circular 248/05/2025-GST)",
+          "chunk_id": "238-32-2024-gst-table-1:12"
+        },
+        {
+          "number": 2,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 20(xxv), p.389-390",
+          "chunk_id": "igst-act-2017:section-20:2"
+        },
+        {
+          "number": 3,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.13-15 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst:para-43:3"
+        },
+        {
+          "number": 4,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.19 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst:para-55"
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 51(1)-(3), p.54-55",
+          "chunk_id": "act-12-of-2017:section-51:1"
+        },
+        {
+          "number": 6,
+          "label": "Circular 82/01/2019-GST, dated 2019-01-01, p.2",
+          "chunk_id": "82-01-2019-gst:para-5"
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 12(1), p.198-199",
+          "chunk_id": "cgst-rules-2017:rule-12:1"
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 80, p.75",
+          "chunk_id": "act-12-of-2017:section-80"
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1)(c), p.101 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:2"
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1), p.101 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:1"
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 9(5), p.23 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-9:5"
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 73(8), p.67-68 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-73:7"
+        }
+      ],
+      "seconds": 12.5,
+      "input_tokens": 5099,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "codex-037",
+      "category": "none",
+      "question": "What was the final outcome of the Karnataka High Court case on ITC blocked for construction of a mall?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.5-6",
+          "chunk_id": "56-30-2018-gst:para-11"
+        },
+        {
+          "number": 2,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.4-5",
+          "chunk_id": "56-30-2018-gst:para-10:1"
+        },
+        {
+          "number": 3,
+          "label": "Instruction 01/2019-20 [GST-INV-Arrest-caveat], dated 2019-05-29, para 1, p.1",
+          "chunk_id": "01-2019-20-gst-inv-arrest-caveat:para-1"
+        },
+        {
+          "number": 4,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.4-5",
+          "chunk_id": "56-30-2018-gst:para-10:3"
+        },
+        {
+          "number": 5,
+          "label": "Instruction 04/2019-20 [GST-INV-Seizure], dated 2019-12-09, para 2, p.1-2",
+          "chunk_id": "04-2019-20-gst-inv-seizure:para-2:1"
+        },
+        {
+          "number": 6,
+          "label": "Instruction 02/2019-20 [GST-INV-Arrest-caveat], dated 2019-05-30, para 1, p.1",
+          "chunk_id": "02-2019-20-gst-inv-arrest-caveat:para-1"
+        },
+        {
+          "number": 7,
+          "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.4",
+          "chunk_id": "123-42-2019-gst-table-3:1"
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 43(2), p.231-237",
+          "chunk_id": "cgst-rules-2017:rule-43:10"
+        },
+        {
+          "number": 9,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(5), p.285-292 (CURRENT TEXT of the provision explained by Circular 56/30/2018-GST) (AMENDED on 2022-07-05, AFTER Circular 56/30/2018-GST dated 2018-08-24: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-89:20"
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 69, p.66 (CURRENT TEXT of the provision explained by Circular 01/2019-20 [GST-INV-Arrest-caveat], 02/2019-20 [GST-INV-Arrest-caveat])",
+          "chunk_id": "act-12-of-2017:section-69"
+        },
+        {
+          "number": 11,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 36(4), p.219-220 (CURRENT TEXT of the provision explained by Circular 123/42/2019-GST) (AMENDED on 2020-04-03, 2021-06-01, 2022-01-01, 2022-10-01, 2024-07-10, 2024-10-08, AFTER Circular 123/42/2019-GST dated 2019-11-11: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-36:4"
+        }
+      ],
+      "seconds": 13.5,
+      "input_tokens": 5410,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "codex-038",
+      "category": "none",
+      "question": "What is the current GST rate on 3D printers sold in India?",
+      "answerable": false,
+      "refused": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The documents I have don't answer this.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 5.2, p.3",
+          "chunk_id": "113-32-2019-gst:para-5-2"
+        },
+        {
+          "number": 2,
+          "label": "Circular 80/54/2018-GST, dated 2018-12-31, para 10-10.1, p.8-9",
+          "chunk_id": "80-54-2018-gst:para-10-1"
+        },
+        {
+          "number": 3,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 1, p.1",
+          "chunk_id": "113-32-2019-gst:para-1"
+        },
+        {
+          "number": 4,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 1.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-1-2"
+        },
+        {
+          "number": 5,
+          "label": "Circular 81/55/2018-GST, dated 2018-12-31, para 3, p.1-2",
+          "chunk_id": "81-55-2018-gst:para-3"
+        },
+        {
+          "number": 6,
+          "label": "Circular 234/28/2024-GST, dated 2024-10-11, para 10.2, p.6",
+          "chunk_id": "234-28-2024-gst:para-10-2"
+        },
+        {
+          "number": 7,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 9-9.2, p.6",
+          "chunk_id": "113-32-2019-gst:para-9-2"
+        }
+      ],
+      "seconds": 7.1,
+      "input_tokens": 3245,
+      "output_tokens": 10,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "codex-040",
+      "category": "none",
+      "question": "What did the Gujarat AAR decide about GST on this exact cloud-kitchen business model?",
+      "answerable": false,
+      "refused": false,
+      "refusal_correct": false,
+      "checks_failed": [
+        "cites_or_refuses"
+      ],
+      "answer": "The documents I have don't answer.",
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 3.4, p.2",
+          "chunk_id": "164-20-2021-gst:para-3-4"
+        },
+        {
+          "number": 2,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 1-3.1, p.1",
+          "chunk_id": "164-20-2021-gst:para-3-1"
+        },
+        {
+          "number": 3,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 9.2.1, p.4-5",
+          "chunk_id": "164-20-2021-gst:para-9-2:1"
+        },
+        {
+          "number": 4,
+          "label": "Circular 247/04/2025-GST, dated 2025-02-14, after signature, p.2-4",
+          "chunk_id": "247-04-2025-gst:after-signature:3"
+        },
+        {
+          "number": 5,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2"
+        },
+        {
+          "number": 6,
+          "label": "Circular 201/13/2023-GST, dated 2023-08-01, para 2.2-3, p.2",
+          "chunk_id": "201-13-2023-gst:para-3"
+        },
+        {
+          "number": 7,
+          "label": "Circular 229/23/2024-GST, dated 2024-07-15, para 2-2.2, p.1",
+          "chunk_id": "229-23-2024-gst:para-2-2"
+        },
+        {
+          "number": 8,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 8.3, p.4",
+          "chunk_id": "179-11-2022-gst-table-1:1"
+        }
+      ],
+      "seconds": 8.0,
+      "input_tokens": 3750,
+      "output_tokens": 9,
+      "cost_inr": 0.0
+    },
+    {
+      "id": "claude-015",
+      "category": "scenario",
+      "question": "I sent raw material to a job worker for processing. How long can it stay with him before it's treated as if I sold it to him?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to the Central Goods and Services Tax Act, 2017, section 143(1)(a), the raw material sent for job work must be brought back by the principal within one year of being sent out. If the raw material is not returned within this period, it will be deemed that the raw material had been supplied by the principal to the job worker on the day it was sent out [S1][S2].\n\n> \"Where the inputs sent for job work are not received back by the principal after completion of job work or otherwise in accordance with the provisions of clause (a) of sub-section (1) or are not supplied from the place of business of the job worker in accordance with the provisions of clause (b) of sub-section (1) within a period of one year of their being sent out, it shall be deemed that such inputs had been supplied by the principal to the job worker on the day when the said inputs were sent out.\" [S2]",
+      "claims": [
+        "Inputs sent for job work must be brought back or supplied from the job worker’s place within one year.",
+        "The Commissioner may extend that period by up to one further year if sufficient cause is shown.",
+        "If inputs are not returned or supplied within one year, they are deemed supplied by the principal to the job worker on the day they were sent out."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(1)-(2), p.114",
+          "chunk_id": "act-12-of-2017:section-143:1"
+        },
+        {
+          "number": 2,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(3), p.114",
+          "chunk_id": "act-12-of-2017:section-143:2"
+        }
+      ],
+      "seconds": 10.4,
+      "input_tokens": 1600,
+      "output_tokens": 204,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0019976
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about the duration raw material can stay with a job worker before being considered sold, with no irrelevant information included.",
+          "cost": 0.0009844
+        },
+        "Completeness": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because sentences 1 and 3 of the expected output are well supported by node 1 in the retrieval context, which covers the one-year return period and the deemed supply if not returned. However, sentence 2 about the Commissioner extending the period by up to one further year is not mentioned in any node, reducing the overall recall completeness.",
+          "cost": 0.0008183999999999999
+        }
+      }
+    },
+    {
+      "id": "claude-016",
+      "category": "scenario",
+      "question": "In a reimbursement-mode motor claim, the garage bills the insurer for the full repair, but the insurer reimburses the car owner only the approved claim cost. How much ITC can the insurer take, and what if the repair invoice is in the owner's name?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**In a reimbursement-mode motor claim, the insurer can take ITC only on the approved claim cost reimbursed to the car owner, not on the full invoice value.** According to Circular 217/11/2024-GST, dated 2024-06-26 [S1], if the invoice for repair services is issued to the insurance company while the insurer makes reimbursement only for the approved claim cost to the insured, the input tax credit (ITC) may be available to the insurance company only to the extent of the reimbursement of the approved claim cost to the insured, and not on the full invoice value.\n\nIf the repair invoice is in the owner's name, **no ITC is available to the insurer**. As per Circular 217/11/2024-GST, dated 2024-06-26 [S2], in such a case, the condition of clause (a) and (aa) of section 16(2) of the CGST Act is not satisfied, and accordingly, input tax credit will not be available to the insurance company in respect of such an invoice.",
+      "claims": [
+        "If the full repair invoice is issued to the insurer but it reimburses only the approved claim cost, ITC is available only up to the approved claim cost.",
+        "If the repair invoice is not in the insurer’s name, the insurer cannot claim ITC on it."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.4-5",
+          "chunk_id": "217-11-2024-gst-table-1:4"
+        },
+        {
+          "number": 2,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.5",
+          "chunk_id": "217-11-2024-gst-table-1:5"
+        }
+      ],
+      "seconds": 11.3,
+      "input_tokens": 1476,
+      "output_tokens": 246,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0018915999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the question about ITC entitlement in reimbursement-mode motor claims, including the scenario when the repair invoice is in the owner's name. There are no irrelevant statements, making the answer completely relevant and concise.",
+          "cost": 0.0011484
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by node 1, which clarifies that ITC is available only up to the approved claim cost reimbursed by the insurer. The second sentence is directly supported by node 2, which states that if the repair invoice is in the owner's name, the insurer cannot claim ITC. Since all parts of the expected output are clearly backed by the nodes in the retrieval context, the recall is perfect.",
+          "cost": 0.0007952
+        }
+      }
+    },
+    {
+      "id": "claude-017",
+      "category": "scenario",
+      "question": "My father ran a sole proprietorship and has passed away; I'm continuing the business. What do we do about his GST registration?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**According to Circular 96/15/2019-GST, dated 2019-03-28:**\n\n- **Registration Liability:** As the transferee or successor, you will be liable to be registered with effect from the date of such transfer or succession. You need to file an application in FORM GST REG-01 electronically, mentioning the reason as \"death of the proprietor\" [S1][S1].\n\n- **Cancellation of Registration:** The GST registration of your father can be cancelled by his legal heirs using FORM GST REG-16, mentioning the reason as \"death of sole proprietor\" [S1][S1]. The GSTIN of the business being transferred should also be mentioned to link it with your GSTIN [S1][S1].\n\n- **Transfer of Input Tax Credit:** If you continue the business, the input tax credit remaining in your father's electronic credit ledger can be transferred to you. This transfer is considered as a business transfer [S1][S1].",
+      "claims": [
+        "The successor must register from the date of transfer or succession and state 'death of the proprietor' as the reason in FORM GST REG-01.",
+        "The legal heirs may apply to cancel the deceased proprietor’s registration using FORM GST REG-16, stating 'death of sole proprietor' and giving the successor’s GSTIN."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:1"
+        }
+      ],
+      "seconds": 9.4,
+      "input_tokens": 1360,
+      "output_tokens": 212,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0020028
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about continuing the GST registration for a sole proprietorship after the owner's passing, providing clear and relevant guidance. There are no irrelevant statements, making the answer fully pertinent to the input.",
+          "cost": 0.0010084
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, accurately reflecting the required forms and reasons for registration and cancellation related to the death of a proprietor, with no discrepancies or missing details.",
+          "cost": 0.0007552
+        }
+      }
+    },
+    {
+      "id": "claude-019",
+      "category": "scenario",
+      "question": "A client took an advance for an event, issued the invoice and paid GST, and then the event was cancelled. Should he file a refund claim?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, he should not file a refund claim. According to Circular 137/07/2020-GST [S1], in cases where an advance is received for a future event that gets cancelled, and GST is paid by the supplier on such an advance, the supplier is required to issue a \"credit note\" in terms of section 34 of the CGST Act. He should declare the details of such credit notes in the return for the month during which such credit note has been issued. The tax liability shall be adjusted in the return subject to the conditions of section 34 of the CGST Act. There is no need to file a separate refund claim.",
+      "claims": [
+        "For a cancelled event advance that was invoiced and taxed, the supplier must issue a credit note and declare it in the return for the month it is issued.",
+        "The supplier adjusts the tax liability in the return subject to credit-note conditions; a separate refund claim is not normally needed.",
+        "If there is no output liability against which to adjust the credit note, the supplier may claim a refund under 'Excess payment of tax' through FORM GST RFD-01."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.1-2",
+          "chunk_id": "137-07-2020-gst-table-1:1"
+        }
+      ],
+      "seconds": 6.5,
+      "input_tokens": 1228,
+      "output_tokens": 142,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0015592000000000002
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the client's situation regarding GST refund claims after event cancellation, providing clear and relevant guidance without any irrelevant information.",
+          "cost": 0.0009092000000000001
+        },
+        "Completeness": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because sentences 1 and 2 of the expected output are well supported by node 1 in the retrieval context, which details the issuance of credit notes and adjustment of tax liability without needing a separate refund claim. However, sentence 3 about claiming a refund under 'Excess payment of tax' through FORM GST RFD-01 is not mentioned in the retrieval context, lowering the overall recall score.",
+          "cost": 0.0008168
+        }
+      }
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes**, the buyer can treat the goods as received at your factory gate for input tax credit (ITC) purposes. According to **[S1]** and **[S2]**, in an EXW (Ex Works) contract, where the goods are handed over by the supplier to the transporter at the supplier's factory gate for onward transmission to the buyer, the property in the goods is considered to have been passed on to the buyer at that point. This means the goods can be considered to have been \"received\" by the buyer at the time of handing over the goods to the transporter, as per the provisions of clause (b) of sub-section (2) of section 16 of the Central Goods and Services Tax Act, 2017. However, the buyer must also ensure that the goods are used or intended to be used in the course or furtherance of their business to be eligible for ITC, as per sub-section (1) of section 16 of the CGST Act.",
+      "claims": [
+        "Under the described EXW arrangement, the buyer is treated as having received the goods when the supplier hands them to the transporter at the supplier’s factory gate.",
+        "ITC may be available on that receipt, subject to the other conditions, including business use."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.3, p.3-4",
+          "chunk_id": "241-35-2024-gst:para-3-3"
+        },
+        {
+          "number": 2,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.4, p.4",
+          "chunk_id": "241-35-2024-gst:para-3-4"
+        },
+        {
+          "number": 3,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.5, p.4-5",
+          "chunk_id": "241-35-2024-gst:para-3-5"
+        }
+      ],
+      "seconds": 11.0,
+      "input_tokens": 1895,
+      "output_tokens": 208,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0019744
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about ITC treatment under an ex-works contract, providing clear and relevant information. There are no irrelevant statements, making the answer fully pertinent and concise.",
+          "cost": 0.001158
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly states the buyer receives goods at the supplier's factory gate and that ITC eligibility depends on business use, matching the output precisely.",
+          "cost": 0.0008136
+        }
+      }
+    },
+    {
+      "id": "claude-022",
+      "category": "scenario",
+      "question": "A customer returned goods after I had issued the tax invoice. Do I claim a refund of the GST or adjust it?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to Circular 137/07/2020-GST [S1], if goods supplied by a supplier are returned by the recipient and a tax invoice has been issued, the supplier is required to issue a \"credit note\" in terms of section 34 of the CGST Act. The supplier should declare the details of such credit notes in the return for the month during which the credit note has been issued. The tax liability can be adjusted in the return subject to the conditions of section 34 of the CGST Act. There is no need to file a separate refund claim in such a case. However, if there is no output liability against which a credit note can be adjusted, registered persons may proceed to file a claim under \"Excess payment of tax, if any\" through FORM GST RFD-01.",
+      "claims": [
+        "The supplier must issue a credit note for the returned goods and declare it in the return for the month it is issued.",
+        "The supplier adjusts the tax liability in the return subject to the credit-note conditions; a separate refund claim is not needed in the ordinary case.",
+        "If there is no output liability against which to adjust the credit note, the supplier may claim a refund under “Excess payment of tax” through FORM GST RFD-01."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:3"
+        }
+      ],
+      "seconds": 7.8,
+      "input_tokens": 1202,
+      "output_tokens": 174,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0015692000000000002
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about handling GST when goods are returned after issuing a tax invoice, providing clear guidance without any irrelevant information.",
+          "cost": 0.0009464
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in node 1 of the retrieval context, with no contradictions or missing details.",
+          "cost": 0.0007892000000000001
+        }
+      }
+    },
+    {
+      "id": "codex-010",
+      "category": "scenario",
+      "question": "Can I use the money sitting in my cash ledger to pay interest and penalties too?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "Yes, you can use the money sitting in your cash ledger to pay interest and penalties. According to [S1], the amount available in the electronic cash ledger may be used for making any payment towards tax, interest, penalty, fees, or any other amount payable under the provisions of the Central Goods and Services Tax Act, 2017, or the rules made thereunder. This is subject to such conditions and within such time as may be prescribed.",
+      "claims": [
+        "Money in the electronic cash ledger may be used to pay tax, interest, penalties, fees or any other amount payable under the Act or Rules."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(3), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:2"
+        }
+      ],
+      "seconds": 4.3,
+      "input_tokens": 1080,
+      "output_tokens": 94,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions; the actual output fully aligns with the retrieval context. Great job maintaining accuracy!",
+          "cost": 0.0012364
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about using money in the cash ledger to pay interest and penalties, with no irrelevant information included.",
+          "cost": 0.000764
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the sentence in the expected output directly matches the information in node 1 of the retrieval context, which clearly states that money in the electronic cash ledger can be used for payments including tax, interest, penalties, fees, or any other amount payable under the Act or Rules.",
+          "cost": 0.0005764
+        }
+      }
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "According to the IGST Rules, 2017, rule 4(d), if you charge a consolidated sum for hotel stays in two or more States and do not set a separate value for each State, the service value should be apportioned based on the number of nights stayed in each State. For example, if a hotel chain X charges a consolidated sum of Rs. 30,000/- for stay in its establishments in Delhi and Agra, where the stay in Delhi is for 2 nights and the stay in Agra is for 1 night, the place of supply in this case is both in the Union territory of Delhi and in the State of Uttar Pradesh. The service shall be deemed to have been provided in the Union territory of Delhi and in the State of Uttar Pradesh in the ratio 2:1 respectively. [S1][S2]",
+      "claims": [
+        "If there is no agreement separately determining the service value for each State, the supply is attributed to each State where the property is located.",
+        "For hotel lodging, the value is apportioned by nights stayed, except for a single property spanning two or more contiguous States or Union territories; that case is apportioned by area."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:2"
+        },
+        {
+          "number": 2,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:3"
+        }
+      ],
+      "seconds": 10.6,
+      "input_tokens": 1692,
+      "output_tokens": 180,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0020968000000000002
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the question about apportioning service value for hotel stays across two states without including any irrelevant information. It is clear, concise, and directly relevant to the input.",
+          "cost": 0.0009784
+        },
+        "Completeness": {
+          "score": 0.5,
+          "reason": "The score is 0.50 because sentence 2 about hotel lodging apportioned by nights stayed is supported by node 1 in the retrieval context, but sentence 1 regarding the absence of agreement and attribution to each State where the property is located is not mentioned in any node, limiting the overall recall.",
+          "cost": 0.000778
+        }
+      }
+    },
+    {
+      "id": "codex-015",
+      "category": "scenario",
+      "question": "If a customer gives me a UIN, should that invoice be treated as B2C for QR-code compliance where the QR requirement otherwise applies?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "**Yes**, if a customer provides a Unique Identity Number (UIN) as per the provisions of Sub-Section 9 of Section 25 of the CGST Act 2017, the invoice issued to such a person should be treated as a B2C supply for the purpose of Dynamic QR Code compliance. According to Circular 156/12/2021-GST, such an invoice is required to comply with the requirement of a Dynamic QR Code. [S1]",
+      "claims": [
+        "A UIN holder is not a registered person for this clarification.",
+        "An invoice to a UIN holder is treated as B2C and must comply with the dynamic QR-code requirement."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 156/12/2021-GST, dated 2021-06-21, p.2 (partly modified by Circular 165/21/2021)",
+          "chunk_id": "156-12-2021-gst-table-1:1"
+        }
+      ],
+      "seconds": 10.2,
+      "input_tokens": 1285,
+      "output_tokens": 105,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0014367999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response fully addresses the question about treating invoices with a UIN as B2C for QR-code compliance, with no irrelevant information included.",
+          "cost": 0.0007276
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output about a UIN holder not being a registered person and the invoice being treated as B2C with a dynamic QR-code requirement is fully supported by node 1 in the retrieval context, which explicitly states these points. There are no unsupported sentences, making the recall complete and accurate.",
+          "cost": 0.0006404
+        }
+      }
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, the department cannot attach your property automatically just because an investigation is open. According to [S1], the power of provisional attachment must be exercised with careful examination of all the facts of the case. The collective evidence, based on the proceedings/enquiry conducted, must indicate that prima-facie a case has been made out against the taxpayer before any provisional attachment can be made. The remedy of attachment, being extraordinary, must be resorted to with utmost circumspection and care.",
+      "claims": [
+        "Provisional attachment must not be exercised routinely or mechanically.",
+        "Before attachment, collective evidence from the proceedings or inquiry must indicate a prima facie case against the taxpayer.",
+        "Because attachment is an extraordinary remedy, it must be used with utmost care and caution."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.1.5, p.1-2",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+        }
+      ],
+      "seconds": 4.7,
+      "input_tokens": 1103,
+      "output_tokens": 98,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0012583999999999998
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the question about automatic property attachment during an investigation, providing clear and relevant information without any irrelevant statements.",
+          "cost": 0.0009456
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly states the need for careful examination, the requirement of collective evidence indicating a prima facie case before attachment, and describes attachment as an extraordinary remedy requiring utmost care. There are no unsupported sentences, making the recall complete and accurate.",
+          "cost": 0.0008328
+        }
+      }
+    },
+    {
+      "id": "codex-022",
+      "category": "scenario",
+      "question": "An Indian company provides services to its foreign parent. Are the two companies treated as the same legal person for the export condition?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, according to Circular 161/17/2021-GST [S1], an Indian company and a foreign company, even if the foreign company is its parent, are treated as separate legal entities for the purposes of the export condition under the IGST Act 2017. This means they would not be considered \"merely establishments of a distinct person\" as per Explanation 1 in section 8. > \"In view of the above, it is clarified that a company incorporated in India and a body corporate incorporated by or under the laws of a country outside India, which is also referred to as foreign company under Companies Act, are separate persons under CGST Act, and thus are separate legal entities.\" [S1]",
+      "claims": [
+        "An Indian-incorporated company and a foreign-incorporated body corporate are separate legal entities.",
+        "They are not treated as merely establishments of a distinct person for this export condition."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 5.1, p.4",
+          "chunk_id": "161-17-2021-gst:para-5-1"
+        }
+      ],
+      "seconds": 6.6,
+      "input_tokens": 1088,
+      "output_tokens": 155,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0014435999999999997
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the answer directly addresses the legal distinction between the Indian company and its foreign parent regarding export conditions, with no irrelevant information included.",
+          "cost": 0.0010263999999999998
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the expected output accurately reflects the information in node 1 of the retrieval context, clearly stating that Indian-incorporated companies and foreign-incorporated bodies corporate are separate legal entities and not merely establishments of a distinct person, matching the details in sentences 1 and 2 of the output perfectly.",
+          "cost": 0.0006776
+        }
+      }
+    },
+    {
+      "id": "codex-023",
+      "category": "scenario",
+      "question": "Our business has several GST registrations under one PAN. Do they all have to use the quarterly return option together?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "No, the GST registrations under one PAN do not have to use the quarterly return option together. **According to Circular 143/13/2020-GST**, the option to avail the Quarterly Return Monthly Payment (QRMP) Scheme is GSTIN-wise. This means that some GSTINs under the same PAN can opt for the QRMP Scheme while others may not. [S1]",
+      "claims": [
+        "The quarterly return option is GSTIN-wise.",
+        "GSTINs under the same PAN may opt independently; some may use the scheme while others do not."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.3",
+          "chunk_id": "143-13-2020-gst:para-5-1"
+        }
+      ],
+      "seconds": 4.0,
+      "input_tokens": 1127,
+      "output_tokens": 85,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0013024
+        },
+        "Answer Relevancy": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the response directly addresses the question about GST registrations and quarterly return options without including any irrelevant information. It is clear and focused, making it fully relevant to the input.",
+          "cost": 0.0007007999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by the information in node 1 of the retrieval context, which clearly states that the QRMP scheme option is GSTIN-wise and that GSTINs under the same PAN can opt independently. There are no unsupported elements, making the recall complete and accurate.",
+          "cost": 0.0005996
+        }
+      }
+    },
+    {
+      "id": "codex-025",
+      "category": "scenario",
+      "question": "The e-way bill was generated, but the goods never left. How long do I have to cancel it on the portal?",
+      "answerable": true,
+      "refused": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "answer": "The e-way bill can be cancelled electronically on the common portal within twenty-four hours of its generation, provided that it has not been verified in transit in accordance with the provisions of rule 138B [S1]. > Note: The unique number generated under sub-rule (1) is valid for a period of fifteen days for updation of Part B of FORM GST EWB-01.",
+      "claims": [
+        "An e-way bill may be cancelled electronically on the common portal within 24 hours if goods are not transported or are not transported as described in it.",
+        "It cannot be cancelled after verification in transit."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(9), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:13"
+        }
+      ],
+      "seconds": 3.9,
+      "input_tokens": 1161,
+      "output_tokens": 82,
+      "cost_inr": 0.0,
+      "judge": {
+        "Faithfulness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness.",
+          "cost": 0.0012759999999999998
+        },
+        "Answer Relevancy": {
+          "score": 0.6666666666666666,
+          "reason": "The score is 0.67 because the response partially addresses the cancellation timeframe but includes irrelevant information about updating Part B of the e-way bill, which does not pertain to cancellation. This reduces the overall focus and clarity of the answer.",
+          "cost": 0.0008043999999999999
+        },
+        "Completeness": {
+          "score": 1.0,
+          "reason": "The score is 1.00 because the first sentence in the expected output is fully supported by node 1 in the retrieval context, which clearly states the conditions for electronic cancellation of the e-way bill within 24 hours and the restriction after verification in transit. There are no unsupported elements, making the recall complete and accurate.",
+          "cost": 0.000608
+        }
+      }
+    }
+  ]
+}

@@ -155,8 +155,15 @@ def get_sources(question: str, budget: int | None = None) -> list[dict]:
     # 1. RETRIEVE: exact chunks for named citations, then 5 by meaning
     docs = pick(get_retriever().invoke(question), budget)
 
-    # 2. LABEL: number each chunk and put its label above its text
-    sources = [{"number": n, "label": label(doc), "url": doc.metadata["official_url"],
+    # 2. LABEL, then 2b. WEB: a rate question also gets the top web results (answer/web.py), numbered on
+    sources = to_sources(docs)
+    return sources + web_sources(question, len(sources) + 1)
+
+
+def to_sources(docs: list[Document]) -> list[dict]:
+    """Step 2, LABEL: number each chunk and put its label above its text. Its own function so the
+    generator eval can label the GOLD chunks exactly as the app labels retrieved ones."""
+    return [{"number": n, "label": label(doc), "url": doc.metadata["official_url"],
              "chunk_id": doc.id, "law_assumed": assumed_law(doc),
              "doc_number": doc.metadata["doc_number"], "location": doc.metadata["location"],  # for evals
              # for amended_note(): which circulars, and which provisions changed after them
@@ -166,9 +173,6 @@ def get_sources(question: str, budget: int | None = None) -> list[dict]:
              "amended_scope": doc.metadata.get("amended_scope", ""),
              "text": doc.page_content}
                for n, doc in enumerate(docs, 1)]
-
-    # 2b. WEB: a rate question also gets the top web results (answer/web.py), numbered on
-    return sources + web_sources(question, len(sources) + 1)
 
 
 def has_web(sources: list[dict]) -> bool:

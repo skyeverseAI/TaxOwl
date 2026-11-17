@@ -60,7 +60,10 @@ Either answer the question, or give only that sentence. Never both: never add it
 
 - Reply in the language of the question (English, Hindi or Hinglish).
 
-- Give information, not legal advice. Keep the answer short: about 150 words.
+- Give information, not legal advice. Keep the answer short: about 150 words, never more than 250.
+Cut background to stay short, never the conditions.
+If the sources give an exception, proviso, extension or fallback to the rule you state (words like "except", "provided that", "unless", "may extend") that applies to the question, include it, even if the answer goes over 150 words.
+Answer the question completely first, then keep it within 250 words.
 
 - Format the answer in Markdown: short paragraphs, a bulleted or numbered list when there are several points, **bold** for key terms such as time limits and rates, and a > block quote for words quoted from the law.
 
