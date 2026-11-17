@@ -23,3 +23,6 @@ data/
 # Re-creatable, large, and some are pages of the ICAI Rules book, which we don't re-host.
 eval_results/pages/
 archive/experiments/flagged_review/*.png
+
+# DeepEval judge cache (re-created on each run)
+.deepeval/

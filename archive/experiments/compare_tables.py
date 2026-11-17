@@ -13,7 +13,7 @@ Everything after that is shared, so it can't favour either arm:
 
 Steps (Docling isn't installed in taxowl; LERAGS's environment has it, and only reads our PDFs):
     uv run ingestion/compare_tables.py extract-pymupdf
-    /Users/aakash/Desktop/LERAGS/.venv/bin/python ingestion/compare_tables.py extract-docling
+    <path to a venv with docling>/bin/python ingestion/compare_tables.py extract-docling
     uv run ingestion/compare_tables.py render
 Output: ingestion/table_compare/<file>.md, both arms one after the other, to compare by eye.
 """

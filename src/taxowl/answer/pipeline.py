@@ -101,11 +101,13 @@ def amended_note(text: str, sources: list[dict]) -> str:
          already explains the 2022 rule, so the 2022 change is not news to it
       3. never a withdrawn circular: its label already says it is not the law
     A whole rule in one chunk (rule 21) still gets every date, even if the clause the circular explains
-    didn't change; so the note says "may be out of date", not "is wrong"."""
+    didn't change; so the note says "may be out of date", not "is wrong".
+    One line per provision: a provision split over two chunks (rule 45 in [S11] and [S12]) gave two
+    identical lines (pipeline eval claude-015, 2026-11-18); now one line names both [S11][S12]."""
     used = cited_numbers(text)
     circulars = [s for s in sources if s["number"] in used and s.get("doc_type") in ("circular", "instruction")
                  and s.get("status") != "withdrawn" and s.get("doc_date")]
-    lines = []
+    notes: dict[tuple, list[int]] = {}   # (provision, circular, its date, later dates) -> source numbers
     for p in sources:
         if p.get("amended_scope") != "text" or not p.get("cited_by"):
             continue
@@ -115,10 +117,13 @@ def amended_note(text: str, sources: list[dict]) -> str:
         oldest = min(explains, key=lambda c: c["doc_date"])
         later = [d for d in p["amended_on"].split(", ") if d > oldest["doc_date"]]
         if later:
-            lines.append(f"⚠ Note: {p['provision']} was amended after Circular {oldest['doc_number']} "
-                         f"(dated {oldest['doc_date']}), which this answer uses: on {', '.join(later)}. "
-                         f"What the circular says may be out of date; check its current text [S{p['number']}].")
-    return "\n\n".join(lines)
+            key = (p["provision"], oldest["doc_number"], oldest["doc_date"], ", ".join(later))
+            notes.setdefault(key, []).append(p["number"])
+    return "\n\n".join(
+        f"⚠ Note: {provision} was amended after Circular {circular} (dated {dated}), which this answer "
+        f"uses: on {on}. What the circular says may be out of date; check its current text "
+        + "".join(f"[S{n}]" for n in numbers) + "."
+        for (provision, circular, dated, on), numbers in notes.items())
 
 
 def pick(docs: list[Document], budget: int | None) -> list[Document]:
@@ -192,6 +197,7 @@ def answer(question: str, which: str = "cloud") -> dict:
 
     # 3. GENERATE: the answer, from these sources only
     reply = generate(question, as_text(sources), which, assumed(sources), has_web(sources))
+    model_text = reply["text"]   # before our notes: the pipeline eval tells a refusal by this text
     note = rate_note(question, sources)   # a rate question the web couldn't help with: say the rate may be old
     if note:
         reply["text"] += f"\n\n{note}"
@@ -206,6 +212,7 @@ def answer(question: str, which: str = "cloud") -> dict:
         "question": question,
         "model": which,
         "answer": reply["text"],
+        "model_text": model_text,
         "sources": sources,
         "checks": checks,
         "seconds": round(time.perf_counter() - start, 1),

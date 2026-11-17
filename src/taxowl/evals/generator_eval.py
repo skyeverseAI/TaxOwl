@@ -49,6 +49,14 @@ from taxowl.evals.retriever_eval import JUDGE_MODEL, THRESHOLD, check_gold, file
 from taxowl.retrieval.store import get_store
 
 COMPLETENESS = "Completeness"   # our name for ContextualRecall run on the answer
+JUDGE_MAX_TOKENS = 4000         # see judge()
+
+
+def save(result: dict, out: Path) -> None:
+    """Write a run to eval_results/runs/. Called twice when judging: once BEFORE the judge, so a judge
+    failure (402, timeout) doesn't lose the answers already paid for, then again with the scores."""
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 # ---------------------------------------------------------------- the sources
@@ -77,7 +85,11 @@ def judge(cases: list[dict], judge_model: str = JUDGE_MODEL) -> dict[str, dict]:
 
     from taxowl.ingestion.vlm import load_key
 
-    model = OpenRouterModel(model=judge_model, api_key=load_key(), temperature=0)
+    # max_tokens: OpenRouter holds credit for the WHOLE possible reply before it answers. Unset, that is
+    # gpt-4.1-mini's 65,536 tokens, and a low balance failed with 402 mid-run (2026-11-18). The judge's
+    # replies are a few hundred to ~2,000 tokens, so 4,000 doesn't cut them.
+    model = OpenRouterModel(model=judge_model, api_key=load_key(), temperature=0,
+                            generation_kwargs={"max_tokens": JUDGE_MAX_TOKENS})
     options = dict(threshold=THRESHOLD, model=model, include_reason=True)
     by_question = {case["question"]: case["id"] for case in cases}
     scores: dict[str, dict] = defaultdict(dict)
@@ -93,18 +105,21 @@ def judge(cases: list[dict], judge_model: str = JUDGE_MODEL) -> dict[str, dict]:
         LLMTestCase(input=c["question"], actual_output=c["answer"], retrieval_context=c["contexts"])
         for c in cases], metrics=[FaithfulnessMetric(**options), AnswerRelevancyMetric(**options)]))
 
-    # Completeness: the gold claims against the ANSWER (the answer is passed as the "retrieved" text)
-    keep(evaluate(test_cases=[
-        LLMTestCase(input=c["question"], actual_output=c["answer"],
-                    expected_output=" ".join(c["claims"]), retrieval_context=[c["answer"]])
-        for c in cases], metrics=[ContextualRecallMetric(**options)]), rename=COMPLETENESS)
+    # Completeness: the gold claims against the ANSWER (the answer is passed as the "retrieved" text).
+    # Only cases with claims: the pipeline eval's web-rate rows have none (no gold in our corpus)
+    with_claims = [c for c in cases if c["claims"]]
+    if with_claims:
+        keep(evaluate(test_cases=[
+            LLMTestCase(input=c["question"], actual_output=c["answer"],
+                        expected_output=" ".join(c["claims"]), retrieval_context=[c["answer"]])
+            for c in with_claims], metrics=[ContextualRecallMetric(**options)]), rename=COMPLETENESS)
     return dict(scores)
 
 
 # ---------------------------------------------------------------- the run
 
 def run(gold_path: Path, which: str, use_judge: bool = False, judge_model: str = JUDGE_MODEL,
-        ids: list[str] | None = None) -> dict:
+        ids: list[str] | None = None, out: Path | None = None) -> dict:
     rows = load_gold(gold_path)
     check_gold(rows, load_units())
     if ids:
@@ -141,6 +156,9 @@ def run(gold_path: Path, which: str, use_judge: bool = False, judge_model: str =
         print(f"  {i}/{len(rows)} {row['id']}: {'refused' if refused else 'answered'} ({seconds:.1f} s)")
 
     if use_judge:
+        if out:  # answers first: see save()
+            save({"config": config(gold_path, which, use_judge, judge_model, ids),
+                  "summary": summarise(results), "rows": results, "judge_pending": True}, out)
         judged = judge(cases, judge_model) if cases else {}
         for result in results:
             if not result["answerable"]:
@@ -229,12 +247,11 @@ def main() -> None:
     args = parser.parse_args()
 
     ids = [i.strip() for i in args.ids.split(",")] if args.ids else None
-    result = run(args.gold, args.which, args.judge, args.judge_model, ids)
+    out = RUNS / f"generator_{args.which}_{time.strftime('%Y%m%d_%H%M%S')}.json"
+    result = run(args.gold, args.which, args.judge, args.judge_model, ids, out)
     show(result)
 
-    RUNS.mkdir(parents=True, exist_ok=True)
-    out = RUNS / f"generator_{args.which}_{time.strftime('%Y%m%d_%H%M%S')}.json"
-    out.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
+    save(result, out)
     print(f"\nSaved {out.relative_to(ROOT)}")
 
 

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 authors = [
-    { name = "Akash Aggarwal", email = "akashnikku1234@gmail.com" }
+    { name = "Akash Aggarwal" }
 ]
 requires-python = ">=3.14"
 # Exact versions: these are what the scores in plans/extraction_journey.md were measured with.

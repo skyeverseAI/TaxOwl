@@ -85,7 +85,7 @@ def read_pages(data, pages, name="document.pdf", progress=None):
 def split_by_page(item):
     """A paragraph that runs over a page break -> its part on each page. Read together, Docling
     joins such a paragraph and records each page's part as a character span; giving all of it to
-    the first page lost a sentence and a number from the next (a petition's p.22: "10,41,411")."""
+    the first page lost a sentence and a number from the next (found on a scanned upload)."""
     if len(item.prov) > 1 and all(pr.charspan for pr in item.prov):
         return [(pr.page_no, item.text[pr.charspan[0]:pr.charspan[1]]) for pr in item.prov]
     return [(item.prov[0].page_no, item.text)]
