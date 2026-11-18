@@ -1,0 +1,4142 @@
+{
+  "config": {
+    "which": "cloud",
+    "generator_model": "openai/gpt-4o-mini",
+    "budget_tokens": null,
+    "gold_file": "eval_results/gold/generator_dev.jsonl",
+    "gold_sha256": "0c1c310c3623930cb1b746dfde12d0af9244b241b209a33b66836a75f029206e",
+    "only_ids": null,
+    "judge_model": null,
+    "threshold": 0.7,
+    "git_commit": "adea4c9",
+    "time": "2026-11-18 21:08:33",
+    "eval": "pipeline"
+  },
+  "summary": {
+    "exact": {
+      "n": 9,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 8.4,
+      "cost_inr": 0.71,
+      "judge_cost_usd": 0,
+      "gold_found": 1.0
+    },
+    "ALL": {
+      "n": 40,
+      "refusal_correct": 0.975,
+      "checks_failed": 1,
+      "seconds": 12.8,
+      "cost_inr": 2.59,
+      "judge_cost_usd": 0,
+      "gold_found": 0.906
+    },
+    "hinglish": {
+      "n": 6,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 8.0,
+      "cost_inr": 0.39,
+      "judge_cost_usd": 0,
+      "gold_found": 0.667
+    },
+    "multi": {
+      "n": 4,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 8.1,
+      "cost_inr": 0.25,
+      "judge_cost_usd": 0,
+      "gold_found": 1.0
+    },
+    "none": {
+      "n": 8,
+      "refusal_correct": 0.875,
+      "checks_failed": 1,
+      "seconds": 22.8,
+      "cost_inr": 0.44,
+      "judge_cost_usd": 0
+    },
+    "scenario": {
+      "n": 13,
+      "refusal_correct": 1,
+      "checks_failed": 0,
+      "seconds": 13.3,
+      "cost_inr": 0.8,
+      "judge_cost_usd": 0,
+      "gold_found": 0.923
+    }
+  },
+  "rows": [
+    {
+      "id": "claude-003",
+      "category": "exact",
+      "question": "By when must a supplier report a credit note under section 34(2), and in which cases is the output tax not reduced?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-34:2"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-34:2"
+      ],
+      "answer": "I've assumed you mean the CGST Act, as the question named no law.\n\nA supplier must report a credit note under section 34(2) in the return for the month during which the credit note has been issued, but not later than the **thirtieth day of November** following the end of the financial year in which the supply was made, or the date of furnishing of the relevant annual return, whichever is earlier [S1].\n\nThe output tax liability of the supplier shall not be reduced in the following cases:\n\n1. If the input tax credit attributable to the credit note has not been reversed by the recipient, where the recipient is a registered person.\n2. If the incidence of tax on such supply has been passed on to any other person [S2].",
+      "notes_added": false,
+      "claims": [
+        "A credit note must be declared in the return for the month it is issued.",
+        "The latest deadline is 30 November after the supply financial year or the date the relevant annual return is furnished, whichever is earlier.",
+        "The supplier cannot reduce output tax if a registered recipient has not reversed attributable ITC.",
+        "In other cases, the supplier cannot reduce output tax if the tax incidence was passed on to another person."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(2), p.44-45 (law assumed)",
+          "chunk_id": "act-12-of-2017:section-34:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(3), p.44-45",
+          "chunk_id": "act-12-of-2017:section-34:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 237/31/2024-GST, dated 2024-10-15, para 1.2(5), p.1-2",
+          "chunk_id": "237-31-2024-gst:para-1-2:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(4), p.44-45",
+          "chunk_id": "act-12-of-2017:section-34:4",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 38(2), p.47-48",
+          "chunk_id": "act-12-of-2017:section-38:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 92/11/2019-GST, dated 2019-03-07, para 2, p.1-4",
+          "chunk_id": "92-11-2019-gst:para-2:5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(1), p.44-45",
+          "chunk_id": "act-12-of-2017:section-34:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(2), p.30-31",
+          "chunk_id": "act-12-of-2017:section-16:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 37(4), p.46-47",
+          "chunk_id": "act-12-of-2017:section-37:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(2)(b)-(c), p.30-31 (CURRENT TEXT of the provision explained by Circular 237/31/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:3",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(2)(d), p.30-31 (CURRENT TEXT of the provision explained by Circular 237/31/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:4",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(6), p.30-31 (CURRENT TEXT of the provision explained by Circular 237/31/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:8",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 39(10), p.48-50 (CURRENT TEXT of the provision explained by Circular 237/31/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-39:10",
+          "web": false
+        }
+      ],
+      "seconds": 24.2,
+      "input_tokens": 4662,
+      "output_tokens": 156,
+      "cost_inr": 0.0698
+    },
+    {
+      "id": "claude-004",
+      "category": "exact",
+      "question": "As per Circular 192/04/2023-GST, when does interest under section 50(3) arise if IGST credit was wrongly availed and later reversed?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst:para-2:2"
+      ],
+      "gold_chunks": [
+        "192-04-2023-gst:para-2:1",
+        "192-04-2023-gst:para-2:2"
+      ],
+      "answer": "I've assumed you mean the CGST Act, as the question named no law.\n\nAccording to Circular 192/04/2023-GST, interest under section 50(3) arises in cases of wrongly availed IGST credit when the following conditions are met:\n\n1. **Utilization of Credit**: Interest is applicable if the balance of input tax credit (ITC) in the electronic credit ledger, under the heads of IGST, CGST, and SGST taken together, falls below the amount of the wrongly availed IGST credit. This indicates that the wrongly availed credit has been utilized.\n\n2. **Calculation of Interest**: The interest is calculated from the date of utilization of the wrongly availed IGST credit until the date of its reversal or payment of tax concerning that amount. The rate of interest shall not exceed **24%** as notified by the Government [S1][S7][S8].\n\n3. **No Interest Liability**: If the total balance of ITC in the electronic credit ledger never falls below the amount of wrongly availed IGST credit during the period from availment to reversal, then there will be no interest liability [S1][S2].\n\nThus, interest arises only when the wrongly availed credit is utilized, as indicated by the balance falling below the wrongly availed amount.\n\n⚠ Note: CGST Rules rule 88B was amended after Circular 192/04/2023-GST (dated 2023-07-17), which this answer uses: on 2024-07-10, 2024-11-01. What the circular says may be out of date; check its current text [S17].",
+      "notes_added": true,
+      "claims": [
+        "Interest calculation considers the combined IGST, CGST and SGST balance in the electronic credit ledger.",
+        "No interest is payable if that combined balance never fell below the wrongly availed IGST credit before reversal, even if the IGST balance alone did.",
+        "If the combined balance fell below the wrongly availed amount, interest applies to the shortfall."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 2, p.1-2",
+          "chunk_id": "192-04-2023-gst:para-2:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 1, p.1",
+          "chunk_id": "192-04-2023-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 1, p.1",
+          "chunk_id": "192-04-2023-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 3-4, p.3",
+          "chunk_id": "192-04-2023-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 2, p.1-2",
+          "chunk_id": "192-04-2023-gst:para-2:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 192/04/2023-GST, dated 2023-07-17, para 2, p.3",
+          "chunk_id": "192-04-2023-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 50, p.53-54 (law assumed)",
+          "chunk_id": "act-12-of-2017:section-50",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 88B(3), p.282-283",
+          "chunk_id": "cgst-rules-2017:rule-88b:3",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.21-22 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst-table-1:5",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.21-22 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "Circular 88/07/2019-GST, dated 2019-02-01, para 6.1, p.7",
+          "chunk_id": "88-07-2019-gst:para-6-1",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "Circular 33/07/2018-GST, dated 2018-02-23, para 2.2, p.1",
+          "chunk_id": "33-07-2018-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "Circular 42/16/2018-GST, dated 2018-04-13, para 4.2, p.3",
+          "chunk_id": "42-16-2018-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 14,
+          "label": "Circular 71/45/2018-GST, dated 2018-10-26, para 1, p.2",
+          "chunk_id": "71-45-2018-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 15,
+          "label": "Circular 181/13/2022-GST, dated 2022-11-10, para 1, p.1",
+          "chunk_id": "181-13-2022-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 16,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 88B(2), p.282-283 (CURRENT TEXT of the provision explained by Circular 192/04/2023-GST)",
+          "chunk_id": "cgst-rules-2017:rule-88b:2",
+          "web": false
+        },
+        {
+          "number": 17,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 88B(1), p.282-283 (CURRENT TEXT of the provision explained by Circular 192/04/2023-GST) (AMENDED on 2024-07-10, 2024-11-01, AFTER Circular 192/04/2023-GST dated 2023-07-17: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-88b:1",
+          "web": false
+        }
+      ],
+      "seconds": 6.6,
+      "input_tokens": 5861,
+      "output_tokens": 271,
+      "cost_inr": 0.0917
+    },
+    {
+      "id": "claude-005",
+      "category": "exact",
+      "question": "Per Circular 231/25/2024-GST, can an authorised car dealer take ITC on demo vehicles, and when is it still blocked?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "gold_chunks": [
+        "231-25-2024-gst:para-4-4",
+        "231-25-2024-gst:para-5"
+      ],
+      "answer": "According to Circular 231/25/2024-GST, an authorized car dealer can take Input Tax Credit (ITC) on demo vehicles under certain conditions. Demo vehicles are used to provide trial runs and demonstrate features to potential buyers, which promotes the sale of similar vehicles. Therefore, they are considered to be used in the course or furtherance of the dealer's business, allowing for ITC availability [S3][S7].\n\nHowever, ITC on demo vehicles is blocked in specific scenarios:\n\n1. **If the dealer merely acts as an agent** for the manufacturer and does not engage in the purchase and sale of the vehicles directly, ITC would not be available [S1].\n2. **If the demo vehicle is capitalized** and the dealer claims depreciation on the tax component under the Income-tax Act, ITC on that component is not allowed [S2].\n3. **If the demo vehicle is used for purposes other than making further supplies**, such as for transportation of staff, ITC would also be blocked [S5].\n\nIn summary, while ITC is generally available for demo vehicles, it is blocked under specific conditions as outlined above.",
+      "notes_added": false,
+      "claims": [
+        "Demo vehicles used to demonstrate vehicles to potential buyers promote sales of similar vehicles and count as used for further supply of such vehicles.",
+        "ITC on those demo vehicles is not blocked.",
+        "If the dealer only provides marketing or test-drive services for the manufacturer and the manufacturer invoices the customer directly, ITC on the demo vehicle is unavailable to the dealer."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.6-5, p.3",
+          "chunk_id": "231-25-2024-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.5-7, p.4",
+          "chunk_id": "231-25-2024-gst:para-7",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 1, p.1",
+          "chunk_id": "231-25-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.3, p.2",
+          "chunk_id": "231-25-2024-gst:para-4-3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.5, p.3",
+          "chunk_id": "231-25-2024-gst:para-4-5",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.4, p.2-3",
+          "chunk_id": "231-25-2024-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.4, p.4",
+          "chunk_id": "231-25-2024-gst:para-5-4",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 2, p.1",
+          "chunk_id": "231-25-2024-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4, p.2",
+          "chunk_id": "231-25-2024-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.2, p.2",
+          "chunk_id": "231-25-2024-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.1, p.2",
+          "chunk_id": "231-25-2024-gst:para-4-1",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 3, p.1",
+          "chunk_id": "231-25-2024-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 1.2, p.1-2",
+          "chunk_id": "241-35-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 14,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.1, p.3",
+          "chunk_id": "231-25-2024-gst:para-5-1",
+          "web": false
+        },
+        {
+          "number": 15,
+          "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.1-4",
+          "chunk_id": "123-42-2019-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 16,
+          "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.1-2",
+          "chunk_id": "123-42-2019-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 17,
+          "label": "Circular 211/05/2024-GST, dated 2024-06-26, para 2.5, p.3",
+          "chunk_id": "211-05-2024-gst:para-2-5",
+          "web": false
+        },
+        {
+          "number": 18,
+          "label": "Circular 211/05/2024-GST, dated 2024-06-26, para 2.4, p.2-3",
+          "chunk_id": "211-05-2024-gst:para-2-4",
+          "web": false
+        },
+        {
+          "number": 19,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5), p.31-34 (CURRENT TEXT of the provision explained by Circular 231/25/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-17:5",
+          "web": false
+        },
+        {
+          "number": 20,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 36(4), p.219-220 (CURRENT TEXT of the provision explained by Circular 123/42/2019-GST) (AMENDED on 2020-04-03, 2021-06-01, 2022-01-01, 2022-10-01, 2024-07-10, 2024-10-08, AFTER Circular 123/42/2019-GST dated 2019-11-11: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-36:4",
+          "web": false
+        }
+      ],
+      "seconds": 8.0,
+      "input_tokens": 6396,
+      "output_tokens": 235,
+      "cost_inr": 0.0968
+    },
+    {
+      "id": "claude-007",
+      "category": "exact",
+      "question": "What amount must be deposited before filing a first appeal under section 107(6) of the CGST Act?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-107:5"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-107:5"
+      ],
+      "answer": "To file a first appeal under section 107(6) of the CGST Act, the appellant must deposit the following amounts:\n\n1. **Full Payment**: The appellant must pay in full the part of the amount of tax, interest, fine, fee, and penalty that is admitted by him.\n   \n2. **Ten Percent of Remaining Amount**: Additionally, the appellant must pay a sum equal to **ten percent** of the remaining amount of tax in dispute arising from the order, subject to a maximum of **twenty crore rupees**.\n\n3. **Penalty Orders**: If the order demands a penalty without involving any tax, the appellant must pay **ten percent** of the penalty amount.\n\n> \"No appeal shall be filed under sub-section (1), unless the appellant has paid— (a) in full, such part of the amount of tax, interest, fine, fee and penalty arising from the impugned order, as is admitted by him; and (b) a sum equal to ten per cent. of the remaining amount of tax in dispute arising from the said order, subject to a maximum of twenty crore rupees...\" [S1]",
+      "notes_added": false,
+      "claims": [
+        "Before filing, the appellant must pay in full the amounts from the order that they admit.",
+        "The appellant must also pay 10% of the remaining tax in dispute, capped at ₹20 crore.",
+        "If the order demands only a penalty and no tax, 10% of the penalty must be paid."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 107(6)-(8), p.85-86",
+          "chunk_id": "act-12-of-2017:section-107:5",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 110(5)-(6), p.314-316",
+          "chunk_id": "cgst-rules-2017:rule-110:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 25/25/2017-GST, dated 2017-12-21, para 6, p.2",
+          "chunk_id": "25-25-2017-gst:para-6",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 4, p.2",
+          "chunk_id": "224-18-2024-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 3, p.1-2",
+          "chunk_id": "224-18-2024-gst:para-3:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 6, p.2-3",
+          "chunk_id": "224-18-2024-gst:para-6",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 3, p.1-2",
+          "chunk_id": "224-18-2024-gst:para-3:2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 1, p.1",
+          "chunk_id": "224-18-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 5, p.2",
+          "chunk_id": "224-18-2024-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 112(8)-(9), p.92-94 (CURRENT TEXT of the provision explained by Circular 224/18/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-112:7",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 112(10), p.92-94 (CURRENT TEXT of the provision explained by Circular 224/18/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-112:8",
+          "web": false
+        }
+      ],
+      "seconds": 5.6,
+      "input_tokens": 3811,
+      "output_tokens": 237,
+      "cost_inr": 0.0628
+    },
+    {
+      "id": "claude-008",
+      "category": "exact",
+      "question": "Under Circular 204/16/2023-GST, is a director's personal guarantee to a bank for the company's loan taxable, and at what value?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst-table-2:1"
+      ],
+      "gold_chunks": [
+        "204-16-2023-gst-table-1:1",
+        "204-16-2023-gst-table-2:1"
+      ],
+      "answer": "Yes, under Circular 204/16/2023-GST, a director's personal guarantee to a bank for the company's loan is considered a taxable supply of service, even when made without consideration. This is because the director and the company are treated as related persons under the CGST Act, and supplies between related persons are deemed taxable regardless of consideration [S2].\n\nRegarding the valuation, since the RBI guidelines prohibit any form of consideration for providing personal guarantees, the open market value of such a transaction may be treated as zero. Therefore, the taxable value of the supply is considered zero, and no GST is payable on this supply of service by the director to the company [S3]. \n\nIn summary:\n- **Taxable**: Yes, it is a taxable supply.\n- **Value**: Taxable value is treated as zero, hence no GST is payable.\n\n⚠ Note: CGST Rules rule 28(2) was amended after Circular 204/16/2023-GST (dated 2023-10-27), which this answer uses: on 2024-07-10. What the circular says may be out of date; check its current text [S18].",
+      "notes_added": true,
+      "claims": [
+        "The director and company are treated as related persons, so the personal guarantee is a supply of service even without consideration.",
+        "The taxable value of the guarantee is its open market value.",
+        "If RBI rules prohibit any consideration for the guarantee, its open market value may be treated as zero.",
+        "In that no-consideration case, the taxable value may be treated as zero and no tax is payable.",
+        "If the director is paid consideration for the guarantee, the taxable value is that consideration."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.2",
+          "chunk_id": "204-16-2023-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.2",
+          "chunk_id": "204-16-2023-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.4",
+          "chunk_id": "204-16-2023-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 1, p.1",
+          "chunk_id": "204-16-2023-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.1-6",
+          "chunk_id": "204-16-2023-gst:para-2:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.1-6",
+          "chunk_id": "204-16-2023-gst:para-2:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.4",
+          "chunk_id": "204-16-2023-gst-table-2:2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 2, p.1-6",
+          "chunk_id": "204-16-2023-gst:para-2:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 204/16/2023-GST, dated 2023-10-27, para 3-4, p.6",
+          "chunk_id": "204-16-2023-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.4-5",
+          "chunk_id": "225-19-2024-gst-table-1:7",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.2",
+          "chunk_id": "225-19-2024-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.4-5",
+          "chunk_id": "225-19-2024-gst-table-1:8",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.2",
+          "chunk_id": "225-19-2024-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 14,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.2-3",
+          "chunk_id": "225-19-2024-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 15,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 1.1, p.1",
+          "chunk_id": "225-19-2024-gst:para-1-1",
+          "web": false
+        },
+        {
+          "number": 16,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 2, p.2",
+          "chunk_id": "225-19-2024-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 17,
+          "label": "Circular 225/19/2024-GST, dated 2024-07-11, para 1.2, p.1",
+          "chunk_id": "225-19-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 18,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 28(2), p.212-213 (CURRENT TEXT of the provision explained by Circular 204/16/2023-GST, 225/19/2024-GST) (AMENDED on 2024-07-10, AFTER Circular 204/16/2023-GST dated 2023-10-27: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-28:2",
+          "web": false
+        },
+        {
+          "number": 19,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 28(1), p.212-213 (CURRENT TEXT of the provision explained by Circular 204/16/2023-GST, 225/19/2024-GST)",
+          "chunk_id": "cgst-rules-2017:rule-28:1",
+          "web": false
+        },
+        {
+          "number": 20,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 15(5), p.28-29 (CURRENT TEXT of the provision explained by Circular 204/16/2023-GST)",
+          "chunk_id": "act-12-of-2017:section-15:4",
+          "web": false
+        }
+      ],
+      "seconds": 8.1,
+      "input_tokens": 7049,
+      "output_tokens": 175,
+      "cost_inr": 0.1023
+    },
+    {
+      "id": "codex-003",
+      "category": "exact",
+      "question": "For a transaction wrongly treated as intra-State and later held to be inter-State, what does CGST rule 89(1A) say about the refund deadline?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "cgst-rules-2017:rule-89:3"
+      ],
+      "gold_chunks": [
+        "cgst-rules-2017:rule-89:3"
+      ],
+      "answer": "For a transaction initially considered as intra-State but later determined to be inter-State, CGST rule 89(1A) states that the person claiming a refund must file an application electronically in FORM GST RFD-01 before the expiry of a period of **two years** from the date of payment of the tax on the inter-State supply. \n\n> \"Any person, claiming refund under section 77 of the Act of any tax paid by him, in respect of a transaction considered by him to be an intra-State supply, which is subsequently held to be an inter-State supply, may, before the expiry of a period of two years from the date of payment of the tax on the inter-State supply, file an application electronically in FORM GST RFD-01...\" [S1][S3].\n\nAdditionally, if the tax was paid on an inter-State supply before the rule came into force, the application can be filed within **two years** from the date the rule became effective [S1][S4].",
+      "notes_added": false,
+      "claims": [
+        "The refund application may be filed within two years from the date tax was paid on the inter-State supply.",
+        "For inter-State tax paid before this sub-rule came into force, the two-year period runs from its commencement date."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(1A), p.285-292",
+          "chunk_id": "cgst-rules-2017:rule-89:3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.3, p.3-4",
+          "chunk_id": "162-18-2021-gst:para-4-3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.1, p.2-3",
+          "chunk_id": "162-18-2021-gst:para-4-1:2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4-4.1, p.2-3",
+          "chunk_id": "162-18-2021-gst:para-4-1:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.3, p.3-4",
+          "chunk_id": "162-18-2021-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 2.1(1), p.1-2",
+          "chunk_id": "162-18-2021-gst:para-2-1:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.2, p.3",
+          "chunk_id": "162-18-2021-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.3, p.4",
+          "chunk_id": "162-18-2021-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(1B), p.285-292",
+          "chunk_id": "cgst-rules-2017:rule-89:4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 77, p.73 (CURRENT TEXT of the provision explained by Circular 162/18/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-77",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 19, p.388 (CURRENT TEXT of the provision explained by Circular 162/18/2021-GST)",
+          "chunk_id": "igst-act-2017:section-19",
+          "web": false
+        }
+      ],
+      "seconds": 5.4,
+      "input_tokens": 4099,
+      "output_tokens": 204,
+      "cost_inr": 0.0649
+    },
+    {
+      "id": "codex-004",
+      "category": "exact",
+      "question": "What place of supply does section 12(8) of the IGST Act set for goods transport to an unregistered customer?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "igst-act-2017:section-12:7"
+      ],
+      "gold_chunks": [
+        "igst-act-2017:section-12:7"
+      ],
+      "answer": "The place of supply for services by way of transportation of goods to an unregistered customer, as per section 12(8) of the IGST Act, is determined as follows:\n\n- For an unregistered person, the place of supply shall be the location at which such goods are handed over for their transportation.\n\nThis means that the relevant location is where the goods are physically handed over to the transporter for delivery to the unregistered customer [S1][S6].",
+      "notes_added": false,
+      "claims": [
+        "For an unregistered recipient, the place of supply is where the goods are handed over for transportation."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(8), p.375-378",
+          "chunk_id": "igst-act-2017:section-12:7",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4-4.1, p.3",
+          "chunk_id": "242-36-2024-gst:para-4-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 3.4, p.2-3",
+          "chunk_id": "242-36-2024-gst:para-3-4",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 2(16), p.366-369",
+          "chunk_id": "igst-act-2017:section-2:9",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 1, p.1",
+          "chunk_id": "242-36-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(9)-(10), p.375-378",
+          "chunk_id": "igst-act-2017:section-12:8",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 184/16/2022-GST, dated 2022-12-27, para 1, p.1",
+          "chunk_id": "184-16-2022-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 209/03/2024-GST, dated 2024-06-26, para 2.1, p.2",
+          "chunk_id": "209-03-2024-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4.4, p.4",
+          "chunk_id": "242-36-2024-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(2), p.375-378 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "igst-act-2017:section-12:2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(13), p.375-378 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "igst-act-2017:section-12:13",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 12(14), p.375-378 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "igst-act-2017:section-12:14",
+          "web": false
+        }
+      ],
+      "seconds": 5.5,
+      "input_tokens": 4059,
+      "output_tokens": 94,
+      "cost_inr": 0.0585
+    },
+    {
+      "id": "codex-007",
+      "category": "exact",
+      "question": "What did Circular 160/16/2021-GST say about carrying a paper invoice when the supplier generated an e-invoice?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "gold_chunks": [
+        "160-16-2021-gst-table-3:2",
+        "160-16-2021-gst-table-3:3"
+      ],
+      "answer": "According to Circular 160/16/2021-GST, there is **no requirement** to carry a physical copy of the tax invoice when an e-invoice has been generated by the supplier. The relevant rules state that:\n\n> \"the Quick Reference (QR) code having an embedded Invoice Reference Number (IRN) in it, may be produced electronically, for verification by the proper officer in lieu of the physical copy of such tax invoice.\" [S2]\n\nThis means that if the invoice is issued in the manner prescribed under rule 48(4) of the CGST Rules, the electronic presentation of the QR code suffices for verification purposes, eliminating the need for a physical invoice during the movement of goods. [S1][S2]",
+      "notes_added": false,
+      "claims": [
+        "When the supplier generates an e-invoice, a physical copy of the tax invoice need not be carried.",
+        "The QR code containing the embedded IRN may instead be produced electronically for verification."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.3-4",
+          "chunk_id": "160-16-2021-gst-table-3:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.4",
+          "chunk_id": "160-16-2021-gst-table-3:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.1",
+          "chunk_id": "160-16-2021-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.3",
+          "chunk_id": "160-16-2021-gst-table-3:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.2",
+          "chunk_id": "160-16-2021-gst-table-2:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.2",
+          "chunk_id": "160-16-2021-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.1-5",
+          "chunk_id": "160-16-2021-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 160/16/2021-GST, dated 2021-09-20, p.4",
+          "chunk_id": "160-16-2021-gst-table-3:4",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular: Corrigendum to Circular No. 160/16/2021-GST, dated 2021-09-24, para 1, p.1",
+          "chunk_id": "circulars-2021-corrigendum:para-1",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "Circular 198/10/2023-GST, dated 2023-07-17, para 1, p.1",
+          "chunk_id": "198-10-2023-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "Circular 186/18/2022-GST, dated 2022-12-27, p.3",
+          "chunk_id": "186-18-2022-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "Circular 10/10/2017-GST, dated 2017-10-18, para 3, p.1-2",
+          "chunk_id": "10-10-2017-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 48(4)-(6), p.243",
+          "chunk_id": "cgst-rules-2017:rule-48:3",
+          "web": false
+        },
+        {
+          "number": 14,
+          "label": "Circular 198/10/2023-GST, dated 2023-07-17, para 1, p.1",
+          "chunk_id": "198-10-2023-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 15,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138A(2), p.340-341",
+          "chunk_id": "cgst-rules-2017:rule-138a:2",
+          "web": false
+        },
+        {
+          "number": 16,
+          "label": "Circular 144/14/2020-GST, dated 2020-12-15, para 2-4, p.1",
+          "chunk_id": "144-14-2020-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 17,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138A(3), p.340-341",
+          "chunk_id": "cgst-rules-2017:rule-138a:3",
+          "web": false
+        },
+        {
+          "number": 18,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(4), p.30-31 (CURRENT TEXT of the provision explained by Circular 160/16/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-16:6",
+          "web": false
+        }
+      ],
+      "seconds": 6.6,
+      "input_tokens": 5739,
+      "output_tokens": 152,
+      "cost_inr": 0.0838
+    },
+    {
+      "id": "codex-008",
+      "category": "exact",
+      "question": "Under section 17(5)(g), can I claim ITC for GST on a laptop bought for my family to use, even though the invoice has my business GSTIN?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-17:8"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-17:8"
+      ],
+      "answer": "I've assumed you mean the CGST Act, as the question named no law.\n\nNo, you cannot claim input tax credit (ITC) for GST on a laptop bought for personal use, even if the invoice has your business GSTIN. According to section 17(5)(g) of the CGST Act, ITC is not available for goods or services used for personal consumption. The relevant provision states:\n\n> \"input tax credit shall not be available in respect of the following, namely: ... (g) goods or services or both used for personal consumption;\" [S1].\n\nTherefore, since the laptop is intended for family use, it falls under this restriction, and you cannot claim ITC for it.",
+      "notes_added": false,
+      "claims": [
+        "ITC is not available for goods or services used for personal consumption."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5)(f)-(i), p.31-34 (law assumed)",
+          "chunk_id": "act-12-of-2017:section-17:8",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 134/04/2020-GST, dated 2020-03-23, para 3, p.4-5",
+          "chunk_id": "134-04-2020-gst-table-1:5",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 16/16/2017-GST, dated 2017-11-15, p.2",
+          "chunk_id": "16-16-2017-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.4",
+          "chunk_id": "123-42-2019-gst-table-3:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 171/03/2022-GST, dated 2022-07-06, p.2",
+          "chunk_id": "171-03-2022-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 171/03/2022-GST, dated 2022-07-06, p.2",
+          "chunk_id": "171-03-2022-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3, p.2-3",
+          "chunk_id": "241-35-2024-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 172/04/2022-GST, dated 2022-07-06, p.3-6",
+          "chunk_id": "172-04-2022-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Circular 172/04/2022-GST, dated 2022-07-06, p.4-5",
+          "chunk_id": "172-04-2022-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 36(4), p.219-220 (CURRENT TEXT of the provision explained by Circular 134/04/2020-GST, 123/42/2019-GST) (AMENDED on 2020-04-03, 2021-06-01, 2022-01-01, 2022-10-01, 2024-07-10, 2024-10-08, AFTER Circular 123/42/2019-GST dated 2019-11-11: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-36:4",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(2)(b)-(c), p.30-31 (CURRENT TEXT of the provision explained by Circular 171/03/2022-GST, 241/35/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:3",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 74(5), p.68-69 (CURRENT TEXT of the provision explained by Circular 171/03/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-74:4",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 74(4), p.68-69 (CURRENT TEXT of the provision explained by Circular 171/03/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-74:3",
+          "web": false
+        }
+      ],
+      "seconds": 5.5,
+      "input_tokens": 5270,
+      "output_tokens": 144,
+      "cost_inr": 0.0772
+    },
+    {
+      "id": "claude-029",
+      "category": "hinglish",
+      "question": "Main doosre state mein ek mahine ki exhibition mein stall laga raha hoon. Wahan ka temporary registration kitne din chalega, aur kya pehle se tax jama karna padega?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-27"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-27"
+      ],
+      "answer": "Aapka temporary registration ek mahine ki exhibition ke liye **90 din** tak chalega, jo ki aapke registration ke effective date se shuru hoga. Agar aapko is period ko extend karna hai, toh proper officer aapko **90 din** ka aur extension de sakta hai, lekin total period **180 din** se zyada nahi ho sakta [S1][S9].\n\nExhibition ke liye registration ke waqt, aapko **advance tax deposit** karna padega, jo aapki estimated tax liability ke barabar hoga. Agar aapko extension chahiye, toh aapko extension ke liye bhi additional tax deposit karna padega [S9]. \n\nIsliye, aapko pehle se tax jama karna padega.",
+      "notes_added": false,
+      "claims": [
+        "Registration is valid for the period stated in the application or 90 days from its effective date, whichever is earlier; it may be extended by up to 90 days.",
+        "At application, the casual taxable person must deposit estimated tax for the registration period and deposit additional estimated tax for any extension."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 71/45/2018-GST, dated 2018-10-26, para 1, p.2",
+          "chunk_id": "71-45-2018-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 16, p.201",
+          "chunk_id": "cgst-rules-2017:rule-16",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 1, p.1",
+          "chunk_id": "231-25-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 122A, p.99",
+          "chunk_id": "act-12-of-2017:section-122a",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 139, p.107",
+          "chunk_id": "act-12-of-2017:section-139",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 24(2), p.208-209",
+          "chunk_id": "cgst-rules-2017:rule-24:2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "UTGST Act, 2017, dated 2026-04-15, section 17, p.415",
+          "chunk_id": "utgst-act-2017:section-17",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 29(2), p.41-42",
+          "chunk_id": "act-12-of-2017:section-29:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 27, p.40 (CURRENT TEXT of the provision explained by Circular 71/45/2018-GST)",
+          "chunk_id": "act-12-of-2017:section-27",
+          "web": false
+        }
+      ],
+      "seconds": 3.4,
+      "input_tokens": 3464,
+      "output_tokens": 169,
+      "cost_inr": 0.0546
+    },
+    {
+      "id": "claude-033",
+      "category": "hinglish",
+      "question": "GSTR-3B late file kiya aur tax bhi late bhara. Interest kitne rate se lagega aur kis amount par?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": false,
+      "gold_found_ids": [],
+      "gold_chunks": [
+        "act-12-of-2017:section-50"
+      ],
+      "answer": "GSTR-3B late filing par interest rate aur amount ka calculation aapke turnover par depend karta hai. \n\n1. **Turnover > Rs. 5 Crore**:\n   - **Interest Rate**: \n     - **Nil** for the first **15 days** from the due date.\n     - **9% per annum** thereafter.\n   - **Late Fee**: Regular late fee will also apply if the return is not filed on time [S1][S2].\n\n2. **Turnover ≤ Rs. 5 Crore**:\n   - **Interest Rate**: \n     - **Nil** for the first **30 days** from the due date.\n     - **9% per annum** thereafter.\n   - **Late Fee**: Waived off for the specified months [S3][S13].\n\nAgar aapne return due date ke baad file kiya hai, toh interest aapke outstanding tax amount par lagega, jo due date se lekar payment tak ke period ke liye calculate hoga. \n\nAapko yeh bhi dhyan rakhna chahiye ki agar return specified date tak nahi bhara gaya, toh interest rate **18% per annum** lag sakta hai [S2][S4].",
+      "notes_added": false,
+      "claims": [
+        "Interest on unpaid tax is charged at the notified rate, capped at 18%.",
+        "Interest applies for the period the tax remains unpaid.",
+        "For a return filed after its due date, interest is payable only on the portion paid through the electronic cash ledger.",
+        "This cash-ledger-only treatment does not apply if the late return is furnished after proceedings for that period have commenced.",
+        "Interest is calculated from the day after the tax was due."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 136/06/2020-GST, dated 2020-04-03, p.3 (partly modified by Circular 141/11/2020-GST)",
+          "chunk_id": "136-06-2020-gst-table-3:3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 136/06/2020-GST, dated 2020-04-03, p.3 (partly modified by Circular 141/11/2020-GST)",
+          "chunk_id": "136-06-2020-gst-table-3:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 136/06/2020-GST, dated 2020-04-03, p.3 (partly modified by Circular 141/11/2020-GST)",
+          "chunk_id": "136-06-2020-gst-table-3:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 141/11/2020-GST, dated 2020-06-24, p.3",
+          "chunk_id": "141-11-2020-gst-table-3:2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 141/11/2020-GST, dated 2020-06-24, p.3",
+          "chunk_id": "141-11-2020-gst-table-3:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 141/11/2020-GST, dated 2020-06-24, p.2",
+          "chunk_id": "141-11-2020-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2",
+          "chunk_id": "26-26-2017-gst:para-2-1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 7/7/2017-GST, dated 2017-09-01, para 12, p.4",
+          "chunk_id": "7-7-2017-gst:para-12",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(9), p.51-53 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST)",
+          "chunk_id": "act-12-of-2017:section-49:7",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(12), p.51-53 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST)",
+          "chunk_id": "act-12-of-2017:section-49:9",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(6)-(7), p.51-53 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST)",
+          "chunk_id": "act-12-of-2017:section-49:5",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 47, p.51 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST)",
+          "chunk_id": "act-12-of-2017:section-47",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "WEB: indiafilings.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 14,
+          "label": "WEB: taxpex.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 15,
+          "label": "WEB: okaygst.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 16,
+          "label": "WEB: caclubindia.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        }
+      ],
+      "seconds": 24.0,
+      "input_tokens": 5284,
+      "output_tokens": 261,
+      "cost_inr": 0.0835
+    },
+    {
+      "id": "codex-019",
+      "category": "hinglish",
+      "question": "Same State ke customer ko goods bechta hoon; kya is par CGST lagta hai, aur alcohol wali supply ka kya?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": false,
+      "gold_found_ids": [],
+      "gold_chunks": [
+        "act-12-of-2017:section-9:1"
+      ],
+      "answer": "Haan, agar aap same State ke customer ko goods bechte hain, to is par **CGST** lagta hai. Ye **intra-State supply** kehlata hai, jahan supplier aur place of supply dono same State ya Union Territory mein hote hain. Is par CGST ke saath saath **SGST** bhi lagta hai [S4].\n\nLekin, **alcoholic liquor for human consumption** par CGST nahi lagta. Ye supply **exempt** hai, aur is par koi tax nahi lagta [S1]. \n\nToh, summary yeh hai:\n- Same State ke customer ko goods bechne par CGST lagta hai.\n- Alcoholic liquor ki supply par CGST nahi lagta.",
+      "notes_added": false,
+      "claims": [
+        "Central tax is levied on intra-State supplies of goods or services.",
+        "The levy excludes alcoholic liquor for human consumption and un-denatured extra neutral alcohol or rectified spirit used to manufacture alcoholic liquor for human consumption."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 5(1), p.371-372",
+          "chunk_id": "igst-act-2017:section-5:1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 210/04/2024-GST, dated 2024-06-26, para 3.2, p.2",
+          "chunk_id": "210-04-2024-gst:para-3-2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 35/9/2018-GST, dated 2018-03-05, para 3, p.2",
+          "chunk_id": "35-9-2018-gst:para-3:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 8, p.373-374",
+          "chunk_id": "igst-act-2017:section-8",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 28(1), p.212-213",
+          "chunk_id": "cgst-rules-2017:rule-28:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 184/16/2022-GST, dated 2022-12-27, para 2-4, p.1-4",
+          "chunk_id": "184-16-2022-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 7, p.373",
+          "chunk_id": "igst-act-2017:section-7",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 28(2), p.212-213 (CURRENT TEXT of the provision explained by Circular 210/04/2024-GST) (AMENDED on 2024-07-10, AFTER Circular 210/04/2024-GST dated 2024-06-26: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-28:2",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 25(4), p.38-40 (CURRENT TEXT of the provision explained by Circular 210/04/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-25:3",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 25(5), p.38-40 (CURRENT TEXT of the provision explained by Circular 210/04/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-25:4",
+          "web": false
+        }
+      ],
+      "seconds": 4.0,
+      "input_tokens": 4325,
+      "output_tokens": 156,
+      "cost_inr": 0.0653
+    },
+    {
+      "id": "codex-026",
+      "category": "hinglish",
+      "question": "Tax ko credit note se adjust kar diya hai. Kya same transaction ke liye alag refund bhi le sakta hoon?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "162-18-2021-gst:para-6"
+      ],
+      "gold_chunks": [
+        "162-18-2021-gst:para-6"
+      ],
+      "answer": "Nahi, aap same transaction ke liye alag refund nahi le sakte. Agar aapne tax ko credit note se adjust kar diya hai, toh aapko refund nahi milega. \n\n> \"Refund under section 77 of the CGST Act / section 19 of the IGST Act would not be available where the taxpayer has made tax adjustment through issuance of credit note under section 34 of the CGST Act in respect of the said transaction.\" [S4] \n\nIsliye, agar aapne credit note ke zariye tax liability ko adjust kiya hai, toh aapko us transaction ke liye alag refund claim nahi karna chahiye.",
+      "notes_added": false,
+      "claims": [
+        "A separate refund under the specified refund provisions is unavailable for a transaction whose tax was adjusted through a credit note."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 135/05/2020-GST, dated 2020-03-31, p.4 (partly modified by Circular 173/05/2022-GST)",
+          "chunk_id": "135-05-2020-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "UTGST Act, 2017, dated 2026-04-15, section 20(3), p.418-420",
+          "chunk_id": "utgst-act-2017:section-20:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 162/18/2021-GST, dated 2021-09-25, para 4.4-6, p.4",
+          "chunk_id": "162-18-2021-gst:para-6",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 135/05/2020-GST, dated 2020-03-31, p.3-4 (partly modified by Circular 173/05/2022-GST)",
+          "chunk_id": "135-05-2020-gst:para-4-2:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 135/05/2020-GST, dated 2020-03-31, p.3-4 (partly modified by Circular 173/05/2022-GST)",
+          "chunk_id": "135-05-2020-gst:para-4-2:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.1-2",
+          "chunk_id": "137-07-2020-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 92(1A), p.293-295",
+          "chunk_id": "cgst-rules-2017:rule-92:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(4), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST, 162/18/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-34:4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(2), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST, 162/18/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-34:2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 77, p.73 (CURRENT TEXT of the provision explained by Circular 162/18/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-77",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 19, p.388 (CURRENT TEXT of the provision explained by Circular 162/18/2021-GST)",
+          "chunk_id": "igst-act-2017:section-19",
+          "web": false
+        }
+      ],
+      "seconds": 3.4,
+      "input_tokens": 4008,
+      "output_tokens": 140,
+      "cost_inr": 0.0603
+    },
+    {
+      "id": "codex-028",
+      "category": "hinglish",
+      "question": "Company ka CIRP shuru ho gaya hai aur purane GST dues pending hain. Officer seedha recovery kar sakta hai?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "134-04-2020-gst-table-1:1"
+      ],
+      "gold_chunks": [
+        "134-04-2020-gst-table-1:1"
+      ],
+      "answer": "Nahi, officer seedha recovery nahi kar sakta. Jab ek company ka Corporate Insolvency Resolution Process (CIRP) shuru hota hai, tab us company ke purane GST dues ko 'operational debt' ke roop mein treat kiya jata hai. Iske tahat, koi bhi coercive action nahi liya ja sakta hai. Dues ke liye claims NCLT ke saamne file kiye ja sakte hain, lekin recovery nahi ki ja sakti hai jab tak CIRP chal raha hai [S3][S6]. \n\nIske alawa, IBC ke section 14 ke tahat, ek moratorium period lagu hota hai, jisme corporate debtor ke khilaf kisi bhi tarah ki legal action ya proceedings ko rok diya jata hai [S3].",
+      "notes_added": false,
+      "claims": [
+        "No coercive action may be taken for the company’s GST dues from before the insolvency commencement date.",
+        "The proper officer may file claims for those pre-CIRP dues as operational debt before the NCLT under the IBC."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 134/04/2020-GST, dated 2020-03-23, para 1-2, p.1",
+          "chunk_id": "134-04-2020-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 134/04/2020-GST, dated 2020-03-23, para 3, p.5",
+          "chunk_id": "134-04-2020-gst-table-1:6",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 134/04/2020-GST, dated 2020-03-23, para 3, p.2-3",
+          "chunk_id": "134-04-2020-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 58/32/2018-GST, dated 2018-09-04, para 2, p.1 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "58-32-2018-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 1, p.1",
+          "chunk_id": "224-18-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 187/19/2022-GST, dated 2022-12-27, para 1, p.1",
+          "chunk_id": "187-19-2022-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 224/18/2024-GST, dated 2024-07-11, para 8.1, p.4",
+          "chunk_id": "224-18-2024-gst:para-8-1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 144(6)-(7), p.350",
+          "chunk_id": "cgst-rules-2017:rule-144:5",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 14(b), p.28 (CURRENT TEXT of the provision explained by Circular 134/04/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-14:2",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 14, p.28 (CURRENT TEXT of the provision explained by Circular 134/04/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-14:1",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 29(2), p.41-42 (CURRENT TEXT of the provision explained by Circular 134/04/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-29:2",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 112(10), p.92-94 (CURRENT TEXT of the provision explained by Circular 224/18/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-112:8",
+          "web": false
+        }
+      ],
+      "seconds": 4.9,
+      "input_tokens": 4148,
+      "output_tokens": 171,
+      "cost_inr": 0.0638
+    },
+    {
+      "id": "codex-031",
+      "category": "hinglish",
+      "question": "Online gaming ya OIDAR service unregistered customer ko doon toh invoice par State ka naam likhna zaroori hai, amount chhota ho tab bhi?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "242-36-2024-gst:para-4-4"
+      ],
+      "gold_chunks": [
+        "242-36-2024-gst:para-4-4"
+      ],
+      "answer": "Haan, agar aap online gaming ya OIDAR service unregistered customer ko dete hain, toh invoice par State ka naam likhna zaroori hai, chahe amount chhota ho ya bada. \n\nIska reason yeh hai ki Circular 242/36/2024-GST ke anusar, \"in cases involving supply of online money gaming or in cases where any taxable service is supplied by or through an electronic commerce operator or by a supplier of online information and database access or retrieval services to a recipient who is unregistered, irrespective of the value of such supply, a tax invoice issued by the registered person shall contain the name of the state of the recipient\" [S1][S4]. \n\nYeh provision unregistered recipients ke liye hai aur ismein koi minimum value limit nahi hai. Isliye, aapko invoice par recipient ki State ka naam zaroor likhna hoga.",
+      "notes_added": false,
+      "claims": [
+        "For online money gaming, taxable services supplied by or through an e-commerce operator, or OIDAR services to an unregistered recipient, the supplier must record the recipient’s State on the invoice regardless of value.",
+        "That State is treated as the recipient’s address on record for determining place of supply."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4.4, p.4",
+          "chunk_id": "242-36-2024-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 3.6, p.3",
+          "chunk_id": "242-36-2024-gst:para-3-6",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4.5.1, p.4-5",
+          "chunk_id": "242-36-2024-gst:para-4-5:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 242/36/2024-GST, dated 2024-12-31, para 4.3, p.4",
+          "chunk_id": "242-36-2024-gst:para-4-3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 2(17), p.366-369",
+          "chunk_id": "igst-act-2017:section-2:10",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 14A, p.381-383",
+          "chunk_id": "igst-act-2017:section-14a",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 46(f)-(n), p.240-242",
+          "chunk_id": "cgst-rules-2017:rule-46:4",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 2(80B), p.17",
+          "chunk_id": "act-12-of-2017:section-2-80b",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(3)(g), p.42-44 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-31:8",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(4), p.42-44 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-31:9",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 46(s), p.240-242 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "cgst-rules-2017:rule-46:8",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 46(e), p.240-242 (CURRENT TEXT of the provision explained by Circular 242/36/2024-GST)",
+          "chunk_id": "cgst-rules-2017:rule-46:3",
+          "web": false
+        }
+      ],
+      "seconds": 8.4,
+      "input_tokens": 4246,
+      "output_tokens": 186,
+      "cost_inr": 0.0659
+    },
+    {
+      "id": "claude-024",
+      "category": "multi",
+      "question": "The department provisionally attached a client's bank account during proceedings. How long can the attachment last, and can he get the account freed by offering property instead?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-83",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-83",
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4"
+      ],
+      "answer": "The provisional attachment of a client's bank account can last for a maximum period of **one year** from the date of the order made under section 83 of the CGST Act. After this period, the attachment shall cease to have effect [S1][S4].\n\nYes, the client can get the account freed by offering alternative property. If the movable property, including the bank account, has been attached, it may be released if the taxable person offers immovable property that is sufficient to protect the interest of revenue. This immovable property must be of value not less than the tax amount in dispute and should be free from any encumbrances, with property tax fully paid and not involved in any legal disputes [S5]. The client must also produce the original title deeds and necessary information regarding the property for the satisfaction of the concerned officer [S5].",
+      "notes_added": false,
+      "claims": [
+        "A provisional attachment ceases to have effect one year after the order.",
+        "An attached bank account may be released if the taxpayer offers other immovable property sufficient to protect revenue.",
+        "The replacement property must be worth at least the tax in dispute, free of charges and legal disputes, have property tax paid up to date, and the original title deeds must be produced."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.1.1, p.1-2",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 159(2), p.356",
+          "chunk_id": "cgst-rules-2017:rule-159:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 159(1), p.356",
+          "chunk_id": "cgst-rules-2017:rule-159:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 83, p.75",
+          "chunk_id": "act-12-of-2017:section-83",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.4.6, p.4-5",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:4",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.2.1, p.2-4",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.6, p.5-6",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.4.2-3.4.4, p.4-5",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-4:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 62, p.62 (CURRENT TEXT of the provision explained by Circular Guidelines for provisional attachment of property under section 83 of the CGST Act, 2017)",
+          "chunk_id": "act-12-of-2017:section-62",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 63, p.62-63 (CURRENT TEXT of the provision explained by Circular Guidelines for provisional attachment of property under section 83 of the CGST Act, 2017)",
+          "chunk_id": "act-12-of-2017:section-63",
+          "web": false
+        }
+      ],
+      "seconds": 3.8,
+      "input_tokens": 3284,
+      "output_tokens": 172,
+      "cost_inr": 0.0524
+    },
+    {
+      "id": "claude-025",
+      "category": "multi",
+      "question": "An officer blocked our credit ledger under rule 86A, and we've since shown the invoices are genuine. Can he release it before the year is over, and what must he do first?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "cgst-rules-2017:rule-86a:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1"
+      ],
+      "gold_chunks": [
+        "cgst-rules-2017:rule-86a:2",
+        "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1"
+      ],
+      "answer": "I've assumed you mean the CGST Rules, as the question named no law.\n\nYes, the officer can release the blocked credit ledger before the one-year period is over. According to rule 86A(2), the Commissioner or the authorized officer may allow the debit if they are satisfied that the conditions for disallowing the debit no longer exist. \n\nBefore allowing the debit, the officer must:\n\n- Examine the matter afresh based on the submissions made by the taxpayer, including any material evidence provided.\n- Record the reasons for allowing the debit in writing on file, as stated in rule 86A(2) and the guidelines [S4][S5].\n\nThis process ensures that the officer has a clear basis for their decision to unblock the credit ledger.",
+      "notes_added": false,
+      "claims": [
+        "The Commissioner or authorised officer may allow use of the credit once satisfied that the conditions for restricting debit no longer exist.",
+        "The officer may review the matter on their own or based on taxpayer evidence and allow eligible credit fully or partly.",
+        "Reasons for allowing debit must be recorded in writing before it is allowed.",
+        "The restriction ceases after one year from the date it was imposed."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86A(1), p.278-279 (law assumed)",
+          "chunk_id": "cgst-rules-2017:rule-86a:1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86A(2)-(3), p.278-279 (law assumed)",
+          "chunk_id": "cgst-rules-2017:rule-86a:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.4-5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-4:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.1-3",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-1:3",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.4-5",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-3:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.1",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-1",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "Instruction: Guidelines for disallowing debit of electronic credit ledger under Rule 86A of t, dated 2021-11-02, p.1-3",
+          "chunk_id": "instructions-2021-guidelines-for-disallowing-debit-of-electronic-credit-ledger:para-3-1:2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86(6), p.277-278 (CURRENT TEXT of the provision explained by Circular Guidelines for disallowing debit of electronic credit ledger under Rule 86A of the CGST Rules, 2017)",
+          "chunk_id": "cgst-rules-2017:rule-86:5",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86(4A), p.277-278 (CURRENT TEXT of the provision explained by Circular Guidelines for disallowing debit of electronic credit ledger under Rule 86A of the CGST Rules, 2017)",
+          "chunk_id": "cgst-rules-2017:rule-86:3",
+          "web": false
+        },
+        {
+          "number": 13,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86(4B)-(5), p.277-278 (CURRENT TEXT of the provision explained by Circular Guidelines for disallowing debit of electronic credit ledger under Rule 86A of the CGST Rules, 2017) (AMENDED on 2022-07-05, AFTER Circular Guidelines for disallowing debit of electronic credit ledger under Rule 86A of the CGST Rules, 2017 dated 2021-11-02: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-86:4",
+          "web": false
+        },
+        {
+          "number": 14,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 86(1)-(3), p.277-278 (CURRENT TEXT of the provision explained by Circular Guidelines for disallowing debit of electronic credit ledger under Rule 86A of the CGST Rules, 2017)",
+          "chunk_id": "cgst-rules-2017:rule-86:1",
+          "web": false
+        }
+      ],
+      "seconds": 4.6,
+      "input_tokens": 4925,
+      "output_tokens": 153,
+      "cost_inr": 0.0731
+    },
+    {
+      "id": "claude-026",
+      "category": "multi",
+      "question": "A car dealer capitalises its demo cars in its books. Does that capitalisation stop it from taking ITC on them, given the bar on ITC for small passenger vehicles?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-17:5",
+        "231-25-2024-gst:para-5-4",
+        "231-25-2024-gst:para-7",
+        "act-12-of-2017:section-16:6"
+      ],
+      "answer": "The capitalization of demo cars in the books of a car dealer does not prevent the dealer from taking input tax credit (ITC) on them. According to Circular 231/25/2024-GST, demo vehicles are considered to be used in the course or furtherance of business, and thus they fall under the definition of \"capital goods\" as per section 2(19) of the CGST Act. \n\nHowever, the availability of ITC is subject to certain conditions. Specifically, if the dealer claims depreciation on the tax component of the cost of these capital goods under the Income-tax Act, 1961, then the ITC on that tax component will not be allowed, as per section 16(3) of the CGST Act [S1][S2]. \n\nIn summary, while capitalization does not block ITC, claiming depreciation on the tax component does.",
+      "notes_added": false,
+      "claims": [
+        "Capitalising demo vehicles does not by itself affect ITC availability, subject to the other provisions of the Act.",
+        "If depreciation is claimed on the tax component of the capitalised vehicle, ITC on that tax component is not allowed."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.4, p.4",
+          "chunk_id": "231-25-2024-gst:para-5-4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 5.5-7, p.4",
+          "chunk_id": "231-25-2024-gst:para-7",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.6-5, p.3",
+          "chunk_id": "231-25-2024-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 1, p.1",
+          "chunk_id": "231-25-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.5, p.3",
+          "chunk_id": "231-25-2024-gst:para-4-5",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.3, p.2",
+          "chunk_id": "231-25-2024-gst:para-4-3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 4.4, p.2-3",
+          "chunk_id": "231-25-2024-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 231/25/2024-GST, dated 2024-09-11, para 2, p.1",
+          "chunk_id": "231-25-2024-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5), p.31-34 (CURRENT TEXT of the provision explained by Circular 231/25/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-17:5",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 2(19), p.12 (CURRENT TEXT of the provision explained by Circular 231/25/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-2-19",
+          "web": false
+        }
+      ],
+      "seconds": 11.3,
+      "input_tokens": 3562,
+      "output_tokens": 179,
+      "cost_inr": 0.0565
+    },
+    {
+      "id": "claude-028",
+      "category": "multi",
+      "question": "After my father's death I'm continuing his business under my own GSTIN. How do I move the unused credit in his ledger to me, and am I responsible for his old tax dues?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "96-15-2019-gst:para-3:2",
+        "cgst-rules-2017:rule-41"
+      ],
+      "gold_chunks": [
+        "96-15-2019-gst:para-3:2",
+        "cgst-rules-2017:rule-41"
+      ],
+      "answer": "To transfer the unused input tax credit from your father's GSTIN to your own after his death, you need to follow these steps:\n\n1. **File FORM GST ITC-02**: As the transferee, you must file FORM GST ITC-02 electronically on the common portal. This form requests the transfer of unutilized input tax credit from your father's electronic credit ledger to yours [S1][S3].\n\n2. **Cancellation of Registration**: You will also need to file an application for cancellation of your father's GST registration using FORM GST REG-16, mentioning \"death of sole proprietor\" as the reason [S2].\n\n3. **Acceptance of Transfer**: Once you submit FORM GST ITC-02, the transfer of credit will be credited to your electronic credit ledger upon acceptance of the details by the common portal [S10].\n\nRegarding tax dues, as per sub-section (1) of section 85 of the CGST Act, you will be jointly and severally liable for any tax, interest, or penalty due from your father at the time of his death if you continue the business [S1]. \n\nIn summary, you are responsible for his old tax dues, and you must complete the necessary forms to transfer the unused credit.\n\n⚠ Note: CGST Rules rule 41(1) was amended after Circular 96/15/2019-GST (dated 2019-03-28), which this answer uses: on 2019-03-29. What the circular says may be out of date; check its current text [S10].",
+      "notes_added": true,
+      "claims": [
+        "FORM GST ITC-02 must be filed electronically on the common portal to request transfer of unused credit to the successor.",
+        "A practising chartered accountant or cost accountant must certify that the business transfer specifically provides for transfer of liabilities.",
+        "After the successor accepts the details on the portal, the transferred credit is credited to the successor’s electronic credit ledger.",
+        "The successor continuing the business is liable for tax, interest or penalties due from the deceased proprietor."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 42/16/2018-GST, dated 2018-04-13, para 4.1, p.2-3",
+          "chunk_id": "42-16-2018-gst:para-4-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 1, p.1",
+          "chunk_id": "96-15-2019-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 58/32/2018-GST, dated 2018-09-04, para 2, p.1 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "58-32-2018-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 133/03/2020-GST, dated 2020-03-23, p.5",
+          "chunk_id": "133-03-2020-gst-table-5:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 174/06/2022-GST, dated 2022-07-06, para 4-4.1, p.2",
+          "chunk_id": "174-06-2022-gst:para-4-1",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 18(3), p.34-35 (CURRENT TEXT of the provision explained by Circular 96/15/2019-GST, 133/03/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-18:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 41, p.226-227 (CURRENT TEXT of the provision explained by Circular 96/15/2019-GST, 133/03/2020-GST) (AMENDED on 2019-03-29, AFTER Circular 96/15/2019-GST dated 2019-03-28: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-41",
+          "web": false
+        }
+      ],
+      "seconds": 12.7,
+      "input_tokens": 3953,
+      "output_tokens": 254,
+      "cost_inr": 0.0656
+    },
+    {
+      "id": "claude-037",
+      "category": "none",
+      "question": "What is the current RoDTEP rate for exports of cotton yarn?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5.3, p.4",
+          "chunk_id": "177-09-2022-gst:para-5-3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5.2, p.3-4",
+          "chunk_id": "177-09-2022-gst:para-5-2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 200/12/2023-GST, dated 2023-08-01, para 6-6.2, p.3",
+          "chunk_id": "200-12-2023-gst:para-6-2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 177/09/2022-GST, dated 2022-08-03, para 5-5.1, p.3",
+          "chunk_id": "177-09-2022-gst:para-5-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 147, p.115",
+          "chunk_id": "act-12-of-2017:section-147",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 8/8/2017-GST, dated 2017-10-04, para 2, p.1-5 (partly modified by Circular 40/14/2018-GST, 88/07/2019-GST)",
+          "chunk_id": "8-8-2017-gst:para-2:5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 52/26/2018-GST, dated 2018-08-09, para 11.2, p.5",
+          "chunk_id": "52-26-2018-gst:para-11-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 205/17/2023-GST, dated 2023-10-31, para 1, p.1",
+          "chunk_id": "205-17-2023-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "WEB: usaindiacfo.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 10,
+          "label": "WEB: m.economictimes.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 11,
+          "label": "WEB: smartinfoindia.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 12,
+          "label": "WEB: raspinternational.in, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        }
+      ],
+      "seconds": 39.2,
+      "input_tokens": 3699,
+      "output_tokens": 8,
+      "cost_inr": 0.0492
+    },
+    {
+      "id": "claude-038",
+      "category": "none",
+      "question": "What did the Supreme Court hold in Bharti Airtel about rectifying GSTR-3B using GSTR-2A data?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 182/14/2022-GST, dated 2022-11-10, p.2",
+          "chunk_id": "182-14-2022-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2-3",
+          "chunk_id": "26-26-2017-gst:para-3-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 7/7/2017-GST, dated 2017-09-01, para 5, p.1-2",
+          "chunk_id": "7-7-2017-gst:para-5:2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 248/05/2025-GST, dated 2025-03-27, para 2, p.1",
+          "chunk_id": "248-05-2025-gst:para-2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 7/7/2017-GST, dated 2017-09-01, para 13-15, p.4",
+          "chunk_id": "7-7-2017-gst:para-15",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Instruction No. 05/2023-GST, dated 2023-12-13, para 1, p.1",
+          "chunk_id": "instruction-no-05-2023-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Instruction No. 01/2022-GST, dated 2022-01-07, para 3.2, p.2-3",
+          "chunk_id": "instruction-no-01-2022-gst:para-3-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.7",
+          "chunk_id": "26-26-2017-gst-table-4:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(2)-(3), p.101 (CURRENT TEXT of the provision explained by Circular 248/05/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1)(c), p.101 (CURRENT TEXT of the provision explained by Circular 248/05/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 37(3), p.46-47 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST, Instruction No. 01/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-37:2",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 37(1), p.220-221 (CURRENT TEXT of the provision explained by Circular 7/7/2017-GST) (AMENDED on 2022-10-01, 2022-12-26, AFTER Circular 7/7/2017-GST dated 2017-09-01: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-37:1",
+          "web": false
+        }
+      ],
+      "seconds": 11.2,
+      "input_tokens": 4626,
+      "output_tokens": 8,
+      "cost_inr": 0.0615
+    },
+    {
+      "id": "claude-039",
+      "category": "none",
+      "question": "What late fee applies under section 234F for filing the income-tax return after the due date?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 4-5, p.3-4",
+          "chunk_id": "246-03-2025-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2",
+          "chunk_id": "26-26-2017-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 47, p.51",
+          "chunk_id": "act-12-of-2017:section-47",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 3.3, p.3",
+          "chunk_id": "246-03-2025-gst:para-3-3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 1, p.1",
+          "chunk_id": "246-03-2025-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 26/26/2017-GST, dated 2017-12-29, p.2",
+          "chunk_id": "26-26-2017-gst:para-2-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 141/11/2020-GST, dated 2020-06-24, p.3",
+          "chunk_id": "141-11-2020-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 246/03/2025-GST, dated 2025-01-30, para 3.2, p.2-3",
+          "chunk_id": "246-03-2025-gst:para-3-2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 44, p.50 (CURRENT TEXT of the provision explained by Circular 246/03/2025-GST)",
+          "chunk_id": "act-12-of-2017:section-44",
+          "web": false
+        }
+      ],
+      "seconds": 9.7,
+      "input_tokens": 3346,
+      "output_tokens": 8,
+      "cost_inr": 0.0446
+    },
+    {
+      "id": "codex-034",
+      "category": "none",
+      "question": "What is the current GST rate on wireless earbuds sold in India?",
+      "answerable": false,
+      "expects": "web",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": false,
+      "checks_failed": [
+        "cites_or_refuses"
+      ],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "According to the WEB sources, the current GST rate on wireless earbuds is **18%**. This information is supported by multiple sites, including accountune.com, which states that earbuds fall under HSN code 8518 and are taxed at this rate.\n\nOfficial sources do not provide a different rate for wireless earbuds. Therefore, the applicable GST rate remains **18%** as per the latest information available from the WEB sources.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6-6.2, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 6.3, p.3",
+          "chunk_id": "179-11-2022-gst:para-6-3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14-14.1, p.9",
+          "chunk_id": "163-19-2021-gst:para-14-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 200/12/2023-GST, dated 2023-08-01, para 9.2, p.4",
+          "chunk_id": "200-12-2023-gst:para-9-2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 9-9.2, p.6",
+          "chunk_id": "113-32-2019-gst:para-9-2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 1.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 163/19/2021-GST, dated 2021-10-06, para 14.2-15, p.9",
+          "chunk_id": "163-19-2021-gst:para-15",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "WEB: volza.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 10,
+          "label": "WEB: accountune.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 11,
+          "label": "WEB: tradeindia.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 12,
+          "label": "WEB: indiamart.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        }
+      ],
+      "seconds": 45.9,
+      "input_tokens": 3864,
+      "output_tokens": 85,
+      "cost_inr": 0.0555
+    },
+    {
+      "id": "codex-035",
+      "category": "none",
+      "question": "Can I claim an Income-tax Act section 80G deduction for my GST payment?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 238/32/2024-GST, dated 2024-10-15, para 4, p.13-14 (partly modified by Circular 248/05/2025-GST)",
+          "chunk_id": "238-32-2024-gst-table-1:12",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 20(xxv), p.389-390",
+          "chunk_id": "igst-act-2017:section-20:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.13-15 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst:para-43:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.19 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst:para-55",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 51(1)-(3), p.54-55",
+          "chunk_id": "act-12-of-2017:section-51:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 82/01/2019-GST, dated 2019-01-01, p.2",
+          "chunk_id": "82-01-2019-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 12(1), p.198-199",
+          "chunk_id": "cgst-rules-2017:rule-12:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 80, p.75",
+          "chunk_id": "act-12-of-2017:section-80",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1)(c), p.101 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:2",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 128A(1), p.101 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-128a:1",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 9(5), p.23 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-9:5",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 73(8), p.67-68 (CURRENT TEXT of the provision explained by Circular 238/32/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-73:7",
+          "web": false
+        }
+      ],
+      "seconds": 13.1,
+      "input_tokens": 4706,
+      "output_tokens": 8,
+      "cost_inr": 0.0625
+    },
+    {
+      "id": "codex-037",
+      "category": "none",
+      "question": "What was the final outcome of the Karnataka High Court case on ITC blocked for construction of a mall?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.5-6",
+          "chunk_id": "56-30-2018-gst:para-11",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.4-5",
+          "chunk_id": "56-30-2018-gst:para-10:1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Instruction 01/2019-20 [GST-INV-Arrest-caveat], dated 2019-05-29, para 1, p.1",
+          "chunk_id": "01-2019-20-gst-inv-arrest-caveat:para-1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 56/30/2018-GST, dated 2018-08-24, p.4-5",
+          "chunk_id": "56-30-2018-gst:para-10:3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Instruction 04/2019-20 [GST-INV-Seizure], dated 2019-12-09, para 2, p.1-2",
+          "chunk_id": "04-2019-20-gst-inv-seizure:para-2:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Instruction 02/2019-20 [GST-INV-Arrest-caveat], dated 2019-05-30, para 1, p.1",
+          "chunk_id": "02-2019-20-gst-inv-arrest-caveat:para-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 123/42/2019-GST, dated 2019-11-11, p.4",
+          "chunk_id": "123-42-2019-gst-table-3:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 43(2), p.231-237",
+          "chunk_id": "cgst-rules-2017:rule-43:10",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(5), p.285-292 (CURRENT TEXT of the provision explained by Circular 56/30/2018-GST) (AMENDED on 2022-07-05, AFTER Circular 56/30/2018-GST dated 2018-08-24: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-89:20",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 69, p.66 (CURRENT TEXT of the provision explained by Circular 01/2019-20 [GST-INV-Arrest-caveat], 02/2019-20 [GST-INV-Arrest-caveat])",
+          "chunk_id": "act-12-of-2017:section-69",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 36(4), p.219-220 (CURRENT TEXT of the provision explained by Circular 123/42/2019-GST) (AMENDED on 2020-04-03, 2021-06-01, 2022-01-01, 2022-10-01, 2024-07-10, 2024-10-08, AFTER Circular 123/42/2019-GST dated 2019-11-11: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-36:4",
+          "web": false
+        }
+      ],
+      "seconds": 9.7,
+      "input_tokens": 4994,
+      "output_tokens": 8,
+      "cost_inr": 0.0663
+    },
+    {
+      "id": "codex-038",
+      "category": "none",
+      "question": "What is the current GST rate on 3D printers sold in India?",
+      "answerable": false,
+      "expects": "web",
+      "refused": false,
+      "cites_web": true,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "According to the WEB sources, the current GST rate on most **3D printers** in India is **18%**. This information is supported by the site dtfshop.in, which states that \"GST on DTF printers India 2026 is not difficult if you break it down\" and specifies that \"Printers: 18% GST\" applies to most DTF printers [S9].\n\nThe official sources do not provide a specific GST rate for 3D printers, so there is no conflicting information from them. Therefore, based on the available data, the applicable GST rate for 3D printers is **18%**.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 5.2, p.3",
+          "chunk_id": "113-32-2019-gst:para-5-2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 80/54/2018-GST, dated 2018-12-31, para 10-10.1, p.8-9",
+          "chunk_id": "80-54-2018-gst:para-10-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 1, p.1",
+          "chunk_id": "113-32-2019-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 1.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 81/55/2018-GST, dated 2018-12-31, para 3, p.1-2",
+          "chunk_id": "81-55-2018-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 234/28/2024-GST, dated 2024-10-11, para 10.2, p.6",
+          "chunk_id": "234-28-2024-gst:para-10-2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 113/32/2019-GST, dated 2019-10-11, para 9-9.2, p.6",
+          "chunk_id": "113-32-2019-gst:para-9-2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "WEB: dtfshop.in, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 10,
+          "label": "WEB: volza.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 11,
+          "label": "WEB: indiamart.com, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        },
+        {
+          "number": 12,
+          "label": "WEB: evok3d.com.au, searched 2026-11-18, past year only (a web page, not an official document)",
+          "chunk_id": "",
+          "web": true
+        }
+      ],
+      "seconds": 40.8,
+      "input_tokens": 3866,
+      "output_tokens": 129,
+      "cost_inr": 0.0578
+    },
+    {
+      "id": "codex-040",
+      "category": "none",
+      "question": "What did the Gujarat AAR decide about GST on this exact cloud-kitchen business model?",
+      "answerable": false,
+      "expects": "refuse",
+      "refused": true,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": null,
+      "gold_found_ids": [],
+      "gold_chunks": [],
+      "answer": "The documents I have don't answer this.",
+      "notes_added": false,
+      "claims": [],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 3.4, p.2",
+          "chunk_id": "164-20-2021-gst:para-3-4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 1-3.1, p.1",
+          "chunk_id": "164-20-2021-gst:para-3-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 164/20/2021-GST, dated 2021-10-06, para 9.2.1, p.4-5",
+          "chunk_id": "164-20-2021-gst:para-9-2:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 247/04/2025-GST, dated 2025-02-14, after signature, p.2-4",
+          "chunk_id": "247-04-2025-gst:after-signature:3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 235/29/2024-GST, dated 2024-10-11, para 2-2.2, p.2",
+          "chunk_id": "235-29-2024-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 201/13/2023-GST, dated 2023-08-01, para 2.2-3, p.2",
+          "chunk_id": "201-13-2023-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 229/23/2024-GST, dated 2024-07-15, para 2-2.2, p.1",
+          "chunk_id": "229-23-2024-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 179/11/2022-GST, dated 2022-08-03, para 8.3, p.4",
+          "chunk_id": "179-11-2022-gst-table-1:1",
+          "web": false
+        }
+      ],
+      "seconds": 13.1,
+      "input_tokens": 3406,
+      "output_tokens": 8,
+      "cost_inr": 0.0454
+    },
+    {
+      "id": "claude-015",
+      "category": "scenario",
+      "question": "I sent raw material to a job worker for processing. How long can it stay with him before it's treated as if I sold it to him?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-143:1",
+        "act-12-of-2017:section-143:2"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-143:1",
+        "act-12-of-2017:section-143:2"
+      ],
+      "answer": "When you send raw materials (inputs) to a job worker for processing, they can stay with him for a maximum period of **one year**. If the raw materials are not returned to you or supplied from the job worker's place of business within this period, it will be deemed that you have supplied the inputs to the job worker on the day they were sent out. \n\n> \"it shall be deemed that such inputs had been supplied by the principal to the job worker on the day when the said inputs were sent out.\" [S7]\n\nAdditionally, the responsibility for ensuring that the inputs are returned or supplied lies with you, the principal. If you need an extension, the Commissioner may allow it for a further period not exceeding **one year** upon showing sufficient cause [S5][S7].",
+      "notes_added": false,
+      "claims": [
+        "Inputs sent for job work must be brought back or supplied from the job worker’s place within one year.",
+        "The Commissioner may extend that period by up to one further year if sufficient cause is shown.",
+        "If inputs are not returned or supplied within one year, they are deemed supplied by the principal to the job worker on the day they were sent out."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 38/12/2018-GST, dated 2018-03-26, para 3, p.2 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "38-12-2018-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(4), p.114",
+          "chunk_id": "act-12-of-2017:section-143:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 19(7), p.35-36",
+          "chunk_id": "act-12-of-2017:section-19:6",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 38/12/2018-GST, dated 2018-03-26, para 9.4(iii), p.8-10 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "38-12-2018-gst:para-9-4:5",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(1)-(2), p.114",
+          "chunk_id": "act-12-of-2017:section-143:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 38/12/2018-GST, dated 2018-03-26, para 8.4(iv), p.6-7 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "38-12-2018-gst:para-8-4:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(3), p.114",
+          "chunk_id": "act-12-of-2017:section-143:2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 143(5), p.114",
+          "chunk_id": "act-12-of-2017:section-143:4",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 46(o)-(r), p.240-242 (CURRENT TEXT of the provision explained by Circular 38/12/2018-GST) (AMENDED on 2020-09-30, AFTER Circular 38/12/2018-GST dated 2018-03-26: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-46:5",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 45(1)-(2), p.238-239 (CURRENT TEXT of the provision explained by Circular 38/12/2018-GST)",
+          "chunk_id": "cgst-rules-2017:rule-45:1",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 45(3), p.238-239 (CURRENT TEXT of the provision explained by Circular 38/12/2018-GST) (AMENDED on 2021-10-01, AFTER Circular 38/12/2018-GST dated 2018-03-26: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-45:2",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 45(4), p.238-239 (CURRENT TEXT of the provision explained by Circular 38/12/2018-GST) (AMENDED on 2021-10-01, AFTER Circular 38/12/2018-GST dated 2018-03-26: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-45:3",
+          "web": false
+        }
+      ],
+      "seconds": 14.5,
+      "input_tokens": 4379,
+      "output_tokens": 162,
+      "cost_inr": 0.0664
+    },
+    {
+      "id": "claude-016",
+      "category": "scenario",
+      "question": "In a reimbursement-mode motor claim, the garage bills the insurer for the full repair, but the insurer reimburses the car owner only the approved claim cost. How much ITC can the insurer take, and what if the repair invoice is in the owner's name?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst-table-1:5"
+      ],
+      "gold_chunks": [
+        "217-11-2024-gst-table-1:4",
+        "217-11-2024-gst-table-1:5"
+      ],
+      "answer": "In a reimbursement-mode motor claim where the garage bills the insurer for the full repair amount, but the insurer reimburses the car owner only for the approved claim cost, the insurer can claim Input Tax Credit (ITC) only to the extent of the approved claim cost reimbursed to the insured. The insurer cannot claim ITC on the full invoice value issued by the garage. This is clarified as follows:\n\n> \"the input tax credit may be available to the insurance company only to the extent of reimbursement of the approved claim cost to the insured, and not on the full invoice value.\" [S1]\n\nIf the repair invoice is issued in the owner's name rather than the insurance company's name, the insurer will not be eligible for ITC. This is because the conditions of clause (a) and (aa) of section 16(2) of the CGST Act are not satisfied in such a case:\n\n> \"input tax credit will not be available to the insurance company in respect of such an invoice.\" [S8]",
+      "notes_added": false,
+      "claims": [
+        "If the full repair invoice is issued to the insurer but it reimburses only the approved claim cost, ITC is available only up to the approved claim cost.",
+        "If the repair invoice is not in the insurer’s name, the insurer cannot claim ITC on it."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.4-5",
+          "chunk_id": "217-11-2024-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.1-2",
+          "chunk_id": "217-11-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.2-4",
+          "chunk_id": "217-11-2024-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.2-4",
+          "chunk_id": "217-11-2024-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.2-4",
+          "chunk_id": "217-11-2024-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.1",
+          "chunk_id": "217-11-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.2",
+          "chunk_id": "217-11-2024-gst:para-1-4",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 217/11/2024-GST, dated 2024-06-26, p.5",
+          "chunk_id": "217-11-2024-gst-table-1:5",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 2(93), p.18 (CURRENT TEXT of the provision explained by Circular 217/11/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-2-93",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5)(b)-(c), p.31-34 (CURRENT TEXT of the provision explained by Circular 217/11/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-17:6",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5), p.31-34 (CURRENT TEXT of the provision explained by Circular 217/11/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-17:5",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(3), p.30-31 (CURRENT TEXT of the provision explained by Circular 217/11/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:5",
+          "web": false
+        }
+      ],
+      "seconds": 18.1,
+      "input_tokens": 4424,
+      "output_tokens": 206,
+      "cost_inr": 0.0693
+    },
+    {
+      "id": "claude-017",
+      "category": "scenario",
+      "question": "My father ran a sole proprietorship and has passed away; I'm continuing the business. What do we do about his GST registration?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "96-15-2019-gst:para-3:1"
+      ],
+      "gold_chunks": [
+        "96-15-2019-gst:para-3:1"
+      ],
+      "answer": "In the case of your father's death and your continuation of the sole proprietorship, you need to follow these steps regarding his GST registration:\n\n1. **Obtain Registration**: You must apply for GST registration as the transferee or successor. This should be done electronically using **FORM GST REG-01**, mentioning \"death of the proprietor\" as the reason for obtaining registration. This registration will be effective from the date of transfer or succession [S1][S11].\n\n2. **Cancellation of Old Registration**: You can file for cancellation of your father's GST registration using **FORM GST REG-16**. In this form, you must state \"death of sole proprietor\" as the reason for cancellation and include your GSTIN to link both registrations [S1].\n\n3. **Transfer of Input Tax Credit**: You can transfer any unutilized input tax credit from your father's electronic credit ledger to your own. To do this, you need to file **FORM GST ITC-02** electronically, requesting the transfer of the unutilized credit [S2][S3].\n\n4. **Liabilities**: Be aware that as the successor, you will be jointly liable for any tax, interest, or penalties due from your father’s business [S2][S8].\n\nMake sure to complete these steps promptly to ensure compliance with GST regulations.\n\n⚠ Note: CGST Rules rule 41(1) was amended after Circular 96/15/2019-GST (dated 2019-03-28), which this answer uses: on 2019-03-29. What the circular says may be out of date; check its current text [S10].",
+      "notes_added": true,
+      "claims": [
+        "The successor must register from the date of transfer or succession and state 'death of the proprietor' as the reason in FORM GST REG-01.",
+        "The legal heirs may apply to cancel the deceased proprietor’s registration using FORM GST REG-16, stating 'death of sole proprietor' and giving the successor’s GSTIN."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 3, p.2-3",
+          "chunk_id": "96-15-2019-gst:para-3:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 96/15/2019-GST, dated 2019-03-28, para 1, p.1",
+          "chunk_id": "96-15-2019-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 95/14/2019-GST, dated 2019-03-28, para 1, p.1",
+          "chunk_id": "95-14-2019-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 58(1), p.253",
+          "chunk_id": "cgst-rules-2017:rule-58:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 95/14/2019-GST, dated 2019-03-28, para 4, p.2",
+          "chunk_id": "95-14-2019-gst:para-4",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 93(1), p.78",
+          "chunk_id": "act-12-of-2017:section-93:1",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 18(3), p.34-35 (CURRENT TEXT of the provision explained by Circular 96/15/2019-GST)",
+          "chunk_id": "act-12-of-2017:section-18:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 41, p.226-227 (CURRENT TEXT of the provision explained by Circular 96/15/2019-GST) (AMENDED on 2019-03-29, AFTER Circular 96/15/2019-GST dated 2019-03-28: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-41",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 22(3), p.36-37 (CURRENT TEXT of the provision explained by Circular 96/15/2019-GST)",
+          "chunk_id": "act-12-of-2017:section-22:2",
+          "web": false
+        }
+      ],
+      "seconds": 16.2,
+      "input_tokens": 4329,
+      "output_tokens": 271,
+      "cost_inr": 0.0715
+    },
+    {
+      "id": "claude-019",
+      "category": "scenario",
+      "question": "A client took an advance for an event, issued the invoice and paid GST, and then the event was cancelled. Should he file a refund claim?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "137-07-2020-gst-table-1:1"
+      ],
+      "gold_chunks": [
+        "137-07-2020-gst-table-1:1"
+      ],
+      "answer": "In the scenario where a client received an advance for an event, issued an invoice, and paid GST, but then the event was cancelled, the client should not file a refund claim. Instead, he is required to issue a **credit note** as per section 34 of the CGST Act. \n\nThe relevant provisions state:\n\n> \"In case GST is paid by the supplier on advances received for a future event which got cancelled subsequently and for which invoice is issued before supply of service, the supplier is required to issue a 'credit note' in terms of section 34 of the CGST Act.\" \n\nThe client must declare the details of the credit note in the return for the month during which it was issued, and the tax liability will be adjusted accordingly. There is no need to file a separate refund claim unless there is no output liability against which the credit note can be adjusted, in which case a claim under \"Excess payment of tax, if any\" can be filed through FORM GST RFD-01 [S2].",
+      "notes_added": false,
+      "claims": [
+        "For a cancelled event advance that was invoiced and taxed, the supplier must issue a credit note and declare it in the return for the month it is issued.",
+        "The supplier adjusts the tax liability in the return subject to credit-note conditions; a separate refund claim is not normally needed.",
+        "If there is no output liability against which to adjust the credit note, the supplier may claim a refund under 'Excess payment of tax' through FORM GST RFD-01."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.1-2",
+          "chunk_id": "137-07-2020-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 178/10/2022-GST, dated 2022-08-03, para 11, p.10",
+          "chunk_id": "178-10-2022-gst:para-11",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 111/30/2019-GST, dated 2019-10-03, para 3, p.1-2",
+          "chunk_id": "111-30-2019-gst:para-3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(2)(k), p.285-292",
+          "chunk_id": "cgst-rules-2017:rule-89:13",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 178/10/2022-GST, dated 2022-08-03, para 11.1, p.10",
+          "chunk_id": "178-10-2022-gst:para-11-1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 89(2)(m), p.285-292",
+          "chunk_id": "cgst-rules-2017:rule-89:15",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(3), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-34:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(1), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-34:1",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(2), p.42-44 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-31:2",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(3)(e), p.42-44 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-31:6",
+          "web": false
+        }
+      ],
+      "seconds": 14.6,
+      "input_tokens": 4199,
+      "output_tokens": 208,
+      "cost_inr": 0.0664
+    },
+    {
+      "id": "claude-021",
+      "category": "scenario",
+      "question": "Our buyer has an ex-works contract with us: we hand the goods to his transporter at our factory gate and ownership passes at that point. Can he treat the goods as received at our gate for ITC?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4"
+      ],
+      "gold_chunks": [
+        "241-35-2024-gst:para-3-3",
+        "241-35-2024-gst:para-3-4",
+        "241-35-2024-gst:para-3-5"
+      ],
+      "answer": "Yes, your buyer can treat the goods as received at your factory gate for the purpose of claiming Input Tax Credit (ITC). According to the clarification provided in Circular 241/35/2024-GST, the property in the goods is considered to have passed to the buyer when the goods are handed over to the transporter at the supplier's factory gate. This means that the supply of the goods is deemed to have fructified at that point, even if the goods are physically received by the buyer later.\n\n> \"the registered person (the dealer) can be considered to have 'received' the said goods at the time of such handing over of the goods by the supplier to the transporter, at his factory gate, for their onward transmission\" [S2].\n\nThus, your buyer can avail ITC based on this provision.",
+      "notes_added": false,
+      "claims": [
+        "Under the described EXW arrangement, the buyer is treated as having received the goods when the supplier hands them to the transporter at the supplier’s factory gate.",
+        "ITC may be available on that receipt, subject to the other conditions, including business use."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 1.2, p.1-2",
+          "chunk_id": "241-35-2024-gst:para-1-2",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.3, p.3-4",
+          "chunk_id": "241-35-2024-gst:para-3-3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.4, p.4",
+          "chunk_id": "241-35-2024-gst:para-3-4",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 38/12/2018-GST, dated 2018-03-26, para 10-12, p.11 (partly modified by Circular 88/07/2019-GST)",
+          "chunk_id": "38-12-2018-gst:para-12",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 172/04/2022-GST, dated 2022-07-06, p.1-2",
+          "chunk_id": "172-04-2022-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 1, p.1",
+          "chunk_id": "241-35-2024-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 241/35/2024-GST, dated 2024-12-31, para 3.2, p.3",
+          "chunk_id": "241-35-2024-gst:para-3-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 61/35/2018-GST, dated 2018-09-04, para 5, p.2",
+          "chunk_id": "61-35-2018-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(2)(b)-(c), p.30-31 (CURRENT TEXT of the provision explained by Circular 241/35/2024-GST, 38/12/2018-GST)",
+          "chunk_id": "act-12-of-2017:section-16:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5)(d)-(e), p.31-34 (CURRENT TEXT of the provision explained by Circular 172/04/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-17:7",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 17(5)(b)-(c), p.31-34 (CURRENT TEXT of the provision explained by Circular 172/04/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-17:6",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 16(3), p.30-31 (CURRENT TEXT of the provision explained by Circular 241/35/2024-GST)",
+          "chunk_id": "act-12-of-2017:section-16:5",
+          "web": false
+        }
+      ],
+      "seconds": 12.1,
+      "input_tokens": 4856,
+      "output_tokens": 166,
+      "cost_inr": 0.0729
+    },
+    {
+      "id": "claude-022",
+      "category": "scenario",
+      "question": "A customer returned goods after I had issued the tax invoice. Do I claim a refund of the GST or adjust it?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "137-07-2020-gst-table-1:3"
+      ],
+      "gold_chunks": [
+        "137-07-2020-gst-table-1:3"
+      ],
+      "answer": "In the case where goods supplied under a tax invoice are returned by the recipient, you are required to issue a **credit note** as per section 34 of the CGST Act. You will then declare the details of this credit note in your return for the month during which it was issued. \n\n> \"The tax liability shall be adjusted in the return subject to conditions of section 34 of the CGST Act. There is no need to file a separate refund claim in such a case.\" [S1]\n\nHowever, if there is no output liability against which the credit note can be adjusted, you may file a claim under \"Excess payment of tax, if any\" through **FORM GST RFD-01**. \n\nIn summary, you typically adjust the tax liability rather than claim a refund, unless specific conditions apply.",
+      "notes_added": false,
+      "claims": [
+        "The supplier must issue a credit note for the returned goods and declare it in the return for the month it is issued.",
+        "The supplier adjusts the tax liability in the return subject to the credit-note conditions; a separate refund claim is not needed in the ordinary case.",
+        "If there is no output liability against which to adjust the credit note, the supplier may claim a refund under “Excess payment of tax” through FORM GST RFD-01."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.1-2",
+          "chunk_id": "137-07-2020-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 137/07/2020-GST, dated 2020-04-13, para 1, p.2",
+          "chunk_id": "137-07-2020-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 226/20/2024-GST, dated 2024-07-11, para 3-3.1, p.1-2",
+          "chunk_id": "226-20-2024-gst:para-3-1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 147/03/2021-GST, dated 2021-03-12, para 2.2, p.1",
+          "chunk_id": "147-03-2021-gst:para-2-2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 226/20/2024-GST, dated 2024-07-11, para 9-10, p.3",
+          "chunk_id": "226-20-2024-gst:para-10",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 226/20/2024-GST, dated 2024-07-11, para 8, p.3",
+          "chunk_id": "226-20-2024-gst:para-8",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 125/44/2019-GST, dated 2019-11-18, p.16 (partly modified by Circular 134/04/2020-GST, 135/05/2020 - GST, 139/09/2020-GST, 197/09/2023-GST)",
+          "chunk_id": "125-44-2019-gst:para-47",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(3), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-34:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 34(2), p.44-45 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-34:2",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(2), p.42-44 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-31:2",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 31(3)(e), p.42-44 (CURRENT TEXT of the provision explained by Circular 137/07/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-31:6",
+          "web": false
+        }
+      ],
+      "seconds": 12.2,
+      "input_tokens": 4050,
+      "output_tokens": 167,
+      "cost_inr": 0.0623
+    },
+    {
+      "id": "codex-010",
+      "category": "scenario",
+      "question": "Can I use the money sitting in my cash ledger to pay interest and penalties too?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "act-12-of-2017:section-49:2"
+      ],
+      "gold_chunks": [
+        "act-12-of-2017:section-49:2"
+      ],
+      "answer": "Yes, you can use the money available in your **electronic cash ledger** to pay interest and penalties. According to section 49(3) of the Central Goods and Services Tax Act, 2017:\n\n> \"The amount available in the electronic cash ledger may be used for making any payment towards tax, interest, penalty, fees or any other amount payable under the provisions of this Act or the rules made thereunder in such manner and subject to such conditions and within such time as may be prescribed.\" [S1][S4]\n\nHowever, the **electronic credit ledger** cannot be used for such payments; it is restricted to output tax payments only [S3].",
+      "notes_added": false,
+      "claims": [
+        "Money in the electronic cash ledger may be used to pay tax, interest, penalties, fees or any other amount payable under the Act or Rules."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(4), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:3",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(10)-(11), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:8",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 172/04/2022-GST, dated 2022-07-06, p.6",
+          "chunk_id": "172-04-2022-gst-table-2:3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(3), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(1)-(2), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(6)-(7), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 87(14), p.280-282",
+          "chunk_id": "cgst-rules-2017:rule-87:10",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(12), p.51-53",
+          "chunk_id": "act-12-of-2017:section-49:9",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(5), p.51-53 (CURRENT TEXT of the provision explained by Circular 172/04/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-49:4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(9), p.51-53 (CURRENT TEXT of the provision explained by Circular 172/04/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-49:7",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 49(8), p.51-53 (CURRENT TEXT of the provision explained by Circular 172/04/2022-GST)",
+          "chunk_id": "act-12-of-2017:section-49:6",
+          "web": false
+        }
+      ],
+      "seconds": 11.3,
+      "input_tokens": 3699,
+      "output_tokens": 137,
+      "cost_inr": 0.0561
+    },
+    {
+      "id": "codex-012",
+      "category": "scenario",
+      "question": "We charge one total for hotel stays in two States and do not set a separate value for each State. How should we apportion the service value?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "gold_chunks": [
+        "igst-rules-2017:rule-4:2",
+        "igst-rules-2017:rule-4:3"
+      ],
+      "answer": "When charging a consolidated amount for hotel stays in two States without setting a separate value for each State, the service value should be apportioned based on the number of nights stayed in each State.\n\nAccording to the IGST Rules, 2017, specifically rule 4(d), the supply of services related to accommodation in a hotel or similar property located in two or more contiguous States is treated as made in each respective State in proportion to the number of nights stayed. \n\nFor example, if a guest stays for 2 nights in one State and 1 night in another, the service value should be apportioned in the ratio of 2:1 between the two States [S2].\n\nThus, you should calculate the total service value based on the number of nights stayed in each State and apply that ratio to determine the value attributable to each State.",
+      "notes_added": false,
+      "claims": [
+        "If there is no agreement separately determining the service value for each State, the supply is attributed to each State where the property is located.",
+        "For hotel lodging, the value is apportioned by nights stayed, except for a single property spanning two or more contiguous States or Union territories; that case is apportioned by area."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 4(d), p.400-401",
+          "chunk_id": "igst-rules-2017:rule-4:2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 3(d), p.394-399",
+          "chunk_id": "igst-rules-2017:rule-3:9",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 3(b), p.394-399",
+          "chunk_id": "igst-rules-2017:rule-3:4",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 5(b), p.401",
+          "chunk_id": "igst-rules-2017:rule-5:2",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 3(c), p.394-399",
+          "chunk_id": "igst-rules-2017:rule-3:7",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "IGST Rules, 2017, dated 2026-04-15, rule 7(iii), p.402-403",
+          "chunk_id": "igst-rules-2017:rule-7:3",
+          "web": false
+        }
+      ],
+      "seconds": 14.0,
+      "input_tokens": 3831,
+      "output_tokens": 169,
+      "cost_inr": 0.0595
+    },
+    {
+      "id": "codex-015",
+      "category": "scenario",
+      "question": "If a customer gives me a UIN, should that invoice be treated as B2C for QR-code compliance where the QR requirement otherwise applies?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "156-12-2021-gst-table-1:1"
+      ],
+      "gold_chunks": [
+        "156-12-2021-gst-table-1:1"
+      ],
+      "answer": "Yes, if a customer provides a Unique Identity Number (UIN), the invoice should be treated as a B2C supply for QR-code compliance. According to the sources, any person with a UIN is not considered a \"registered person\" as per the definition in the CGST Act. Therefore, invoices issued to such persons must comply with the requirement of a Dynamic QR Code, as they are treated as B2C supplies. \n\n> \"any invoice, issued to such person having a UIN, shall be considered as invoice issued for a B2C supply and shall be required to comply with the requirement of Dynamic QR Code.\" [S1]",
+      "notes_added": false,
+      "claims": [
+        "A UIN holder is not a registered person for this clarification.",
+        "An invoice to a UIN holder is treated as B2C and must comply with the dynamic QR-code requirement."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 156/12/2021-GST, dated 2021-06-21, p.2 (partly modified by Circular 165/21/2021)",
+          "chunk_id": "156-12-2021-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 146/02/2021-GST, dated 2021-02-23, para 2, p.5 (partly modified by Circular 156/12/2021-GST)",
+          "chunk_id": "146-02-2021-gst-table-1:5",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 146/02/2021-GST, dated 2021-02-23, para 2, p.4-5 (partly modified by Circular 156/12/2021-GST)",
+          "chunk_id": "146-02-2021-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 146/02/2021-GST, dated 2021-02-23, para 2, p.3-4 (partly modified by Circular 156/12/2021-GST)",
+          "chunk_id": "146-02-2021-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 156/12/2021-GST, dated 2021-06-21, p.2-3 (partly modified by Circular 165/21/2021)",
+          "chunk_id": "156-12-2021-gst-table-1:2",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 156/12/2021-GST, dated 2021-06-21, p.3 (partly modified by Circular 165/21/2021)",
+          "chunk_id": "156-12-2021-gst-table-1:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 165/21/2021-GST, dated 2021-11-17, p.1",
+          "chunk_id": "165-21-2021:para-1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 156/12/2021-GST, dated 2021-06-21, p.3 (partly modified by Circular 165/21/2021)",
+          "chunk_id": "156-12-2021-gst-table-1:4",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 25(9)-(12), p.38-40 (CURRENT TEXT of the provision explained by Circular 156/12/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-25:11",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 2(94), p.18 (CURRENT TEXT of the provision explained by Circular 156/12/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-2-94",
+          "web": false
+        }
+      ],
+      "seconds": 11.3,
+      "input_tokens": 4169,
+      "output_tokens": 132,
+      "cost_inr": 0.062
+    },
+    {
+      "id": "codex-020",
+      "category": "scenario",
+      "question": "Can the department attach my property automatically just because an investigation is open?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": false,
+      "gold_found_ids": [],
+      "gold_chunks": [
+        "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:4"
+      ],
+      "answer": "No, the department cannot automatically attach your property just because an investigation is open. According to Section 83 of the CGST Act, the Commissioner must form an opinion that it is necessary to attach property to protect the interest of Government revenue during the pendency of specific proceedings. This attachment is not automatic and requires a written order from the Commissioner, who must also record the basis for such an opinion [S5][S9]. \n\nFurthermore, the provisional attachment shall cease to have effect after **one year** from the date of the order unless further action is taken [S5][S9]. Thus, there are specific procedures and conditions that must be met before any property can be attached.",
+      "notes_added": false,
+      "claims": [
+        "Provisional attachment must not be exercised routinely or mechanically.",
+        "Before attachment, collective evidence from the proceedings or inquiry must indicate a prima facie case against the taxpayer.",
+        "Because attachment is an extraordinary remedy, it must be used with utmost care and caution."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.6, p.5-6",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-6",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 159(2), p.356",
+          "chunk_id": "cgst-rules-2017:rule-159:2",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.2.1, p.2-4",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:1",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 159(1), p.356",
+          "chunk_id": "cgst-rules-2017:rule-159:1",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.1.1, p.1-2",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-1:1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.2.3, p.2-4",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:3",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 152, p.354",
+          "chunk_id": "cgst-rules-2017:rule-152",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Instruction: Guidelines for provisional attachment of property under section 83 of the CGST A, dated 2021-02-23, para 3.2.2, p.2-4",
+          "chunk_id": "instructions-2021-guidelines-for-provisional-attachment-of-property-under-sect:para-3-2:2",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 83, p.75 (CURRENT TEXT of the provision explained by Circular Guidelines for provisional attachment of property under section 83 of the CGST Act, 2017)",
+          "chunk_id": "act-12-of-2017:section-83",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 62, p.62 (CURRENT TEXT of the provision explained by Circular Guidelines for provisional attachment of property under section 83 of the CGST Act, 2017)",
+          "chunk_id": "act-12-of-2017:section-62",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 63, p.62-63 (CURRENT TEXT of the provision explained by Circular Guidelines for provisional attachment of property under section 83 of the CGST Act, 2017)",
+          "chunk_id": "act-12-of-2017:section-63",
+          "web": false
+        }
+      ],
+      "seconds": 11.4,
+      "input_tokens": 3336,
+      "output_tokens": 139,
+      "cost_inr": 0.0514
+    },
+    {
+      "id": "codex-022",
+      "category": "scenario",
+      "question": "An Indian company provides services to its foreign parent. Are the two companies treated as the same legal person for the export condition?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "161-17-2021-gst:para-5-1"
+      ],
+      "gold_chunks": [
+        "161-17-2021-gst:para-5-1"
+      ],
+      "answer": "No, an Indian company and its foreign parent company are treated as separate legal entities under the provisions of the CGST Act. According to Circular 161/17/2021-GST, a company incorporated in India and a foreign company incorporated outside India are considered distinct persons. Therefore, the services provided by the Indian company to its foreign parent would not be treated as a supply between merely establishments of distinct persons, allowing it to qualify as an \"export of services\" under the IGST Act, provided other conditions are met [S1][S2][S4].",
+      "notes_added": false,
+      "claims": [
+        "An Indian-incorporated company and a foreign-incorporated body corporate are separate legal entities.",
+        "They are not treated as merely establishments of a distinct person for this export condition."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 4.4, p.4",
+          "chunk_id": "161-17-2021-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 5.1, p.4",
+          "chunk_id": "161-17-2021-gst:para-5-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 4.3, p.4",
+          "chunk_id": "161-17-2021-gst:para-4-3",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 5.2-7, p.4-5",
+          "chunk_id": "161-17-2021-gst:para-7",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 4.1, p.3",
+          "chunk_id": "161-17-2021-gst:para-4-1",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 3.5, p.3",
+          "chunk_id": "161-17-2021-gst:para-3-5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 161/17/2021-GST, dated 2021-09-20, para 4.2, p.3",
+          "chunk_id": "161-17-2021-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 78/52/2018-GST, dated 2018-12-31, para 1, p.1",
+          "chunk_id": "78-52-2018-gst-table-1:1",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 2(6), p.366-369 (CURRENT TEXT of the provision explained by Circular 161/17/2021-GST)",
+          "chunk_id": "igst-act-2017:section-2:3",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "IGST Act, 2017, dated 2026-04-15, section 8, p.373-374 (CURRENT TEXT of the provision explained by Circular 161/17/2021-GST)",
+          "chunk_id": "igst-act-2017:section-8",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 2(84), p.17 (CURRENT TEXT of the provision explained by Circular 161/17/2021-GST)",
+          "chunk_id": "act-12-of-2017:section-2-84",
+          "web": false
+        }
+      ],
+      "seconds": 10.9,
+      "input_tokens": 3689,
+      "output_tokens": 114,
+      "cost_inr": 0.0547
+    },
+    {
+      "id": "codex-023",
+      "category": "scenario",
+      "question": "Our business has several GST registrations under one PAN. Do they all have to use the quarterly return option together?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "143-13-2020-gst:para-5-1"
+      ],
+      "gold_chunks": [
+        "143-13-2020-gst:para-5-1"
+      ],
+      "answer": "No, they do not all have to use the quarterly return option together. Each GSTIN under the same PAN can opt for the Quarterly Return Monthly Payment (QRMP) Scheme independently. This means that some GSTINs can choose to avail the QRMP Scheme while others may not opt for it at all.\n\n> \"the option to avail the QRMP Scheme is GSTIN wise and therefore, distinct persons as defined in Section 25 of the CGST Act (different GSTINs on same PAN) have the option to avail the QRMP Scheme for one or more GSTINs.\" [S2]\n\n⚠ Note: CGST Rules rule 59 was amended after Circular 143/13/2020-GST (dated 2020-11-10), which this answer uses: on 2021-05-01, 2021-06-01. What the circular says may be out of date; check its current text [S12].",
+      "notes_added": true,
+      "claims": [
+        "The quarterly return option is GSTIN-wise.",
+        "GSTINs under the same PAN may opt independently; some may use the scheme while others do not."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.1",
+          "chunk_id": "143-13-2020-gst:para-1",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.3",
+          "chunk_id": "143-13-2020-gst:para-5-1",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.2",
+          "chunk_id": "143-13-2020-gst:para-4-2",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.4-5",
+          "chunk_id": "143-13-2020-gst:para-6-1:2",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.2-3",
+          "chunk_id": "143-13-2020-gst:para-4-4",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.4-5",
+          "chunk_id": "143-13-2020-gst:para-6-1:1",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.2",
+          "chunk_id": "143-13-2020-gst-table-2:1",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "Circular 143/13/2020-GST, dated 2020-11-10, p.3",
+          "chunk_id": "143-13-2020-gst:para-4-6",
+          "web": false
+        },
+        {
+          "number": 9,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 25(5), p.38-40 (CURRENT TEXT of the provision explained by Circular 143/13/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-25:4",
+          "web": false
+        },
+        {
+          "number": 10,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 25(4), p.38-40 (CURRENT TEXT of the provision explained by Circular 143/13/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-25:3",
+          "web": false
+        },
+        {
+          "number": 11,
+          "label": "The Central Goods and Services Tax Act, 2017, dated 2026-06-11, section 37(1), p.46-47 (CURRENT TEXT of the provision explained by Circular 143/13/2020-GST)",
+          "chunk_id": "act-12-of-2017:section-37:1",
+          "web": false
+        },
+        {
+          "number": 12,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 59(2)-(3), p.254-257 (CURRENT TEXT of the provision explained by Circular 143/13/2020-GST) (AMENDED on 2021-05-01, 2021-06-01, AFTER Circular 143/13/2020-GST dated 2020-11-10: what that circular says may be out of date)",
+          "chunk_id": "cgst-rules-2017:rule-59:2",
+          "web": false
+        }
+      ],
+      "seconds": 15.9,
+      "input_tokens": 4101,
+      "output_tokens": 122,
+      "cost_inr": 0.0606
+    },
+    {
+      "id": "codex-025",
+      "category": "scenario",
+      "question": "The e-way bill was generated, but the goods never left. How long do I have to cancel it on the portal?",
+      "answerable": true,
+      "expects": "answer",
+      "refused": false,
+      "cites_web": false,
+      "refusal_correct": true,
+      "checks_failed": [],
+      "gold_found": true,
+      "gold_found_ids": [
+        "cgst-rules-2017:rule-138:13"
+      ],
+      "gold_chunks": [
+        "cgst-rules-2017:rule-138:13"
+      ],
+      "answer": "You can cancel the e-way bill electronically on the common portal within **twenty-four hours** of its generation if the goods are either not transported or not transported as per the details furnished in the e-way bill. However, note that an e-way bill cannot be cancelled if it has been verified in transit according to the provisions of rule 138B. \n\n> \"the e-way bill may be cancelled electronically on the common portal within twenty-four hours of generation of the e-way bill: Provided that an e-way bill cannot be cancelled if it has been verified in transit in accordance with the provisions of rule 138B.\" [S1][S2]",
+      "notes_added": false,
+      "claims": [
+        "An e-way bill may be cancelled electronically on the common portal within 24 hours if goods are not transported or are not transported as described in it.",
+        "It cannot be cancelled after verification in transit."
+      ],
+      "sources": [
+        {
+          "number": 1,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(9), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:13",
+          "web": false
+        },
+        {
+          "number": 2,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138F(4), p.344-345",
+          "chunk_id": "cgst-rules-2017:rule-138f:3",
+          "web": false
+        },
+        {
+          "number": 3,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138F(5), p.344-345",
+          "chunk_id": "cgst-rules-2017:rule-138f:4",
+          "web": false
+        },
+        {
+          "number": 4,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(10), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:14",
+          "web": false
+        },
+        {
+          "number": 5,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(14)(o), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:22",
+          "web": false
+        },
+        {
+          "number": 6,
+          "label": "Circular 61/35/2018-GST, dated 2018-09-04, para 5, p.2",
+          "chunk_id": "61-35-2018-gst:para-5",
+          "web": false
+        },
+        {
+          "number": 7,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(3), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:6",
+          "web": false
+        },
+        {
+          "number": 8,
+          "label": "CGST Rules, 2017, dated 2026-04-15, rule 138(4)-(5), p.330-339",
+          "chunk_id": "cgst-rules-2017:rule-138:8",
+          "web": false
+        }
+      ],
+      "seconds": 10.9,
+      "input_tokens": 3023,
+      "output_tokens": 132,
+      "cost_inr": 0.0469
+    }
+  ]
+}
