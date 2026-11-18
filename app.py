@@ -10,8 +10,14 @@ time, cost and checks under each -> the sources, which you can open, at the bott
 Both models get the same sources (retrieved once, with the local model's token budget), so the
 comparison is fair. They run one after the other, not together: running them at once needs
 threads, which makes this file much harder to read.
+
+TAXOWL_LOCAL=0 turns the local model off (the server has no Ollama): one cloud column, and the
+sources use the cloud budget instead of the local one. Default is on, so the Mac is unchanged.
+
+    TAXOWL_LOCAL=0 uv run streamlit run app.py
 """
 
+import os
 import time
 
 import streamlit as st
@@ -21,7 +27,11 @@ from taxowl.answer.generator import CLOUD_MODEL, LOCAL_MODEL, generate_stream
 from taxowl.answer.pipeline import BUDGET, amended_note, as_text, assumed, get_retriever, get_sources, has_web
 from taxowl.answer.web import rate_note
 
-MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}", "local": f"💻 Local · {LOCAL_MODEL}"}
+LOCAL_ON = os.environ.get("TAXOWL_LOCAL", "1") != "0"
+MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}"}
+if LOCAL_ON:
+    MODELS["local"] = f"💻 Local · {LOCAL_MODEL}"
+SOURCE_BUDGET = BUDGET["local"] if LOCAL_ON else BUDGET["cloud"]  # the smallest budget among the models shown
 
 st.set_page_config(page_title="taxowl", page_icon="🦉", layout="wide")
 
@@ -94,12 +104,12 @@ if asked and question.strip():
     load()
     with st.spinner("Finding sources..."):
         start = time.perf_counter()
-        sources = get_sources(question, BUDGET["local"])
+        sources = get_sources(question, SOURCE_BUDGET)
         found_in = time.perf_counter() - start
     st.caption(f"🔎 {len(sources)} sources found in {found_in:.1f} s")
 
     cited_by = {}
-    for column, which in zip(st.columns(2), MODELS):
+    for column, which in zip(st.columns(len(MODELS)), MODELS):
         with column:
             cited_by[which] = show_model(which, question, sources)
 

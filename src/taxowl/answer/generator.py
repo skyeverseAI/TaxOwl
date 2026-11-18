@@ -20,7 +20,6 @@ Try it alone: uv run python -m taxowl.answer.generator
 
 import httpx
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_ollama import ChatOllama
 from langchain_openrouter import ChatOpenRouter
 
 from taxowl.ingestion.vlm import load_key
@@ -93,6 +92,9 @@ def get_llm(which: str):
     if which == "cloud":
         return ChatOpenRouter(model=CLOUD_MODEL, api_key=load_key(), temperature=0, timeout=60_000)
     if which == "local":
+        # imported here, not at the top: the server has no Ollama and doesn't install
+        # langchain-ollama (the "local" dependency group), so a top import would crash the app
+        from langchain_ollama import ChatOllama
         return ChatOllama(model=LOCAL_MODEL, temperature=0, num_ctx=LOCAL_CONTEXT)
     raise ValueError(f'which must be "cloud" or "local", not {which!r}')
 
