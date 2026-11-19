@@ -26,6 +26,7 @@ from taxowl.answer.check import check, cited_numbers
 from taxowl.answer.generator import CLOUD_MODEL, LOCAL_MODEL, generate_stream
 from taxowl.answer.pipeline import BUDGET, amended_note, as_text, assumed, get_retriever, get_sources, has_web
 from taxowl.answer.web import rate_note
+from taxowl.retrieval.store import ensure_store
 
 LOCAL_ON = os.environ.get("TAXOWL_LOCAL", "1") != "0"
 MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}"}
@@ -39,6 +40,7 @@ st.set_page_config(page_title="taxowl", page_icon="🦉", layout="wide")
 # load the store and the embedding model once per server, not on every question
 @st.cache_resource(show_spinner="Loading the store...")
 def load():
+    ensure_store()   # the server downloads the store on its first start; the Mac already has it
     return get_retriever()
 
 
@@ -95,13 +97,13 @@ def show_sources(sources: list[dict], cited_by: dict[str, set[int]]) -> None:
 
 st.title("🦉 taxowl")
 st.caption("GST law answers from official sources. Information, not legal advice.")
+load()   # on page open, not on "Ask": the model is ready while the user types (cached after the first visit)
 
 with st.form("ask"):
     question = st.text_input("Your question", placeholder="What does section 16(4) say about the time limit for ITC?")
     asked = st.form_submit_button("Ask")
 
 if asked and question.strip():
-    load()
     with st.spinner("Finding sources..."):
         start = time.perf_counter()
         sources = get_sources(question, SOURCE_BUDGET)

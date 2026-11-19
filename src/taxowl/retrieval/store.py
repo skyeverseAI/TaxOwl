@@ -2,7 +2,13 @@
 
 Rebuilt whole from data/chunks.jsonl, not updated piece by piece: simpler, and no old chunk can stay
 behind. Deleting the old store is a manual step for now, so build() stops if it finds one.
+
+On the server the store isn't in git (it holds the sources' text), so ensure_store() downloads it once
+from a PRIVATE Hugging Face dataset, named by TAXOWL_STORE_REPO, with the HF_TOKEN secret. On the Mac
+data/chroma is already there and nothing happens.
 """
+
+import os
 
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
@@ -17,6 +23,19 @@ BATCH = 512                      # chunks embedded and saved at one time
 # At Chroma's 100, 2 of 40 dev questions changed between runs and 3 missed a chunk exact search found.
 # At 500, all 40 matched exact search in 6 of 6 runs (2026-11-08, Evaluations/Retriever_Evals/).
 EF_SEARCH = 500
+
+
+def ensure_store() -> None:
+    """Download data/chroma from the private dataset if it isn't here yet. huggingface_hub directly, not
+    LangChain: this is a file download, which LangChain has nothing for."""
+    if (CHROMA / "chroma.sqlite3").exists():
+        return
+    repo = os.environ.get("TAXOWL_STORE_REPO")
+    if not repo:
+        raise RuntimeError(f"No store in {CHROMA}. Build it (uv run python scripts/04_embed_store.py) or set "
+                           "TAXOWL_STORE_REPO (+ HF_TOKEN) to download it.")
+    from huggingface_hub import snapshot_download  # only the server needs it
+    snapshot_download(repo, repo_type="dataset", local_dir=CHROMA, token=os.environ.get("HF_TOKEN"))
 
 
 def get_store() -> Chroma:

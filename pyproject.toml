@@ -19,6 +19,7 @@ requires-python = ">=3.14"
 # On the Mac, plain `uv sync` installs all of them (default-groups below), as before.
 dependencies = [
     "chromadb==1.5.9",  # the store (src/taxowl/retrieval/store.py)
+    "huggingface-hub==1.16.1",  # the server downloads the store from a private dataset (store.py ensure_store)
     "langchain-chroma==1.1.0",  # the store (src/taxowl/retrieval/store.py)
     "langchain-core==1.7.6",
     "langchain-huggingface==1.2.3",  # bge-m3 / bge-small vectors (src/taxowl/retrieval/embedder.py)

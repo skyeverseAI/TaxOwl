@@ -1,0 +1,25 @@
+# What gcloud run deploy --source uploads to Cloud Build. Same as .dockerignore (private data, notes) plus git.
+.gcloudignore
+# Kept out of the image. A second lock: git already leaves most of these out of a push.
+# Private or copyrighted: the store, the PDFs, the private petitions, keys
+data/
+docs/
+.env
+# Not needed to run the app
+.git/
+.venv/
+.deepeval/
+.ruff_cache/
+__pycache__/
+eval_results/
+Evaluations/
+archive/
+experiments/
+plans/
+# The user's own notes, never shipped
+doing_now.md
+project-review.md
+codebase-bulk-and-generalisation.md
+.DS_Store
+ideas-to-do-later.md
+to-do-list.md
