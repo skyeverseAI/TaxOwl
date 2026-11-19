@@ -140,6 +140,7 @@ gcloud logging read 'textPayload:"[taxowl]"' --limit 20 --format="value(timestam
 
 ## Still to do
 
-- Deploy the app.py change (caption + log) and check the log lines.
+- Deploy the app.py change (caption + log + owl loading, owl.py) and check the log lines.
+- Later: a more creative loading animation (the user wants more than the owl v1).
 - Auto-deploy from GitHub (CI step).
 - Later: rotate the Tavily key (its value showed up in an editor selection shared with the assistant).

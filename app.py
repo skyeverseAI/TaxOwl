@@ -28,6 +28,8 @@ from taxowl.answer.pipeline import BUDGET, amended_note, as_text, assumed, get_r
 from taxowl.answer.web import rate_note
 from taxowl.retrieval.store import ensure_store
 
+import owl  # the loading animations (owl.py, next to this file)
+
 LOCAL_ON = os.environ.get("TAXOWL_LOCAL", "1") != "0"
 MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}"}
 if LOCAL_ON:
@@ -37,14 +39,40 @@ SOURCE_BUDGET = BUDGET["local"] if LOCAL_ON else BUDGET["cloud"]  # the smallest
 st.set_page_config(page_title="taxowl", page_icon="🦉", layout="wide")
 
 
-# load the store and the embedding model once per server, not on every question
-@st.cache_resource(show_spinner="Loading the store...")
-def load():
-    start = time.perf_counter()
+# The store and the embedding model load once per server, not on every question. Each step is its own
+# cache_resource (computed once even if two visitors arrive together), so the owl can tick the real steps.
+@st.cache_resource(show_spinner=False)
+def fetch_store() -> bool:
     ensure_store()   # the server downloads the store on its first start; the Mac already has it
-    retriever = get_retriever()
+    return True
+
+
+@st.cache_resource(show_spinner=False)
+def load_model() -> bool:
+    get_retriever()  # lru_cached in pipeline: get_sources() reuses this one
+    return True
+
+
+@st.cache_resource(show_spinner=False)
+def server() -> dict:
+    """Shared by every visitor of this server: {"ready": True} once the steps below have run."""
+    return {}
+
+
+def load() -> None:
+    """On a cold server, show the owl with the real steps; on a warm one, nothing."""
+    if server().get("ready"):
+        return
+    steps = ["Server is awake", "Fetching the law library (124 MB)", "Teaching the owl to read (2.2 GB model)"]
+    start = time.perf_counter()
+    box = st.empty()
+    box.markdown(owl.wake_up(steps, 1), unsafe_allow_html=True)
+    fetch_store()
+    box.markdown(owl.wake_up(steps, 2), unsafe_allow_html=True)
+    load_model()
+    box.empty()
+    server()["ready"] = True
     log(f"load: store + model ready in {time.perf_counter() - start:.1f} s")
-    return retriever
 
 
 def log(line: str) -> None:
@@ -117,10 +145,12 @@ with st.form("ask"):
     asked = st.form_submit_button("Ask")
 
 if asked and question.strip():
-    with st.spinner("Finding sources..."):
-        start = time.perf_counter()
-        sources = get_sources(question, SOURCE_BUDGET)
-        found_in = time.perf_counter() - start
+    box = st.empty()
+    box.markdown(owl.thinking(), unsafe_allow_html=True)   # gone once the sources are in
+    start = time.perf_counter()
+    sources = get_sources(question, SOURCE_BUDGET)
+    found_in = time.perf_counter() - start
+    box.empty()
     st.caption(f"🔎 {len(sources)} sources found in {found_in:.1f} s")
     log(f"sources: {found_in:.1f} s, {len(sources)} found, web: {has_web(sources)}")
 
