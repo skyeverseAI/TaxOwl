@@ -11,13 +11,17 @@ WORKDIR /home/user/app
 RUN chown user:user /home/user/app
 USER user
 
+# No Streamlit file watcher on the server: it walks every imported module (all of transformers)
+# on each run, which was slow and logged errors. Code never changes in a running container.
 ENV HOME=/home/user \
     PATH=/home/user/app/.venv/bin:$PATH \
     HF_HOME=/home/user/.cache/huggingface \
     UV_PYTHON_DOWNLOADS=never \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
-    TAXOWL_LOCAL=0
+    TAXOWL_LOCAL=0 \
+    STREAMLIT_SERVER_FILE_WATCHER_TYPE=none \
+    STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
 
 # 1. Libraries only: the app's, not ingest / eval / local (--no-default-groups). Linux gets CPU-only torch.
 #    A layer of its own, so a code-only push doesn't reinstall them.
