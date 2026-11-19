@@ -3663,6 +3663,9 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+]
 eval = [
     { name = "deepeval" },
     { name = "typesafe-sdk" },
@@ -3696,6 +3699,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
+dev = [{ name = "pytest", specifier = "==9.2.0" }]
 eval = [
     { name = "deepeval", specifier = "==4.3.0" },
     { name = "typesafe-sdk", specifier = ">=0.7.5" },

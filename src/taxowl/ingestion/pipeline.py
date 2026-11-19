@@ -47,8 +47,8 @@ import pymupdf
 from taxowl.config import DOCS, INGESTED, MANIFEST, OCR_DIR, ROOT, VLM_CACHE
 from taxowl.ingestion import gate, ocr, vlm
 from taxowl.ingestion.extract import normalize, page_lines, self_check, strip_headers
-from taxowl.schema import ExtractedDoc, Table
 from taxowl.ingestion.tables import CONTINUE_BOTTOM, CONTINUE_TOP, join_tables, read_page_tables, to_tables
+from taxowl.schema import ExtractedDoc, Table
 
 MODEL = "google/gemini-3.5-flash-lite"  # 95.9% on the held-out runs, ~$0.0012 a page
 WORKERS = 8           # model pages sent at the same time

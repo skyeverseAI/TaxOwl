@@ -310,7 +310,7 @@ LETTER_DEF = re.compile(r"^(?:\d{1,3}\[)?\(([a-z]{1,3})\)\s")
 GAP = 5  # a start may skip at most this many numbers (omitted rules); more is prose, not a start
 # The word "Rule" left out by the printer: "19[110A. Procedure ... single Member Bench. –" (p.316).
 # Only a whole line that ends like a heading, and its number must still come next.
-BARE_START = re.compile(rf"^(?:\d{{1,3}}\[)?(\d{{1,3}})\s?([A-Z]{{0,2}})\.\s+(?=[A-Z].{{3,160}}(?:—|––|–|-)\s*$)")
+BARE_START = re.compile(r"^(?:\d{1,3}\[)?(\d{1,3})\s?([A-Z]{0,2})\.\s+(?=[A-Z].{3,160}(?:—|––|–|-)\s*$)")
 
 
 def unit_start(word: str) -> re.Pattern:

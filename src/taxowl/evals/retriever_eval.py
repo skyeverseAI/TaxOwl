@@ -53,11 +53,11 @@ from statistics import mean
 from langchain_core.documents import Document
 
 from taxowl.config import CHUNKS, ROOT, RUNS
-from taxowl.jev import JEV_MODEL, make_jev
 from taxowl.evals.metrics import hit_at_k, recall_at_k, reciprocal_rank
+from taxowl.jev import JEV_MODEL, make_jev
+from taxowl.retrieval.embedder import EMBEDDER
 from taxowl.retrieval.retriever import EXACT_CHUNKS, MEANING_CHUNKS, PER_CITATION, make_retriever
 from taxowl.retrieval.store import COLLECTION, count, get_store
-from taxowl.retrieval.embedder import EMBEDDER
 from taxowl.tokens import count_tokens
 
 K = 5                                # the cut-off for hit@k and recall@k

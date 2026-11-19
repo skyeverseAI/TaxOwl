@@ -16,6 +16,7 @@ requires-python = ">=3.14"
 #   ingest        -> reading PDFs (extract, OCR, split)
 #   eval          -> the judges in src/taxowl/evals/ and src/taxowl/jev.py
 #   local         -> the local answer model (Ollama); the server has no Ollama
+#   dev           -> pytest; CI installs app + dev, the server never gets it
 # On the Mac, plain `uv sync` installs all of them (default-groups below), as before.
 dependencies = [
     "chromadb==1.5.9",  # the store (src/taxowl/retrieval/store.py)
@@ -47,9 +48,12 @@ eval = [
 local = [
     "langchain-ollama==1.1.0",  # local answer model (src/taxowl/answer/generator.py)
 ]
+dev = [
+    "pytest==9.2.0",  # tests in tests/; CI runs them on every push (.github/workflows/)
+]
 
 [tool.uv]
-default-groups = ["ingest", "eval", "local"]  # Mac: `uv sync` = everything, as before
+default-groups = ["ingest", "eval", "local", "dev"]  # Mac: `uv sync` = everything, as before
 
 # Linux (the server) has no GPU: the normal Linux torch also pulls ~2-3 GB of NVIDIA packages.
 # Take the CPU-only build there; the Mac keeps the normal one.
@@ -60,6 +64,30 @@ torch = [{ index = "pytorch-cpu", marker = "sys_platform == 'linux'" }]
 name = "pytorch-cpu"
 url = "https://download.pytorch.org/whl/cpu"
 explicit = true  # only torch comes from here, every other package from PyPI
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]  # only tests/: archive/experiments/gate_test.py matched *_test.py and broke the run
+filterwarnings = ["ignore::DeprecationWarning"]  # libraries' (deepeval, langsmith, chromadb) old-API warnings
+asyncio_default_fixture_loop_scope = "function"  # silences pytest-asyncio (came with deepeval)
+
+# Rules written out, not ruff's defaults: a new ruff version can change its defaults and turn CI red
+# with no code change. Checked in CI with a pinned ruff (uvx ruff@<version>).
+[tool.ruff]
+line-length = 120
+extend-exclude = ["archive"]  # old code, not part of the app
+
+[tool.ruff.lint]
+select = [
+    "F",   # real mistakes: unused import, undefined name
+    "E4", "E7", "E9",  # import placement, statements, syntax errors
+    "B",   # bugbear: bug-like patterns (a loop variable caught in a function, ...)
+    "I",   # import order (ruff check --fix sorts them)
+]
+ignore = [
+    "B905",  # zip() without strict=: 32 places, each needs a look (v1.1); a blind strict=True can crash
+    "E741",  # `l` for a line is clear in this code
+    "E731",  # lambda assigned to a name: style only
+]
 
 [project.scripts]
 taxowl = "taxowl:main"

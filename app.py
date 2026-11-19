@@ -22,13 +22,12 @@ import time
 
 import streamlit as st
 
+import owl  # the loading animations (owl.py, next to this file)
 from taxowl.answer.check import check, cited_numbers
 from taxowl.answer.generator import CLOUD_MODEL, LOCAL_MODEL, generate_stream
 from taxowl.answer.pipeline import BUDGET, amended_note, as_text, assumed, get_retriever, get_sources, has_web
 from taxowl.answer.web import rate_note
 from taxowl.retrieval.store import ensure_store
-
-import owl  # the loading animations (owl.py, next to this file)
 
 LOCAL_ON = os.environ.get("TAXOWL_LOCAL", "1") != "0"
 MODELS = {"cloud": f"☁️ Cloud · {CLOUD_MODEL}"}

@@ -21,6 +21,7 @@ from functools import lru_cache
 from langchain_huggingface import HuggingFaceEmbeddings
 
 from taxowl.config import CHUNKS
+
 # name on Hugging Face, vector length, and what goes in front of a question (from each model card)
 MODELS = {
     "bge-small": {"name": "BAAI/bge-small-en-v1.5", "dimensions": 384,

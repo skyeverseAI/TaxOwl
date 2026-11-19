@@ -325,7 +325,7 @@ def snap_heading(text, pw, col_x, zone, below, prev_x=None):
                 # fine if the PDF's next word goes on with it ("Sup" + "plier"); otherwise the rest
                 # can't be found and is lost. "(Rs." from the column before won over "(Rs.)" and
                 # the ")" was lost (Instruction 01/2023 p.7).
-                end = pos + len(pw.keys[j])
+                end = pos + len(pw.keys[j])  # noqa: B023 -- min() below calls this at once, pos still current
                 if end in starts or end >= len(target):
                     return False
                 return not (j + 1 < len(pw.keys) and pw.keys[j + 1] and target.startswith(pw.keys[j + 1], end))
