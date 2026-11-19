@@ -40,8 +40,17 @@ st.set_page_config(page_title="taxowl", page_icon="🦉", layout="wide")
 # load the store and the embedding model once per server, not on every question
 @st.cache_resource(show_spinner="Loading the store...")
 def load():
+    start = time.perf_counter()
     ensure_store()   # the server downloads the store on its first start; the Mac already has it
-    return get_retriever()
+    retriever = get_retriever()
+    log(f"load: store + model ready in {time.perf_counter() - start:.1f} s")
+    return retriever
+
+
+def log(line: str) -> None:
+    """One line to stdout, which Cloud Run keeps in its logs. Times and errors only, never the question:
+    a visitor may type something personal."""
+    print(f"[taxowl] {line}", flush=True)
 
 
 def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
@@ -59,6 +68,7 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
         st.write_stream(timed_stream())  # renders the Markdown as it arrives
     except Exception as error:  # noqa: BLE001 - any failure (Ollama off, no internet) shows, not crashes
         st.error(f"{which} model failed: {error}")
+        log(f"error {which}: {type(error).__name__}: {error}")
         return set()
 
     note = rate_note(question, sources)
@@ -76,6 +86,8 @@ def show_model(which: str, question: str, sources: list[dict]) -> set[int]:
                f"₹{stats.get('cost_inr', 0):.4f}")
 
     failed = [c for c in check(stats.get("text", ""), sources, question) if not c["passed"]]
+    log(f"answer {which}: {total:.1f} s (first word {timing.get('first', total):.1f} s), "
+        f"{stats.get('output_tokens', 0)} tokens out, failed checks: {[c['name'] for c in failed] or 'none'}")
     if failed:
         for c in failed:
             st.warning(f"Check failed, **{c['name']}**: {c['why']}")
@@ -96,7 +108,8 @@ def show_sources(sources: list[dict], cited_by: dict[str, set[int]]) -> None:
 
 
 st.title("🦉 taxowl")
-st.caption("GST law answers from official sources. Information, not legal advice.")
+st.caption("GST law answers from official sources. Information, not legal advice. "
+           "The first visit after a quiet spell can take a few minutes: the server starts up.")
 load()   # on page open, not on "Ask": the model is ready while the user types (cached after the first visit)
 
 with st.form("ask"):
@@ -109,6 +122,7 @@ if asked and question.strip():
         sources = get_sources(question, SOURCE_BUDGET)
         found_in = time.perf_counter() - start
     st.caption(f"🔎 {len(sources)} sources found in {found_in:.1f} s")
+    log(f"sources: {found_in:.1f} s, {len(sources)} found, web: {has_web(sources)}")
 
     cited_by = {}
     for column, which in zip(st.columns(len(MODELS)), MODELS):

@@ -107,9 +107,39 @@ What this shows:
 - On web answers the model can drop the [S#] format. The check flags it; the prompt may need a firmer rule.
 - An out-of-scope question (income tax) still ran a web search: costs a little, the answer is still right.
 
+## Cold start (why the first question was slow)
+
+Revision 00003, from the logs: instance start 04:33:41 → Streamlit ready 04:35:18 (97 s) → store
+download 2 s → bge-m3 loaded 04:36:27 (53 s) → first search 95.6 s. Later searches 1.8-5.6 s, and a
+whole answer about 5 s. Cloud Run pulls files from the 5 GB image only when they are first read, so
+everything "first" is slow. It happens after a deploy and after ~15 min with no visitors
+(`--min-instances 0`).
+
+Not a free-vs-paid problem: it's the trade-off we chose (pay nothing when idle, wait when waking up),
+made worse by a heavy app (torch + a 2.2 GB model). A light app wakes in seconds on the same setup.
+
+| option | effect | decision |
+|---|---|---|
+| warm-up query at page open | moves the wait, doesn't shorten it | dropped |
+| `--min-instances 1` always | no cold start, ~$115/month | no |
+| `--min-instances 1` only around a demo | no cold start while it's on, about ₹13 an hour from the trial credit | yes |
+| a lighter model / embedding API | shorter cold start; needs the retriever eval again | v1.1 |
+
+Done in app.py: a caption warns that the first visit can take minutes, and one `[taxowl]` log line per
+step (load time, sources time, answer time, failed checks, errors). The question text is never logged.
+
+Before a demo, then after it:
+```
+gcloud run services update taxowl --region us-central1 --min-instances 1
+gcloud run services update taxowl --region us-central1 --min-instances 0
+```
+Read the log lines:
+```
+gcloud logging read 'textPayload:"[taxowl]"' --limit 20 --format="value(timestamp,textPayload)"
+```
+
 ## Still to do
 
-- Latency: why the search sometimes takes 30-96 s.
-- Basic latency / error log.
+- Deploy the app.py change (caption + log) and check the log lines.
 - Auto-deploy from GitHub (CI step).
 - Later: rotate the Tavily key (its value showed up in an editor selection shared with the assistant).
