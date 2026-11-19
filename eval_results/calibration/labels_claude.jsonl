@@ -1,0 +1,18 @@
+{"id": "claude-005", "faithful": "y", "complete": "y", "why": "All statements match S1/S2/S6/S7; framing 'blocked if sold' is loose but the 18(6) payment is in S2."}
+{"id": "claude-008", "faithful": "y", "complete": "n", "why": "Faithful; misses the 5th claim: if the director IS paid, value = that consideration."}
+{"id": "codex-003", "faithful": "y", "complete": "y", "why": "Quotes rule 89(1A) and its proviso exactly."}
+{"id": "codex-004", "faithful": "y", "complete": "y", "why": "Matches IGST 12(8)(b) word for word."}
+{"id": "claude-029", "faithful": "n", "complete": "n", "why": "Says registration runs 90 days; s.27 says period applied for OR 90 days, whichever earlier (here ~1 month). Misses the extra deposit on extension."}
+{"id": "claude-024", "faithful": "y", "complete": "n", "why": "Faithful; drops two conditions on the property: property tax paid up, no legal dispute."}
+{"id": "claude-025", "faithful": "y", "complete": "y", "why": "Covers satisfaction, fresh exam on evidence, reasons in writing, one-year end; 'partly' not said but minor."}
+{"id": "claude-026", "faithful": "n", "complete": "y", "why": "Says demo vehicles 'are not excluded from ITC blockage' [S7]; S7 says the opposite (they ARE excluded, ITC not blocked). Conclusion right, the cited line wrong."}
+{"id": "claude-028", "faithful": "y", "complete": "n", "why": "Faithful (small slip: acceptance is by the transferee, not 'the portal'); misses the CA/CMA certificate on transfer of liabilities."}
+{"id": "claude-015", "faithful": "y", "complete": "n", "why": "Faithful; misses the Commissioner's extension of up to one more year."}
+{"id": "claude-019", "faithful": "y", "complete": "y", "why": "Credit note, declare in return, no refund unless no output liability; RFD-01 route only implied."}
+{"id": "claude-022", "faithful": "y", "complete": "y", "why": "Close paraphrase of Circular 137 item 3, all three points."}
+{"id": "codex-010", "faithful": "y", "complete": "y", "why": "Quotes s.49(3) and (4) correctly."}
+{"id": "codex-012", "faithful": "y", "complete": "n", "why": "Nights ratio is from S2's illustration; misses the 'no agreement' condition and the area rule for one property across states."}
+{"id": "codex-015", "faithful": "y", "complete": "y", "why": "Quotes Circular 156 item 1."}
+{"id": "codex-020", "faithful": "n", "complete": "n", "why": "'Commissioner must record the basis for the opinion' is in no source; gold points (not routine, prima facie case, extraordinary remedy) not said - not in the sources either (retrieval miss)."}
+{"id": "codex-022", "faithful": "y", "complete": "y", "why": "Right conclusion from S1/S2/S4; calls them 'distinct persons', a loose term (the circular says 'separate persons')."}
+{"id": "codex-025", "faithful": "y", "complete": "y", "why": "Quotes rule 138(9) with the proviso."}

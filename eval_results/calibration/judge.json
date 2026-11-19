@@ -1,0 +1,182 @@
+{
+  "claude-005": {
+    "faithful": {
+      "score": 0.8571428571428571,
+      "reason": "The score is 0.86 because the actual output incorrectly states that tax payment is required after a specified time or kilometers, whereas the retrieval context clarifies that tax is only payable if the demo vehicle is sold by the dealer, with no mention of time or kilometer conditions."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly covers the use of demo vehicles, ITC availability, and conditions when ITC is unavailable to the dealer. This complete alignment justifies the perfect recall score."
+    }
+  },
+  "claude-008": {
+    "faithful": {
+      "score": 0.8333333333333334,
+      "reason": "The score is 0.83 because the actual output incorrectly states the insertion date of Rule 28(2) of CGST Rules as 2024-07-10 instead of the correct date, 26th October 2023, and also wrongly places this amendment after Circular 204/16/2023-GST rather than before it."
+    },
+    "complete": {
+      "score": 0.8,
+      "reason": "The score is 0.80 because most sentences in the expected output (sentences 1 to 4) are well supported by node 1 in the retrieval context, which covers related persons, supply without consideration, open market value, and RBI rules leading to zero taxable value. However, the last sentence about the director being paid consideration and the taxable value equaling that consideration is not mentioned in the retrieval context, lowering the overall recall."
+    }
+  },
+  "codex-003": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, accurately reflecting the two-year timeframe for filing a refund application both for tax paid after and before the sub-rule came into force."
+    }
+  },
+  "codex-004": {
+    "faithful": {
+      "score": 0.6666666666666666,
+      "reason": "The score is 0.67 because the actual output incorrectly states that the place of supply for an unregistered person is always where the goods are handed over for transport, whereas the retrieval context clarifies it is the recipient's location if available, or else the supplier's location."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the sentence in the expected output directly matches the information in node 1 of the retrieval context, which clearly states that for an unregistered person, the place of supply is where the goods are handed over for transportation. There are no conflicting or unsupported elements, making the recall complete and accurate."
+    }
+  },
+  "claude-029": {
+    "faithful": {
+      "score": 0.8333333333333334,
+      "reason": "The score is 0.83 because the actual output incorrectly states that temporary registration requires tax payment, whereas the context specifies that temporary registration under rule 16 does not require an advance tax deposit; this contradiction lowers faithfulness but the rest aligns well."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly states the 90-day validity and extension period for temporary registration as well as the requirement to deposit estimated tax at application and for any extension."
+    }
+  },
+  "claude-024": {
+    "faithful": {
+      "score": 0.8571428571428571,
+      "reason": "The score is 0.86 because the actual output incorrectly states that the one-year duration for provisional attachment is specified in both the CGST Act and the CGST Rules, whereas the contradiction clarifies that only the Act specifies the duration, and the Rules only prescribe the procedure without mentioning the duration."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the detailed information in node 1 of the retrieval context, which clearly states the duration of provisional attachment, conditions for releasing an attached bank account, and requirements for replacement immovable property including value, encumbrance status, tax payments, and title deeds."
+    }
+  },
+  "claude-025": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by information from node 1 in the retrieval context, with no contradictions or missing elements, reflecting a complete and accurate recall."
+    }
+  },
+  "claude-026": {
+    "faithful": {
+      "score": 0.8571428571428571,
+      "reason": "The score is 0.86 because the actual output incorrectly states that demo vehicles are not excluded from ITC blockage, while the context clarifies that input tax credit on demo vehicles is not blocked under section 17(5)(a) since they are used for making further supply."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because both sentences in the expected output are fully supported by node 1 in the retrieval context. Sentence 1 is backed by node 1's explanation that capitalising demo vehicles does not prevent ITC availability, and sentence 2 is supported by node 1's statement about depreciation on the tax component disallowing ITC on that component. There are no unsupported parts, making the recall complete and accurate."
+    }
+  },
+  "claude-028": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 0.75,
+      "reason": "The score is 0.75 because sentences 1, 3, and 4 in the expected output are well supported by nodes 1, 2, and 3 in the retrieval context, which cover electronic filing of FORM GST ITC-02, credit transfer upon acceptance, and successor's liability for tax and penalties. However, sentence 2 about certification by a practising chartered accountant or cost accountant is not supported by any node in the retrieval context, lowering the overall recall completeness."
+    }
+  },
+  "claude-015": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 0.6666666666666666,
+      "reason": "The score is 0.67 because sentences 1 and 3 of the expected output are well supported by node 1 in the retrieval context, which clearly mentions the one-year timeframe for inputs and the deemed supply if not returned. However, sentence 2 about the Commissioner extending the period by up to one further year is not found in any node, lowering the overall recall completeness."
+    }
+  },
+  "claude-019": {
+    "faithful": {
+      "score": 0.8333333333333334,
+      "reason": "The score is 0.83 because the actual output incorrectly states that the client should issue a credit note and adjust tax liability, whereas the context specifies that this responsibility lies with the supplier."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly details the supplier's obligations regarding credit notes, tax liability adjustments, and refund claims, with no contradictory or missing information."
+    }
+  },
+  "claude-022": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are directly supported by the information in node 1 of the retrieval context, which clearly explains the issuance of credit notes, adjustment of tax liability in returns, and the procedure for claiming a refund if no output liability exists. This complete alignment justifies the perfect score."
+    }
+  },
+  "codex-010": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the single sentence in the expected output directly corresponds to the information in node 1 of the retrieval context, which explicitly states that money in the electronic cash ledger can be used for payments including tax, interest, penalties, and fees under the Act or Rules. There are no unsupported elements, making the recall complete and accurate."
+    }
+  },
+  "codex-012": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 0.3333333333333333,
+      "reason": "The score is 0.33 because only the part about apportioning value by nights stayed for hotel lodging (sentence 2) is supported by node 1 in the retrieval context, while the other parts of the expected output (sentence 1 about no agreement and sentence 3 about properties spanning multiple States apportioned by area) are not mentioned in the retrieval context."
+    }
+  },
+  "codex-015": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the expected output perfectly aligns with the information in node 1 of the retrieval context, which clearly states that a UIN holder is not a registered person and that invoices issued to such persons are treated as B2C supplies requiring compliance with the dynamic QR code requirement. All sentences in the expected output are fully supported by node 1, with no contradictions or missing information."
+    }
+  },
+  "codex-020": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are directly supported by node 1 in the retrieval context, which clearly states that attachment is not automatic, requires a written order with recorded basis, must be based on a formed opinion indicating necessity to protect government revenue, and involves specific procedures reflecting its extraordinary nature and need for caution."
+    }
+  },
+  "codex-022": {
+    "faithful": {
+      "score": 0.75,
+      "reason": "The score is 0.75 because the actual output incorrectly claims that services provided by an Indian company to its foreign parent are merely establishments of distinct persons, whereas the context clarifies they are separate persons and not merely establishments, indicating a partial contradiction."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because both sentences in the expected output are fully supported by node 1 in the retrieval context, which clearly states that an Indian company and its foreign parent are separate legal entities and not merely establishments of distinct persons, perfectly aligning with the output statements."
+    }
+  },
+  "codex-025": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions between the actual output and the retrieval context, indicating complete faithfulness."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the expected output perfectly matches the information in node 1 of the retrieval context, which clearly states the e-way bill can be cancelled electronically within 24 hours and cannot be cancelled after verification in transit. There are no unsupported statements, making the recall complete and accurate."
+    }
+  }
+}

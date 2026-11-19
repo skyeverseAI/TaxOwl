@@ -1,0 +1,182 @@
+{
+  "codex-012": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 0.3333333333333333,
+      "reason": "The score is 0.33 because only the sentence about hotel lodging value being apportioned by nights stayed is supported by node 1 in the retrieval context, while the other sentences about default attribution and apportionment by area for properties spanning multiple States are not covered by any node."
+    }
+  },
+  "codex-020": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by node 1 in the retrieval context, with no gaps or missing information. Great job!"
+    }
+  },
+  "codex-015": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because both sentences in the expected output are directly supported by the information in node 1 in the retrieval context. Great job!"
+    }
+  },
+  "claude-024": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by node 1 in the retrieval context, with no missing or unsupported details. Great job!"
+    }
+  },
+  "codex-022": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by the information in node 1 of the retrieval context. Great job!"
+    }
+  },
+  "claude-026": {
+    "faithful": {
+      "score": 0.8333333333333334,
+      "reason": "The score is 0.83 because the actual output incorrectly claims that demo vehicles used to promote the sale of similar vehicles are not excluded from ITC blockage, whereas the retrieval context clearly states they are excluded under section 17(5)(a)(A) of the CGST Act."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because both sentences in the expected output are fully supported by node 1 in the retrieval context, with no unsupported content. Great job!"
+    }
+  },
+  "claude-022": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by the information in node 1 in the retrieval context. Great job!"
+    }
+  },
+  "claude-025": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by node 1 in the retrieval context, with no missing or unsupported information. Great job!"
+    }
+  },
+  "codex-004": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the sentence in the expected output is fully supported by the 1st node in the retrieval context. Great job!"
+    }
+  },
+  "codex-025": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because all sentences in the expected output are fully supported by the information in the node(s) in retrieval context."
+    }
+  },
+  "codex-010": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because the sentence in the expected output is fully supported by the 1st node in the retrieval context."
+    }
+  },
+  "claude-005": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by node 1 in the retrieval context, with clear alignment between the details provided and the expected output. Great job!"
+    }
+  },
+  "claude-019": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is fully supported by the information in node 1 in the retrieval context. Great job!"
+    }
+  },
+  "claude-015": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 0.6666666666666666,
+      "reason": "The score is 0.67 because sentences 1 and 3 of the expected output are well supported by node 1 in the retrieval context, but sentence 2 about the Commissioner's power to extend the period is not addressed by any node in the retrieval context."
+    }
+  },
+  "codex-003": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because both sentences in the expected output are fully supported by the information in node 1 in the retrieval context. Great job!"
+    }
+  },
+  "claude-008": {
+    "faithful": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because there are no contradictions listed, indicating the actual output aligns perfectly with the retrieval context. Great job staying accurate!"
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is directly supported by the 1st node in the retrieval context, with no gaps or missing information. Great job!"
+    }
+  },
+  "claude-029": {
+    "faithful": {
+      "score": 0.8,
+      "reason": "The score is 0.80 because the actual output incorrectly states that a tax deposit is required for temporary registration under Rule 16, whereas the retrieval context clarifies that this requirement only applies to casual or non-resident taxable person registrations, not to temporary registrations under Rule 16."
+    },
+    "complete": {
+      "score": 1.0,
+      "reason": "The score is 1.00 because every sentence in the expected output is fully supported by the information in the nodes in retrieval context, with clear matches for both validity/extension (node 1) and estimated tax deposit (node 2). Great job!"
+    }
+  },
+  "claude-028": {
+    "faithful": {
+      "score": 0.875,
+      "reason": "The score is 0.88 because the actual output incorrectly states that credit is transferred upon acceptance by the common portal, while the contradiction clarifies that it is actually transferred only after acceptance by the transferee or successor, as specified in the context."
+    },
+    "complete": {
+      "score": 0.75,
+      "reason": "The score is 0.75 because nodes in the retrieval context support sentences 1, 3, and 4 of the expected output, but none of the nodes mention the certification requirement by a practising chartered accountant or cost accountant in sentence 2."
+    }
+  }
+}
