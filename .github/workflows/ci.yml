@@ -1,0 +1,19 @@
+# CI: on every push, a fresh Linux machine checks the code with ruff and runs the tests in tests/.
+# Installs what the server installs (no ingest / eval / local groups) plus pytest, so a test that
+# only passes because of something on the Mac fails here. Evals are not run: they need the private
+# store and paid API keys, and take minutes.
+name: CI
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true  # packages (torch is the big one) come from cache after the first run
+      - run: uv sync --locked --no-default-groups --group dev  # --locked: fail if uv.lock is out of date
+      - run: uvx ruff@0.17.5 check .  # pinned, so a new ruff can't change the rules under us
+      - run: uv run pytest -v
