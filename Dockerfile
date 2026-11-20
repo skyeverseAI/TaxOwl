@@ -3,7 +3,7 @@
 # The store (data/chroma) is NOT in the image: app.py downloads it at start (store.ensure_store).
 
 FROM python:3.14-slim
-COPY --from=ghcr.io/astral-sh/uv:0.12.7 /uv /usr/local/bin/uv
+COPY --from=ghcr.io/astral-sh/uv:0.13.9 /uv /usr/local/bin/uv
 
 # Not root: a plain user 1000 runs the app, and owns the app folder (the store is written there)
 RUN useradd -m -u 1000 user

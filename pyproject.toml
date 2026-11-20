@@ -53,6 +53,9 @@ dev = [
 ]
 
 [tool.uv]
+# One uv everywhere (Mac, CI, Dockerfile): a different uv may write or read uv.lock differently.
+# Bump all three together: here, .github/workflows/ci.yml (setup-uv version) and the Dockerfile.
+required-version = "==0.13.9"
 default-groups = ["ingest", "eval", "local", "dev"]  # Mac: `uv sync` = everything, as before
 
 # Linux (the server) has no GPU: the normal Linux torch also pulls ~2-3 GB of NVIDIA packages.
@@ -93,5 +96,5 @@ ignore = [
 taxowl = "taxowl:main"
 
 [build-system]
-requires = ["uv_build>=0.12.7,<0.13.0"]
+requires = ["uv_build>=0.13.9,<0.14.0"]  # follows the uv version above
 build-backend = "uv_build"

@@ -11,8 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
-      - uses: astral-sh/setup-uv@v6
+      - uses: astral-sh/setup-uv@v10.3.3  # exact: setup-uv has no moving v10 tag; v6 ran on deprecated Node 20
         with:
+          version: "0.13.9"  # same uv as the Mac and the Dockerfile (pyproject required-version)
           enable-cache: true  # packages (torch is the big one) come from cache after the first run
       - run: uv sync --locked --no-default-groups --group dev  # --locked: fail if uv.lock is out of date
       - run: uvx ruff@0.17.5 check .  # pinned, so a new ruff can't change the rules under us
