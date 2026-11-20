@@ -138,9 +138,97 @@ Read the log lines:
 gcloud logging read 'textPayload:"[taxowl]"' --limit 20 --format="value(timestamp,textPayload)"
 ```
 
+## Automatic deploys (2026-11-20)
+
+Every push to `main` now tests, then deploys. Same file: `.github/workflows/ci.yml`.
+
+```
+git push (any branch)
+   │
+   ▼
+ test job      fresh Ubuntu · uv sync (app + dev only) · ruff · pytest (16 tests)
+   │ pass, and branch is main?
+   ▼
+ deploy job    GitHub ID token ──► Google (WIF) ──► short-lived token as github-deployer
+   │
+   ▼
+ gcloud run deploy taxowl --source .   (same command as from the Mac)
+```
+
+A failing test stops the deploy: the old revision keeps serving. A push that only touches notes
+(`**.md`, `plans/`, `Evaluations/`, `eval_results/`, `experiments/`, `archive/`) runs nothing.
+
+### Why Workload Identity Federation, not a key file
+
+| | JSON key in a GitHub secret | WIF (chosen) |
+|---|---|---|
+| what is stored | a key that works forever, from anywhere | nothing |
+| if it leaks | anyone can deploy until someone deletes it | the token dies in about an hour |
+| who can use it | anyone holding the file | only a GitHub run of this repo's `main` |
+
+GitHub signs a short ID token for each run ("this is repo skyeverseAI/TaxOwl, ref main"). Google checks
+the signature, checks the condition, and hands back a short-lived token for one service account.
+
+### Setup (one time, by hand)
+
+```
+PROJECT=taxowl-515202 ; NUM=312655771959
+SA=github-deployer@$PROJECT.iam.gserviceaccount.com
+
+gcloud iam service-accounts create github-deployer --project $PROJECT
+gcloud projects add-iam-policy-binding $PROJECT \
+  --member serviceAccount:$SA --role roles/run.sourceDeveloper
+gcloud projects add-iam-policy-binding $PROJECT \
+  --member serviceAccount:$SA --role roles/serviceusage.serviceUsageConsumer
+gcloud iam service-accounts add-iam-policy-binding \
+  $NUM-compute@developer.gserviceaccount.com \
+  --member serviceAccount:$SA --role roles/iam.serviceAccountUser
+
+gcloud iam workload-identity-pools create github --location global --project $PROJECT
+MAP="google.subject=assertion.sub,attribute.repository=assertion.repository"
+MAP="$MAP,attribute.ref=assertion.ref"
+COND="assertion.repository == 'skyeverseAI/TaxOwl'"
+COND="$COND && assertion.ref == 'refs/heads/main'"
+gcloud iam workload-identity-pools providers create-oidc taxowl-repo \
+  --location global --workload-identity-pool github --project $PROJECT \
+  --issuer-uri https://token.actions.githubusercontent.com \
+  --attribute-mapping "$MAP" --attribute-condition "$COND"
+
+gcloud iam service-accounts add-iam-policy-binding $SA --role roles/iam.workloadIdentityUser \
+  --member "principalSet://iam.googleapis.com/projects/$NUM/locations/global/workloadIdentityPools/github/attribute.repository/skyeverseAI/TaxOwl"
+```
+
+### Least privilege: what github-deployer can do
+
+| role | on | why |
+|---|---|---|
+| `run.sourceDeveloper` | project | deploy from source (upload, Cloud Build, new revision); not delete, not change IAM |
+| `serviceusage.serviceUsageConsumer` | project | use the project's APIs (Cloud Build, Artifact Registry) |
+| `iam.serviceAccountUser` | the runtime SA only | the new revision runs as the compute SA; not on the whole project |
+
+The secrets (OpenRouter, Tavily, HF token) stay in Secret Manager and on the service. The deployer
+never reads them; `gcloud run deploy` keeps the service's env vars and secrets as they are.
+
+### Three locks on "who can deploy"
+
+```
+1. provider condition    repo == skyeverseAI/TaxOwl AND ref == main   (Google side)
+2. principalSet binding  only this repo may act as github-deployer     (Google side)
+3. if: main in ci.yml    other branches never ask                      (GitHub side)
+```
+Each one alone would do; together a mistake in one doesn't open the door (defense in depth).
+
+### What went wrong
+
+- **Pool create: ALREADY_EXISTS.** The command ran twice. The pool was fine (`describe`: ACTIVE).
+- **Provider create failed.** A long pasted line broke in the middle (`a` / `ttribute.ref`). Fix: build
+  the mapping and condition in shell variables over short lines (above).
+- **Node 20 warning in CI** from setup-uv v6. Moved to v10.3.3 (exact: there is no moving v10 tag).
+- **uv versions differed** on the Mac, in CI and in the Dockerfile. Now 0.13.9 in all three
+  (`required-version` in pyproject makes a wrong uv fail loudly).
+
 ## Still to do
 
 - Deploy the app.py change (caption + log + owl loading, owl.py) and check the log lines.
 - Later: a more creative loading animation (the user wants more than the owl v1).
-- Auto-deploy from GitHub (CI step).
 - Later: rotate the Tavily key (its value showed up in an editor selection shared with the assistant).
